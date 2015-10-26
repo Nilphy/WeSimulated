@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wesimulated.firstapp.view.SimulationOverviewController">
+   <children>
+      <ToolBar layoutX="223.0" layoutY="201.0" prefHeight="35.0" prefWidth="212.0" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0">
+        <items>
+            <Button mnemonicParsing="false" text="Run" />
+            <Button mnemonicParsing="false" text="Create federation" />
+          <Button mnemonicParsing="false" text="Clear" />
+        </items>
+      </ToolBar>
+      <TextArea fx:id="textDisplay" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+   </children>
+</AnchorPane>

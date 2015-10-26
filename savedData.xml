@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<programData>
+    <person>
+        <efficiency>0.8</efficiency>
+        <firstName>Carolina</firstName>
+        <hoursPerDay>8</hoursPerDay>
+        <lastName>Galli</lastName>
+    </person>
+    <task>
+        <name>Person ABM</name>
+        <unitsOfWork>8</unitsOfWork>
+    </task>
+</programData>
