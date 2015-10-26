@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import edu.wesimulated.firstapp.MainApp;
 import edu.wesimulated.firstapp.model.LogEvent;
-import edu.wesimulated.firstapp.model.Simulation;
+import edu.wesimulated.firstapp.simulation.Simulation;
 
 public class SimulationOverviewController {
 
