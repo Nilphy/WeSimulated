@@ -70,4 +70,9 @@ public class RootLayoutController {
 	private void handlePersons() {
 		mainApp.showPersonOverview();
 	}
+	
+	@FXML
+	private void handleSimulationRun() {
+		mainApp.showSimulationOverview();
+	}
 }
