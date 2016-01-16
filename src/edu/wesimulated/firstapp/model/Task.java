@@ -19,6 +19,10 @@ public class Task {
 		this.unitsOfWork = new SimpleIntegerProperty(unitsOfWork == null ? 0 : unitsOfWork);
 		
 	}
+	
+	public float calculateEffortInMilliseconds() {
+		return this.getUnitsOfWork() /* workToDo */ * 60 /* costInMinutes/workToDoUnit */ * 60  /* second/minute */ * 1000 /* Millisecond/second */ ;
+	}
 
 	public StringProperty nameProperty() {
 		return name;
@@ -42,5 +46,10 @@ public class Task {
 
 	public void setUnitsOfWork(Integer unitsOfWork) {
 		this.unitsOfWork.set(unitsOfWork);
+	}
+
+	@Override
+	public String toString() {
+		return "Task [name=" + name + "]";
 	}
 }

@@ -1,5 +1,7 @@
 package edu.wesimulated.firstapp.model;
 
+import com.wesimulated.simulationmotor.operationbased.Entity;
+
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleFloatProperty;
@@ -7,13 +9,14 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Person {
+public class Person implements Entity {
 
 	private StringProperty firstName;
 	private StringProperty lastName;
 	private IntegerProperty hoursPerDay;
-	// Unit: unit of work per hour
+	// [Unit] unit of work per hour
 	private FloatProperty efficiency;
+	private boolean available;
 	
 	public Person() {
 		this(null, null);
@@ -24,8 +27,23 @@ public class Person {
 		this.lastName = new SimpleStringProperty(lastName);
 		this.hoursPerDay = new SimpleIntegerProperty(8);
 		this.efficiency = new SimpleFloatProperty(0.8f);
+		this.available = true;
+	}
+	
+	public float calculateEffectiveMillisecondsPerDay() {
+		return this.getHoursPerDay() * this.getEfficiency() /* hour */ * 60 /* minutes/hour */ * 60 /* seconds/minute */ * 1000 /* Milliseconds/seconds */;
+	}
+	
+	@Override
+	public void setAvailable(boolean available) {
+		this.available = available;
 	}
 
+	@Override
+	public boolean isAvailable() {
+		return available;
+	}
+	
 	public String getFirstName() {
 		return firstName.get();
 	}
@@ -72,5 +90,10 @@ public class Person {
 
 	public void setEfficiency(Float efficiency) {
 		this.efficiency.set(efficiency);
+	}
+
+	@Override
+	public String toString() {
+		return "Person [firstName=" + firstName + ", lastName=" + lastName + "]";
 	}
 }
