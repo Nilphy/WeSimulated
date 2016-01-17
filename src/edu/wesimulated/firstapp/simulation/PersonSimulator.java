@@ -1,28 +1,17 @@
 package edu.wesimulated.firstapp.simulation;
 
-import hla.rti1516e.exceptions.FederateNotExecutionMember;
-import hla.rti1516e.exceptions.InTimeAdvancingState;
-import hla.rti1516e.exceptions.InvalidLogicalTime;
-import hla.rti1516e.exceptions.LogicalTimeAlreadyPassed;
-import hla.rti1516e.exceptions.NotConnected;
-import hla.rti1516e.exceptions.RTIinternalError;
-import hla.rti1516e.exceptions.RequestForTimeConstrainedPending;
-import hla.rti1516e.exceptions.RequestForTimeRegulationPending;
-import hla.rti1516e.exceptions.RestoreInProgress;
-import hla.rti1516e.exceptions.SaveInProgress;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import com.wesimulated.simulation.BaseExcecutor;
 import com.wesimulated.simulationmotor.operationbased.BOperation;
+import com.wesimulated.simulationmotor.operationbased.OperationBasedExecutor;
 
 import edu.wesimulated.firstapp.model.Person;
 
 public class PersonSimulator {
 
-	private BaseExcecutor executor;
+	private OperationBasedExecutor executor;
 	private Collection<TaskSimulator> tasks;
 	private Person person;
 	private HLAPerson hlaPerson;
@@ -37,11 +26,11 @@ public class PersonSimulator {
 		this.executor.run();
 	}
 
-	public BaseExcecutor getExecutor() {
+	public OperationBasedExecutor getExecutor() {
 		return executor;
 	}
 
-	public void setExecutor(BaseExcecutor executor) {
+	public void setExecutor(OperationBasedExecutor executor) {
 		this.executor = executor;
 	}
 
@@ -70,7 +59,7 @@ public class PersonSimulator {
 	}
 
 	public void addBOperation(BOperation operation) {
-		
+		this.getExecutor().addBOperation(operation);
 	}
 
 	public boolean isRunning() {
