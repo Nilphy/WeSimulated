@@ -25,10 +25,12 @@ public class PersonSimulator {
 	private BaseExcecutor executor;
 	private Collection<TaskSimulator> tasks;
 	private Person person;
+	private HLAPerson hlaPerson;
 
-	public PersonSimulator(BaseExcecutor executor, Person person) {
+	public PersonSimulator(OperationBasedExecutor executor, Person person, HLAPerson hlaPerson) {
 		this.setExecutor(executor);
 		this.person = person;
+		this.hlaPerson = hlaPerson;
 	}
 
 	public void startExecution() {
@@ -54,12 +56,14 @@ public class PersonSimulator {
 		this.person.setAvailable(false);
 		Float remainingMillisecondsToWorkToday = this.person.calculateEffectiveMillisecondsPerDay();
 		Iterator<TaskSimulator> tasksIterator = this.tasks.iterator();
+		Float previousRemainingMillisecondsToWorkToday = remainingMillisecondsToWorkToday;
 		while (tasksIterator.hasNext() && remainingMillisecondsToWorkToday > 0) {
 			TaskSimulator task = tasksIterator.next();
 			if (!task.isCompleted()) {
 				remainingMillisecondsToWorkToday = task.consumeTime(remainingMillisecondsToWorkToday);
+				this.hlaPerson.incrementWorkDone(UnitsOfWorkInterpreter.milisToUow(previousRemainingMillisecondsToWorkToday - remainingMillisecondsToWorkToday));
 				System.out.println("Work done! " + this.person + " has worked in " + task + " and still has " + remainingMillisecondsToWorkToday + " milliseconds to work today.");
-				// TODO update work done of task for HLA
+				previousRemainingMillisecondsToWorkToday = remainingMillisecondsToWorkToday;
 			}
 		}
 		this.person.setAvailable(true);

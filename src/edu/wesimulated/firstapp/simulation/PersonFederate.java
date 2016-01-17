@@ -122,73 +122,78 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 			throw new RuntimeException(e);
 		}
 	}
+
+	protected void sendInformInteraction(String message) {
+		HLAInformInteraction hlaInformInteraction = new HLAInformInteraction(getInformInteractionClassHandle(), message);
+		hlaInformInteraction.sendInteraction(new DateLogicalTime(personSimulator.getExecutor().getClock().getCurrentDate()));
 	}
-	
+
 	public class PersonFederateAmbassador extends NullFederateAmbassador implements FederateAmbassador {
 
 		@Override
 		public void discoverObjectInstance(ObjectInstanceHandle objectInstanceHandle, ObjectClassHandle objectClassHandle, String objectInstanceName) throws FederateInternalError {
 			discoverObjectInstance(objectInstanceHandle, objectClassHandle, objectInstanceName, null);
-			// TODO replace all System.out.println to send interaction
-			System.out.println("discoverObjectInstance");
+			sendInformInteraction("discoverObjectInstance");
 		}
 
 		@Override
 		public void discoverObjectInstance(ObjectInstanceHandle objectInstanceHandle, ObjectClassHandle objectClassHandle, String objectInstanceName, FederateHandle producingFederate)
 				throws FederateInternalError {
-			System.out.println("discoverObjectInstance");
+			sendInformInteraction("discoverObjectInstance");
 		}
 
 		@Override
 		public void reflectAttributeValues(ObjectInstanceHandle objectInstanceHandle, AttributeHandleValueMap attributeValues, byte[] tag, OrderType sentOrdering,
 				TransportationTypeHandle transportationTypeHandle, SupplementalReflectInfo reflectInfo) throws FederateInternalError {
-			System.out.println("reflectAttributeValues");
+			sendInformInteraction("reflectAttributeValues");
 		}
 
 		@Override
 		public void receiveInteraction(InteractionClassHandle interactionClassHandle, ParameterHandleValueMap parameterValues, byte[] tag, OrderType sentOrdering,
 				TransportationTypeHandle transportationTypeHandle, SupplementalReceiveInfo receiveInfo) throws FederateInternalError {
-			System.out.println("receiveInteraction");
+			sendInformInteraction("receiveInteraction");
 		}
 
 		@Override
 		public void removeObjectInstance(ObjectInstanceHandle objectInstanceHandle, byte[] tag, OrderType sentOrdering, SupplementalRemoveInfo removeInfo) throws FederateInternalError {
-			System.out.println("removeObjectInstance");
+			sendInformInteraction("removeObjectInstance");
 		}
 
 		@Override
 		public void provideAttributeValueUpdate(ObjectInstanceHandle objectInstanceHandle, AttributeHandleSet attributeHandles, byte[] tag) throws FederateInternalError {
-			System.out.println("provideAttributeValueUpdate");
+			sendInformInteraction("provideAttributeValueUpdate");
 		}
 
 		@Override
 		public void requestAttributeOwnershipAssumption(ObjectInstanceHandle objectInstanceHandle, AttributeHandleSet attributeHandles, byte[] tag) throws FederateInternalError {
-			System.out.println("requestAttributeOwnershipAssumption");
+			sendInformInteraction("requestAttributeOwnershipAssumption");
 		}
 
 		@Override
 		public void attributeOwnershipAcquisitionNotification(ObjectInstanceHandle objectInstanceHandle, AttributeHandleSet attributeHandles, byte[] tag) throws FederateInternalError {
-			System.out.println("attributeOwnershipAcquisitionNotification");
+			sendInformInteraction("attributeOwnershipAcquisitionNotification");
 		}
 
 		@Override
 		public void attributeOwnershipUnavailable(ObjectInstanceHandle objectInstanceHandle, AttributeHandleSet attributeHandles) throws FederateInternalError {
-			System.out.println("attributeOwnershipUnavailable");
+			sendInformInteraction("attributeOwnershipUnavailable");
 		}
 
 		@Override
 		public void requestAttributeOwnershipRelease(ObjectInstanceHandle objectInstanceHandle, AttributeHandleSet attributeHandles, byte[] tag) throws FederateInternalError {
-			System.out.println("requestAttributeOwnershipRelease");
+			sendInformInteraction("requestAttributeOwnershipRelease");
 		}
-		
+
 		@Override
 		public void timeRegulationEnabled(LogicalTime time) throws FederateInternalError {
 			initClock((DateLogicalTime) time);
+			sendInformInteraction("timeRegulationEnabled");
 		}
-		
+
 		@Override
 		public void timeAdvanceGrant(LogicalTime time) {
 			timeRequestGranted(time);
+			sendInformInteraction("timeAdvanceGrant");
 		}
 	}
 }

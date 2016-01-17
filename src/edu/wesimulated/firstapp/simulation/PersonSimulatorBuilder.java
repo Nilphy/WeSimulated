@@ -10,10 +10,10 @@ import edu.wesimulated.firstapp.model.Person;
 
 public class PersonSimulatorBuilder {
 
-	public static PersonSimulator build(Person person, Date startDate) {
+	public static PersonSimulator build(Person person, HLAPerson hlaPerson, Date startDate) {
 		ProjectSimulator projectSimulator = ProjectSimulator.getInstance();
 		ThreePhaseExecutor executor = new ThreePhaseExecutor(new TaskCompletedEndCondition(projectSimulator));
-		PersonSimulator personSimulator = new PersonSimulator(executor, person);
+		PersonSimulator personSimulator = new PersonSimulator(executor, person, hlaPerson);
 		personSimulator.addBOperation(new Work(personSimulator, DateUtils.convertToStartOfNextLabDay(startDate)));
 		return personSimulator;
 	}
