@@ -82,12 +82,10 @@ public class Simulation extends Observable {
 	}
 
 	public void addTask(Task task) {
-		// tasks aren't active tasks still
 		ProjectSimulator.getInstance().addTask(new TaskSimulator(task));
 	}
 	
 	public void setSimulationOverviewController(SimulationOverviewController simulationOverviewController) {
 		this.simulationOverviewController = simulationOverviewController;
 	}
-
 }
