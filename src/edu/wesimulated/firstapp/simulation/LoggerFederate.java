@@ -18,7 +18,6 @@ import hla.rti1516e.exceptions.FederateServiceInvocationsAreBeingReportedViaMOM;
 import hla.rti1516e.exceptions.FederatesCurrentlyJoined;
 import hla.rti1516e.exceptions.FederationExecutionDoesNotExist;
 import hla.rti1516e.exceptions.InteractionClassNotDefined;
-import hla.rti1516e.exceptions.InvalidInteractionClassHandle;
 import hla.rti1516e.exceptions.InvalidObjectClassHandle;
 import hla.rti1516e.exceptions.NameNotFound;
 import hla.rti1516e.exceptions.NotConnected;
@@ -129,13 +128,7 @@ public class LoggerFederate extends AbstractFederate {
 		@Override
 		public void receiveInteraction(InteractionClassHandle interactionClassHandle, ParameterHandleValueMap parameterValues, byte[] tag, OrderType sentOrdering, TransportationTypeHandle transportationTypeHandle, SupplementalReceiveInfo receiveInfo) 
 				throws FederateInternalError {
-			HLAInformInteraction informInteraction;
-			try {
-				informInteraction = new HLAInformInteraction(interactionClassHandle);
-			} catch (RTIinternalError | NameNotFound | InvalidInteractionClassHandle | FederateNotExecutionMember | NotConnected e) {
-				e.printStackTrace();
-				throw new RuntimeException(e);
-			}
+			HLAInformInteraction informInteraction = new HLAInformInteraction(interactionClassHandle);
 			informInteraction.receiveInteraction(parameterValues);
 			getController().log("Receive Interaction: " + informInteraction.getMessage());
 		}
