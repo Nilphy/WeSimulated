@@ -11,37 +11,21 @@ import hla.rti1516e.ObjectInstanceHandle;
 import hla.rti1516e.OrderType;
 import hla.rti1516e.ParameterHandleValueMap;
 import hla.rti1516e.TransportationTypeHandle;
-import hla.rti1516e.exceptions.AlreadyConnected;
 import hla.rti1516e.exceptions.AttributeNotDefined;
-import hla.rti1516e.exceptions.CallNotAllowedFromWithinCallback;
-import hla.rti1516e.exceptions.ConnectionFailed;
-import hla.rti1516e.exceptions.CouldNotCreateLogicalTimeFactory;
-import hla.rti1516e.exceptions.CouldNotOpenFDD;
-import hla.rti1516e.exceptions.ErrorReadingFDD;
-import hla.rti1516e.exceptions.FederateAlreadyExecutionMember;
 import hla.rti1516e.exceptions.FederateInternalError;
 import hla.rti1516e.exceptions.FederateNotExecutionMember;
-import hla.rti1516e.exceptions.FederateOwnsAttributes;
 import hla.rti1516e.exceptions.FederateServiceInvocationsAreBeingReportedViaMOM;
 import hla.rti1516e.exceptions.FederatesCurrentlyJoined;
 import hla.rti1516e.exceptions.FederationExecutionDoesNotExist;
-import hla.rti1516e.exceptions.InTimeAdvancingState;
-import hla.rti1516e.exceptions.InconsistentFDD;
 import hla.rti1516e.exceptions.InteractionClassNotDefined;
 import hla.rti1516e.exceptions.InvalidInteractionClassHandle;
-import hla.rti1516e.exceptions.InvalidLocalSettingsDesignator;
 import hla.rti1516e.exceptions.InvalidObjectClassHandle;
-import hla.rti1516e.exceptions.InvalidResignAction;
 import hla.rti1516e.exceptions.NameNotFound;
 import hla.rti1516e.exceptions.NotConnected;
 import hla.rti1516e.exceptions.ObjectClassNotDefined;
-import hla.rti1516e.exceptions.OwnershipAcquisitionPending;
 import hla.rti1516e.exceptions.RTIinternalError;
-import hla.rti1516e.exceptions.RequestForTimeConstrainedPending;
 import hla.rti1516e.exceptions.RestoreInProgress;
 import hla.rti1516e.exceptions.SaveInProgress;
-import hla.rti1516e.exceptions.TimeConstrainedAlreadyEnabled;
-import hla.rti1516e.exceptions.UnsupportedCallbackModel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,21 +42,22 @@ public class LoggerFederate extends AbstractFederate {
 		this.people = new HashMap<>();
 	}
 	
-	protected void joinFederationExcecution(String federateName, NullFederateAmbassador federateAmbassador) throws FederateNotExecutionMember, NotConnected, NameNotFound, RTIinternalError, InvalidObjectClassHandle, AttributeNotDefined, ObjectClassNotDefined, SaveInProgress, RestoreInProgress, FederateServiceInvocationsAreBeingReportedViaMOM, InteractionClassNotDefined, ConnectionFailed, InvalidLocalSettingsDesignator, UnsupportedCallbackModel, AlreadyConnected, CallNotAllowedFromWithinCallback, InconsistentFDD, ErrorReadingFDD, CouldNotOpenFDD, CouldNotCreateLogicalTimeFactory, FederationExecutionDoesNotExist, FederateAlreadyExecutionMember, InvalidInteractionClassHandle, InTimeAdvancingState, RequestForTimeConstrainedPending, TimeConstrainedAlreadyEnabled {
+	protected void joinFederationExcecution(String federateName, NullFederateAmbassador federateAmbassador) {
 		super.joinFederationExcecution(federateName, federateAmbassador);
 		subscribeToPerson();
 		subscribeToInformInteraction();
 	}
 	
-	private void subscribeToPerson() 
-			throws NameNotFound, FederateNotExecutionMember, NotConnected, RTIinternalError, InvalidObjectClassHandle, AttributeNotDefined, ObjectClassNotDefined, SaveInProgress, RestoreInProgress {
+	private void subscribeToPerson() {
 		this.getController().log("LoggerSubscribingToPersonWorkDone");
-		ObjectClassHandle personClassHandle = this.getRTIAmbassador().getObjectClassHandle(HLAPerson.CLASS_NAME);
-		AttributeHandleSet personAttributesHandle = this.getRTIAmbassador().getAttributeHandleSetFactory().create();
-		personAttributesHandle.add(this.getRTIAmbassador().getAttributeHandle(personClassHandle, HLAPerson.ATTRIBUTE_WORK_DONE_NAME));
-		this.getRTIAmbassador().subscribeObjectClassAttributes(
-				personClassHandle,
-				personAttributesHandle);
+		try {
+			ObjectClassHandle personClassHandle = this.getRTIAmbassador().getObjectClassHandle(HLAPerson.CLASS_NAME);
+			AttributeHandleSet personAttributesHandle = this.getRTIAmbassador().getAttributeHandleSetFactory().create();
+			personAttributesHandle.add(this.getRTIAmbassador().getAttributeHandle(personClassHandle, HLAPerson.ATTRIBUTE_WORK_DONE_NAME));
+			this.getRTIAmbassador().subscribeObjectClassAttributes(personClassHandle, personAttributesHandle);
+		} catch (NameNotFound | FederateNotExecutionMember | NotConnected | RTIinternalError | InvalidObjectClassHandle | AttributeNotDefined | ObjectClassNotDefined | SaveInProgress | RestoreInProgress e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	@Override
@@ -81,16 +66,19 @@ public class LoggerFederate extends AbstractFederate {
 		try {
 			getRTIAmbassador().destroyFederationExecution(Simulation.FEDERATION_NAME);
 		} catch (FederatesCurrentlyJoined | FederationExecutionDoesNotExist | NotConnected | RTIinternalError e) {
-			// TODO send interaction with the message of the exception
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 	}
 	
-	private void subscribeToInformInteraction() 
-			throws FederateNotExecutionMember, NotConnected, NameNotFound, RTIinternalError, FederateServiceInvocationsAreBeingReportedViaMOM, InteractionClassNotDefined, SaveInProgress, RestoreInProgress {
+	private void subscribeToInformInteraction() {
 		this.getController().log("LoggerSubscribingToInformInteraction");
-		InteractionClassHandle informInteractionClassHandle = this.getRTIAmbassador().getInteractionClassHandle(HLAInformInteraction.INFORM_INTERACTION_NAME);
-		this.getRTIAmbassador().subscribeInteractionClass(informInteractionClassHandle);
+		InteractionClassHandle informInteractionClassHandle;
+		try {
+			informInteractionClassHandle = this.getRTIAmbassador().getInteractionClassHandle(HLAInformInteraction.INFORM_INTERACTION_NAME);
+			this.getRTIAmbassador().subscribeInteractionClass(informInteractionClassHandle);
+		} catch (NameNotFound | FederateNotExecutionMember | NotConnected | RTIinternalError | FederateServiceInvocationsAreBeingReportedViaMOM | InteractionClassNotDefined | SaveInProgress | RestoreInProgress e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	private void personDiscovered(HLAPerson hlaPerson) {
@@ -125,12 +113,7 @@ public class LoggerFederate extends AbstractFederate {
 				throws FederateInternalError {
 			if (getPersonObjectClassHandle().equals(objectClassHandle)) {
 				HLAPerson hlaPerson = null;
-				try {
-					hlaPerson = new HLAPerson(getPersonObjectClassHandle(), objectInstanceHandle, objectInstanceName);
-				} catch (RTIinternalError | NameNotFound | InvalidObjectClassHandle | FederateNotExecutionMember | NotConnected e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				hlaPerson = new HLAPerson(getPersonObjectClassHandle(), objectInstanceHandle, objectInstanceName);
 				personDiscovered(hlaPerson);
 			}
 		}

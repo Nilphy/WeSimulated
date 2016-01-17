@@ -30,20 +30,26 @@ public class HLAPerson {
 	private AttributeHandle workDoneAttributeInstanceHandle;
 	private Float workDone;
 	
-	public HLAPerson(ObjectClassHandle classHandle, ObjectInstanceHandle personHandle, String personName) 
-			throws RTIinternalError, NameNotFound, InvalidObjectClassHandle, FederateNotExecutionMember, NotConnected {
-		this.rtiAmbassador = RtiFactoryFactory.getRtiFactory().getRtiAmbassador();
+	public HLAPerson(ObjectClassHandle classHandle, ObjectInstanceHandle personHandle, String personName) {
+		try {
+			this.rtiAmbassador = RtiFactoryFactory.getRtiFactory().getRtiAmbassador();
+			this.workDoneAttributeInstanceHandle = this.getRtiAmbassador().getAttributeHandle(classHandle, ATTRIBUTE_WORK_DONE_NAME);
+		} catch (RTIinternalError | NameNotFound | InvalidObjectClassHandle | FederateNotExecutionMember | NotConnected e) {
+			throw new RuntimeException(e);
+		}
 		this.objectInstanceHandle = personHandle;
 		this.objectInstanceName = personName;
-		this.workDoneAttributeInstanceHandle = this.getRtiAmbassador().getAttributeHandle(classHandle, ATTRIBUTE_WORK_DONE_NAME);
 	}
 
-	public void incrementWorkDone(float workDone) 
-			throws FederateNotExecutionMember, NotConnected, AttributeNotOwned, AttributeNotDefined, ObjectInstanceNotKnown, SaveInProgress, RestoreInProgress, RTIinternalError {
+	public void incrementWorkDone(float workDone) {
 		this.workDone += this.workDone;
-		AttributeHandleValueMap attributeValues = this.rtiAmbassador.getAttributeHandleValueMapFactory().create(1);
-		attributeValues.put(workDoneAttributeInstanceHandle, encodeWorkDone(this.workDone));
-		this.rtiAmbassador.updateAttributeValues(objectInstanceHandle, attributeValues, null);
+		try {
+			AttributeHandleValueMap attributeValues = this.rtiAmbassador.getAttributeHandleValueMapFactory().create(1);
+			attributeValues.put(workDoneAttributeInstanceHandle, encodeWorkDone(this.workDone));
+			this.rtiAmbassador.updateAttributeValues(objectInstanceHandle, attributeValues, null);
+		} catch (FederateNotExecutionMember | NotConnected | AttributeNotOwned | AttributeNotDefined | ObjectInstanceNotKnown | SaveInProgress | RestoreInProgress | RTIinternalError e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public void reflectAttributeValues(AttributeHandleValueMap attributeValues) {
@@ -51,15 +57,15 @@ public class HLAPerson {
 		this.setWorkDone(decodeWorkDone(workDone));
 	}
 
-	public byte[] encodeWorkDone(float workDone) {
+	private byte[] encodeWorkDone(float workDone) {
 		return ByteBuffer.allocate(8).putFloat(workDone).array();
 	}
 
-	public float decodeWorkDone(byte[] buffer) {
+	private float decodeWorkDone(byte[] buffer) {
 		return ByteBuffer.wrap(buffer).getFloat();
 	}
 
-	protected byte[] encodeName(String objectInstanceName) {
+	private byte[] encodeName(String objectInstanceName) {
 		return Charset.forName("UTF-8").encode(objectInstanceName).array();
 	}
 

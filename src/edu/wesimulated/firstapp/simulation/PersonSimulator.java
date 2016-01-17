@@ -31,8 +31,7 @@ public class PersonSimulator {
 		this.person = person;
 	}
 
-	public void startExecution() throws LogicalTimeAlreadyPassed, InvalidLogicalTime, InTimeAdvancingState, RequestForTimeRegulationPending, RequestForTimeConstrainedPending, SaveInProgress,
-			RestoreInProgress, FederateNotExecutionMember, NotConnected, RTIinternalError, InterruptedException {
+	public void startExecution() {
 		this.executor.run();
 	}
 

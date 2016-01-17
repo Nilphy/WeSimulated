@@ -9,7 +9,6 @@ import hla.rti1516e.RTIambassador;
 import hla.rti1516e.ResignAction;
 import hla.rti1516e.RtiFactoryFactory;
 import hla.rti1516e.exceptions.AlreadyConnected;
-import hla.rti1516e.exceptions.AttributeNotDefined;
 import hla.rti1516e.exceptions.CallNotAllowedFromWithinCallback;
 import hla.rti1516e.exceptions.ConnectionFailed;
 import hla.rti1516e.exceptions.CouldNotCreateLogicalTimeFactory;
@@ -18,20 +17,14 @@ import hla.rti1516e.exceptions.ErrorReadingFDD;
 import hla.rti1516e.exceptions.FederateAlreadyExecutionMember;
 import hla.rti1516e.exceptions.FederateNotExecutionMember;
 import hla.rti1516e.exceptions.FederateOwnsAttributes;
-import hla.rti1516e.exceptions.FederateServiceInvocationsAreBeingReportedViaMOM;
 import hla.rti1516e.exceptions.FederatesCurrentlyJoined;
 import hla.rti1516e.exceptions.FederationExecutionAlreadyExists;
 import hla.rti1516e.exceptions.FederationExecutionDoesNotExist;
 import hla.rti1516e.exceptions.InTimeAdvancingState;
 import hla.rti1516e.exceptions.InconsistentFDD;
-import hla.rti1516e.exceptions.InteractionClassNotDefined;
-import hla.rti1516e.exceptions.InvalidInteractionClassHandle;
 import hla.rti1516e.exceptions.InvalidLocalSettingsDesignator;
-import hla.rti1516e.exceptions.InvalidObjectClassHandle;
 import hla.rti1516e.exceptions.InvalidResignAction;
-import hla.rti1516e.exceptions.NameNotFound;
 import hla.rti1516e.exceptions.NotConnected;
-import hla.rti1516e.exceptions.ObjectClassNotDefined;
 import hla.rti1516e.exceptions.OwnershipAcquisitionPending;
 import hla.rti1516e.exceptions.RTIinternalError;
 import hla.rti1516e.exceptions.RequestForTimeConstrainedPending;
@@ -44,40 +37,47 @@ public class AbstractFederate {
 
 	private RTIambassador rtiAmbassador;
 	private ObjectClassHandle personObjectClassHandle;
-	
-
 	private InteractionClassHandle informInteractionClassHandle;
 	private ParameterHandle messageParameterHandle;
 
-	public AbstractFederate() throws RTIinternalError {
-		rtiAmbassador = RtiFactoryFactory.getRtiFactory().getRtiAmbassador();
+	public AbstractFederate() {
+		try {
+			rtiAmbassador = RtiFactoryFactory.getRtiFactory().getRtiAmbassador();
+		} catch (RTIinternalError e) {
+			throw new RuntimeException(e);
+		}
 	}
 
-	protected void joinFederationExcecution(String federateName, NullFederateAmbassador federateAmbassador) 
-			throws ConnectionFailed, InvalidLocalSettingsDesignator, UnsupportedCallbackModel, AlreadyConnected, CallNotAllowedFromWithinCallback, RTIinternalError, InconsistentFDD, 
-			ErrorReadingFDD, CouldNotOpenFDD, NotConnected, CouldNotCreateLogicalTimeFactory, FederationExecutionDoesNotExist, SaveInProgress, RestoreInProgress, 
-			FederateAlreadyExecutionMember, NameNotFound, FederateNotExecutionMember, InvalidInteractionClassHandle, InteractionClassNotDefined, InTimeAdvancingState, 
-			RequestForTimeConstrainedPending, TimeConstrainedAlreadyEnabled, InvalidObjectClassHandle, AttributeNotDefined, ObjectClassNotDefined, FederateServiceInvocationsAreBeingReportedViaMOM {
-		getRTIAmbassador().connect(federateAmbassador, CallbackModel.HLA_IMMEDIATE);
+	protected void joinFederationExcecution(String federateName, NullFederateAmbassador federateAmbassador) {
 		try {
-			getRTIAmbassador().createFederationExecution(Simulation.FEDERATION_NAME, Simulation.class.getResource(Simulation.FDD));
-		} catch (FederationExecutionAlreadyExists feae) {
-			// The federation has already been created by another federate
+			getRTIAmbassador().connect(federateAmbassador, CallbackModel.HLA_IMMEDIATE);
+			try {
+				getRTIAmbassador().createFederationExecution(Simulation.FEDERATION_NAME, Simulation.class.getResource(Simulation.FDD));
+			} catch (FederationExecutionAlreadyExists feae) {
+				// The federation has already been created by another federate
+			}
+			getRTIAmbassador().joinFederationExecution(federateName, Simulation.FEDERATION_NAME);
+			getRTIAmbassador().enableTimeConstrained();
+		} catch (ConnectionFailed | InvalidLocalSettingsDesignator | UnsupportedCallbackModel | AlreadyConnected | CallNotAllowedFromWithinCallback | InconsistentFDD | ErrorReadingFDD
+				| CouldNotOpenFDD | NotConnected | RTIinternalError | CouldNotCreateLogicalTimeFactory | FederationExecutionDoesNotExist | SaveInProgress | RestoreInProgress
+				| FederateAlreadyExecutionMember | InTimeAdvancingState | RequestForTimeConstrainedPending | TimeConstrainedAlreadyEnabled | FederateNotExecutionMember e) {
+			throw new RuntimeException(e);
 		}
-		getRTIAmbassador().joinFederationExecution(federateName, Simulation.FEDERATION_NAME);
-		getRTIAmbassador().enableTimeConstrained();
 	}
 	
-	public void destroyFederationExecution() throws FederatesCurrentlyJoined, FederationExecutionDoesNotExist, NotConnected, RTIinternalError {
-		getRTIAmbassador().destroyFederationExecution(Simulation.FEDERATION_NAME);
+	public void destroyFederationExecution() {
+		try {
+			getRTIAmbassador().destroyFederationExecution(Simulation.FEDERATION_NAME);
+		} catch (FederatesCurrentlyJoined | FederationExecutionDoesNotExist | NotConnected | RTIinternalError e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	protected void resignFromFederation() {
 		try {
 			getRTIAmbassador().resignFederationExecution(ResignAction.DELETE_OBJECTS);
 		} catch (InvalidResignAction | OwnershipAcquisitionPending | FederateOwnsAttributes | FederateNotExecutionMember | NotConnected | CallNotAllowedFromWithinCallback | RTIinternalError e) {
-			// TODO send interaction with the message of the exception
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 	}
 	
