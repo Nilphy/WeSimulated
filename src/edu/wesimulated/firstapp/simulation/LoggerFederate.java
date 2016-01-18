@@ -36,7 +36,7 @@ public class LoggerFederate extends AbstractFederate {
 	private SimulationOverviewController simulationOverviewController;
 	private Map<ObjectInstanceHandle, HLAPerson> people;
 
-	public LoggerFederate() throws RTIinternalError {
+	public LoggerFederate() {
 		super();
 		this.people = new HashMap<>();
 	}
