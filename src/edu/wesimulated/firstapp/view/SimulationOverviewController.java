@@ -44,6 +44,11 @@ public class SimulationOverviewController {
 		Simulation.getInstance().destroyFederation();
 	}
 	
+	@FXML
+	private void startSimulation() {
+		Simulation.getInstance().startFederation();
+	}
+	
 	public void log(String message) {
 		this.textDisplay.appendText(this.getTimeToLog() + " " + message + "\n");
 	}
