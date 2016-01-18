@@ -33,6 +33,7 @@ public class Simulation extends Observable {
 
 	public void startFederation() {
 		ProjectSimulator.getInstance().assignTasks();
+		this.setChanged();
 		this.notifyObservers(SimulationEvent.buildStartEvent());
 	}
 

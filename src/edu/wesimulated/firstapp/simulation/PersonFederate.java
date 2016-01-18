@@ -188,7 +188,7 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 		@Override
 		public void timeRegulationEnabled(LogicalTime time) throws FederateInternalError {
 			initClock((DateLogicalTime) time);
-			sendInformInteraction("timeRegulationEnabled");
+			System.out.println("timeRegulationEnabled");
 		}
 
 		@Override
