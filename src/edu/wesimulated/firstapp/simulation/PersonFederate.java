@@ -50,19 +50,11 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 	public static final String FEDERATE_NAME = "PERSON_FEDERATE";
 	private static final long LOOKAHEAD = 5000;
 	private PersonSimulator personSimulator;
+	private Person person;
 
 	public PersonFederate(Person person) {
 		super();
-		ObjectInstanceHandle objectInstanceHandle;
-		String objectInstanceName;
-		try {
-			objectInstanceHandle = getRTIAmbassador().registerObjectInstance(getPersonObjectClassHandle());
-			objectInstanceName = getRTIAmbassador().getObjectInstanceName(objectInstanceHandle);
-		} catch (ObjectClassNotPublished | ObjectClassNotDefined | SaveInProgress | RestoreInProgress | FederateNotExecutionMember | NotConnected | RTIinternalError | ObjectInstanceNotKnown e) {
-			throw new RuntimeException(e);
-		}
-		this.personSimulator = PersonSimulatorBuilder.build(person, hlaPerson, ProjectSimulator.getInstance().getStartDate());
-		ProjectSimulator.getInstance().addPerson(this.personSimulator);
+		this.person = person;
 	}
 
 	public void requestTimeAdvance(Date newDate) {
@@ -90,10 +82,20 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 
 	protected void joinFederationExcecution(String federateName) {
 		super.joinFederationExcecution(federateName, new PersonFederateAmbassador());
-		this.publishPerson();
-		this.publishInformInteraction();
 		try {
+			ObjectInstanceHandle objectInstanceHandle;
+			String objectInstanceName;
+			try {
+				this.publishPerson();
+				this.publishInformInteraction();
+				objectInstanceHandle = getRTIAmbassador().registerObjectInstance(getPersonObjectClassHandle());
+				objectInstanceName = getRTIAmbassador().getObjectInstanceName(objectInstanceHandle);
+			} catch (ObjectClassNotPublished | ObjectClassNotDefined | SaveInProgress | RestoreInProgress | FederateNotExecutionMember | NotConnected | RTIinternalError | ObjectInstanceNotKnown e) {
+				throw new RuntimeException(e);
+			}
 			HLAPerson hlaPerson = new HLAPerson(this.getRTIAmbassador(), getPersonObjectClassHandle(), objectInstanceHandle, objectInstanceName);
+			this.personSimulator = PersonSimulatorBuilder.build(this.person, hlaPerson, ProjectSimulator.getInstance().getStartDate());
+			ProjectSimulator.getInstance().addPerson(this.personSimulator);
 			this.getRTIAmbassador().enableTimeRegulation(new DateLogicalTimeInterval(Duration.ofMillis(LOOKAHEAD)));
 		} catch (InvalidLookahead | InTimeAdvancingState | RequestForTimeRegulationPending | TimeRegulationAlreadyEnabled | SaveInProgress | RestoreInProgress | FederateNotExecutionMember
 				| NotConnected | RTIinternalError e) {

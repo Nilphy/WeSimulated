@@ -41,8 +41,8 @@ public class LoggerFederate extends AbstractFederate {
 		this.people = new HashMap<>();
 	}
 	
-	protected void joinFederationExcecution(String federateName, NullFederateAmbassador federateAmbassador) {
-		super.joinFederationExcecution(federateName, federateAmbassador);
+	protected void joinFederationExcecution(String federateName) {
+		super.joinFederationExcecution(federateName, new LoggerFederateAmbassador());
 		subscribeToPerson();
 		subscribeToInformInteraction();
 	}
@@ -112,7 +112,7 @@ public class LoggerFederate extends AbstractFederate {
 				throws FederateInternalError {
 			if (getPersonObjectClassHandle().equals(objectClassHandle)) {
 				HLAPerson hlaPerson = null;
-				hlaPerson = new HLAPerson(getPersonObjectClassHandle(), objectInstanceHandle, objectInstanceName);
+				hlaPerson = new HLAPerson(getRTIAmbassador(), getPersonObjectClassHandle(), objectInstanceHandle, objectInstanceName);
 				personDiscovered(hlaPerson);
 			}
 		}
@@ -128,7 +128,7 @@ public class LoggerFederate extends AbstractFederate {
 		@Override
 		public void receiveInteraction(InteractionClassHandle interactionClassHandle, ParameterHandleValueMap parameterValues, byte[] tag, OrderType sentOrdering, TransportationTypeHandle transportationTypeHandle, SupplementalReceiveInfo receiveInfo) 
 				throws FederateInternalError {
-			HLAInformInteraction informInteraction = new HLAInformInteraction(interactionClassHandle);
+			HLAInformInteraction informInteraction = new HLAInformInteraction(getRTIAmbassador(), interactionClassHandle);
 			informInteraction.receiveInteraction(parameterValues);
 			getController().log("Receive Interaction: " + informInteraction.getMessage());
 		}

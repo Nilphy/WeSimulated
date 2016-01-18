@@ -40,27 +40,20 @@ public class AbstractFederate {
 	private InteractionClassHandle informInteractionClassHandle;
 	private ParameterHandle messageParameterHandle;
 
-	public AbstractFederate() {
-		try {
-			rtiAmbassador = RtiFactoryFactory.getRtiFactory().getRtiAmbassador();
-		} catch (RTIinternalError e) {
-			throw new RuntimeException(e);
-		}
-	}
-
 	protected void joinFederationExcecution(String federateName, NullFederateAmbassador federateAmbassador) {
 		try {
-			getRTIAmbassador().connect(federateAmbassador, CallbackModel.HLA_IMMEDIATE);
+			rtiAmbassador = RtiFactoryFactory.getRtiFactory().getRtiAmbassador();
+			this.getRTIAmbassador().connect(federateAmbassador, CallbackModel.HLA_IMMEDIATE);
 			try {
 				getRTIAmbassador().createFederationExecution(Simulation.FEDERATION_NAME, Simulation.class.getResource(Simulation.FDD));
 			} catch (FederationExecutionAlreadyExists feae) {
 				// The federation has already been created by another federate
 			}
-			getRTIAmbassador().joinFederationExecution(federateName, Simulation.FEDERATION_NAME);
-			getRTIAmbassador().enableTimeConstrained();
-		} catch (ConnectionFailed | InvalidLocalSettingsDesignator | UnsupportedCallbackModel | AlreadyConnected | CallNotAllowedFromWithinCallback | InconsistentFDD | ErrorReadingFDD
-				| CouldNotOpenFDD | NotConnected | RTIinternalError | CouldNotCreateLogicalTimeFactory | FederationExecutionDoesNotExist | SaveInProgress | RestoreInProgress
-				| FederateAlreadyExecutionMember | InTimeAdvancingState | RequestForTimeConstrainedPending | TimeConstrainedAlreadyEnabled | FederateNotExecutionMember e) {
+			this.getRTIAmbassador().joinFederationExecution(federateName, Simulation.FEDERATION_NAME);
+			this.getRTIAmbassador().enableTimeConstrained();
+		} catch (CallNotAllowedFromWithinCallback | InconsistentFDD | ErrorReadingFDD | CouldNotOpenFDD | NotConnected | RTIinternalError | CouldNotCreateLogicalTimeFactory
+				| FederationExecutionDoesNotExist | SaveInProgress | RestoreInProgress | FederateAlreadyExecutionMember | InTimeAdvancingState | RequestForTimeConstrainedPending
+				| TimeConstrainedAlreadyEnabled | FederateNotExecutionMember | ConnectionFailed | InvalidLocalSettingsDesignator | UnsupportedCallbackModel | AlreadyConnected e) {
 			throw new RuntimeException(e);
 		}
 	}
