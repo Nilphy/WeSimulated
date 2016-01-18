@@ -83,7 +83,7 @@ public class MainApp extends Application {
 	public void showSimulationOverview() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/Simulation.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/SimulationOverview.fxml"));
 			AnchorPane simulationOverview = (AnchorPane) loader.load();
 			this.rootLayout.setCenter(simulationOverview);
 			SimulationOverviewController controller = loader.getController();
