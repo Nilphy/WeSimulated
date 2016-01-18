@@ -61,7 +61,6 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 		} catch (ObjectClassNotPublished | ObjectClassNotDefined | SaveInProgress | RestoreInProgress | FederateNotExecutionMember | NotConnected | RTIinternalError | ObjectInstanceNotKnown e) {
 			throw new RuntimeException(e);
 		}
-		HLAPerson hlaPerson = new HLAPerson(getPersonObjectClassHandle(), objectInstanceHandle, objectInstanceName);
 		this.personSimulator = PersonSimulatorBuilder.build(person, hlaPerson, ProjectSimulator.getInstance().getStartDate());
 		ProjectSimulator.getInstance().addPerson(this.personSimulator);
 	}
@@ -94,6 +93,7 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 		this.publishPerson();
 		this.publishInformInteraction();
 		try {
+			HLAPerson hlaPerson = new HLAPerson(this.getRTIAmbassador(), getPersonObjectClassHandle(), objectInstanceHandle, objectInstanceName);
 			this.getRTIAmbassador().enableTimeRegulation(new DateLogicalTimeInterval(Duration.ofMillis(LOOKAHEAD)));
 		} catch (InvalidLookahead | InTimeAdvancingState | RequestForTimeRegulationPending | TimeRegulationAlreadyEnabled | SaveInProgress | RestoreInProgress | FederateNotExecutionMember
 				| NotConnected | RTIinternalError e) {
@@ -124,7 +124,7 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 	}
 
 	protected void sendInformInteraction(String message) {
-		HLAInformInteraction hlaInformInteraction = new HLAInformInteraction(getInformInteractionClassHandle(), message);
+		HLAInformInteraction hlaInformInteraction = new HLAInformInteraction(getRTIAmbassador(), getInformInteractionClassHandle(), message);
 		hlaInformInteraction.sendInteraction(new DateLogicalTime(personSimulator.getExecutor().getClock().getCurrentDate()));
 	}
 

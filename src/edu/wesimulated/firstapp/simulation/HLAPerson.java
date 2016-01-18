@@ -5,7 +5,6 @@ import hla.rti1516e.AttributeHandleValueMap;
 import hla.rti1516e.ObjectClassHandle;
 import hla.rti1516e.ObjectInstanceHandle;
 import hla.rti1516e.RTIambassador;
-import hla.rti1516e.RtiFactoryFactory;
 import hla.rti1516e.exceptions.AttributeNotDefined;
 import hla.rti1516e.exceptions.AttributeNotOwned;
 import hla.rti1516e.exceptions.FederateNotExecutionMember;
@@ -30,9 +29,9 @@ public class HLAPerson {
 	private AttributeHandle workDoneAttributeInstanceHandle;
 	private Float workDone;
 	
-	public HLAPerson(ObjectClassHandle classHandle, ObjectInstanceHandle personHandle, String personName) {
+	public HLAPerson(RTIambassador rtiAmbassador, ObjectClassHandle classHandle, ObjectInstanceHandle personHandle, String personName) {
 		try {
-			this.rtiAmbassador = RtiFactoryFactory.getRtiFactory().getRtiAmbassador();
+			this.rtiAmbassador = rtiAmbassador;
 			this.workDoneAttributeInstanceHandle = this.getRtiAmbassador().getAttributeHandle(classHandle, ATTRIBUTE_WORK_DONE_NAME);
 		} catch (RTIinternalError | NameNotFound | InvalidObjectClassHandle | FederateNotExecutionMember | NotConnected e) {
 			throw new RuntimeException(e);

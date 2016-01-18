@@ -4,7 +4,6 @@ import hla.rti1516e.InteractionClassHandle;
 import hla.rti1516e.LogicalTime;
 import hla.rti1516e.ParameterHandleValueMap;
 import hla.rti1516e.RTIambassador;
-import hla.rti1516e.RtiFactoryFactory;
 import hla.rti1516e.exceptions.FederateNotExecutionMember;
 import hla.rti1516e.exceptions.InteractionClassNotDefined;
 import hla.rti1516e.exceptions.InteractionClassNotPublished;
@@ -31,9 +30,9 @@ public class HLAInformInteraction {
 	private Object messageParamClass;
 	private InteractionClassHandle interactionClass;
 
-	public HLAInformInteraction(InteractionClassHandle interactionClass) {
+	public HLAInformInteraction(RTIambassador rtiAmbassador, InteractionClassHandle interactionClass) {
 		try {
-			this.rtiAmbassador = RtiFactoryFactory.getRtiFactory().getRtiAmbassador();
+			this.rtiAmbassador = rtiAmbassador;
 			this.messageParamClass = this.getRtiAmbassador().getParameterHandle(interactionClass, INFORM_INTERACTION_MESSAGE_PARAM_NAME);
 		} catch (RTIinternalError | NameNotFound | InvalidInteractionClassHandle | FederateNotExecutionMember | NotConnected e) {
 			throw new RuntimeException(e);
@@ -41,8 +40,8 @@ public class HLAInformInteraction {
 		this.interactionClass = interactionClass;
 	}
 
-	public HLAInformInteraction(InteractionClassHandle interactionClass, String mesage) {
-		this(interactionClass);
+	public HLAInformInteraction(RTIambassador rtiAmbassador, InteractionClassHandle interactionClass, String mesage) {
+		this(rtiAmbassador, interactionClass);
 		this.message = mesage;
 	}
 
