@@ -51,7 +51,7 @@ public class AbstractFederate {
 			try {
 				getRTIAmbassador().createFederationExecution(Simulation.FEDERATION_NAME, new URL[] {Simulation.class.getResource(Simulation.FDD)}, DateLogicalTimeFactory.NAME);
 			} catch (FederationExecutionAlreadyExists feae) {
-				// The federation has already been created by another federate
+				System.out.println("The federation has already been created by another federate");
 			}
 			this.getRTIAmbassador().joinFederationExecution(federateName, Simulation.FEDERATION_NAME);
 			this.getRTIAmbassador().enableTimeConstrained();
