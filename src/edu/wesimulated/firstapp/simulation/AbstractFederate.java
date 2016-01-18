@@ -33,6 +33,10 @@ import hla.rti1516e.exceptions.SaveInProgress;
 import hla.rti1516e.exceptions.TimeConstrainedAlreadyEnabled;
 import hla.rti1516e.exceptions.UnsupportedCallbackModel;
 
+import java.net.URL;
+
+import com.wesimulated.simulation.hla.DateLogicalTimeFactory;
+
 public class AbstractFederate {
 
 	private RTIambassador rtiAmbassador;
@@ -45,7 +49,7 @@ public class AbstractFederate {
 			rtiAmbassador = RtiFactoryFactory.getRtiFactory().getRtiAmbassador();
 			this.getRTIAmbassador().connect(federateAmbassador, CallbackModel.HLA_IMMEDIATE);
 			try {
-				getRTIAmbassador().createFederationExecution(Simulation.FEDERATION_NAME, Simulation.class.getResource(Simulation.FDD));
+				getRTIAmbassador().createFederationExecution(Simulation.FEDERATION_NAME, new URL[] {Simulation.class.getResource(Simulation.FDD)}, DateLogicalTimeFactory.NAME);
 			} catch (FederationExecutionAlreadyExists feae) {
 				// The federation has already been created by another federate
 			}
