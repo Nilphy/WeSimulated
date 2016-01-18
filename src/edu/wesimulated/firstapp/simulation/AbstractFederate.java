@@ -70,7 +70,7 @@ public class AbstractFederate {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	public void destroyFederationExecution() {
 		try {
 			getRTIAmbassador().destroyFederationExecution(Simulation.FEDERATION_NAME);
@@ -78,7 +78,7 @@ public class AbstractFederate {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	protected void resignFromFederation() {
 		try {
 			getRTIAmbassador().resignFederationExecution(ResignAction.DELETE_OBJECTS);
@@ -86,7 +86,7 @@ public class AbstractFederate {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	protected ObjectClassHandle getPersonObjectClassHandle() {
 		return personObjectClassHandle;
 	}
@@ -94,7 +94,7 @@ public class AbstractFederate {
 	protected void setProgrammerObjectClassHandle(ObjectClassHandle programmerObjectClassHandle) {
 		this.personObjectClassHandle = programmerObjectClassHandle;
 	}
-	
+
 	protected InteractionClassHandle getInformInteractionClassHandle() {
 		return informInteractionClassHandle;
 	}
@@ -102,7 +102,7 @@ public class AbstractFederate {
 	protected void setInformInteractionClassHandle(InteractionClassHandle informInteractionClassHandle) {
 		this.informInteractionClassHandle = informInteractionClassHandle;
 	}
-	
+
 	protected ParameterHandle getMessageParameterHandle() {
 		return messageParameterHandle;
 	}

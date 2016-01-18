@@ -77,7 +77,6 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 
 	public void initClock(DateLogicalTime time) {
 		this.personSimulator.getExecutor().initClock(time, this);
-
 	}
 
 	protected void joinFederationExcecution(String federateName) {
