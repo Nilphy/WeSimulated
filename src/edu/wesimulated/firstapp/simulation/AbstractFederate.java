@@ -51,6 +51,15 @@ public class AbstractFederate {
 			}
 			this.getRTIAmbassador().joinFederationExecution(federateName, Simulation.FEDERATION_NAME);
 			this.getRTIAmbassador().enableTimeConstrained();
+			new Thread(() -> {
+				try {
+					while (true) {
+						getRTIAmbassador().evokeMultipleCallbacks(1, 1);
+					}
+				} catch (Throwable t) {
+					t.printStackTrace();
+				}
+			}).start();
 		} catch (CallNotAllowedFromWithinCallback | InconsistentFDD | ErrorReadingFDD | CouldNotOpenFDD | NotConnected | RTIinternalError | CouldNotCreateLogicalTimeFactory
 				| FederationExecutionDoesNotExist | SaveInProgress | RestoreInProgress | FederateAlreadyExecutionMember | InTimeAdvancingState | RequestForTimeConstrainedPending
 				| TimeConstrainedAlreadyEnabled | FederateNotExecutionMember | ConnectionFailed | InvalidLocalSettingsDesignator | UnsupportedCallbackModel | AlreadyConnected e) {
