@@ -6,7 +6,7 @@ public class EndEvent extends SimulationEvent {
 
 	@Override
 	public void updateSimulation(PersonSimulator personSimulator, AbstractFederate abstractFederate) {
-		if (personSimulator.isRunning()) {
+		if (personSimulator != null && personSimulator.isRunning()) {
 			throw new SimulationStillRunningException();
 		}
 		abstractFederate.resignFromFederation();
