@@ -51,6 +51,6 @@ public class Task {
 
 	@Override
 	public String toString() {
-		return "Task [name=" + name + "]";
+		return "Task [name=" + name.get() + "]";
 	}
 }

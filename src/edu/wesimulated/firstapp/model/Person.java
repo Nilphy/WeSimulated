@@ -94,6 +94,6 @@ public class Person implements Entity {
 
 	@Override
 	public String toString() {
-		return "Person [firstName=" + firstName + ", lastName=" + lastName + "]";
+		return "Person [firstName=" + firstName.get() + ", lastName=" + lastName.get() + "]";
 	}
 }

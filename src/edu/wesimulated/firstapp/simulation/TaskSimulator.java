@@ -26,4 +26,9 @@ public class TaskSimulator {
 			return availableMilisecondsPerDay;
 		}
 	}
+
+	@Override
+	public String toString() {
+		return task.toString();
+	}
 }
