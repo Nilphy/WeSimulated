@@ -91,7 +91,7 @@ public class AbstractFederate {
 		return personObjectClassHandle;
 	}
 
-	protected void setProgrammerObjectClassHandle(ObjectClassHandle programmerObjectClassHandle) {
+	protected void setPersonObjectClassHandle(ObjectClassHandle programmerObjectClassHandle) {
 		this.personObjectClassHandle = programmerObjectClassHandle;
 	}
 
