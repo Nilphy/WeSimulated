@@ -31,7 +31,7 @@ import java.util.Map;
 
 import edu.wesimulated.firstapp.view.SimulationOverviewController;
 
-public class LoggerFederate extends AbstractFederate {
+public class LoggerFederate extends AbstractFederate implements Observer {
 
 	private SimulationOverviewController simulationOverviewController;
 	private Map<ObjectInstanceHandle, HLAPerson> people;
@@ -57,8 +57,11 @@ public class LoggerFederate extends AbstractFederate {
 		} catch (NameNotFound | FederateNotExecutionMember | NotConnected | RTIinternalError | InvalidObjectClassHandle | AttributeNotDefined | ObjectClassNotDefined | SaveInProgress | RestoreInProgress e) {
 			throw new RuntimeException(e);
 		}
+	@Override
+	public void update(Observable o, Object arg) {
+		((SimulationEvent) arg).updateSimulation(null, this);
 	}
-	
+
 	@Override
 	protected void resignFromFederation() {
 		super.resignFromFederation();
