@@ -172,7 +172,11 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 		@Override
 		public void timeAdvanceGrant(LogicalTime time) {
 			timeRequestGranted(time);
-			sendInformInteraction("timeAdvanceGrant");
+			try {
+				sendInformInteraction("timeAdvanceGrant", time.add(new DateLogicalTimeInterval(Duration.ofMillis(6))));
+			} catch (IllegalTimeArithmetic | InvalidLogicalTimeInterval e) {
+				throw new RuntimeException(e);
+			}
 		}
 	}
 }
