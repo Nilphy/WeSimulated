@@ -41,6 +41,7 @@ public class Simulation extends Observable {
 		if (this.logger == null) {
 			this.logger = new LoggerFederate();
 			this.logger.setSimulationOverviewController(this.simulationOverviewController);
+			this.logger.joinFederationExcecution(LoggerFederate.FEDERATE_NAME);
 		}
 	}
 	
