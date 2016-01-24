@@ -21,6 +21,7 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
 import com.wesimulated.simulation.hla.DateLogicalTime;
+
 public class HLAPerson {
 	public static final String CLASS_NAME = "Person";
 	public static final String ATTRIBUTE_WORK_DONE_NAME = "WorkDone";
@@ -32,6 +33,7 @@ public class HLAPerson {
 	private Float workDone;
 	
 	public HLAPerson(RTIambassador rtiAmbassador, ObjectClassHandle classHandle, ObjectInstanceHandle personHandle, String personName) {
+		this.workDone = 0f;
 		try {
 			this.rtiAmbassador = rtiAmbassador;
 			this.workDoneAttributeInstanceHandle = this.getRtiAmbassador().getAttributeHandle(classHandle, ATTRIBUTE_WORK_DONE_NAME);
