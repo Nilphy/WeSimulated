@@ -54,7 +54,6 @@ public class AbstractFederate {
 				System.out.println("The federation has already been created by another federate");
 			}
 			this.getRTIAmbassador().joinFederationExecution(federateName, Simulation.FEDERATION_NAME);
-			this.getRTIAmbassador().enableTimeConstrained();
 			new Thread(() -> {
 				try {
 					while (true) {
@@ -65,8 +64,11 @@ public class AbstractFederate {
 				}
 			}).start();
 		} catch (CallNotAllowedFromWithinCallback | InconsistentFDD | ErrorReadingFDD | CouldNotOpenFDD | NotConnected | RTIinternalError | CouldNotCreateLogicalTimeFactory
-				| FederationExecutionDoesNotExist | SaveInProgress | RestoreInProgress | FederateAlreadyExecutionMember | InTimeAdvancingState | RequestForTimeConstrainedPending
-				| TimeConstrainedAlreadyEnabled | FederateNotExecutionMember | ConnectionFailed | InvalidLocalSettingsDesignator | UnsupportedCallbackModel | AlreadyConnected e) {
+				| FederationExecutionDoesNotExist | SaveInProgress | RestoreInProgress | FederateAlreadyExecutionMember | ConnectionFailed | InvalidLocalSettingsDesignator | UnsupportedCallbackModel
+				| AlreadyConnected e) {
+			throw new RuntimeException(e);
+		}
+	}
 			throw new RuntimeException(e);
 		}
 	}
