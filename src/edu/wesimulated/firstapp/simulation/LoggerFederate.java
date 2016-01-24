@@ -36,53 +36,48 @@ public class LoggerFederate extends AbstractFederate implements Observer {
 	private SimulationOverviewController simulationOverviewController;
 	private Map<ObjectInstanceHandle, HLAPerson> people;
 
+	public static final String FEDERATE_NAME = "LOGGER_FEDERATE";
+
 	public LoggerFederate() {
 		super();
 		this.people = new HashMap<>();
 	}
-	
-	protected void joinFederationExcecution(String federateName) {
-		super.joinFederationExcecution(federateName, new LoggerFederateAmbassador());
-		subscribeToPerson();
-		subscribeToInformInteraction();
-	}
-	
-	private void subscribeToPerson() {
-		this.getController().log("LoggerSubscribingToPersonWorkDone");
-		try {
-			ObjectClassHandle personClassHandle = this.getRTIAmbassador().getObjectClassHandle(HLAPerson.CLASS_NAME);
-			AttributeHandleSet personAttributesHandle = this.getRTIAmbassador().getAttributeHandleSetFactory().create();
-			personAttributesHandle.add(this.getRTIAmbassador().getAttributeHandle(personClassHandle, HLAPerson.ATTRIBUTE_WORK_DONE_NAME));
-			this.getRTIAmbassador().subscribeObjectClassAttributes(personClassHandle, personAttributesHandle);
-		} catch (NameNotFound | FederateNotExecutionMember | NotConnected | RTIinternalError | InvalidObjectClassHandle | AttributeNotDefined | ObjectClassNotDefined | SaveInProgress | RestoreInProgress e) {
-			throw new RuntimeException(e);
-		}
+
 	@Override
 	public void update(Observable o, Object arg) {
 		((SimulationEvent) arg).updateSimulation(null, this);
 	}
 
 	@Override
-	protected void resignFromFederation() {
-		super.resignFromFederation();
+	protected AttributeHandleSet configurePerson() {
+		AttributeHandleSet personAttributesHandle = super.configurePerson();
+		this.getController().log("Configuring person interaction", null);
 		try {
-			getRTIAmbassador().destroyFederationExecution(Simulation.FEDERATION_NAME);
-		} catch (FederatesCurrentlyJoined | FederationExecutionDoesNotExist | NotConnected | RTIinternalError e) {
+			this.getRTIAmbassador().subscribeObjectClassAttributes(this.getPersonObjectClassHandle(), personAttributesHandle);
+		} catch (FederateNotExecutionMember | NotConnected | RTIinternalError | AttributeNotDefined | ObjectClassNotDefined | SaveInProgress | RestoreInProgress e) {
 			throw new RuntimeException(e);
 		}
+		return personAttributesHandle;
 	}
-	
-	private void subscribeToInformInteraction() {
-		this.getController().log("LoggerSubscribingToInformInteraction");
+
+	@Override
+	protected void configureInformInteraction() {
+		super.configureInformInteraction();
+		this.getController().log("Configuring inform interaction", null);
 		InteractionClassHandle informInteractionClassHandle;
 		try {
 			informInteractionClassHandle = this.getRTIAmbassador().getInteractionClassHandle(HLAInformInteraction.INFORM_INTERACTION_NAME);
 			this.getRTIAmbassador().subscribeInteractionClass(informInteractionClassHandle);
-		} catch (NameNotFound | FederateNotExecutionMember | NotConnected | RTIinternalError | FederateServiceInvocationsAreBeingReportedViaMOM | InteractionClassNotDefined | SaveInProgress | RestoreInProgress e) {
+		} catch (NameNotFound | FederateNotExecutionMember | NotConnected | RTIinternalError | FederateServiceInvocationsAreBeingReportedViaMOM | InteractionClassNotDefined | SaveInProgress
+				| RestoreInProgress e) {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
+	public void joinFederationExcecution(String federateName) {
+		super.joinFederationExcecution(federateName, new LoggerFederateAmbassador());
+	}
+
 	private void personDiscovered(HLAPerson hlaPerson) {
 		if (hlaPerson != null) {
 			getController().log("Discovered person: " + hlaPerson.getObjectInstanceName());

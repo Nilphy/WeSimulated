@@ -12,17 +12,14 @@ import hla.rti1516e.ObjectInstanceHandle;
 import hla.rti1516e.OrderType;
 import hla.rti1516e.ParameterHandleValueMap;
 import hla.rti1516e.TransportationTypeHandle;
-import hla.rti1516e.exceptions.AttributeNotDefined;
 import hla.rti1516e.exceptions.FederateInternalError;
 import hla.rti1516e.exceptions.FederateNotExecutionMember;
+import hla.rti1516e.exceptions.IllegalTimeArithmetic;
 import hla.rti1516e.exceptions.InTimeAdvancingState;
-import hla.rti1516e.exceptions.InteractionClassNotDefined;
-import hla.rti1516e.exceptions.InvalidInteractionClassHandle;
 import hla.rti1516e.exceptions.InvalidLogicalTime;
+import hla.rti1516e.exceptions.InvalidLogicalTimeInterval;
 import hla.rti1516e.exceptions.InvalidLookahead;
-import hla.rti1516e.exceptions.InvalidObjectClassHandle;
 import hla.rti1516e.exceptions.LogicalTimeAlreadyPassed;
-import hla.rti1516e.exceptions.NameNotFound;
 import hla.rti1516e.exceptions.NotConnected;
 import hla.rti1516e.exceptions.ObjectClassNotDefined;
 import hla.rti1516e.exceptions.ObjectClassNotPublished;
@@ -32,6 +29,7 @@ import hla.rti1516e.exceptions.RequestForTimeConstrainedPending;
 import hla.rti1516e.exceptions.RequestForTimeRegulationPending;
 import hla.rti1516e.exceptions.RestoreInProgress;
 import hla.rti1516e.exceptions.SaveInProgress;
+import hla.rti1516e.exceptions.TimeConstrainedAlreadyEnabled;
 import hla.rti1516e.exceptions.TimeRegulationAlreadyEnabled;
 
 import java.time.Duration;
@@ -84,44 +82,22 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 		try {
 			ObjectInstanceHandle objectInstanceHandle;
 			String objectInstanceName;
-			try {
-				this.publishPerson();
-				this.publishInformInteraction();
-				objectInstanceHandle = getRTIAmbassador().registerObjectInstance(getPersonObjectClassHandle());
-				objectInstanceName = getRTIAmbassador().getObjectInstanceName(objectInstanceHandle);
-			} catch (ObjectClassNotPublished | ObjectClassNotDefined | SaveInProgress | RestoreInProgress | FederateNotExecutionMember | NotConnected | RTIinternalError | ObjectInstanceNotKnown e) {
-				throw new RuntimeException(e);
-			}
+			objectInstanceHandle = getRTIAmbassador().registerObjectInstance(getPersonObjectClassHandle());
+			objectInstanceName = getRTIAmbassador().getObjectInstanceName(objectInstanceHandle);
 			HLAPerson hlaPerson = new HLAPerson(this.getRTIAmbassador(), getPersonObjectClassHandle(), objectInstanceHandle, objectInstanceName);
 			this.personSimulator = PersonSimulatorBuilder.build(this.person, hlaPerson, ProjectSimulator.getInstance().getStartDate());
 			ProjectSimulator.getInstance().addPerson(this.personSimulator);
+			this.getRTIAmbassador().enableTimeConstrained();
 			this.getRTIAmbassador().enableTimeRegulation(new DateLogicalTimeInterval(Duration.ofMillis(LOOKAHEAD)));
 		} catch (InvalidLookahead | InTimeAdvancingState | RequestForTimeRegulationPending | TimeRegulationAlreadyEnabled | SaveInProgress | RestoreInProgress | FederateNotExecutionMember
-				| NotConnected | RTIinternalError e) {
+				| NotConnected | RTIinternalError | RequestForTimeConstrainedPending | TimeConstrainedAlreadyEnabled | ObjectClassNotPublished | ObjectClassNotDefined | ObjectInstanceNotKnown e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected void publishPerson() {
-		try {
-			setProgrammerObjectClassHandle(getRTIAmbassador().getObjectClassHandle(HLAPerson.CLASS_NAME));
-			AttributeHandleSet personAttributeHandles = getRTIAmbassador().getAttributeHandleSetFactory().create();
-			personAttributeHandles.add(getRTIAmbassador().getAttributeHandle(getPersonObjectClassHandle(), HLAPerson.ATTRIBUTE_WORK_DONE_NAME));
-			getRTIAmbassador().publishObjectClassAttributes(getPersonObjectClassHandle(), personAttributeHandles);
-		} catch (NameNotFound | FederateNotExecutionMember | NotConnected | RTIinternalError | InvalidObjectClassHandle | AttributeNotDefined | ObjectClassNotDefined | SaveInProgress
-				| RestoreInProgress e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	private void publishInformInteraction() {
-		try {
-			setInformInteractionClassHandle(getRTIAmbassador().getInteractionClassHandle(HLAInformInteraction.INFORM_INTERACTION_NAME));
-			setMessageParameterHandle(getRTIAmbassador().getParameterHandle(getInformInteractionClassHandle(), HLAInformInteraction.INFORM_INTERACTION_MESSAGE_PARAM_NAME));
-			getRTIAmbassador().publishInteractionClass(getInformInteractionClassHandle());
-		} catch (NameNotFound | FederateNotExecutionMember | NotConnected | RTIinternalError | InvalidInteractionClassHandle | InteractionClassNotDefined | SaveInProgress | RestoreInProgress e) {
-			throw new RuntimeException(e);
-		}
+	protected void sendInformInteraction(String message, @SuppressWarnings("rawtypes") LogicalTime time) {
+		HLAInformInteraction hlaInformInteraction = new HLAInformInteraction(getRTIAmbassador(), getInformInteractionClassHandle(), message);
+		hlaInformInteraction.sendInteraction(time);
 	}
 
 	protected void sendInformInteraction(String message) {
