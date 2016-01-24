@@ -5,6 +5,8 @@ public class StartEvent extends SimulationEvent {
 
 	@Override
 	public void updateSimulation(PersonSimulator personSimulator, AbstractFederate personFederate) {
-		personSimulator.startExecution();
+		if (personSimulator != null) {
+			personSimulator.startExecution();
+		}
 	}
 }
