@@ -101,8 +101,7 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 	}
 
 	protected void sendInformInteraction(String message) {
-		HLAInformInteraction hlaInformInteraction = new HLAInformInteraction(getRTIAmbassador(), getInformInteractionClassHandle(), message);
-		hlaInformInteraction.sendInteraction(new DateLogicalTime(personSimulator.getExecutor().getClock().getCurrentDate()));
+		this.sendInformInteraction(message, new DateLogicalTime(this.personSimulator.getExecutor().getClock().getCurrentDate()));
 	}
 
 	public class PersonFederateAmbassador extends NullFederateAmbassador implements FederateAmbassador {
