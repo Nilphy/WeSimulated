@@ -46,7 +46,7 @@ public class Simulation extends Observable {
 			this.addObserver(this.logger);
 		}
 	}
-	
+
 	public void addPerson(Person person) {
 		PersonFederate personFederate = new PersonFederate(person);
 		this.addObserver(personFederate);

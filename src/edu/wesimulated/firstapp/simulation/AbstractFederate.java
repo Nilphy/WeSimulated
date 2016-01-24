@@ -53,7 +53,7 @@ public class AbstractFederate {
 			rtiAmbassador = RtiFactoryFactory.getRtiFactory().getRtiAmbassador();
 			this.getRTIAmbassador().connect(federateAmbassador, CallbackModel.HLA_IMMEDIATE);
 			try {
-				getRTIAmbassador().createFederationExecution(Simulation.FEDERATION_NAME, new URL[] {Simulation.class.getResource(Simulation.FDD)}, DateLogicalTimeFactory.NAME);
+				getRTIAmbassador().createFederationExecution(Simulation.FEDERATION_NAME, new URL[] { Simulation.class.getResource(Simulation.FDD) }, DateLogicalTimeFactory.NAME);
 			} catch (FederationExecutionAlreadyExists feae) {
 				System.out.println("The federation has already been created by another federate");
 			}

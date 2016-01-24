@@ -87,11 +87,11 @@ public class LoggerFederate extends AbstractFederate implements Observer {
 			getPeople().put(hlaPerson.getObjectInstanceHandle(), hlaPerson);
 		}
 	}
-	
+
 	private SimulationOverviewController getController() {
 		return this.simulationOverviewController;
 	}
-		
+
 	public void setSimulationOverviewController(SimulationOverviewController simulationOverviewController) {
 		this.simulationOverviewController = simulationOverviewController;
 	}
@@ -99,7 +99,7 @@ public class LoggerFederate extends AbstractFederate implements Observer {
 	public Map<ObjectInstanceHandle, HLAPerson> getPeople() {
 		return this.people;
 	}
-	
+
 	public class LoggerFederateAmbassador extends NullFederateAmbassador implements FederateAmbassador {
 
 		@Override
