@@ -2,6 +2,7 @@ package edu.wesimulated.firstapp.simulation;
 
 import java.util.Date;
 
+import com.wesimulated.simulationmotor.DateUtils;
 import com.wesimulated.simulationmotor.operationbased.BOperation;
 
 public class Work implements BOperation {
@@ -17,7 +18,7 @@ public class Work implements BOperation {
 	@Override
 	public void doAction() {
 		this.personSimulator.doOneDayOfWork();
-		this.personSimulator.addBOperation(new Work(this.personSimulator, this.startTime));
+		this.personSimulator.addBOperation(new Work(this.personSimulator, DateUtils.convertToStartOfNextLabDay(this.startTime)));
 	}
 
 	@Override
