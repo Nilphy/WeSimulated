@@ -83,7 +83,7 @@ public class LoggerFederate extends AbstractFederate implements Observer {
 
 	private void personDiscovered(HLAPerson hlaPerson) {
 		if (hlaPerson != null) {
-			getController().log("Discovered person: " + hlaPerson.getObjectInstanceName());
+			getController().log("Discovered person: " + hlaPerson.getObjectInstanceName(), null);
 			getPeople().put(hlaPerson.getObjectInstanceHandle(), hlaPerson);
 		}
 	}
