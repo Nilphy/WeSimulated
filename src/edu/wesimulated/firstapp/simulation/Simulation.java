@@ -27,6 +27,7 @@ public class Simulation extends Observable {
 	}
 
 	public void destroyFederation() {
+		this.setChanged();
 		this.notifyObservers(SimulationEvent.buildEndEvent());
 		this.logger.destroyFederationExecution();
 	}
