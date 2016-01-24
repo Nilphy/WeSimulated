@@ -66,7 +66,7 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 		}
 	}
 
-	public void timeRequestGranted(LogicalTime time) {
+	public void timeRequestGranted(@SuppressWarnings("rawtypes") LogicalTime time) {
 		this.personSimulator.getExecutor().continueFromDate((DateLogicalTime) time);
 	}
 
@@ -185,12 +185,14 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 			sendInformInteraction("requestAttributeOwnershipRelease");
 		}
 
+		@SuppressWarnings("rawtypes")
 		@Override
 		public void timeRegulationEnabled(LogicalTime time) throws FederateInternalError {
 			initClock((DateLogicalTime) time);
 			System.out.println("timeRegulationEnabled");
 		}
 
+		@SuppressWarnings({ "rawtypes", "unchecked" })
 		@Override
 		public void timeAdvanceGrant(LogicalTime time) {
 			timeRequestGranted(time);

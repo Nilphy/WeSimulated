@@ -49,7 +49,7 @@ public class HLAInformInteraction {
 		this.message = decodeMessage(parameterValues.get(this.getMessageParamClass()));
 	}
 
-	public void sendInteraction(LogicalTime<?, ?> logicalTime) {
+	public void sendInteraction(@SuppressWarnings("rawtypes") LogicalTime logicalTime) {
 		ParameterHandleValueMap informInteractionParameterHandleValueMap;
 		try {
 			informInteractionParameterHandleValueMap = this.getRtiAmbassador().getParameterHandleValueMapFactory().create(1);
