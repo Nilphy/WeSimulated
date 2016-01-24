@@ -8,6 +8,7 @@ import hla.rti1516e.RTIambassador;
 import hla.rti1516e.exceptions.AttributeNotDefined;
 import hla.rti1516e.exceptions.AttributeNotOwned;
 import hla.rti1516e.exceptions.FederateNotExecutionMember;
+import hla.rti1516e.exceptions.InvalidLogicalTime;
 import hla.rti1516e.exceptions.InvalidObjectClassHandle;
 import hla.rti1516e.exceptions.NameNotFound;
 import hla.rti1516e.exceptions.NotConnected;
@@ -19,6 +20,7 @@ import hla.rti1516e.exceptions.SaveInProgress;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
+import com.wesimulated.simulation.hla.DateLogicalTime;
 public class HLAPerson {
 	public static final String CLASS_NAME = "Person";
 	public static final String ATTRIBUTE_WORK_DONE_NAME = "WorkDone";
@@ -40,13 +42,13 @@ public class HLAPerson {
 		this.objectInstanceName = personName;
 	}
 
-	public void incrementWorkDone(float workDone) {
-		this.workDone += this.workDone;
+	public void incrementWorkDone(float workDone, DateLogicalTime time) {
+		this.workDone += workDone;
 		try {
 			AttributeHandleValueMap attributeValues = this.rtiAmbassador.getAttributeHandleValueMapFactory().create(1);
 			attributeValues.put(workDoneAttributeInstanceHandle, encodeWorkDone(this.workDone));
-			this.rtiAmbassador.updateAttributeValues(objectInstanceHandle, attributeValues, null);
-		} catch (FederateNotExecutionMember | NotConnected | AttributeNotOwned | AttributeNotDefined | ObjectInstanceNotKnown | SaveInProgress | RestoreInProgress | RTIinternalError e) {
+			this.rtiAmbassador.updateAttributeValues(objectInstanceHandle, attributeValues, null, time);
+		} catch (FederateNotExecutionMember | NotConnected | AttributeNotOwned | AttributeNotDefined | ObjectInstanceNotKnown | SaveInProgress | RestoreInProgress | RTIinternalError | InvalidLogicalTime e) {
 			throw new RuntimeException(e);
 		}
 	}

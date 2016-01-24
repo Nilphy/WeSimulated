@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import com.wesimulated.simulation.hla.DateLogicalTime;
+import com.wesimulated.simulationmotor.DateUtils;
 import com.wesimulated.simulationmotor.operationbased.BOperation;
 import com.wesimulated.simulationmotor.operationbased.OperationBasedExecutor;
 
@@ -50,7 +52,12 @@ public class PersonSimulator {
 			TaskSimulator task = tasksIterator.next();
 			if (!task.isCompleted()) {
 				remainingMillisecondsToWorkToday = task.consumeTime(remainingMillisecondsToWorkToday);
-				this.hlaPerson.incrementWorkDone(UnitsOfWorkInterpreter.milisToUow(previousRemainingMillisecondsToWorkToday - remainingMillisecondsToWorkToday));
+				float millisSpentOnTask = previousRemainingMillisecondsToWorkToday - remainingMillisecondsToWorkToday;
+				DateLogicalTime endMoment = DateUtils.addMilis(this.getExecutor().getClock().getCurrentDate(), millisSpentOnTask);
+				this.hlaPerson.incrementWorkDone(
+					UnitsOfWorkInterpreter.milisToUow(millisSpentOnTask), 
+					endMoment
+				);
 				System.out.println("Work done! " + this.person + " has worked in " + task + " and still has " + remainingMillisecondsToWorkToday + " milliseconds to work today.");
 				previousRemainingMillisecondsToWorkToday = remainingMillisecondsToWorkToday;
 			}
