@@ -5,6 +5,8 @@ import hla.rti1516e.AttributeHandleValueMap;
 import hla.rti1516e.FederateAmbassador;
 import hla.rti1516e.FederateHandle;
 import hla.rti1516e.InteractionClassHandle;
+import hla.rti1516e.LogicalTime;
+import hla.rti1516e.MessageRetractionHandle;
 import hla.rti1516e.NullFederateAmbassador;
 import hla.rti1516e.ObjectClassHandle;
 import hla.rti1516e.ObjectInstanceHandle;
@@ -15,10 +17,7 @@ import hla.rti1516e.exceptions.AttributeNotDefined;
 import hla.rti1516e.exceptions.FederateInternalError;
 import hla.rti1516e.exceptions.FederateNotExecutionMember;
 import hla.rti1516e.exceptions.FederateServiceInvocationsAreBeingReportedViaMOM;
-import hla.rti1516e.exceptions.FederatesCurrentlyJoined;
-import hla.rti1516e.exceptions.FederationExecutionDoesNotExist;
 import hla.rti1516e.exceptions.InteractionClassNotDefined;
-import hla.rti1516e.exceptions.InvalidObjectClassHandle;
 import hla.rti1516e.exceptions.NameNotFound;
 import hla.rti1516e.exceptions.NotConnected;
 import hla.rti1516e.exceptions.ObjectClassNotDefined;
@@ -28,6 +27,10 @@ import hla.rti1516e.exceptions.SaveInProgress;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
+
+import com.wesimulated.simulation.hla.DateLogicalTime;
 
 import edu.wesimulated.firstapp.view.SimulationOverviewController;
 
@@ -100,65 +103,51 @@ public class LoggerFederate extends AbstractFederate implements Observer {
 	public class LoggerFederateAmbassador extends NullFederateAmbassador implements FederateAmbassador {
 
 		@Override
-		public void discoverObjectInstance(ObjectInstanceHandle objectInstanceHandle, ObjectClassHandle objectClassHandle, String objectInstanceName) 
-				throws FederateInternalError {
+		public void discoverObjectInstance(ObjectInstanceHandle objectInstanceHandle, ObjectClassHandle objectClassHandle, String objectInstanceName) throws FederateInternalError {
 			discoverObjectInstance(objectInstanceHandle, objectClassHandle, objectInstanceName, null);
 		}
 
 		@Override
 		public void discoverObjectInstance(ObjectInstanceHandle objectInstanceHandle, ObjectClassHandle objectClassHandle, String objectInstanceName, FederateHandle producingFederate)
 				throws FederateInternalError {
-			if (getPersonObjectClassHandle().equals(objectClassHandle)) {
-				HLAPerson hlaPerson = null;
-				hlaPerson = new HLAPerson(getRTIAmbassador(), getPersonObjectClassHandle(), objectInstanceHandle, objectInstanceName);
-				personDiscovered(hlaPerson);
-			}
+			HLAPerson hlaPerson = null;
+			hlaPerson = new HLAPerson(getRTIAmbassador(), objectClassHandle, objectInstanceHandle, objectInstanceName);
+			personDiscovered(hlaPerson);
 		}
 
 		@Override
-		public void reflectAttributeValues(ObjectInstanceHandle objectInstanceHandle, AttributeHandleValueMap attributeValues, byte[] tag, OrderType sentOrdering, TransportationTypeHandle transportationTypeHandle, SupplementalReflectInfo reflectInfo) 
+		public void reflectAttributeValues(ObjectInstanceHandle objectInstanceHandle, AttributeHandleValueMap attributeValues, byte[] userSuppliedTag, OrderType sentOrdering,
+				TransportationTypeHandle theTransport, @SuppressWarnings("rawtypes") LogicalTime theTime, OrderType receivedOrdering, SupplementalReflectInfo reflectInfo) throws FederateInternalError {
+			this.reflectAttributeValues(objectInstanceHandle, attributeValues, userSuppliedTag, sentOrdering, theTransport, theTime, receivedOrdering, null, reflectInfo);
+		}
+
+		@Override
+		public void reflectAttributeValues(ObjectInstanceHandle objectInstanceHandle, AttributeHandleValueMap attributeValues, byte[] userSuppliedTag, OrderType sentOrdering,
+				TransportationTypeHandle theTransport, @SuppressWarnings("rawtypes") LogicalTime theTime, OrderType receivedOrdering, MessageRetractionHandle retractionHandle, SupplementalReflectInfo reflectInfo)
 				throws FederateInternalError {
 			HLAPerson person = getPeople().get(objectInstanceHandle);
 			person.reflectAttributeValues(attributeValues);
-			getController().log(person.getWorkDone());
+			getController().log(person.getWorkDone(), ((DateLogicalTime) theTime).getValue());
 		}
 
 		@Override
-		public void receiveInteraction(InteractionClassHandle interactionClassHandle, ParameterHandleValueMap parameterValues, byte[] tag, OrderType sentOrdering, TransportationTypeHandle transportationTypeHandle, SupplementalReceiveInfo receiveInfo) 
+		public void receiveInteraction(InteractionClassHandle interactionClass, ParameterHandleValueMap theParameters, byte[] userSuppliedTag, OrderType sentOrdering,
+				TransportationTypeHandle theTransport, SupplementalReceiveInfo receiveInfo) throws FederateInternalError {
+		}
+
+		@Override
+		public void receiveInteraction(InteractionClassHandle interactionClass, ParameterHandleValueMap theParameters, byte[] userSuppliedTag, OrderType sentOrdering,
+				TransportationTypeHandle theTransport, @SuppressWarnings("rawtypes") LogicalTime theTime, OrderType receivedOrdering, SupplementalReceiveInfo receiveInfo) throws FederateInternalError {
+			this.receiveInteraction(interactionClass, theParameters, userSuppliedTag, sentOrdering, theTransport, theTime, receivedOrdering, null, receiveInfo);
+		}
+
+		@Override
+		public void receiveInteraction(InteractionClassHandle interactionClass, ParameterHandleValueMap theParameters, byte[] userSuppliedTag, OrderType sentOrdering,
+				TransportationTypeHandle theTransport, @SuppressWarnings("rawtypes") LogicalTime theTime, OrderType receivedOrdering, MessageRetractionHandle retractionHandle, SupplementalReceiveInfo receiveInfo)
 				throws FederateInternalError {
-			HLAInformInteraction informInteraction = new HLAInformInteraction(getRTIAmbassador(), interactionClassHandle);
-			informInteraction.receiveInteraction(parameterValues);
-			getController().log("Receive Interaction: " + informInteraction.getMessage());
-		}
-
-		@Override
-		public void removeObjectInstance(ObjectInstanceHandle objectInstanceHandle, byte[] tag, OrderType sentOrdering, SupplementalRemoveInfo removeInfo) throws FederateInternalError {
-			getController().log("Remove Object Instance");
-		}
-
-		@Override
-		public void provideAttributeValueUpdate(ObjectInstanceHandle objectInstanceHandle, AttributeHandleSet attributeHandles, byte[] tag) throws FederateInternalError {
-			getController().log("Provide Attribute Value Update");
-		}
-
-		@Override
-		public void requestAttributeOwnershipAssumption(ObjectInstanceHandle objectInstanceHandle, AttributeHandleSet attributeHandles, byte[] tag) throws FederateInternalError {
-			getController().log("Request Attribute Ownership Assumption");
-		}
-
-		@Override
-		public void attributeOwnershipAcquisitionNotification(ObjectInstanceHandle objectInstanceHandle, AttributeHandleSet attributeHandles, byte[] tag) throws FederateInternalError {
-			getController().log("Attribute Ownsership Acquisition Notification");
-		}
-
-		@Override
-		public void attributeOwnershipUnavailable(ObjectInstanceHandle objectInstanceHandle, AttributeHandleSet attributeHandles) throws FederateInternalError {
-			getController().log("Attribute Ownership Unavailable");
-		}
-
-		@Override
-		public void requestAttributeOwnershipRelease(ObjectInstanceHandle objectInstanceHandle, AttributeHandleSet attributeHandles, byte[] tag) throws FederateInternalError {
-			getController().log("Request Attriibute Ownsership Release"); 
+			HLAInformInteraction informInteraction = new HLAInformInteraction(getRTIAmbassador(), interactionClass);
+			informInteraction.receiveInteraction(theParameters);
+			getController().log("Receive Interaction: " + informInteraction.getMessage(), ((DateLogicalTime) theTime).getValue());
 		}
 	}
 }
