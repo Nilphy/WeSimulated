@@ -39,7 +39,7 @@ import java.util.Observer;
 
 import com.wesimulated.simulation.hla.DateLogicalTime;
 import com.wesimulated.simulation.hla.DateLogicalTimeInterval;
-import com.wesimulated.simulationmotor.operationbased.TimeControllerEntity;
+import com.wesimulated.simulationmotor.des.TimeControllerEntity;
 
 import edu.wesimulated.firstapp.model.Person;
 

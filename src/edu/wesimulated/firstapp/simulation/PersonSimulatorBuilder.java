@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.wesimulated.simulation.runparameters.TaskCompletedEndCondition;
 import com.wesimulated.simulationmotor.DateUtils;
-import com.wesimulated.simulationmotor.operationbased.threefaseaproach.ThreePhaseExecutor;
+import com.wesimulated.simulationmotor.des.threefaseaproach.ThreePhaseExecutor;
 
 import edu.wesimulated.firstapp.model.Person;
 

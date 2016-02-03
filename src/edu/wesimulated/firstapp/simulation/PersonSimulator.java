@@ -6,8 +6,8 @@ import java.util.LinkedList;
 
 import com.wesimulated.simulation.hla.DateLogicalTime;
 import com.wesimulated.simulationmotor.DateUtils;
-import com.wesimulated.simulationmotor.operationbased.BOperation;
-import com.wesimulated.simulationmotor.operationbased.OperationBasedExecutor;
+import com.wesimulated.simulationmotor.des.BOperation;
+import com.wesimulated.simulationmotor.des.OperationBasedExecutor;
 
 import edu.wesimulated.firstapp.model.Person;
 

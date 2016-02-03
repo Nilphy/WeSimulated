@@ -3,7 +3,7 @@ package edu.wesimulated.firstapp.simulation;
 import java.util.Date;
 
 import com.wesimulated.simulationmotor.DateUtils;
-import com.wesimulated.simulationmotor.operationbased.BOperation;
+import com.wesimulated.simulationmotor.des.BOperation;
 
 public class Work implements BOperation {
 

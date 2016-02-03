@@ -1,6 +1,6 @@
 package edu.wesimulated.firstapp.model;
 
-import com.wesimulated.simulationmotor.operationbased.Entity;
+import com.wesimulated.simulationmotor.des.Entity;
 
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
