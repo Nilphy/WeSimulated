@@ -45,12 +45,11 @@
                         <Label fx:id="unitsOfWorkLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
-                  <ToolBar layoutX="209.0" layoutY="244.0" prefHeight="40.0" prefWidth="205.0" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0">
+                  <ToolBar layoutX="209.0" layoutY="244.0" prefHeight="40.0" prefWidth="168.0" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0">
                     <items>
                       <Button mnemonicParsing="false" onAction="#handleNewTask" text="New..." />
                         <Button mnemonicParsing="false" onAction="#handleEditTask" text="Edit..." />
                         <Button mnemonicParsing="false" onAction="#handleDeleteTask" text="Delete" />
-                        <Button mnemonicParsing="false" text="Join" />
                     </items>
                   </ToolBar>
                </children></AnchorPane>
