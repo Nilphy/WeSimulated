@@ -8,7 +8,7 @@ import com.wesimulated.simulationmotor.des.threefaseaproach.ThreePhaseExecutor;
 
 import edu.wesimulated.firstapp.model.Person;
 
-public class PersonSimulatorBuilder {
+public class PersonRolSimulatorBuilder {
 
 	public static PersonRolSimulator build(Person person, HLAPerson hlaPerson, Date startDate) {
 		ProjectSimulator projectSimulator = ProjectSimulator.getInstance();

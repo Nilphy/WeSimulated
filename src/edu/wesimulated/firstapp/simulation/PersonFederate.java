@@ -85,7 +85,7 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 			objectInstanceHandle = getRTIAmbassador().registerObjectInstance(getPersonObjectClassHandle());
 			objectInstanceName = getRTIAmbassador().getObjectInstanceName(objectInstanceHandle);
 			HLAPerson hlaPerson = new HLAPerson(this.getRTIAmbassador(), getPersonObjectClassHandle(), objectInstanceHandle, objectInstanceName);
-			this.personRolSimulator = PersonSimulatorBuilder.build(this.person, hlaPerson, ProjectSimulator.getInstance().getStartDate());
+			this.personRolSimulator = PersonRolSimulatorBuilder.build(this.person, hlaPerson, ProjectSimulator.getInstance().getStartDate());
 			ProjectSimulator.getInstance().addPerson(this.personRolSimulator);
 			this.getRTIAmbassador().enableTimeConstrained();
 			this.getRTIAmbassador().enableTimeRegulation(new DateLogicalTimeInterval(Duration.ofMillis(LOOKAHEAD)));
