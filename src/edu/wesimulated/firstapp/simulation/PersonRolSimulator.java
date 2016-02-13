@@ -11,14 +11,14 @@ import com.wesimulated.simulationmotor.des.OperationBasedExecutor;
 
 import edu.wesimulated.firstapp.model.Person;
 
-public class PersonSimulator {
+public class PersonRolSimulator {
 
 	private OperationBasedExecutor executor;
 	private Collection<TaskSimulator> tasks;
 	private Person person;
 	private HLAPerson hlaPerson;
 
-	public PersonSimulator(OperationBasedExecutor executor, Person person, HLAPerson hlaPerson) {
+	public PersonRolSimulator(OperationBasedExecutor executor, Person person, HLAPerson hlaPerson) {
 		this.setExecutor(executor);
 		this.person = person;
 		this.hlaPerson = hlaPerson;

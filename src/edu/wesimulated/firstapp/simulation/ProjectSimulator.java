@@ -11,7 +11,7 @@ public class ProjectSimulator implements CompletableTask {
 	private static ProjectSimulator instance;
 	
 	private Collection<TaskSimulator> tasks;
-	private Collection<PersonSimulator> people;
+	private Collection<PersonRolSimulator> people;
 	private Date startDate;
 	
 	private ProjectSimulator() {
@@ -37,17 +37,17 @@ public class ProjectSimulator implements CompletableTask {
 
 	public void assignTasks() {
 		for (TaskSimulator taskSimulator : this.tasks) {
-			for (PersonSimulator personSimulator : people) {
-				personSimulator.addTask(taskSimulator);
+			for (PersonRolSimulator personRolSimulator : people) {
+				personRolSimulator.addTask(taskSimulator);
 			}
 		}
 	}
 
-	public void addPerson(PersonSimulator personSimulator) {
+	public void addPerson(PersonRolSimulator personRolSimulator) {
 		if (this.people == null) {
 			this.people = new LinkedList<>();
 		}
-		this.people.add(personSimulator);
+		this.people.add(personRolSimulator);
 	}
 
 	public void addTask(TaskSimulator taskSimulator) {

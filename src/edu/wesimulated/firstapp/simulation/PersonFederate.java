@@ -47,7 +47,7 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 
 	public static final String FEDERATE_NAME = "PERSON_FEDERATE";
 	private static final long LOOKAHEAD = 5000;
-	private PersonSimulator personSimulator;
+	private PersonRolSimulator personRolSimulator;
 	private Person person;
 
 	public PersonFederate(Person person) {
@@ -65,16 +65,16 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 	}
 
 	public void timeRequestGranted(@SuppressWarnings("rawtypes") LogicalTime time) {
-		this.personSimulator.getExecutor().continueFromDate((DateLogicalTime) time);
+		this.personRolSimulator.getExecutor().continueFromDate((DateLogicalTime) time);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		((SimulationEvent) arg).updateSimulation(this.personSimulator, this);
+		((SimulationEvent) arg).updateSimulation(this.personRolSimulator, this);
 	}
 
 	public void initClock(DateLogicalTime time) {
-		this.personSimulator.getExecutor().initClock(time, this);
+		this.personRolSimulator.getExecutor().initClock(time, this);
 	}
 
 	protected void joinFederationExcecution(String federateName) {
@@ -85,8 +85,8 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 			objectInstanceHandle = getRTIAmbassador().registerObjectInstance(getPersonObjectClassHandle());
 			objectInstanceName = getRTIAmbassador().getObjectInstanceName(objectInstanceHandle);
 			HLAPerson hlaPerson = new HLAPerson(this.getRTIAmbassador(), getPersonObjectClassHandle(), objectInstanceHandle, objectInstanceName);
-			this.personSimulator = PersonSimulatorBuilder.build(this.person, hlaPerson, ProjectSimulator.getInstance().getStartDate());
-			ProjectSimulator.getInstance().addPerson(this.personSimulator);
+			this.personRolSimulator = PersonSimulatorBuilder.build(this.person, hlaPerson, ProjectSimulator.getInstance().getStartDate());
+			ProjectSimulator.getInstance().addPerson(this.personRolSimulator);
 			this.getRTIAmbassador().enableTimeConstrained();
 			this.getRTIAmbassador().enableTimeRegulation(new DateLogicalTimeInterval(Duration.ofMillis(LOOKAHEAD)));
 		} catch (InvalidLookahead | InTimeAdvancingState | RequestForTimeRegulationPending | TimeRegulationAlreadyEnabled | SaveInProgress | RestoreInProgress | FederateNotExecutionMember
@@ -101,7 +101,7 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 	}
 
 	protected void sendInformInteraction(String message) {
-		this.sendInformInteraction(message, new DateLogicalTime(this.personSimulator.getExecutor().getClock().getCurrentDate()));
+		this.sendInformInteraction(message, new DateLogicalTime(this.personRolSimulator.getExecutor().getClock().getCurrentDate()));
 	}
 
 	public class PersonFederateAmbassador extends NullFederateAmbassador implements FederateAmbassador {

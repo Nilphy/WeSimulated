@@ -7,18 +7,18 @@ import com.wesimulated.simulationmotor.des.BOperation;
 
 public class Work implements BOperation {
 
-	private PersonSimulator personSimulator;
+	private PersonRolSimulator personRolSimulator;
 	private Date startTime;
 
-	public Work(PersonSimulator personSimulator, Date startTime) {
-		this.personSimulator = personSimulator;
+	public Work(PersonRolSimulator personRolSimulator, Date startTime) {
+		this.personRolSimulator = personRolSimulator;
 		this.startTime = startTime;
 	}
 
 	@Override
 	public void doAction() {
-		this.personSimulator.doOneDayOfWork();
-		this.personSimulator.addBOperation(new Work(this.personSimulator, DateUtils.convertToStartOfNextLabDay(this.startTime)));
+		this.personRolSimulator.doOneDayOfWork();
+		this.personRolSimulator.addBOperation(new Work(this.personRolSimulator, DateUtils.convertToStartOfNextLabDay(this.startTime)));
 	}
 
 	@Override
