@@ -3,7 +3,7 @@ package edu.wesimulated.firstapp.simulation;
 import edu.wesimulated.firstapp.model.TaskData;
 
 
-public class TaskSimulator {
+public class TaskSimulator extends Simulator {
 
 	private TaskData task;
 	private float workDoneInMiliseconds;

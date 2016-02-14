@@ -11,23 +11,14 @@ import edu.wesimulated.firstapp.simulation.domain.Task;
 
 public class ProjectSimulator extends Simulator implements CompletableTask {
 
-	private static ProjectSimulator instance;
-	
 	private Collection<Task> tasks;
 	private Collection<Person> people;
 	private Date startDate;
 	
-	private ProjectSimulator() {
+	public ProjectSimulator() {
 		this.startDate = new Date();
 	}
 	
-	public static ProjectSimulator getInstance() {
-		if (instance == null) {
-			instance = new ProjectSimulator();
-		}
-		return instance;
-	}
-
 	@Override
 	public boolean isCompleted() {
 		for (Task task : tasks) {

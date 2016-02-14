@@ -5,7 +5,7 @@ import edu.wesimulated.firstapp.simulation.exception.SimulationStillRunningExcep
 public class EndEvent extends SimulationEvent {
 
 	@Override
-	public void updateSimulation(PersonRolSimulator personRolSimulator, AbstractFederate abstractFederate) {
+	public void updateSimulation(Simulator personRolSimulator, AbstractFederate abstractFederate) {
 		if (personRolSimulator != null && personRolSimulator.isRunning()) {
 			throw new SimulationStillRunningException();
 		}
