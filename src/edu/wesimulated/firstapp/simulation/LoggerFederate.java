@@ -129,7 +129,7 @@ public class LoggerFederate extends AbstractFederate implements Observer {
 				throws FederateInternalError {
 			HlaPerson person = getPeople().get(objectInstanceHandle);
 			person.reflectAttributeValues(attributeValues);
-			getController().log(person.getWorkDone(), ((DateLogicalTime) theTime).getValue());
+			getController().log(person.getLastWorkDone(), ((DateLogicalTime) theTime).getValue());
 		}
 
 		@Override

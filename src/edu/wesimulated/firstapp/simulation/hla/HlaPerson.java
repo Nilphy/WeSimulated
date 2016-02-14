@@ -17,21 +17,27 @@ import hla.rti1516e.exceptions.RTIinternalError;
 import hla.rti1516e.exceptions.RestoreInProgress;
 import hla.rti1516e.exceptions.SaveInProgress;
 
-import java.nio.ByteBuffer;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.nio.charset.Charset;
+import java.util.Collection;
 
 import com.wesimulated.simulation.hla.DateLogicalTime;
+
+import edu.wesimulated.firstapp.simulation.domain.Work;
 
 public class HlaPerson extends HlaObject {
 	public static final String CLASS_NAME = "Person";
 	public static final String ATTRIBUTE_WORK_DONE_NAME = "WorkDone";
 
 	private AttributeHandle workDoneAttributeInstanceHandle;
-	private Float workDone;
+	private Collection<Work> workDone;
 	
 	public HlaPerson(RTIambassador rtiAmbassador, ObjectClassHandle classHandle, ObjectInstanceHandle personHandle, String personName) {
 		super(rtiAmbassador, classHandle, personHandle, personName);
-		this.workDone = 0f;
 		try {
 			this.setWorkDoneAttributeHandle(this.getRtiAmbassador().getAttributeHandle(classHandle, ATTRIBUTE_WORK_DONE_NAME));
 		} catch (RTIinternalError | NameNotFound | InvalidObjectClassHandle | FederateNotExecutionMember | NotConnected e) {
@@ -39,8 +45,8 @@ public class HlaPerson extends HlaObject {
 		}
 	}
 
-	public void incrementWorkDone(float workDone, DateLogicalTime time) {
-		this.workDone += workDone;
+	public void incrementWorkDone(Work workDone, DateLogicalTime time) {
+		this.workDone.add(workDone);
 		try {
 			AttributeHandleValueMap attributeValues = this.getRtiAmbassador().getAttributeHandleValueMapFactory().create(1);
 			attributeValues.put(this.getWorkDoneAttributeHandle(), encodeWorkDone());
@@ -52,15 +58,28 @@ public class HlaPerson extends HlaObject {
 
 	public void reflectAttributeValues(AttributeHandleValueMap attributeValues) {
 		byte[] workDone = attributeValues.get(getWorkDoneAttributeHandle());
-		this.setWorkDone(decodeWorkDone(workDone));
+		decodeWorkDone(workDone);
 	}
 
-	private byte[] encodeWorkDone(float workDone) {
-		return ByteBuffer.allocate(8).putFloat(workDone).array();
+	private byte[] encodeWorkDone() {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		byte[] encodedWorkDone;
+		try (ObjectOutputStream oos = new ObjectOutputStream(baos)) {
+			oos.writeObject(this.workDone);
+			encodedWorkDone = baos.toByteArray();
+		} catch (IOException ioException) {
+			throw new RuntimeException(ioException);
+		}
+		return encodedWorkDone;
 	}
 
-	private float decodeWorkDone(byte[] buffer) {
-		return ByteBuffer.wrap(buffer).getFloat();
+	private void decodeWorkDone(byte[] buffer) {
+		ByteArrayInputStream bais = new ByteArrayInputStream(buffer);
+		try (ObjectInputStream ois = new ObjectInputStream(bais)) {
+			this.setWorkDone((Collection<Work>) ois.readObject());
+		} catch (IOException | ClassNotFoundException ioException) {
+			throw new RuntimeException(ioException);
+		}
 	}
 
 	private byte[] encodeName(String objectInstanceName) {

@@ -6,10 +6,10 @@ import java.util.Date;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import edu.wesimulated.firstapp.MainApp;
-import edu.wesimulated.firstapp.model.LogEvent;
 import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.simulation.Simulation;
+import edu.wesimulated.firstapp.simulation.domain.Work;
 
 public class SimulationOverviewController {
 
@@ -52,8 +52,8 @@ public class SimulationOverviewController {
 		this.textDisplay.appendText(this.getTimeToLog(date) + " " + message + "\n");
 	}
 
-	public void log(float workDone, Date date) {
-		this.textDisplay.appendText(this.getTimeToLog(date) + " " + new LogEvent(workDone) + "\n");
+	public void log(Work workDone, Date date) {
+		this.textDisplay.appendText(this.getTimeToLog(date) + " " + workDone + "\n");
 	}
 
 	private String getTimeToLog(Date date) {
