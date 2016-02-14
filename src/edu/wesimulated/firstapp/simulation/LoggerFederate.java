@@ -32,6 +32,8 @@ import java.util.Observer;
 
 import com.wesimulated.simulation.hla.DateLogicalTime;
 
+import edu.wesimulated.firstapp.simulation.domain.Person;
+import edu.wesimulated.firstapp.simulation.domain.PersonBuilder;
 import edu.wesimulated.firstapp.simulation.hla.HlaInformInteraction;
 import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
 import edu.wesimulated.firstapp.view.SimulationOverviewController;
@@ -39,7 +41,7 @@ import edu.wesimulated.firstapp.view.SimulationOverviewController;
 public class LoggerFederate extends AbstractFederate implements Observer {
 
 	private SimulationOverviewController simulationOverviewController;
-	private Map<ObjectInstanceHandle, HlaPerson> people;
+	private Map<ObjectInstanceHandle, Person> people;
 
 	public static final String FEDERATE_NAME = "LOGGER_FEDERATE";
 
@@ -83,10 +85,10 @@ public class LoggerFederate extends AbstractFederate implements Observer {
 		super.joinFederationExcecution(federateName, new LoggerFederateAmbassador());
 	}
 
-	private void personDiscovered(HlaPerson hlaPerson) {
-		if (hlaPerson != null) {
-			getController().log("Discovered person: " + hlaPerson.getObjectInstanceName(), null);
-			getPeople().put(hlaPerson.getObjectInstanceHandle(), hlaPerson);
+	private void personDiscovered(Person person) {
+		if (person != null) {
+			getController().log("Discovered person: " + person.getName(), null);
+			getPeople().put(person.getHlaObjectInstanceHandle(), person);
 		}
 	}
 
@@ -98,7 +100,7 @@ public class LoggerFederate extends AbstractFederate implements Observer {
 		this.simulationOverviewController = simulationOverviewController;
 	}
 
-	public Map<ObjectInstanceHandle, HlaPerson> getPeople() {
+	public Map<ObjectInstanceHandle, Person> getPeople() {
 		return this.people;
 	}
 
@@ -114,7 +116,7 @@ public class LoggerFederate extends AbstractFederate implements Observer {
 				throws FederateInternalError {
 			HlaPerson hlaPerson = null;
 			hlaPerson = new HlaPerson(getRTIAmbassador(), objectClassHandle, objectInstanceHandle, objectInstanceName);
-			personDiscovered(hlaPerson);
+			personDiscovered(PersonBuilder.createFromHlaPerson(hlaPerson));
 		}
 
 		@Override
@@ -127,7 +129,7 @@ public class LoggerFederate extends AbstractFederate implements Observer {
 		public void reflectAttributeValues(ObjectInstanceHandle objectInstanceHandle, AttributeHandleValueMap attributeValues, byte[] userSuppliedTag, OrderType sentOrdering,
 				TransportationTypeHandle theTransport, @SuppressWarnings("rawtypes") LogicalTime theTime, OrderType receivedOrdering, MessageRetractionHandle retractionHandle, SupplementalReflectInfo reflectInfo)
 				throws FederateInternalError {
-			HlaPerson person = getPeople().get(objectInstanceHandle);
+			Person person = getPeople().get(objectInstanceHandle);
 			person.reflectAttributeValues(attributeValues);
 			getController().log(person.getLastWorkDone(), ((DateLogicalTime) theTime).getValue());
 		}
