@@ -229,4 +229,19 @@ public class MainApp extends Application {
 			alert.showAndWait();
 		}
 	}
+
+	public boolean mustSimulateProject() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public Object getProjectData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public boolean mustStartLogger() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

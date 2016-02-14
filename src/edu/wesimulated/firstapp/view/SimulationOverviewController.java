@@ -35,7 +35,12 @@ public class SimulationOverviewController {
 		for (TaskData task : this.mainApp.getTaskData()) {
 			Simulation.getInstance().addTask(task);
 		}
-		Simulation.getInstance().registerLogger();
+		if (this.mainApp.mustStartLogger()) {
+			Simulation.getInstance().registerLogger();
+		}
+		if (this.mainApp.mustSimulateProject()) {
+			Simulation.getInstance().registerProject(this.mainApp.getProjectData());
+		}
 	}
 
 	@FXML
