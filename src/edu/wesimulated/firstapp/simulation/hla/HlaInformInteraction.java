@@ -1,4 +1,4 @@
-package edu.wesimulated.firstapp.simulation;
+package edu.wesimulated.firstapp.simulation.hla;
 
 import hla.rti1516e.InteractionClassHandle;
 import hla.rti1516e.LogicalTime;
@@ -13,7 +13,7 @@ import hla.rti1516e.exceptions.RTIinternalError;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
-public class HLAInformInteraction {
+public class HlaInformInteraction {
 
 	public static final String INFORM_INTERACTION_NAME = "InformInteraction";
 	public static final String INFORM_INTERACTION_MESSAGE_PARAM_NAME = "Message";
@@ -24,7 +24,7 @@ public class HLAInformInteraction {
 	private Object messageParamClass;
 	private InteractionClassHandle interactionClass;
 
-	public HLAInformInteraction(RTIambassador rtiAmbassador, InteractionClassHandle interactionClass) {
+	public HlaInformInteraction(RTIambassador rtiAmbassador, InteractionClassHandle interactionClass) {
 		try {
 			this.rtiAmbassador = rtiAmbassador;
 			this.messageParamClass = this.getRtiAmbassador().getParameterHandle(interactionClass, INFORM_INTERACTION_MESSAGE_PARAM_NAME);
@@ -34,7 +34,7 @@ public class HLAInformInteraction {
 		this.interactionClass = interactionClass;
 	}
 
-	public HLAInformInteraction(RTIambassador rtiAmbassador, InteractionClassHandle interactionClass, String mesage) {
+	public HlaInformInteraction(RTIambassador rtiAmbassador, InteractionClassHandle interactionClass, String mesage) {
 		this(rtiAmbassador, interactionClass);
 		this.message = mesage;
 	}
@@ -47,7 +47,7 @@ public class HLAInformInteraction {
 		ParameterHandleValueMap informInteractionParameterHandleValueMap;
 		try {
 			informInteractionParameterHandleValueMap = this.getRtiAmbassador().getParameterHandleValueMapFactory().create(1);
-			informInteractionParameterHandleValueMap.put(this.getRtiAmbassador().getParameterHandle(this.getInteractionClass(), HLAInformInteraction.INFORM_INTERACTION_MESSAGE_PARAM_NAME), this.encodeMessage(this.getMessage()));
+			informInteractionParameterHandleValueMap.put(this.getRtiAmbassador().getParameterHandle(this.getInteractionClass(), HlaInformInteraction.INFORM_INTERACTION_MESSAGE_PARAM_NAME), this.encodeMessage(this.getMessage()));
 			// FIXME: make this work
 //			this.rtiAmbassador.sendInteraction(this.getInteractionClass(), informInteractionParameterHandleValueMap, null, logicalTime);
 		} catch (FederateNotExecutionMember | NotConnected | NameNotFound | InvalidInteractionClassHandle | RTIinternalError e) {

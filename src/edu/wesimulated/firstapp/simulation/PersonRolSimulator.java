@@ -9,16 +9,17 @@ import com.wesimulated.simulationmotor.DateUtils;
 import com.wesimulated.simulationmotor.des.BOperation;
 import com.wesimulated.simulationmotor.des.OperationBasedExecutor;
 
-import edu.wesimulated.firstapp.model.Person;
+import edu.wesimulated.firstapp.model.PersonData;
+import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
 
 public class PersonRolSimulator {
 
 	private OperationBasedExecutor executor;
 	private Collection<TaskSimulator> tasks;
-	private Person person;
-	private HLAPerson hlaPerson;
+	private PersonData person;
+	private HlaPerson hlaPerson;
 
-	public PersonRolSimulator(OperationBasedExecutor executor, Person person, HLAPerson hlaPerson) {
+	public PersonRolSimulator(OperationBasedExecutor executor, PersonData person, HlaPerson hlaPerson) {
 		this.setExecutor(executor);
 		this.person = person;
 		this.hlaPerson = hlaPerson;

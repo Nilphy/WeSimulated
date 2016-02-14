@@ -10,7 +10,7 @@ import org.apache.commons.validator.routines.FloatValidator;
 
 import com.javacommon.utils.IntegerUtils;
 
-import edu.wesimulated.firstapp.model.Person;
+import edu.wesimulated.firstapp.model.PersonData;
 
 public class PersonEditController {
 
@@ -24,7 +24,7 @@ public class PersonEditController {
 	private TextField efficencyField;
 	
 	private Stage dialogStage;
-	private Person person;
+	private PersonData person;
 	private boolean okClicked = false;
 	
 	@FXML
@@ -35,7 +35,7 @@ public class PersonEditController {
 		this.dialogStage = dialogStage;
 	}
 	
-	public void setPerson(Person person) {
+	public void setPerson(PersonData person) {
 		this.person = person;
 		this.firstNameField.setText(person.getFirstName());
 		this.lastNameField.setText(person.getLastName());

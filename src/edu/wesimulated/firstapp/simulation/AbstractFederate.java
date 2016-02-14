@@ -41,6 +41,9 @@ import java.net.URL;
 
 import com.wesimulated.simulation.hla.DateLogicalTimeFactory;
 
+import edu.wesimulated.firstapp.simulation.hla.HlaInformInteraction;
+import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
+
 public class AbstractFederate {
 
 	private RTIambassador rtiAmbassador;
@@ -79,9 +82,9 @@ public class AbstractFederate {
 	protected AttributeHandleSet configurePerson() {
 		AttributeHandleSet personAttributeHandles = null;
 		try {
-			setPersonObjectClassHandle(getRTIAmbassador().getObjectClassHandle(HLAPerson.CLASS_NAME));
+			setPersonObjectClassHandle(getRTIAmbassador().getObjectClassHandle(HlaPerson.CLASS_NAME));
 			personAttributeHandles = this.getRTIAmbassador().getAttributeHandleSetFactory().create();
-			personAttributeHandles.add(this.getRTIAmbassador().getAttributeHandle(getPersonObjectClassHandle(), HLAPerson.ATTRIBUTE_WORK_DONE_NAME));
+			personAttributeHandles.add(this.getRTIAmbassador().getAttributeHandle(getPersonObjectClassHandle(), HlaPerson.ATTRIBUTE_WORK_DONE_NAME));
 			getRTIAmbassador().publishObjectClassAttributes(this.getPersonObjectClassHandle(), personAttributeHandles);
 		} catch (NameNotFound | FederateNotExecutionMember | NotConnected | RTIinternalError | InvalidObjectClassHandle | AttributeNotDefined | ObjectClassNotDefined | SaveInProgress
 				| RestoreInProgress e) {
@@ -92,8 +95,8 @@ public class AbstractFederate {
 
 	protected void configureInformInteraction() {
 		try {
-			setInformInteractionClassHandle(getRTIAmbassador().getInteractionClassHandle(HLAInformInteraction.INFORM_INTERACTION_NAME));
-			setMessageParameterHandle(getRTIAmbassador().getParameterHandle(getInformInteractionClassHandle(), HLAInformInteraction.INFORM_INTERACTION_MESSAGE_PARAM_NAME));
+			setInformInteractionClassHandle(getRTIAmbassador().getInteractionClassHandle(HlaInformInteraction.INFORM_INTERACTION_NAME));
+			setMessageParameterHandle(getRTIAmbassador().getParameterHandle(getInformInteractionClassHandle(), HlaInformInteraction.INFORM_INTERACTION_MESSAGE_PARAM_NAME));
 			getRTIAmbassador().publishInteractionClass(getInformInteractionClassHandle());
 		} catch (NameNotFound | FederateNotExecutionMember | NotConnected | RTIinternalError | InvalidInteractionClassHandle | InteractionClassNotDefined | SaveInProgress | RestoreInProgress e) {
 			throw new RuntimeException(e);

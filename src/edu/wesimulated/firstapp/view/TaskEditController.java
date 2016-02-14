@@ -2,7 +2,7 @@ package edu.wesimulated.firstapp.view;
 
 import com.javacommon.utils.IntegerUtils;
 
-import edu.wesimulated.firstapp.model.Task;
+import edu.wesimulated.firstapp.model.TaskData;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -16,7 +16,7 @@ public class TaskEditController {
 	@FXML
 	private TextField unitsOfWorkField;
 	private Stage dialogStage;
-	private Task task;
+	private TaskData task;
 	private boolean okClicked;
 
 	@FXML
@@ -27,7 +27,7 @@ public class TaskEditController {
 		this.dialogStage = dialogStage;
 	}
 	
-	public void setTask(Task task) {
+	public void setTask(TaskData task) {
 		this.task = task;
 	}
 

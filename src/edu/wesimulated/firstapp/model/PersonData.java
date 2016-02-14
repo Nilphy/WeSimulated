@@ -1,6 +1,6 @@
 package edu.wesimulated.firstapp.model;
 
-import com.wesimulated.simulationmotor.des.Entity;
+import com.wesimulated.simulationmotor.des.Resource;
 
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
@@ -9,7 +9,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Person implements Entity {
+public class PersonData implements Resource {
 
 	private StringProperty firstName;
 	private StringProperty lastName;
@@ -18,11 +18,11 @@ public class Person implements Entity {
 	private FloatProperty efficiency;
 	private boolean available;
 	
-	public Person() {
+	public PersonData() {
 		this(null, null);
 	}
 	
-	public Person(String firstName, String lastName) {
+	public PersonData(String firstName, String lastName) {
 		this.firstName = new SimpleStringProperty(firstName);
 		this.lastName = new SimpleStringProperty(lastName);
 		this.hoursPerDay = new SimpleIntegerProperty(8);

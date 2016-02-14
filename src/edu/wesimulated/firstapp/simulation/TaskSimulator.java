@@ -1,14 +1,14 @@
 package edu.wesimulated.firstapp.simulation;
 
-import edu.wesimulated.firstapp.model.Task;
+import edu.wesimulated.firstapp.model.TaskData;
 
 
 public class TaskSimulator {
 
-	private Task task;
+	private TaskData task;
 	private float workDoneInMiliseconds;
 	
-	public TaskSimulator(Task task) {
+	public TaskSimulator(TaskData task) {
 		this.task = task;
 		this.workDoneInMiliseconds = 0; 
 	}

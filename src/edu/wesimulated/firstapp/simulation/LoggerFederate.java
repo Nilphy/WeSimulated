@@ -32,12 +32,14 @@ import java.util.Observer;
 
 import com.wesimulated.simulation.hla.DateLogicalTime;
 
+import edu.wesimulated.firstapp.simulation.hla.HlaInformInteraction;
+import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
 import edu.wesimulated.firstapp.view.SimulationOverviewController;
 
 public class LoggerFederate extends AbstractFederate implements Observer {
 
 	private SimulationOverviewController simulationOverviewController;
-	private Map<ObjectInstanceHandle, HLAPerson> people;
+	private Map<ObjectInstanceHandle, HlaPerson> people;
 
 	public static final String FEDERATE_NAME = "LOGGER_FEDERATE";
 
@@ -69,7 +71,7 @@ public class LoggerFederate extends AbstractFederate implements Observer {
 		this.getController().log("Configuring inform interaction", null);
 		InteractionClassHandle informInteractionClassHandle;
 		try {
-			informInteractionClassHandle = this.getRTIAmbassador().getInteractionClassHandle(HLAInformInteraction.INFORM_INTERACTION_NAME);
+			informInteractionClassHandle = this.getRTIAmbassador().getInteractionClassHandle(HlaInformInteraction.INFORM_INTERACTION_NAME);
 			this.getRTIAmbassador().subscribeInteractionClass(informInteractionClassHandle);
 		} catch (NameNotFound | FederateNotExecutionMember | NotConnected | RTIinternalError | FederateServiceInvocationsAreBeingReportedViaMOM | InteractionClassNotDefined | SaveInProgress
 				| RestoreInProgress e) {
@@ -81,7 +83,7 @@ public class LoggerFederate extends AbstractFederate implements Observer {
 		super.joinFederationExcecution(federateName, new LoggerFederateAmbassador());
 	}
 
-	private void personDiscovered(HLAPerson hlaPerson) {
+	private void personDiscovered(HlaPerson hlaPerson) {
 		if (hlaPerson != null) {
 			getController().log("Discovered person: " + hlaPerson.getObjectInstanceName(), null);
 			getPeople().put(hlaPerson.getObjectInstanceHandle(), hlaPerson);
@@ -96,7 +98,7 @@ public class LoggerFederate extends AbstractFederate implements Observer {
 		this.simulationOverviewController = simulationOverviewController;
 	}
 
-	public Map<ObjectInstanceHandle, HLAPerson> getPeople() {
+	public Map<ObjectInstanceHandle, HlaPerson> getPeople() {
 		return this.people;
 	}
 
@@ -110,8 +112,8 @@ public class LoggerFederate extends AbstractFederate implements Observer {
 		@Override
 		public void discoverObjectInstance(ObjectInstanceHandle objectInstanceHandle, ObjectClassHandle objectClassHandle, String objectInstanceName, FederateHandle producingFederate)
 				throws FederateInternalError {
-			HLAPerson hlaPerson = null;
-			hlaPerson = new HLAPerson(getRTIAmbassador(), objectClassHandle, objectInstanceHandle, objectInstanceName);
+			HlaPerson hlaPerson = null;
+			hlaPerson = new HlaPerson(getRTIAmbassador(), objectClassHandle, objectInstanceHandle, objectInstanceName);
 			personDiscovered(hlaPerson);
 		}
 
@@ -125,7 +127,7 @@ public class LoggerFederate extends AbstractFederate implements Observer {
 		public void reflectAttributeValues(ObjectInstanceHandle objectInstanceHandle, AttributeHandleValueMap attributeValues, byte[] userSuppliedTag, OrderType sentOrdering,
 				TransportationTypeHandle theTransport, @SuppressWarnings("rawtypes") LogicalTime theTime, OrderType receivedOrdering, MessageRetractionHandle retractionHandle, SupplementalReflectInfo reflectInfo)
 				throws FederateInternalError {
-			HLAPerson person = getPeople().get(objectInstanceHandle);
+			HlaPerson person = getPeople().get(objectInstanceHandle);
 			person.reflectAttributeValues(attributeValues);
 			getController().log(person.getWorkDone(), ((DateLogicalTime) theTime).getValue());
 		}
@@ -145,7 +147,7 @@ public class LoggerFederate extends AbstractFederate implements Observer {
 		public void receiveInteraction(InteractionClassHandle interactionClass, ParameterHandleValueMap theParameters, byte[] userSuppliedTag, OrderType sentOrdering,
 				TransportationTypeHandle theTransport, @SuppressWarnings("rawtypes") LogicalTime theTime, OrderType receivedOrdering, MessageRetractionHandle retractionHandle, SupplementalReceiveInfo receiveInfo)
 				throws FederateInternalError {
-			HLAInformInteraction informInteraction = new HLAInformInteraction(getRTIAmbassador(), interactionClass);
+			HlaInformInteraction informInteraction = new HlaInformInteraction(getRTIAmbassador(), interactionClass);
 			informInteraction.receiveInteraction(theParameters);
 			getController().log("Receive Interaction: " + informInteraction.getMessage(), ((DateLogicalTime) theTime).getValue());
 		}

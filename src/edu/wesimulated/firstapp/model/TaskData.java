@@ -6,16 +6,16 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Task {
+public class TaskData {
 
 	private StringProperty name;
 	private IntegerProperty unitsOfWork;
 
-	public Task() {
+	public TaskData() {
 		this(null, null);
 	}
 
-	public Task(String name, Integer unitsOfWork) {
+	public TaskData(String name, Integer unitsOfWork) {
 		this.name = new SimpleStringProperty(name);
 		this.unitsOfWork = new SimpleIntegerProperty(unitsOfWork == null ? 0 : unitsOfWork);
 		

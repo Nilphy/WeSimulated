@@ -1,7 +1,7 @@
 package edu.wesimulated.firstapp.view;
 
 import edu.wesimulated.firstapp.MainApp;
-import edu.wesimulated.firstapp.model.Task;
+import edu.wesimulated.firstapp.model.TaskData;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -11,11 +11,11 @@ import javafx.scene.control.Alert.AlertType;
 
 public class TaskOverviewController {
 	@FXML
-	private TableView<Task> taskTable;
+	private TableView<TaskData> taskTable;
 	@FXML
-	private TableColumn<Task, String> nameColumn;
+	private TableColumn<TaskData, String> nameColumn;
 	@FXML
-	private TableColumn<Task, Integer> unitsOfWorkColumn;
+	private TableColumn<TaskData, Integer> unitsOfWorkColumn;
 
 	@FXML
 	private Label nameLabel;
@@ -27,7 +27,7 @@ public class TaskOverviewController {
 	public TaskOverviewController() {
 	}
 
-	private void showTaskDetails(Task task) {
+	private void showTaskDetails(TaskData task) {
 		if (task != null) {
 			nameLabel.setText(task.getName());
 			unitsOfWorkLabel.setText(task.getUnitsOfWork().toString());
@@ -54,7 +54,7 @@ public class TaskOverviewController {
 
 	@FXML
 	private void handleNewTask() {
-		Task tempTask = new Task();
+		TaskData tempTask = new TaskData();
 		boolean okClicked = mainApp.showTaskEditDialog(tempTask);
 		if (okClicked) {
 			this.mainApp.getTaskData().add(tempTask);
@@ -63,7 +63,7 @@ public class TaskOverviewController {
 
 	@FXML
 	private void handleEditTask() {
-		Task selectedTask = taskTable.getSelectionModel().getSelectedItem();
+		TaskData selectedTask = taskTable.getSelectionModel().getSelectedItem();
 		if (selectedTask != null) {
 			boolean okClicked = mainApp.showTaskEditDialog(selectedTask);
 			if (okClicked) {

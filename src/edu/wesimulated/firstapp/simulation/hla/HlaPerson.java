@@ -1,4 +1,4 @@
-package edu.wesimulated.firstapp.simulation;
+package edu.wesimulated.firstapp.simulation.hla;
 
 import hla.rti1516e.AttributeHandle;
 import hla.rti1516e.AttributeHandleValueMap;
@@ -22,7 +22,7 @@ import java.nio.charset.Charset;
 
 import com.wesimulated.simulation.hla.DateLogicalTime;
 
-public class HLAPerson {
+public class HlaPerson {
 	public static final String CLASS_NAME = "Person";
 	public static final String ATTRIBUTE_WORK_DONE_NAME = "WorkDone";
 
@@ -32,7 +32,7 @@ public class HLAPerson {
 	private AttributeHandle workDoneAttributeInstanceHandle;
 	private Float workDone;
 	
-	public HLAPerson(RTIambassador rtiAmbassador, ObjectClassHandle classHandle, ObjectInstanceHandle personHandle, String personName) {
+	public HlaPerson(RTIambassador rtiAmbassador, ObjectClassHandle classHandle, ObjectInstanceHandle personHandle, String personName) {
 		this.workDone = 0f;
 		try {
 			this.rtiAmbassador = rtiAmbassador;

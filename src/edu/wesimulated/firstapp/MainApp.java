@@ -21,9 +21,9 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import edu.wesimulated.firstapp.model.Person;
+import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.ProgramData;
-import edu.wesimulated.firstapp.model.Task;
+import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.view.PersonEditController;
 import edu.wesimulated.firstapp.view.PersonOverviewController;
 import edu.wesimulated.firstapp.view.RootLayoutController;
@@ -35,14 +35,14 @@ public class MainApp extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-	private ObservableList<Person> personData = FXCollections.observableArrayList();
-	private ObservableList<Task> taskData = FXCollections.observableArrayList();
+	private ObservableList<PersonData> personData = FXCollections.observableArrayList();
+	private ObservableList<TaskData> taskData = FXCollections.observableArrayList();
 
 	public MainApp() {
-		personData.add(new Person("Juan", "Perez"));
-		personData.add(new Person("Ricardo", "Rojas"));
-		taskData.add(new Task("Person ABM", 16));
-		taskData.add(new Task("Login", 8));
+		personData.add(new PersonData("Juan", "Perez"));
+		personData.add(new PersonData("Ricardo", "Rojas"));
+		taskData.add(new TaskData("Person ABM", 16));
+		taskData.add(new TaskData("Login", 8));
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	public boolean showPersonEditDialog(Person person) {
+	public boolean showPersonEditDialog(PersonData person) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/PersonEditDialog.fxml"));
@@ -115,7 +115,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	public boolean showTaskEditDialog(Task task) {
+	public boolean showTaskEditDialog(TaskData task) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/TaskEditDialog.fxml"));
@@ -155,11 +155,11 @@ public class MainApp extends Application {
 		}
 	}
 
-	public ObservableList<Task> getTaskData() {
+	public ObservableList<TaskData> getTaskData() {
 		return taskData;
 	}
 
-	public ObservableList<Person> getPersonData() {
+	public ObservableList<PersonData> getPersonData() {
 		return personData;
 	}
 

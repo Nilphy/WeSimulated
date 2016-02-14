@@ -41,16 +41,18 @@ import com.wesimulated.simulation.hla.DateLogicalTime;
 import com.wesimulated.simulation.hla.DateLogicalTimeInterval;
 import com.wesimulated.simulationmotor.des.TimeControllerEntity;
 
-import edu.wesimulated.firstapp.model.Person;
+import edu.wesimulated.firstapp.model.PersonData;
+import edu.wesimulated.firstapp.simulation.hla.HlaInformInteraction;
+import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
 
 public class PersonFederate extends AbstractFederate implements Observer, TimeControllerEntity {
 
 	public static final String FEDERATE_NAME = "PERSON_FEDERATE";
 	private static final long LOOKAHEAD = 5000;
 	private PersonRolSimulator personRolSimulator;
-	private Person person;
+	private PersonData person;
 
-	public PersonFederate(Person person) {
+	public PersonFederate(PersonData person) {
 		super();
 		this.person = person;
 	}
@@ -84,7 +86,7 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 			String objectInstanceName;
 			objectInstanceHandle = getRTIAmbassador().registerObjectInstance(getPersonObjectClassHandle());
 			objectInstanceName = getRTIAmbassador().getObjectInstanceName(objectInstanceHandle);
-			HLAPerson hlaPerson = new HLAPerson(this.getRTIAmbassador(), getPersonObjectClassHandle(), objectInstanceHandle, objectInstanceName);
+			HlaPerson hlaPerson = new HlaPerson(this.getRTIAmbassador(), getPersonObjectClassHandle(), objectInstanceHandle, objectInstanceName);
 			this.personRolSimulator = PersonRolSimulatorBuilder.build(this.person, hlaPerson, ProjectSimulator.getInstance().getStartDate());
 			ProjectSimulator.getInstance().addPerson(this.personRolSimulator);
 			this.getRTIAmbassador().enableTimeConstrained();
@@ -96,7 +98,7 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 	}
 
 	protected void sendInformInteraction(String message, @SuppressWarnings("rawtypes") LogicalTime time) {
-		HLAInformInteraction hlaInformInteraction = new HLAInformInteraction(getRTIAmbassador(), getInformInteractionClassHandle(), message);
+		HlaInformInteraction hlaInformInteraction = new HlaInformInteraction(getRTIAmbassador(), getInformInteractionClassHandle(), message);
 		hlaInformInteraction.sendInteraction(time);
 	}
 

@@ -8,24 +8,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "programData")
 public class ProgramData {
 
-	private List<Person> persons;
-	private List<Task> tasks;
+	private List<PersonData> persons;
+	private List<TaskData> tasks;
 	
 	@XmlElement(name = "person")
-	public List<Person> getPersons() {
+	public List<PersonData> getPersons() {
 		return persons;
 	}
 	
-	public void setPersons(List<Person> persons) {
+	public void setPersons(List<PersonData> persons) {
 		this.persons = persons;
 	}
 	
 	@XmlElement(name = "task")
-	public List<Task> getTasks() {
+	public List<TaskData> getTasks() {
 		return tasks;
 	}
 	
-	public void setTasks(List<Task> tasks) {
+	public void setTasks(List<TaskData> tasks) {
 		this.tasks = tasks;
 	}
 }

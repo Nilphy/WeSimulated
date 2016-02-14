@@ -2,8 +2,8 @@ package edu.wesimulated.firstapp.simulation;
 
 import java.util.Observable;
 
-import edu.wesimulated.firstapp.model.Person;
-import edu.wesimulated.firstapp.model.Task;
+import edu.wesimulated.firstapp.model.PersonData;
+import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.view.SimulationOverviewController;
 
 public class Simulation extends Observable {
@@ -47,13 +47,13 @@ public class Simulation extends Observable {
 		}
 	}
 
-	public void addPerson(Person person) {
+	public void addPerson(PersonData person) {
 		PersonFederate personFederate = new PersonFederate(person);
 		this.addObserver(personFederate);
 		personFederate.joinFederationExcecution(PersonFederate.FEDERATE_NAME);
 	}
 
-	public void addTask(Task task) {
+	public void addTask(TaskData task) {
 		ProjectSimulator.getInstance().addTask(new TaskSimulator(task));
 	}
 
