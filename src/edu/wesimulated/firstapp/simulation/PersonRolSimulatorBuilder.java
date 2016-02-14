@@ -15,7 +15,6 @@ public class PersonRolSimulatorBuilder {
 		ProjectSimulator projectSimulator = ProjectSimulator.getInstance();
 		ThreePhaseExecutor executor = new ThreePhaseExecutor(new TaskCompletedEndCondition(projectSimulator));
 		PersonRolSimulator personRolSimulator = new PersonRolSimulator(executor, person, hlaPerson);
-		personRolSimulator.addBOperation(new Work(personRolSimulator, DateUtils.convertToStartOfNextLabDay(startDate)));
 		return personRolSimulator;
 	}
 

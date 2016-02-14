@@ -44,26 +44,7 @@ public class PersonRolSimulator {
 		this.tasks.add(taskSimulator);
 	}
 
-	public void doOneDayOfWork() {
-		this.person.setAvailable(false);
-		Float remainingMillisecondsToWorkToday = this.person.calculateEffectiveMillisecondsPerDay();
-		Iterator<TaskSimulator> tasksIterator = this.tasks.iterator();
-		Float previousRemainingMillisecondsToWorkToday = remainingMillisecondsToWorkToday;
-		while (tasksIterator.hasNext() && remainingMillisecondsToWorkToday > 0) {
-			TaskSimulator task = tasksIterator.next();
-			if (!task.isCompleted()) {
-				remainingMillisecondsToWorkToday = task.consumeTime(remainingMillisecondsToWorkToday);
-				float millisSpentOnTask = previousRemainingMillisecondsToWorkToday - remainingMillisecondsToWorkToday;
-				DateLogicalTime endMoment = DateUtils.addMilis(this.getExecutor().getClock().getCurrentDate(), millisSpentOnTask);
-				this.hlaPerson.incrementWorkDone(
-					UnitsOfWorkInterpreter.milisToUow(millisSpentOnTask), 
-					endMoment
-				);
-				System.out.println("Work done! " + this.person + " has worked in " + task + " and still has " + remainingMillisecondsToWorkToday + " milliseconds to work today.");
-				previousRemainingMillisecondsToWorkToday = remainingMillisecondsToWorkToday;
-			}
-		}
-		this.person.setAvailable(true);
+		this.tasks.add(task);
 	}
 
 	public void addBOperation(BOperation operation) {
