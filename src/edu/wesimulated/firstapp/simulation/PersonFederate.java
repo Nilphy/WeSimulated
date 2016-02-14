@@ -42,6 +42,8 @@ import com.wesimulated.simulation.hla.DateLogicalTimeInterval;
 import com.wesimulated.simulationmotor.des.TimeControllerEntity;
 
 import edu.wesimulated.firstapp.model.PersonData;
+import edu.wesimulated.firstapp.simulation.domain.Person;
+import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.hla.HlaInformInteraction;
 import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
 
@@ -50,9 +52,10 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 	public static final String FEDERATE_NAME = "PERSON_FEDERATE";
 	private static final long LOOKAHEAD = 5000;
 	private PersonRolSimulator personRolSimulator;
-	private PersonData person;
+	private Person person;
+	private Project project;
 
-	public PersonFederate(PersonData person) {
+	public PersonFederate(Person person) {
 		super();
 		this.person = person;
 	}
@@ -87,8 +90,7 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 			objectInstanceHandle = getRTIAmbassador().registerObjectInstance(getPersonObjectClassHandle());
 			objectInstanceName = getRTIAmbassador().getObjectInstanceName(objectInstanceHandle);
 			HlaPerson hlaPerson = new HlaPerson(this.getRTIAmbassador(), getPersonObjectClassHandle(), objectInstanceHandle, objectInstanceName);
-			this.personRolSimulator = PersonRolSimulatorBuilder.build(this.person, hlaPerson, ProjectSimulator.getInstance().getStartDate());
-			ProjectSimulator.getInstance().addPerson(this.personRolSimulator);
+			this.person.setHlaPerson(hlaPerson);
 			this.getRTIAmbassador().enableTimeConstrained();
 			this.getRTIAmbassador().enableTimeRegulation(new DateLogicalTimeInterval(Duration.ofMillis(LOOKAHEAD)));
 		} catch (InvalidLookahead | InTimeAdvancingState | RequestForTimeRegulationPending | TimeRegulationAlreadyEnabled | SaveInProgress | RestoreInProgress | FederateNotExecutionMember

@@ -4,6 +4,7 @@ import java.util.Observable;
 
 import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.TaskData;
+import edu.wesimulated.firstapp.simulation.domain.PersonBuilder;
 import edu.wesimulated.firstapp.view.SimulationOverviewController;
 
 public class Simulation extends Observable {
@@ -48,13 +49,13 @@ public class Simulation extends Observable {
 	}
 
 	public void addPerson(PersonData person) {
-		PersonFederate personFederate = new PersonFederate(person);
+		PersonFederate personFederate = new PersonFederate(PersonBuilder.createFromPersonData(person));
 		this.addObserver(personFederate);
 		personFederate.joinFederationExcecution(PersonFederate.FEDERATE_NAME);
 	}
 
 	public void addTask(TaskData task) {
-		ProjectSimulator.getInstance().addTask(new TaskSimulator(task));
+		// TODO create task federate
 	}
 
 	public void setSimulationOverviewController(SimulationOverviewController simulationOverviewController) {

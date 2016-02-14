@@ -1,7 +1,5 @@
 package edu.wesimulated.firstapp.model;
 
-import com.wesimulated.simulationmotor.des.Resource;
-
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleFloatProperty;
@@ -9,14 +7,13 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class PersonData implements Resource {
+public class PersonData {
 
 	private StringProperty firstName;
 	private StringProperty lastName;
 	private IntegerProperty hoursPerDay;
 	// [Unit] unit of work per hour
 	private FloatProperty efficiency;
-	private boolean available;
 	
 	public PersonData() {
 		this(null, null);
@@ -27,21 +24,10 @@ public class PersonData implements Resource {
 		this.lastName = new SimpleStringProperty(lastName);
 		this.hoursPerDay = new SimpleIntegerProperty(8);
 		this.efficiency = new SimpleFloatProperty(0.8f);
-		this.available = true;
 	}
 	
 	public float calculateEffectiveMillisecondsPerDay() {
 		return this.getHoursPerDay() * this.getEfficiency() /* hour */ * 60 /* minutes/hour */ * 60 /* seconds/minute */ * 1000 /* Milliseconds/seconds */;
-	}
-	
-	@Override
-	public void setAvailable(boolean available) {
-		this.available = available;
-	}
-
-	@Override
-	public boolean isAvailable() {
-		return available;
 	}
 	
 	public String getFirstName() {

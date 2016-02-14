@@ -6,12 +6,15 @@ import java.util.LinkedList;
 
 import com.wesimulated.simulation.runparameters.CompletableTask;
 
-public class ProjectSimulator implements CompletableTask {
+import edu.wesimulated.firstapp.simulation.domain.Person;
+import edu.wesimulated.firstapp.simulation.domain.Task;
+
+public class ProjectSimulator extends Simulator implements CompletableTask {
 
 	private static ProjectSimulator instance;
 	
-	private Collection<TaskSimulator> tasks;
-	private Collection<PersonRolSimulator> people;
+	private Collection<Task> tasks;
+	private Collection<Person> people;
 	private Date startDate;
 	
 	private ProjectSimulator() {
@@ -27,7 +30,7 @@ public class ProjectSimulator implements CompletableTask {
 
 	@Override
 	public boolean isCompleted() {
-		for (TaskSimulator task : tasks) {
+		for (Task task : tasks) {
 			if (!task.isCompleted()) {
 				return false;
 			}
@@ -35,22 +38,14 @@ public class ProjectSimulator implements CompletableTask {
 		return true;
 	}
 
-	public void assignTasks() {
-		for (TaskSimulator taskSimulator : this.tasks) {
-			for (PersonRolSimulator personRolSimulator : people) {
-				personRolSimulator.addTask(taskSimulator);
-			}
-		}
-	}
-
-	public void addPerson(PersonRolSimulator personRolSimulator) {
+	public void addPerson(Person person) {
 		if (this.people == null) {
 			this.people = new LinkedList<>();
 		}
-		this.people.add(personRolSimulator);
+		this.people.add(person);
 	}
 
-	public void addTask(TaskSimulator taskSimulator) {
+	public void addTask(Task taskSimulator) {
 		if (this.tasks == null) {
 			this.tasks = new LinkedList<>();
 		}
