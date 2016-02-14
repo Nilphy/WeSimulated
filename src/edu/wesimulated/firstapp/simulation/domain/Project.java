@@ -10,6 +10,7 @@ public class Project implements CompletableTask {
 
 	private Collection<Task> tasks;
 	private Collection<Person> people;
+	private ProjectContract contract;
 	private ProjectCalendar calendar;
 	private ProjectWbs wbs;
 	private ProjectGantt gantt;
