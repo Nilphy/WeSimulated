@@ -25,4 +25,8 @@ public class Project implements CompletableTask {
 		}
 		return true;
 	}
+
+	public void addPerson(Person person) {
+		this.people.add(person);
+	}
 }
