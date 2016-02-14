@@ -22,34 +22,29 @@ import java.nio.charset.Charset;
 
 import com.wesimulated.simulation.hla.DateLogicalTime;
 
-public class HlaPerson {
+public class HlaPerson extends HlaObject {
 	public static final String CLASS_NAME = "Person";
 	public static final String ATTRIBUTE_WORK_DONE_NAME = "WorkDone";
 
-	private RTIambassador rtiAmbassador;
-	private ObjectInstanceHandle objectInstanceHandle;
-	private String objectInstanceName;
 	private AttributeHandle workDoneAttributeInstanceHandle;
 	private Float workDone;
 	
 	public HlaPerson(RTIambassador rtiAmbassador, ObjectClassHandle classHandle, ObjectInstanceHandle personHandle, String personName) {
+		super(rtiAmbassador, classHandle, personHandle, personName);
 		this.workDone = 0f;
 		try {
-			this.rtiAmbassador = rtiAmbassador;
-			this.workDoneAttributeInstanceHandle = this.getRtiAmbassador().getAttributeHandle(classHandle, ATTRIBUTE_WORK_DONE_NAME);
+			this.setWorkDoneAttributeHandle(this.getRtiAmbassador().getAttributeHandle(classHandle, ATTRIBUTE_WORK_DONE_NAME));
 		} catch (RTIinternalError | NameNotFound | InvalidObjectClassHandle | FederateNotExecutionMember | NotConnected e) {
 			throw new RuntimeException(e);
 		}
-		this.objectInstanceHandle = personHandle;
-		this.objectInstanceName = personName;
 	}
 
 	public void incrementWorkDone(float workDone, DateLogicalTime time) {
 		this.workDone += workDone;
 		try {
-			AttributeHandleValueMap attributeValues = this.rtiAmbassador.getAttributeHandleValueMapFactory().create(1);
-			attributeValues.put(workDoneAttributeInstanceHandle, encodeWorkDone(this.workDone));
-			this.rtiAmbassador.updateAttributeValues(objectInstanceHandle, attributeValues, null, time);
+			AttributeHandleValueMap attributeValues = this.getRtiAmbassador().getAttributeHandleValueMapFactory().create(1);
+			attributeValues.put(this.getWorkDoneAttributeHandle(), encodeWorkDone());
+			this.getRtiAmbassador().updateAttributeValues(this.getObjectInstanceHandle(), attributeValues, null, time);
 		} catch (FederateNotExecutionMember | NotConnected | AttributeNotOwned | AttributeNotDefined | ObjectInstanceNotKnown | SaveInProgress | RestoreInProgress | RTIinternalError | InvalidLogicalTime e) {
 			throw new RuntimeException(e);
 		}
@@ -72,27 +67,11 @@ public class HlaPerson {
 		return Charset.forName("UTF-8").encode(objectInstanceName).array();
 	}
 
-	public ObjectInstanceHandle getObjectInstanceHandle() {
-		return objectInstanceHandle;
-	}
-
-	public void setObjectInstanceHandle(ObjectInstanceHandle objectInstanceHandle) {
-		this.objectInstanceHandle = objectInstanceHandle;
-	}
-
-	public String getObjectInstanceName() {
-		return objectInstanceName;
-	}
-
-	public void setObjectInstanceName(String objectInstanceName) {
-		this.objectInstanceName = objectInstanceName;
-	}
-
-	public float getWorkDone() {
+	private Collection<Work> getWorkDone() {
 		return workDone;
 	}
 
-	public void setWorkDone(float workDone) {
+	private void setWorkDone(Collection<Work> workDone) {
 		this.workDone = workDone;
 	}
 
@@ -102,13 +81,5 @@ public class HlaPerson {
 
 	public void setWorkDoneAttributeHandle(AttributeHandle workDoneAttributeHandle) {
 		this.workDoneAttributeInstanceHandle = workDoneAttributeHandle;
-	}
-	
-	public RTIambassador getRtiAmbassador() {
-		return this.rtiAmbassador;
-	}
-
-	public void setRtiAmbassador(RTIambassador rtiAmbassador) {
-		this.rtiAmbassador = rtiAmbassador;
 	}
 }
