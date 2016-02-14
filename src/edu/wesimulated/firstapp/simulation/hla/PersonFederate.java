@@ -41,7 +41,6 @@ import com.wesimulated.simulation.hla.DateLogicalTime;
 import com.wesimulated.simulation.hla.DateLogicalTimeInterval;
 import com.wesimulated.simulationmotor.des.TimeControllerEntity;
 
-import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.simulation.PersonRolSimulator;
 import edu.wesimulated.firstapp.simulation.PersonRolSimulatorBuilder;
 import edu.wesimulated.firstapp.simulation.SimulationEvent;
@@ -49,9 +48,8 @@ import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 
 public class PersonFederate extends AbstractFederate implements Observer, TimeControllerEntity {
-
 	public static final String FEDERATE_NAME = "PERSON_FEDERATE";
-	private static final long LOOKAHEAD = 5000;
+	
 	private PersonRolSimulator personRolSimulator;
 	private Person person;
 	private Project project;
@@ -88,7 +86,7 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 		this.project.addPerson(this.person);
 	}
 
-	protected void joinFederationExcecution(String federateName) {
+	public void joinFederationExcecution(String federateName) {
 		super.joinFederationExcecution(federateName, new PersonFederateAmbassador());
 		try {
 			ObjectInstanceHandle objectInstanceHandle;

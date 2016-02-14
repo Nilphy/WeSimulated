@@ -44,6 +44,7 @@ import com.wesimulated.simulation.hla.DateLogicalTimeFactory;
 import edu.wesimulated.firstapp.simulation.Simulation;
 
 public class AbstractFederate {
+	protected static final long LOOKAHEAD = 5000;
 
 	private RTIambassador rtiAmbassador;
 	private ObjectClassHandle personObjectClassHandle;
@@ -110,7 +111,7 @@ public class AbstractFederate {
 		}
 	}
 
-	protected void resignFromFederation() {
+	public void resignFromFederation() {
 		try {
 			getRTIAmbassador().resignFederationExecution(ResignAction.DELETE_OBJECTS);
 		} catch (InvalidResignAction | OwnershipAcquisitionPending | FederateOwnsAttributes | FederateNotExecutionMember | NotConnected | CallNotAllowedFromWithinCallback | RTIinternalError e) {
