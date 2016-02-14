@@ -1,5 +1,7 @@
 package edu.wesimulated.firstapp.simulation;
 
+import edu.wesimulated.firstapp.simulation.hla.AbstractFederate;
+
 
 public class StartEvent extends SimulationEvent {
 

@@ -1,4 +1,4 @@
-package edu.wesimulated.firstapp.simulation;
+package edu.wesimulated.firstapp.simulation.hla;
 
 import hla.rti1516e.AttributeHandleSet;
 import hla.rti1516e.CallbackModel;
@@ -41,8 +41,7 @@ import java.net.URL;
 
 import com.wesimulated.simulation.hla.DateLogicalTimeFactory;
 
-import edu.wesimulated.firstapp.simulation.hla.HlaInformInteraction;
-import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
+import edu.wesimulated.firstapp.simulation.Simulation;
 
 public class AbstractFederate {
 

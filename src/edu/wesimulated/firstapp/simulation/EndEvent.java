@@ -1,6 +1,7 @@
 package edu.wesimulated.firstapp.simulation;
 
 import edu.wesimulated.firstapp.simulation.exception.SimulationStillRunningException;
+import edu.wesimulated.firstapp.simulation.hla.AbstractFederate;
 
 public class EndEvent extends SimulationEvent {
 

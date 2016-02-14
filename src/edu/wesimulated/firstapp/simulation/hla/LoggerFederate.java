@@ -1,4 +1,4 @@
-package edu.wesimulated.firstapp.simulation;
+package edu.wesimulated.firstapp.simulation.hla;
 
 import hla.rti1516e.AttributeHandleSet;
 import hla.rti1516e.AttributeHandleValueMap;
@@ -32,10 +32,9 @@ import java.util.Observer;
 
 import com.wesimulated.simulation.hla.DateLogicalTime;
 
+import edu.wesimulated.firstapp.simulation.SimulationEvent;
 import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.PersonBuilder;
-import edu.wesimulated.firstapp.simulation.hla.HlaInformInteraction;
-import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
 import edu.wesimulated.firstapp.view.SimulationOverviewController;
 
 public class LoggerFederate extends AbstractFederate implements Observer {

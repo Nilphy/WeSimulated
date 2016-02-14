@@ -1,4 +1,4 @@
-package edu.wesimulated.firstapp.simulation;
+package edu.wesimulated.firstapp.simulation.hla;
 
 import hla.rti1516e.AttributeHandleSet;
 import hla.rti1516e.AttributeHandleValueMap;
@@ -42,10 +42,11 @@ import com.wesimulated.simulation.hla.DateLogicalTimeInterval;
 import com.wesimulated.simulationmotor.des.TimeControllerEntity;
 
 import edu.wesimulated.firstapp.model.PersonData;
+import edu.wesimulated.firstapp.simulation.PersonRolSimulator;
+import edu.wesimulated.firstapp.simulation.PersonRolSimulatorBuilder;
+import edu.wesimulated.firstapp.simulation.SimulationEvent;
 import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
-import edu.wesimulated.firstapp.simulation.hla.HlaInformInteraction;
-import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
 
 public class PersonFederate extends AbstractFederate implements Observer, TimeControllerEntity {
 

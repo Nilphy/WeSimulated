@@ -1,6 +1,6 @@
 package edu.wesimulated.firstapp.model;
 
-import edu.wesimulated.firstapp.simulation.UnitsOfWorkInterpreter;
+import edu.wesimulated.firstapp.simulation.domain.UnitsOfWorkInterpreter;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;

@@ -5,6 +5,8 @@ import java.util.Observable;
 import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.simulation.domain.PersonBuilder;
+import edu.wesimulated.firstapp.simulation.hla.LoggerFederate;
+import edu.wesimulated.firstapp.simulation.hla.PersonFederate;
 import edu.wesimulated.firstapp.view.SimulationOverviewController;
 
 public class Simulation extends Observable {
