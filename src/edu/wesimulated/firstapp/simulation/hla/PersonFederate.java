@@ -49,7 +49,7 @@ import edu.wesimulated.firstapp.simulation.domain.Project;
 
 public class PersonFederate extends AbstractFederate implements Observer, TimeControllerEntity {
 	public static final String FEDERATE_NAME = "PERSON_FEDERATE";
-	
+
 	private PersonRolSimulator personRolSimulator;
 	private Person person;
 	private Project project;
@@ -80,7 +80,7 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 	public void initClock(DateLogicalTime time) {
 		this.personRolSimulator.getExecutor().initClock(time, this);
 	}
-	
+
 	public void discoverProject() {
 		this.personRolSimulator = PersonRolSimulatorBuilder.build(this.person, this.project);
 		this.project.addPerson(this.person);
