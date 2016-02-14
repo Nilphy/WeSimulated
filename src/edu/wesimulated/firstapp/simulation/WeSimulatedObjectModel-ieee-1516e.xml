@@ -12,6 +12,14 @@
 					<order>TimeStamp</order>
 				</attribute>
 			</objectClass>
+			<objectClass>
+				<name>Task</name>
+				<attribute>
+					<name>WorkToDo</name>
+					<transportation>HLAreliable</transportation>
+					<order>TimeStamp</order>
+				</attribute>
+			</objectClass>
 		</objectClass>
 	</objects>
 	<interactions>
