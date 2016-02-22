@@ -48,7 +48,6 @@ import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 
 public class ProjectFederate extends AbstractFederate implements Observer, TimeControllerEntity {
-	public static final String FEDERATE_NAME = "PERSON_FEDERATE";
 
 	private PersonRolSimulator personRolSimulator;
 	private Person person;

@@ -30,16 +30,13 @@ import com.wesimulated.simulation.hla.DateLogicalTime;
 import edu.wesimulated.firstapp.simulation.domain.Work;
 
 public class HlaPerson extends HlaObject {
-	public static final String CLASS_NAME = "Person";
-	public static final String ATTRIBUTE_WORK_DONE_NAME = "WorkDone";
-
 	private AttributeHandle workDoneAttributeInstanceHandle;
 	private Collection<Work> workDone;
 	
 	public HlaPerson(RTIambassador rtiAmbassador, ObjectClassHandle classHandle, ObjectInstanceHandle personHandle, String personName) {
 		super(rtiAmbassador, classHandle, personHandle, personName);
 		try {
-			this.setWorkDoneAttributeHandle(this.getRtiAmbassador().getAttributeHandle(classHandle, ATTRIBUTE_WORK_DONE_NAME));
+			this.setWorkDoneAttributeHandle(this.getRtiAmbassador().getAttributeHandle(classHandle, HlaAttribute.getHlaWorkDoneAttributeInstance().getName()));
 		} catch (RTIinternalError | NameNotFound | InvalidObjectClassHandle | FederateNotExecutionMember | NotConnected e) {
 			throw new RuntimeException(e);
 		}
