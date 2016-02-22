@@ -56,7 +56,7 @@ public class PersonFederate extends AbstractFederate implements Observer, TimeCo
 		super();
 		this.person = person;
 	}
-
+	
 	public void requestTimeAdvance(Date newDate) {
 		try {
 			this.getRTIAmbassador().timeAdvanceRequest(new DateLogicalTime(newDate));
