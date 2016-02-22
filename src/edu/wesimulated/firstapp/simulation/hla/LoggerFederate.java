@@ -1,6 +1,5 @@
 package edu.wesimulated.firstapp.simulation.hla;
 
-import hla.rti1516e.AttributeHandleSet;
 import hla.rti1516e.AttributeHandleValueMap;
 import hla.rti1516e.FederateAmbassador;
 import hla.rti1516e.FederateHandle;
@@ -13,14 +12,12 @@ import hla.rti1516e.ObjectInstanceHandle;
 import hla.rti1516e.OrderType;
 import hla.rti1516e.ParameterHandleValueMap;
 import hla.rti1516e.TransportationTypeHandle;
-import hla.rti1516e.exceptions.AttributeNotDefined;
 import hla.rti1516e.exceptions.FederateInternalError;
 import hla.rti1516e.exceptions.FederateNotExecutionMember;
 import hla.rti1516e.exceptions.FederateServiceInvocationsAreBeingReportedViaMOM;
 import hla.rti1516e.exceptions.InteractionClassNotDefined;
 import hla.rti1516e.exceptions.NameNotFound;
 import hla.rti1516e.exceptions.NotConnected;
-import hla.rti1516e.exceptions.ObjectClassNotDefined;
 import hla.rti1516e.exceptions.RTIinternalError;
 import hla.rti1516e.exceptions.RestoreInProgress;
 import hla.rti1516e.exceptions.SaveInProgress;
@@ -52,18 +49,6 @@ public class LoggerFederate extends AbstractFederate implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		((SimulationEvent) arg).updateSimulation(null, this);
-	}
-
-	@Override
-	protected AttributeHandleSet configurePerson() {
-		AttributeHandleSet personAttributesHandle = super.configurePerson();
-		this.getController().log("Configuring person interaction", null);
-		try {
-			this.getRTIAmbassador().subscribeObjectClassAttributes(this.getPersonObjectClassHandle(), personAttributesHandle);
-		} catch (FederateNotExecutionMember | NotConnected | RTIinternalError | AttributeNotDefined | ObjectClassNotDefined | SaveInProgress | RestoreInProgress e) {
-			throw new RuntimeException(e);
-		}
-		return personAttributesHandle;
 	}
 
 	@Override

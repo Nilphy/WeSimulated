@@ -87,20 +87,19 @@ public class AbstractFederate {
 		}
 	}
 
-	private AttributeHandleSet configureHlaClass(HlaClass hlaClass) {
-		AttributeHandleSet attributeHandles = null;
+	private void configureHlaClass(HlaClass hlaClass) {
 		try {
 			setObjectClassHandle(hlaClass, getRTIAmbassador().getObjectClassHandle(hlaClass.getName()));
-			attributeHandles = this.getRTIAmbassador().getAttributeHandleSetFactory().create();
+			AttributeHandleSet attributeHandles = this.getRTIAmbassador().getAttributeHandleSetFactory().create();
 			for (HlaAttribute attributeName : hlaClass.getAttributes()) {
 				attributeHandles.add(this.getRTIAmbassador().getAttributeHandle(this.getObjectClassHandle(hlaClass), attributeName.getName()));
 			}
 			getRTIAmbassador().publishObjectClassAttributes(this.getObjectClassHandle(hlaClass), attributeHandles);
+			this.getRTIAmbassador().subscribeObjectClassAttributes(this.getObjectClassHandle(hlaClass), attributeHandles);
 		} catch (NameNotFound | FederateNotExecutionMember | NotConnected | RTIinternalError | InvalidObjectClassHandle | AttributeNotDefined | ObjectClassNotDefined | SaveInProgress
 				| RestoreInProgress e) {
 			throw new RuntimeException(e);
 		}
-		return attributeHandles;
 	}
 
 	protected void configureInformInteraction() {
