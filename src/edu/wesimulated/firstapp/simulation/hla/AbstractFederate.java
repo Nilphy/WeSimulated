@@ -38,6 +38,8 @@ import hla.rti1516e.exceptions.SaveInProgress;
 import hla.rti1516e.exceptions.UnsupportedCallbackModel;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.wesimulated.simulation.hla.DateLogicalTimeFactory;
 
@@ -47,10 +49,14 @@ public class AbstractFederate {
 	protected static final long LOOKAHEAD = 5000;
 
 	private RTIambassador rtiAmbassador;
-	private ObjectClassHandle personObjectClassHandle;
+	private Map<HlaClass, ObjectClassHandle> objectClassHandles;
 	private InteractionClassHandle informInteractionClassHandle;
 	private ParameterHandle messageParameterHandle;
 
+	public AbstractFederate() {
+		this.setObjectClassHandles(new HashMap<>());
+	}
+	
 	protected void joinFederationExcecution(String federateName, NullFederateAmbassador federateAmbassador) {
 		try {
 			rtiAmbassador = RtiFactoryFactory.getRtiFactory().getRtiAmbassador();
@@ -61,7 +67,9 @@ public class AbstractFederate {
 				System.out.println("The federation has already been created by another federate");
 			}
 			this.getRTIAmbassador().joinFederationExecution(federateName, Simulation.FEDERATION_NAME);
-			this.configurePerson();
+			for (HlaClass hlaClass : HlaClass.getAllClasses()) {
+				this.configureHlaClass(hlaClass);
+			}
 			this.configureInformInteraction();
 			new Thread(() -> {
 				try {
@@ -79,18 +87,20 @@ public class AbstractFederate {
 		}
 	}
 
-	protected AttributeHandleSet configurePerson() {
-		AttributeHandleSet personAttributeHandles = null;
+	private AttributeHandleSet configureHlaClass(HlaClass hlaClass) {
+		AttributeHandleSet attributeHandles = null;
 		try {
-			setPersonObjectClassHandle(getRTIAmbassador().getObjectClassHandle(HlaPerson.CLASS_NAME));
-			personAttributeHandles = this.getRTIAmbassador().getAttributeHandleSetFactory().create();
-			personAttributeHandles.add(this.getRTIAmbassador().getAttributeHandle(getPersonObjectClassHandle(), HlaPerson.ATTRIBUTE_WORK_DONE_NAME));
-			getRTIAmbassador().publishObjectClassAttributes(this.getPersonObjectClassHandle(), personAttributeHandles);
+			setObjectClassHandle(hlaClass, getRTIAmbassador().getObjectClassHandle(hlaClass.getName()));
+			attributeHandles = this.getRTIAmbassador().getAttributeHandleSetFactory().create();
+			for (HlaAttribute attributeName : hlaClass.getAttributes()) {
+				attributeHandles.add(this.getRTIAmbassador().getAttributeHandle(this.getObjectClassHandle(hlaClass), attributeName.getName()));
+			}
+			getRTIAmbassador().publishObjectClassAttributes(this.getObjectClassHandle(hlaClass), attributeHandles);
 		} catch (NameNotFound | FederateNotExecutionMember | NotConnected | RTIinternalError | InvalidObjectClassHandle | AttributeNotDefined | ObjectClassNotDefined | SaveInProgress
 				| RestoreInProgress e) {
 			throw new RuntimeException(e);
 		}
-		return personAttributeHandles;
+		return attributeHandles;
 	}
 
 	protected void configureInformInteraction() {
@@ -118,13 +128,21 @@ public class AbstractFederate {
 			throw new RuntimeException(e);
 		}
 	}
-
-	protected ObjectClassHandle getPersonObjectClassHandle() {
-		return personObjectClassHandle;
+	
+	protected ObjectClassHandle getObjectClassHandle(HlaClass hlaClass) {
+		return this.getObjectClassHandles().get(hlaClass);
+	}
+	
+	protected void setObjectClassHandle(HlaClass hlaClass, ObjectClassHandle objectClassHandle) {
+		this.getObjectClassHandles().put(hlaClass, objectClassHandle);
 	}
 
-	protected void setPersonObjectClassHandle(ObjectClassHandle programmerObjectClassHandle) {
-		this.personObjectClassHandle = programmerObjectClassHandle;
+	private Map<HlaClass, ObjectClassHandle> getObjectClassHandles() {
+		return objectClassHandles;
+	}
+	
+	private void setObjectClassHandles(Map<HlaClass, ObjectClassHandle> objectClassHandles) {
+		this.objectClassHandles = objectClassHandles;
 	}
 
 	protected InteractionClassHandle getInformInteractionClassHandle() {
