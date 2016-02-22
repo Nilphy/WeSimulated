@@ -41,21 +41,17 @@ import com.wesimulated.simulation.hla.DateLogicalTime;
 import com.wesimulated.simulation.hla.DateLogicalTimeInterval;
 import com.wesimulated.simulationmotor.des.TimeControllerEntity;
 
-import edu.wesimulated.firstapp.simulation.PersonRolSimulator;
-import edu.wesimulated.firstapp.simulation.PersonRolSimulatorBuilder;
+import edu.wesimulated.firstapp.simulation.ProjectSimulator;
 import edu.wesimulated.firstapp.simulation.SimulationEvent;
-import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 
 public class ProjectFederate extends AbstractFederate implements Observer, TimeControllerEntity {
-
-	private PersonRolSimulator personRolSimulator;
-	private Person person;
+	private ProjectSimulator projectlSimulator;
 	private Project project;
 
-	public ProjectFederate(Person person) {
+	public ProjectFederate(Project project) {
 		super();
-		this.person = person;
+		this.project = 	project;
 	}
 
 	public void requestTimeAdvance(Date newDate) {
@@ -68,32 +64,25 @@ public class ProjectFederate extends AbstractFederate implements Observer, TimeC
 	}
 
 	public void timeRequestGranted(@SuppressWarnings("rawtypes") LogicalTime time) {
-		this.personRolSimulator.getExecutor().continueFromDate((DateLogicalTime) time);
+		this.projectlSimulator.getExecutor().continueFromDate((DateLogicalTime) time);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		((SimulationEvent) arg).updateSimulation(this.personRolSimulator, this);
+		((SimulationEvent) arg).updateSimulation(this.projectlSimulator, this);
 	}
 
 	public void initClock(DateLogicalTime time) {
-		this.personRolSimulator.getExecutor().initClock(time, this);
-	}
-
-	public void discoverProject() {
-		this.personRolSimulator = PersonRolSimulatorBuilder.build(this.person, this.project);
-		this.project.addPerson(this.person);
+		this.projectlSimulator.getExecutor().initClock(time, this);
 	}
 
 	public void joinFederationExcecution(String federateName) {
-		super.joinFederationExcecution(federateName, new PersonFederateAmbassador());
+		super.joinFederationExcecution(federateName, new ProjectFederateAmbassador());
 		try {
-			ObjectInstanceHandle objectInstanceHandle;
-			String objectInstanceName;
-			objectInstanceHandle = getRTIAmbassador().registerObjectInstance(getPersonObjectClassHandle());
-			objectInstanceName = getRTIAmbassador().getObjectInstanceName(objectInstanceHandle);
-			HlaPerson hlaPerson = new HlaPerson(this.getRTIAmbassador(), getPersonObjectClassHandle(), objectInstanceHandle, objectInstanceName);
-			this.person.setHlaPerson(hlaPerson);
+			ObjectInstanceHandle objectInstanceHandle = getRTIAmbassador().registerObjectInstance(getObjectClassHandle(HlaClass.getHlaProjectClassInstance()));
+			String objectInstanceName = getRTIAmbassador().getObjectInstanceName(objectInstanceHandle);
+			HlaProject hlaProject = new HlaProject(this.getRTIAmbassador(), getObjectClassHandle(HlaClass.getHlaProjectClassInstance()), objectInstanceHandle, objectInstanceName);
+			this.project.setHlaProject(hlaProject);
 			this.getRTIAmbassador().enableTimeConstrained();
 			this.getRTIAmbassador().enableTimeRegulation(new DateLogicalTimeInterval(Duration.ofMillis(LOOKAHEAD)));
 		} catch (InvalidLookahead | InTimeAdvancingState | RequestForTimeRegulationPending | TimeRegulationAlreadyEnabled | SaveInProgress | RestoreInProgress | FederateNotExecutionMember
@@ -108,10 +97,10 @@ public class ProjectFederate extends AbstractFederate implements Observer, TimeC
 	}
 
 	protected void sendInformInteraction(String message) {
-		this.sendInformInteraction(message, new DateLogicalTime(this.personRolSimulator.getExecutor().getClock().getCurrentDate()));
+		this.sendInformInteraction(message, new DateLogicalTime(this.projectlSimulator.getExecutor().getClock().getCurrentDate()));
 	}
 
-	public class PersonFederateAmbassador extends NullFederateAmbassador implements FederateAmbassador {
+	public class ProjectFederateAmbassador extends NullFederateAmbassador implements FederateAmbassador {
 
 		@Override
 		public void discoverObjectInstance(ObjectInstanceHandle objectInstanceHandle, ObjectClassHandle objectClassHandle, String objectInstanceName) throws FederateInternalError {

@@ -41,20 +41,21 @@ import com.wesimulated.simulation.hla.DateLogicalTime;
 import com.wesimulated.simulation.hla.DateLogicalTimeInterval;
 import com.wesimulated.simulationmotor.des.TimeControllerEntity;
 
-import edu.wesimulated.firstapp.simulation.PersonRolSimulator;
-import edu.wesimulated.firstapp.simulation.PersonRolSimulatorBuilder;
 import edu.wesimulated.firstapp.simulation.SimulationEvent;
+import edu.wesimulated.firstapp.simulation.TaskSimulator;
+import edu.wesimulated.firstapp.simulation.TaskSimulatorBuilder;
 import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
+import edu.wesimulated.firstapp.simulation.domain.Task;
 
 public class TaskFederate extends AbstractFederate implements Observer, TimeControllerEntity {
-	private PersonRolSimulator personRolSimulator;
-	private Person person;
+	private TaskSimulator taskSimulator;
+	private Task task;
 	private Project project;
 
-	public TaskFederate(Person person) {
+	public TaskFederate(Task task) {
 		super();
-		this.person = person;
+		this.task = task;
 	}
 
 	public void requestTimeAdvance(Date newDate) {
@@ -67,32 +68,40 @@ public class TaskFederate extends AbstractFederate implements Observer, TimeCont
 	}
 
 	public void timeRequestGranted(@SuppressWarnings("rawtypes") LogicalTime time) {
-		this.personRolSimulator.getExecutor().continueFromDate((DateLogicalTime) time);
+		this.taskSimulator.getExecutor().continueFromDate((DateLogicalTime) time);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		((SimulationEvent) arg).updateSimulation(this.personRolSimulator, this);
+		((SimulationEvent) arg).updateSimulation(this.taskSimulator, this);
 	}
 
 	public void initClock(DateLogicalTime time) {
-		this.personRolSimulator.getExecutor().initClock(time, this);
+		this.taskSimulator.getExecutor().initClock(time, this);
 	}
 	
 	public void discoverProject() {
-		this.personRolSimulator = PersonRolSimulatorBuilder.build(this.person, this.project);
-		this.project.addPerson(this.person);
+		this.taskSimulator = TaskSimulatorBuilder.build(this.task, this.project);
+		this.project.addTask(this.task);
+	}
+	
+	public void discoverTask(Task task) {
+		this.project.addTask(task);
+	}
+	
+	public void discoverPerson(Person person) {
+		this.project.addPerson(person);
 	}
 
 	public void joinFederationExcecution(String federateName) {
-		super.joinFederationExcecution(federateName, new PersonFederateAmbassador());
+		super.joinFederationExcecution(federateName, new TaskFederateAmbassador());
 		try {
 			ObjectInstanceHandle objectInstanceHandle;
 			String objectInstanceName;
-			objectInstanceHandle = getRTIAmbassador().registerObjectInstance(getPersonObjectClassHandle());
+			objectInstanceHandle = getRTIAmbassador().registerObjectInstance(getObjectClassHandle(HlaClass.getHlaTaskClassInstance()));
 			objectInstanceName = getRTIAmbassador().getObjectInstanceName(objectInstanceHandle);
-			HlaPerson hlaPerson = new HlaPerson(this.getRTIAmbassador(), getPersonObjectClassHandle(), objectInstanceHandle, objectInstanceName);
-			this.person.setHlaPerson(hlaPerson);
+			HlaTask hlaTask = new HlaTask(this.getRTIAmbassador(), getObjectClassHandle(HlaClass.getHlaTaskClassInstance()), objectInstanceHandle, objectInstanceName);
+			this.task.setHlaTask(hlaTask);
 			this.getRTIAmbassador().enableTimeConstrained();
 			this.getRTIAmbassador().enableTimeRegulation(new DateLogicalTimeInterval(Duration.ofMillis(LOOKAHEAD)));
 		} catch (InvalidLookahead | InTimeAdvancingState | RequestForTimeRegulationPending | TimeRegulationAlreadyEnabled | SaveInProgress | RestoreInProgress | FederateNotExecutionMember
@@ -107,10 +116,10 @@ public class TaskFederate extends AbstractFederate implements Observer, TimeCont
 	}
 
 	protected void sendInformInteraction(String message) {
-		this.sendInformInteraction(message, new DateLogicalTime(this.personRolSimulator.getExecutor().getClock().getCurrentDate()));
+		this.sendInformInteraction(message, new DateLogicalTime(this.taskSimulator.getExecutor().getClock().getCurrentDate()));
 	}
 
-	public class PersonFederateAmbassador extends NullFederateAmbassador implements FederateAmbassador {
+	public class TaskFederateAmbassador extends NullFederateAmbassador implements FederateAmbassador {
 
 		@Override
 		public void discoverObjectInstance(ObjectInstanceHandle objectInstanceHandle, ObjectClassHandle objectClassHandle, String objectInstanceName) throws FederateInternalError {
