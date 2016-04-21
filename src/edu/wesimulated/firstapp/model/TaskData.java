@@ -20,7 +20,7 @@ public class TaskData {
 		this.unitsOfWork = new SimpleIntegerProperty(unitsOfWork == null ? 0 : unitsOfWork);
 		
 	}
-	
+
 	public float calculateEffortInMilliseconds() {
 		return UnitsOfWorkInterpreter.uowToMilis(this.getUnitsOfWork());
 	}

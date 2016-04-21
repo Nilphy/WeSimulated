@@ -136,6 +136,7 @@ public class MainApp extends Application {
 			return false;
 		}
 	}
+
 	private void initRootLayout() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -156,21 +157,22 @@ public class MainApp extends Application {
 	}
 
 	public ObservableList<TaskData> getTaskData() {
-		return taskData;
+		return this.taskData;
 	}
-
+	
 	public ObservableList<PersonData> getPersonData() {
-		return personData;
+		return this.personData;
+	}
 	}
 
 	public Stage getPrimaryStage() {
-		return primaryStage;
+		return this.primaryStage;
 	}
 
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
+
 	public File getStorageFilePath() {
 		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
 		String filePath = prefs.get("filePath", null);
@@ -180,18 +182,18 @@ public class MainApp extends Application {
 			return null;
 		}
 	}
-	
+
 	public void setStorageFilePath(File file) {
 		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
 		if (file != null) {
-			prefs.put("filePath",  file.getPath());
+			prefs.put("filePath", file.getPath());
 			primaryStage.setTitle("FirstApp - " + file.getName());
 		} else {
 			prefs.remove("filePath");
 			primaryStage.setTitle("FirstApp");
 		}
 	}
-	
+
 	public void loadProgramDataFromFile(File file) {
 		try {
 			JAXBContext context = JAXBContext.newInstance(ProgramData.class);
