@@ -2,6 +2,7 @@ package edu.wesimulated.firstapp;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.prefs.Preferences;
 
 import javafx.application.Application;
@@ -24,12 +25,15 @@ import javax.xml.bind.Unmarshaller;
 import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.ProjectData;
 import edu.wesimulated.firstapp.model.TaskData;
+import edu.wesimulated.firstapp.model.WbsInnerNode;
+import edu.wesimulated.firstapp.persistence.WbsToXml;
 import edu.wesimulated.firstapp.view.PersonEditController;
 import edu.wesimulated.firstapp.view.PersonOverviewController;
 import edu.wesimulated.firstapp.view.RootLayoutController;
 import edu.wesimulated.firstapp.view.SimulationOverviewController;
 import edu.wesimulated.firstapp.view.TaskEditController;
 import edu.wesimulated.firstapp.view.TaskOverviewController;
+import edu.wesimulated.firstapp.view.WBSController;
 
 public class MainApp extends Application {
 
@@ -37,12 +41,9 @@ public class MainApp extends Application {
 	private BorderPane rootLayout;
 	private ObservableList<PersonData> personData = FXCollections.observableArrayList();
 	private ObservableList<TaskData> taskData = FXCollections.observableArrayList();
+	private WbsInnerNode wbs = new WbsInnerNode();
 
 	public MainApp() {
-		personData.add(new PersonData("Juan", "Perez"));
-		personData.add(new PersonData("Ricardo", "Rojas"));
-		taskData.add(new TaskData("Person ABM", 16));
-		taskData.add(new TaskData("Login", 8));
 	}
 
 	@Override
@@ -61,6 +62,19 @@ public class MainApp extends Application {
 			AnchorPane taskOverview = (AnchorPane) loader.load();
 			this.rootLayout.setCenter(taskOverview);
 			TaskOverviewController controller = loader.getController();
+			controller.setMainApp(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void showWbs() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/WBS.fxml"));
+			AnchorPane wbs = (AnchorPane) loader.load();
+			this.rootLayout.setCenter(wbs);
+			WBSController controller = loader.getController();
 			controller.setMainApp(this);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -163,6 +177,9 @@ public class MainApp extends Application {
 	public ObservableList<PersonData> getPersonData() {
 		return this.personData;
 	}
+
+	public WbsInnerNode getWbs() {
+		return this.wbs;
 	}
 
 	public Stage getPrimaryStage() {
@@ -196,39 +213,59 @@ public class MainApp extends Application {
 
 	public void loadProgramDataFromFile(File file) {
 		try {
-			JAXBContext context = JAXBContext.newInstance(ProgramData.class);
+			JAXBContext context = JAXBContext.newInstance(ProjectData.class);
 			Unmarshaller um = context.createUnmarshaller();
-			ProgramData programData = (ProgramData) um.unmarshal(file);
-			personData.clear();
-			personData.addAll(programData.getPersons());
-			taskData.clear();
-			taskData.addAll(programData.getTasks());
+			ProjectData programData = (ProjectData) um.unmarshal(file);
+			this.fillPeopleInfo(programData);
+			this.fillTaskInfo(programData);
+			this.fillWbsInfo(programData);
 			setStorageFilePath(file);
 		} catch (Exception e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText("Could not load data");
-			alert.setContentText("Could not load data from file: \n" + file.getPath());
-			alert.showAndWait();
+			showAlert(file, "Could not load data", "Could not load data from file");
+			e.printStackTrace();
 		}
 	}
-	
-	public void savePersonDataToFile(File file) {
+
+	private void showAlert(File file, String headerText, String contentText) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText(headerText);
+		alert.setContentText(contentText + ": \n" + file.getPath());
+		alert.showAndWait();
+	}
+
+	private void fillWbsInfo(ProjectData programData) {
+		WbsInnerNode newWbs = WbsToXml.buildWbsFromXmlRoot(programData.getWbsRootNode(), this);
+		getWbs().getChildrenWbsNodes().clear();
+		getWbs().setChildrenWbsNodes(newWbs.getChildrenWbsNodes());
+		getWbs().setName(newWbs.getName());
+	}
+
+	private void fillTaskInfo(ProjectData programData) {
+		this.taskData.clear();
+		this.taskData.addAll(programData.getTasks());
+		programData.registerMaxId();
+	}
+
+	private void fillPeopleInfo(ProjectData programData) {
+		this.personData.clear();
+		this.personData.addAll(programData.getPersons());
+	}
+
+	public void saveProjectDataToFile(File file) {
 		try {
-			JAXBContext context = JAXBContext.newInstance(ProgramData.class);
+			JAXBContext context = JAXBContext.newInstance(ProjectData.class);
 			Marshaller m = context.createMarshaller();
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			ProgramData programData = new ProgramData();
-			programData.setPersons(this.personData);
-			programData.setTasks(this.taskData);
-			m.marshal(programData, file);
+			ProjectData projectData = new ProjectData();
+			projectData.setPersons(this.personData);
+			projectData.setTasks(this.taskData);
+			projectData.setWbsRootNode(WbsToXml.buildWbsToXml(getWbs()));
+			m.marshal(projectData, file);
 			setStorageFilePath(file);
 		} catch (Exception e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText("Could not save data");
-			alert.setContentText("Could not save data to file: \n" + file.getPath());
-			alert.showAndWait();
+			e.printStackTrace();
+			this.showAlert(file, "Could not save data", "Could not save data to file");
 		}
 	}
 
@@ -245,5 +282,22 @@ public class MainApp extends Application {
 	public boolean mustStartLogger() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public TaskData getTaskById(Integer taskId) {
+		Iterator<TaskData> taskDataIterator = this.taskData.iterator();
+		TaskData found = null;
+		TaskData iterationTask = null;
+		while (taskDataIterator.hasNext() && found == null) {
+			iterationTask = taskDataIterator.next();
+			if (iterationTask.getId().equals(taskId)) {
+				found = iterationTask;
+			}
+		}
+		return found;
+	}
+
+	public void clearWbs() {
+		this.wbs = new WbsInnerNode();
 	}
 }

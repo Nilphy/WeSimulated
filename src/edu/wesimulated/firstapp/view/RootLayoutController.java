@@ -18,6 +18,7 @@ public class RootLayoutController {
 	private void handleNew() {
 		mainApp.getPersonData().clear();
 		mainApp.getTaskData().clear();
+		mainApp.clearWbs();
 		mainApp.setStorageFilePath(null);
 	}
 	
@@ -36,7 +37,7 @@ public class RootLayoutController {
 	private void handleSave() {
 		File programDataFile = mainApp.getStorageFilePath();
 		if (programDataFile != null) {
-			mainApp.savePersonDataToFile(programDataFile);
+			mainApp.saveProjectDataToFile(programDataFile);
 		} else {
 			handleSaveAs();
 		}
@@ -52,7 +53,7 @@ public class RootLayoutController {
 			if (!file.getPath().endsWith(".xml")) {
 				file = new File(file.getPath() + ".xml");
 			}
-			mainApp.savePersonDataToFile(file);
+			mainApp.saveProjectDataToFile(file);
 		}
 	}
 	
@@ -74,5 +75,10 @@ public class RootLayoutController {
 	@FXML
 	private void handleSimulationRun() {
 		mainApp.showSimulationOverview();
+	}
+	
+	@FXML
+	private void handleWBS() {
+		mainApp.showWbs();
 	}
 }

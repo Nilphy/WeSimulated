@@ -22,19 +22,19 @@ public class PersonEditController {
 	private TextField hoursPerDayField;
 	@FXML
 	private TextField efficencyField;
-	
+
 	private Stage dialogStage;
 	private PersonData person;
 	private boolean okClicked = false;
-	
+
 	@FXML
 	private void initialize() {
 	}
-	
+
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
 	}
-	
+
 	public void setPerson(PersonData person) {
 		this.person = person;
 		this.firstNameField.setText(person.getFirstName());
@@ -42,11 +42,11 @@ public class PersonEditController {
 		this.hoursPerDayField.setText(person.getHoursPerDay().toString());
 		this.efficencyField.setText(person.getEfficiency().toString());
 	}
-	
+
 	public boolean isOkClicked() {
 		return okClicked;
 	}
-	
+
 	@FXML
 	private void handleOK() {
 		if (validateInput()) {
@@ -58,12 +58,12 @@ public class PersonEditController {
 			dialogStage.close();
 		}
 	}
-	
+
 	@FXML
 	private void handleCancel() {
 		dialogStage.close();
 	}
-	
+
 	private boolean validateInput() {
 		String errorMessage = "";
 		if (firstNameField.getText() == null || firstNameField.getText().trim().length() == 0) {

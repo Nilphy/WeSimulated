@@ -41,15 +41,24 @@ public class TaskOverviewController {
 	private void handleDeleteTask() {
 		int selectedIndex = taskTable.getSelectionModel().getSelectedIndex();
 		if (selectedIndex >= 0) {
-			this.taskTable.getItems().remove(selectedIndex);
+			TaskData itemToDelete = this.taskTable.getItems().get(selectedIndex);
+			if (mainApp.getWbs().containsTask(itemToDelete)) {
+				alertError("Delete forbidden", "Task in WBS", "Plase unlink from WBS first");
+			} else {
+				this.taskTable.getItems().remove(selectedIndex);
+			}
 		} else {
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.initOwner(mainApp.getPrimaryStage());
-			alert.setTitle("No Selection");
-			alert.setHeaderText("No task selected");
-			alert.setContentText("Please select a task in the table");
-			alert.showAndWait();
+			alertError("No Selection", "No task selected", "Please select a task in the table");
 		}
+	}
+
+	private void alertError(String title, String header, String text) {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.initOwner(mainApp.getPrimaryStage());
+		alert.setTitle(title);
+		alert.setHeaderText(header);
+		alert.setContentText(text);
+		alert.showAndWait();
 	}
 
 	@FXML
@@ -57,6 +66,7 @@ public class TaskOverviewController {
 		TaskData tempTask = new TaskData();
 		boolean okClicked = mainApp.showTaskEditDialog(tempTask);
 		if (okClicked) {
+			tempTask.assingId();
 			this.mainApp.getTaskData().add(tempTask);
 		}
 	}
@@ -90,5 +100,4 @@ public class TaskOverviewController {
 		this.mainApp = mainApp;
 		this.taskTable.setItems(mainApp.getTaskData());
 	}
-
 }
