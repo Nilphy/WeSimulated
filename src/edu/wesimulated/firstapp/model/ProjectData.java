@@ -5,8 +5,8 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "programData")
-public class ProgramData {
+@XmlRootElement(name = "projectData")
+public class ProjectData {
 
 	private List<PersonData> persons;
 	private List<TaskData> tasks;

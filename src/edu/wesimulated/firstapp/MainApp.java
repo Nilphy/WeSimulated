@@ -22,7 +22,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import edu.wesimulated.firstapp.model.PersonData;
-import edu.wesimulated.firstapp.model.ProgramData;
+import edu.wesimulated.firstapp.model.ProjectData;
 import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.view.PersonEditController;
 import edu.wesimulated.firstapp.view.PersonOverviewController;
