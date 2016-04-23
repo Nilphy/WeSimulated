@@ -49,7 +49,7 @@ public class MainApp extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("We Simulated, First App!!");
+		this.primaryStage.setTitle("We Simulated");
 		this.primaryStage.getIcons().add(new Image("file:resources/images/lollipop.png"));
 		this.initRootLayout();
 		this.showPersonOverview();
