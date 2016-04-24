@@ -3,7 +3,6 @@ package edu.wesimulated.firstapp.model;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -59,18 +58,6 @@ public class WbsInnerNode extends WbsNode {
 		}
 		WbsInnerNode theOther = (WbsInnerNode) obj;
 		return this.getName().equals(theOther.getName()) && this.getChildrenWbsNodes().equals(theOther.getChildrenWbsNodes());
-	}
-
-	@Override
-	public void addListener(InvalidationListener listener) {
-		this.name.addListener(listener);
-		this.childrenWbsNodes.addListener(listener);
-	}
-
-	@Override
-	public void removeListener(InvalidationListener listener) {
-		this.name.removeListener(listener);
-		this.childrenWbsNodes.removeListener(listener);
 	}
 
 	public StringProperty nameProperty() {

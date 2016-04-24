@@ -1,6 +1,5 @@
 package edu.wesimulated.firstapp.model;
 
-import javafx.beans.InvalidationListener;
 import javafx.scene.Node;
 import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
@@ -28,16 +27,6 @@ public class WbsLeafNode extends WbsNode {
 	@Override
 	public void fillXmlNode(XmlWbsNode xmlWbsNode) {
 		xmlWbsNode.setTaskId(this.getTask().getId());
-	}
-
-	@Override
-	public void addListener(InvalidationListener listener) {
-		this.task.addListener(listener);
-	}
-
-	@Override
-	public void removeListener(InvalidationListener listener) {
-		this.task.removeListener(listener);
 	}
 
 	public TaskData getTask() {

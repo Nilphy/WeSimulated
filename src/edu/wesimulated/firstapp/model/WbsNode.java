@@ -1,11 +1,10 @@
 package edu.wesimulated.firstapp.model;
 
-import javafx.beans.Observable;
 import javafx.scene.control.TreeItem;
 import edu.wesimulated.firstapp.MainApp;
 import edu.wesimulated.firstapp.persistence.XmlWbsNode;
 
-public abstract class WbsNode implements Observable {
+public abstract class WbsNode {
 
 	public abstract void populateFromXmlNode(XmlWbsNode xmlWbs, MainApp mainApp);
 
