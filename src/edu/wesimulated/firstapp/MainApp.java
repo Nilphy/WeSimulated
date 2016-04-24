@@ -269,21 +269,6 @@ public class MainApp extends Application {
 		}
 	}
 
-	public boolean mustSimulateProject() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public Object getProjectData() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public boolean mustStartLogger() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	public TaskData getTaskById(Integer taskId) {
 		Iterator<TaskData> taskDataIterator = this.taskData.iterator();
 		TaskData found = null;
@@ -299,5 +284,20 @@ public class MainApp extends Application {
 
 	public void clearWbs() {
 		this.wbs = new WbsInnerNode();
+	}
+
+	public boolean mustSimulateProject() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public Object getProjectData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public boolean mustStartLogger() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
