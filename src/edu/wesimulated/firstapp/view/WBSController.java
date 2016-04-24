@@ -190,8 +190,15 @@ public class WBSController {
 				removeMenuItem.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-						getTreeItem().getParent().getChildren().remove(getIndex());
 						((WbsInnerNode) getTreeItem().getParent().getValue()).removeChild(getTreeItem().getValue());
+						int indexToRemove = 0;
+						for (TreeItem<WbsNode> child : getTreeItem().getParent().getChildren()) {
+							if (child.getValue().equals(getTreeItem().getValue())) {
+								getTreeItem().getParent().getChildren().remove(indexToRemove);
+								break;
+							}
+							indexToRemove++;
+						}
 						addTaskToTableView(((WbsLeafNode) getTreeItem().getValue()).getTask());
 					}
 				});
