@@ -15,8 +15,8 @@ public class XmlSerializationTest {
 	public void test() {
 		MainApp taskHolder = new MainApp();
 		WbsNode wbs = buildTestWbs(taskHolder, 10, 5);
-		XmlWbsNode serialized = WbsToXml.buildWbsToXml(wbs);
-		WbsNode wbsAfterSerializationAndUnserialization = WbsToXml.buildWbsFromXmlRoot(serialized, taskHolder);
+		XmlWbsNode serialized = UiModelToXml.buildWbsToXml(wbs);
+		WbsNode wbsAfterSerializationAndUnserialization = UiModelToXml.buildWbsFromXmlRoot(serialized, taskHolder);
 		Assert.assertEquals(wbs, wbsAfterSerializationAndUnserialization);
 	}
 

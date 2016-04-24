@@ -26,7 +26,7 @@ import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.ProjectData;
 import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.model.WbsInnerNode;
-import edu.wesimulated.firstapp.persistence.WbsToXml;
+import edu.wesimulated.firstapp.persistence.UiModelToXml;
 import edu.wesimulated.firstapp.view.PersonEditController;
 import edu.wesimulated.firstapp.view.PersonOverviewController;
 import edu.wesimulated.firstapp.view.RootLayoutController;
@@ -235,7 +235,7 @@ public class MainApp extends Application {
 	}
 
 	private void fillWbsInfo(ProjectData programData) {
-		WbsInnerNode newWbs = WbsToXml.buildWbsFromXmlRoot(programData.getWbsRootNode(), this);
+		WbsInnerNode newWbs = UiModelToXml.buildWbsFromXmlRoot(programData.getWbsRootNode(), this);
 		getWbs().getChildrenWbsNodes().clear();
 		getWbs().setChildrenWbsNodes(newWbs.getChildrenWbsNodes());
 		getWbs().setName(newWbs.getName());
@@ -260,7 +260,7 @@ public class MainApp extends Application {
 			ProjectData projectData = new ProjectData();
 			projectData.setPersons(this.personData);
 			projectData.setTasks(this.taskData);
-			projectData.setWbsRootNode(WbsToXml.buildWbsToXml(getWbs()));
+			projectData.setWbsRootNode(UiModelToXml.buildWbsToXml(getWbs()));
 			m.marshal(projectData, file);
 			setStorageFilePath(file);
 		} catch (Exception e) {
