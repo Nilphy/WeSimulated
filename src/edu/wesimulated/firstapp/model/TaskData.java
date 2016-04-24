@@ -1,14 +1,12 @@
 package edu.wesimulated.firstapp.model;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import edu.wesimulated.firstapp.simulation.domain.UnitsOfWorkInterpreter;
 
-public class TaskData implements Observable {
+public class TaskData {
 
 	private StringProperty name;
 	private IntegerProperty unitsOfWork;
@@ -27,18 +25,6 @@ public class TaskData implements Observable {
 
 	public float calculateEffortInMilliseconds() {
 		return UnitsOfWorkInterpreter.uowToMilis(this.getUnitsOfWork());
-	}
-
-	@Override
-	public void addListener(InvalidationListener listener) {
-		this.name.addListener(listener);
-		this.unitsOfWork.addListener(listener);
-	}
-
-	@Override
-	public void removeListener(InvalidationListener listener) {
-		this.name.removeListener(listener);
-		this.unitsOfWork.removeListener(listener);
 	}
 
 	public StringProperty nameProperty() {
@@ -93,7 +79,7 @@ public class TaskData implements Observable {
 	public void assingId() {
 		this.id.set(getNextId());
 	}
-	
+
 	public synchronized int getNextId() {
 		return ++MAX_ID;
 	}
