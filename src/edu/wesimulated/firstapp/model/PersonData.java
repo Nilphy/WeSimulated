@@ -14,22 +14,22 @@ public class PersonData {
 	private IntegerProperty hoursPerDay;
 	// [Unit] unit of work per hour
 	private FloatProperty efficiency;
-	
+
 	public PersonData() {
 		this(null, null);
 	}
-	
+
 	public PersonData(String firstName, String lastName) {
 		this.firstName = new SimpleStringProperty(firstName);
 		this.lastName = new SimpleStringProperty(lastName);
 		this.hoursPerDay = new SimpleIntegerProperty(8);
 		this.efficiency = new SimpleFloatProperty(0.8f);
 	}
-	
+
 	public float calculateEffectiveMillisecondsPerDay() {
-		return this.getHoursPerDay() * this.getEfficiency() /* hour */ * 60 /* minutes/hour */ * 60 /* seconds/minute */ * 1000 /* Milliseconds/seconds */;
+		return this.getHoursPerDay() * this.getEfficiency();
 	}
-	
+
 	public String getFirstName() {
 		return firstName.get();
 	}
