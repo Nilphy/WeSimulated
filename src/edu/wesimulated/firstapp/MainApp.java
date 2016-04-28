@@ -107,50 +107,6 @@ public class MainApp extends Application {
 		}
 	}
 
-	public boolean showPersonEditDialog(PersonData person) {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/PersonEditDialog.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
-			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Edit Person");
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(primaryStage);
-			Scene scene = new Scene(page);
-			dialogStage.setScene(scene);
-			PersonEditController controller = loader.getController();
-			controller.setDialogStage(dialogStage);
-			controller.setPerson(person);
-			dialogStage.showAndWait();
-			return controller.isOkClicked();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-
-	public boolean showTaskEditDialog(TaskData task) {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/TaskEditDialog.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
-			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Edit Task");
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(primaryStage);
-			Scene scene = new Scene(page);
-			dialogStage.setScene(scene);
-			TaskEditController controller = loader.getController();
-			controller.setDialogStage(dialogStage);
-			controller.setTask(task);
-			dialogStage.showAndWait();
-			return controller.isOkClicked();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-
 	private void initRootLayout() {
 		try {
 			FXMLLoader loader = new FXMLLoader();

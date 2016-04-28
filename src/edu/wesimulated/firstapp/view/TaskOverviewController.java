@@ -1,13 +1,20 @@
 package edu.wesimulated.firstapp.view;
 
-import edu.wesimulated.firstapp.MainApp;
-import edu.wesimulated.firstapp.model.TaskData;
+import java.io.IOException;
+
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import edu.wesimulated.firstapp.MainApp;
+import edu.wesimulated.firstapp.model.TaskData;
 
 public class TaskOverviewController {
 	@FXML
@@ -21,9 +28,9 @@ public class TaskOverviewController {
 	private Label nameLabel;
 	@FXML
 	private Label unitsOfWorkLabel;
-	
+
 	private MainApp mainApp;
-	
+
 	public TaskOverviewController() {
 	}
 
@@ -64,7 +71,7 @@ public class TaskOverviewController {
 	@FXML
 	private void handleNewTask() {
 		TaskData tempTask = new TaskData();
-		boolean okClicked = mainApp.showTaskEditDialog(tempTask);
+		boolean okClicked = this.showTaskEditDialog(tempTask);
 		if (okClicked) {
 			tempTask.assingId();
 			this.mainApp.getTaskData().add(tempTask);
@@ -75,7 +82,7 @@ public class TaskOverviewController {
 	private void handleEditTask() {
 		TaskData selectedTask = taskTable.getSelectionModel().getSelectedItem();
 		if (selectedTask != null) {
-			boolean okClicked = mainApp.showTaskEditDialog(selectedTask);
+			boolean okClicked = this.showTaskEditDialog(selectedTask);
 			if (okClicked) {
 				showTaskDetails(selectedTask);
 			}
@@ -88,14 +95,36 @@ public class TaskOverviewController {
 			alert.showAndWait();
 		}
 	}
-	
+
+	public boolean showTaskEditDialog(TaskData task) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/TaskEditDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Edit Task");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(this.mainApp.getPrimaryStage());
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+			TaskEditController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setTask(task);
+			dialogStage.showAndWait();
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 	public void initialize() {
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		unitsOfWorkColumn.setCellValueFactory(cellData -> cellData.getValue().unitsOfWorkProperty().asObject());
 		showTaskDetails(null);
 		taskTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showTaskDetails(newValue));
 	}
-	
+
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 		this.taskTable.setItems(mainApp.getTaskData());
