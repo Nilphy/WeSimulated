@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wesimulated.firstapp.view.RoleSelectionDialogController">
+   <children>
+      <ToolBar layoutX="273.0" layoutY="221.0" prefHeight="40.0" prefWidth="113.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
+        <items>
+          <Button mnemonicParsing="false" onAction="#handleOK" text="Ok" />
+            <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
+        </items>
+      </ToolBar>
+      <Label layoutX="23.0" layoutY="14.0" text="Role Selection" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+      <TableView fx:id="roleTable" layoutX="52.0" layoutY="25.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="40.0">
+        <columns>
+          <TableColumn fx:id="roleNameColumn" prefWidth="75.0" text="Role Name" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </children>
+</AnchorPane>

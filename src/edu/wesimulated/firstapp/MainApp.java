@@ -24,11 +24,13 @@ import javax.xml.bind.Unmarshaller;
 
 import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.ProjectData;
+import edu.wesimulated.firstapp.model.RoleData;
 import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.model.WbsInnerNode;
 import edu.wesimulated.firstapp.persistence.UiModelToXml;
-import edu.wesimulated.firstapp.view.PersonEditController;
 import edu.wesimulated.firstapp.view.PersonOverviewController;
+import edu.wesimulated.firstapp.view.RAMController;
+import edu.wesimulated.firstapp.view.RoleOverviewController;
 import edu.wesimulated.firstapp.view.RootLayoutController;
 import edu.wesimulated.firstapp.view.SimulationOverviewController;
 import edu.wesimulated.firstapp.view.TaskEditController;
@@ -41,6 +43,7 @@ public class MainApp extends Application {
 	private BorderPane rootLayout;
 	private ObservableList<PersonData> personData = FXCollections.observableArrayList();
 	private ObservableList<TaskData> taskData = FXCollections.observableArrayList();
+	private ObservableList<RoleData> roleData = FXCollections.observableArrayList();
 	private WbsInnerNode wbs = new WbsInnerNode();
 
 	public MainApp() {
@@ -62,6 +65,19 @@ public class MainApp extends Application {
 			AnchorPane taskOverview = (AnchorPane) loader.load();
 			this.rootLayout.setCenter(taskOverview);
 			TaskOverviewController controller = loader.getController();
+			controller.setMainApp(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void showRoleOverview() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/RoleOverview.fxml"));
+			AnchorPane rolOverview = (AnchorPane) loader.load();
+			this.rootLayout.setCenter(rolOverview);
+			RoleOverviewController controller = loader.getController();
 			controller.setMainApp(this);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -129,9 +145,13 @@ public class MainApp extends Application {
 	public ObservableList<TaskData> getTaskData() {
 		return this.taskData;
 	}
-	
+
 	public ObservableList<PersonData> getPersonData() {
 		return this.personData;
+	}
+
+	public ObservableList<RoleData> getRoleData() {
+		return this.roleData;
 	}
 
 	public WbsInnerNode getWbs() {
@@ -172,6 +192,7 @@ public class MainApp extends Application {
 			JAXBContext context = JAXBContext.newInstance(ProjectData.class);
 			Unmarshaller um = context.createUnmarshaller();
 			ProjectData projectData = (ProjectData) um.unmarshal(file);
+			this.fillRoleInfo(projectData);
 			this.fillPeopleInfo(projectData);
 			this.fillTaskInfo(projectData);
 			this.fillWbsInfo(projectData);
@@ -209,6 +230,9 @@ public class MainApp extends Application {
 		this.personData.addAll(projectData.getPersons());
 	}
 
+	private void fillRoleInfo(ProjectData projectData) {
+		this.roleData.clear();
+		this.roleData.addAll(projectData.getRoles());
 	}
 
 	public void saveProjectDataToFile(File file) {
@@ -219,6 +243,7 @@ public class MainApp extends Application {
 			ProjectData projectData = new ProjectData();
 			projectData.setPersons(this.personData);
 			projectData.setTasks(this.taskData);
+			projectData.setRoles(this.roleData);
 			projectData.setWbsRootNode(UiModelToXml.buildWbsToXml(getWbs()));
 			m.marshal(projectData, file);
 			setStorageFilePath(file);
@@ -236,6 +261,19 @@ public class MainApp extends Application {
 			iterationTask = taskDataIterator.next();
 			if (iterationTask.getId().equals(taskId)) {
 				found = iterationTask;
+			}
+		}
+		return found;
+	}
+
+	public RoleData getRoleByName(String roleName) {
+		Iterator<RoleData> roleDataIterator = this.roleData.iterator();
+		RoleData found = null;
+		RoleData iterationRole = null;
+		while (roleDataIterator.hasNext() && found == null) {
+			iterationRole = roleDataIterator.next();
+			if (iterationRole.getName().equals(roleName)) {
+				found = iterationRole;
 			}
 		}
 		return found;

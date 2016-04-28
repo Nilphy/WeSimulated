@@ -73,6 +73,11 @@ public class RootLayoutController {
 	}
 	
 	@FXML
+	private void handleRoles() {
+		mainApp.showRoleOverview();
+	}
+	
+	@FXML
 	private void handleSimulationRun() {
 		mainApp.showSimulationOverview();
 	}

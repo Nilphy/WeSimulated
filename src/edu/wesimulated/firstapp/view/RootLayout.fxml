@@ -18,6 +18,7 @@
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#handleTasks" text="Tasks..." />
                   <MenuItem mnemonicParsing="false" onAction="#handlePersons" text="Persons..." />
+                  <MenuItem mnemonicParsing="false" onAction="#handleRoles" text="Roles..." />
                   <MenuItem mnemonicParsing="false" onAction="#handleWBS" text="WBS" />
                   <SeparatorMenuItem mnemonicParsing="false" />
               <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />

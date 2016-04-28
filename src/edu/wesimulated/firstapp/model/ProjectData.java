@@ -13,6 +13,7 @@ public class ProjectData {
 
 	private List<PersonData> persons;
 	private List<TaskData> tasks;
+	private List<RoleData> roles;
 	private XmlWbsNode wbsRootNode;
 
 	@XmlElement(name = "person")
@@ -37,6 +38,18 @@ public class ProjectData {
 
 	public void setTasks(List<TaskData> tasks) {
 		this.tasks = tasks;
+	}
+
+	@XmlElement(name = "rol")
+	public List<RoleData> getRoles() {
+		if (roles == null) {
+			this.roles = new ArrayList<>();
+		}
+		return roles;
+	}
+
+	public void setRoles(List<RoleData> roles) {
+		this.roles = roles;
 	}
 
 	@XmlElement(name = "wbs")

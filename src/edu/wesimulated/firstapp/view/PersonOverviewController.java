@@ -25,7 +25,10 @@ public class PersonOverviewController {
 	private TableColumn<PersonData, String> firstNameColumn;
 	@FXML
 	private TableColumn<PersonData, String> lastNameColumn;
-	
+	@FXML
+	private TableView<RoleData> roleTable;
+	@FXML
+	private TableColumn<RoleData, String> roleNameColumn;
 	@FXML
 	private Label firstNameLabel;
 	@FXML
@@ -69,11 +72,13 @@ public class PersonOverviewController {
 			lastNameLabel.setText(person.getLastName());
 			hoursPerDayLabel.setText(person.getHoursPerDay().toString());
 			efficencyLabel.setText(person.getEfficiency().toString());
+			roleTable.setItems(person.getRoles());
 		} else {
 			firstNameLabel.setText("");
 			lastNameLabel.setText("");
 			hoursPerDayLabel.setText("");
 			efficencyLabel.setText("");
+			roleTable.setItems(FXCollections.observableArrayList());
 		}
 	}
 
@@ -118,11 +123,12 @@ public class PersonOverviewController {
 			alert.showAndWait();
 		}
 	}
-	
+
 	@FXML
 	private void initialize() {
 		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
+		roleNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		showPersonDetails(null);
 		personTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showPersonDetails(newValue));
 	}

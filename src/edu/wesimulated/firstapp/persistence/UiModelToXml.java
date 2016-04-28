@@ -17,4 +17,14 @@ public class UiModelToXml {
 		wbsNodeData.populateFromXmlNode(xmlWbs, mainApp);
 		return wbsNodeData;
 	}
+
+	public static void changeRolesFromMainAppOnes(List<PersonData> persons, MainApp mainApp) {
+		for (PersonData person : persons) {
+			List<RoleData> xmlRoles = person.getRoles();
+			person.setRoles(FXCollections.observableArrayList());
+			for (RoleData role : xmlRoles) {
+				person.addRole(mainApp.getRoleByName(role.getName()));
+			}
+		}
+	}
 }

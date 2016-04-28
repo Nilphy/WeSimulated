@@ -6,6 +6,8 @@ import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class PersonData {
 
@@ -14,6 +16,7 @@ public class PersonData {
 	private IntegerProperty hoursPerDay;
 	// [Unit] unit of work per hour
 	private FloatProperty efficiency;
+	private ObservableList<RoleData> roles;
 
 	public PersonData() {
 		this(null, null);
@@ -24,6 +27,7 @@ public class PersonData {
 		this.lastName = new SimpleStringProperty(lastName);
 		this.hoursPerDay = new SimpleIntegerProperty(8);
 		this.efficiency = new SimpleFloatProperty(0.8f);
+		this.roles = FXCollections.observableArrayList();
 	}
 
 	public float calculateEffectiveMillisecondsPerDay() {
@@ -70,6 +74,14 @@ public class PersonData {
 		return efficiency.get();
 	}
 
+	public ObservableList<RoleData> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(ObservableList<RoleData> roles) {
+		this.roles = roles;
+	}
+
 	public FloatProperty efficiencyProperty() {
 		return efficiency;
 	}
@@ -82,4 +94,9 @@ public class PersonData {
 	public String toString() {
 		return "Person [firstName=" + firstName.get() + ", lastName=" + lastName.get() + "]";
 	}
+
+	public void addRole(RoleData role) {
+		this.roles.add(role);
+	}
 }
+
