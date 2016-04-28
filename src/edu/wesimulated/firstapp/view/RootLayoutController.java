@@ -29,7 +29,7 @@ public class RootLayoutController {
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
 		if (file != null) {
-			mainApp.loadProgramDataFromFile(file);
+			mainApp.loadProjectDataFromFile(file);
 		}
 	}
 	

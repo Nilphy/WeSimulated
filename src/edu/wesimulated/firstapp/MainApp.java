@@ -166,7 +166,7 @@ public class MainApp extends Application {
 		}
 		File file = getStorageFilePath();
 		if (file != null) {
-			loadProgramDataFromFile(file);
+			loadProjectDataFromFile(file);
 		}
 	}
 
@@ -211,14 +211,14 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void loadProgramDataFromFile(File file) {
+	public void loadProjectDataFromFile(File file) {
 		try {
 			JAXBContext context = JAXBContext.newInstance(ProjectData.class);
 			Unmarshaller um = context.createUnmarshaller();
-			ProjectData programData = (ProjectData) um.unmarshal(file);
-			this.fillPeopleInfo(programData);
-			this.fillTaskInfo(programData);
-			this.fillWbsInfo(programData);
+			ProjectData projectData = (ProjectData) um.unmarshal(file);
+			this.fillPeopleInfo(projectData);
+			this.fillTaskInfo(projectData);
+			this.fillWbsInfo(projectData);
 			setStorageFilePath(file);
 		} catch (Exception e) {
 			showAlert(file, "Could not load data", "Could not load data from file");
@@ -234,22 +234,25 @@ public class MainApp extends Application {
 		alert.showAndWait();
 	}
 
-	private void fillWbsInfo(ProjectData programData) {
-		WbsInnerNode newWbs = UiModelToXml.buildWbsFromXmlRoot(programData.getWbsRootNode(), this);
+	private void fillWbsInfo(ProjectData projectData) {
+		WbsInnerNode newWbs = UiModelToXml.buildWbsFromXmlRoot(projectData.getWbsRootNode(), this);
 		getWbs().getChildrenWbsNodes().clear();
 		getWbs().setChildrenWbsNodes(newWbs.getChildrenWbsNodes());
 		getWbs().setName(newWbs.getName());
 	}
 
-	private void fillTaskInfo(ProjectData programData) {
+	private void fillTaskInfo(ProjectData projectData) {
 		this.taskData.clear();
-		this.taskData.addAll(programData.getTasks());
-		programData.registerMaxId();
+		this.taskData.addAll(projectData.getTasks());
+		projectData.registerMaxId();
 	}
 
-	private void fillPeopleInfo(ProjectData programData) {
+	private void fillPeopleInfo(ProjectData projectData) {
 		this.personData.clear();
-		this.personData.addAll(programData.getPersons());
+		UiModelToXml.changeRolesFromMainAppOnes(projectData.getPersons(), this);
+		this.personData.addAll(projectData.getPersons());
+	}
+
 	}
 
 	public void saveProjectDataToFile(File file) {
