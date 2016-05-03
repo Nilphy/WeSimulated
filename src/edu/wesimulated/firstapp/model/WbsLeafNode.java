@@ -21,7 +21,7 @@ public class WbsLeafNode extends WbsNode {
 	}
 
 	public void populateFromXmlNode(XmlWbsNode xmlWbs, MainApp mainApp) {
-		this.setTask(mainApp.getTaskById(xmlWbs.getTaskId()));
+		this.setTask(mainApp.findTaskById(xmlWbs.getTaskId()));
 	}
 
 	@Override

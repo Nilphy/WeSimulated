@@ -212,7 +212,7 @@ public class MainApp extends Application {
 	}
 
 	private void fillWbsInfo(ProjectData projectData) {
-		WbsInnerNode newWbs = UiModelToXml.buildWbsFromXmlRoot(projectData.getWbsRootNode(), this);
+		WbsInnerNode newWbs = UiModelToXml.convertToUiModel(projectData.getWbsRootNode(), this);
 		getWbs().getChildrenWbsNodes().clear();
 		getWbs().setChildrenWbsNodes(newWbs.getChildrenWbsNodes());
 		getWbs().setName(newWbs.getName());
@@ -244,7 +244,7 @@ public class MainApp extends Application {
 			projectData.setPersons(this.personData);
 			projectData.setTasks(this.taskData);
 			projectData.setRoles(this.roleData);
-			projectData.setWbsRootNode(UiModelToXml.buildWbsToXml(getWbs()));
+			projectData.setWbsRootNode(UiModelToXml.convertToXml(getWbs()));
 			m.marshal(projectData, file);
 			setStorageFilePath(file);
 		} catch (Exception e) {
@@ -253,7 +253,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	public TaskData getTaskById(Integer taskId) {
+	public TaskData findTaskById(Integer taskId) {
 		Iterator<TaskData> taskDataIterator = this.taskData.iterator();
 		TaskData found = null;
 		TaskData iterationTask = null;
@@ -266,7 +266,7 @@ public class MainApp extends Application {
 		return found;
 	}
 
-	public RoleData getRoleByName(String roleName) {
+	public RoleData findRoleByName(String roleName) {
 		Iterator<RoleData> roleDataIterator = this.roleData.iterator();
 		RoleData found = null;
 		RoleData iterationRole = null;
