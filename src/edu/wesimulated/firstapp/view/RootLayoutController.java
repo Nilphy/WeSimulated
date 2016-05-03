@@ -86,4 +86,9 @@ public class RootLayoutController {
 	private void handleWBS() {
 		mainApp.showWbs();
 	}
+	
+	@FXML
+	private void handleRAM() {
+		mainApp.showRam();
+	}
 }

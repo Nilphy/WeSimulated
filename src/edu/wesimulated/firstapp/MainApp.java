@@ -15,7 +15,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import javax.xml.bind.JAXBContext;
@@ -24,6 +23,7 @@ import javax.xml.bind.Unmarshaller;
 
 import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.ProjectData;
+import edu.wesimulated.firstapp.model.ResponsibilityAssignmentData;
 import edu.wesimulated.firstapp.model.RoleData;
 import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.model.WbsInnerNode;
@@ -33,7 +33,6 @@ import edu.wesimulated.firstapp.view.RAMController;
 import edu.wesimulated.firstapp.view.RoleOverviewController;
 import edu.wesimulated.firstapp.view.RootLayoutController;
 import edu.wesimulated.firstapp.view.SimulationOverviewController;
-import edu.wesimulated.firstapp.view.TaskEditController;
 import edu.wesimulated.firstapp.view.TaskOverviewController;
 import edu.wesimulated.firstapp.view.WBSController;
 
@@ -45,6 +44,7 @@ public class MainApp extends Application {
 	private ObservableList<TaskData> taskData = FXCollections.observableArrayList();
 	private ObservableList<RoleData> roleData = FXCollections.observableArrayList();
 	private WbsInnerNode wbs = new WbsInnerNode();
+	private ObservableList<ResponsibilityAssignmentData> responsibilityAssignmentData = FXCollections.observableArrayList();
 
 	public MainApp() {
 	}
@@ -91,6 +91,19 @@ public class MainApp extends Application {
 			AnchorPane wbs = (AnchorPane) loader.load();
 			this.rootLayout.setCenter(wbs);
 			WBSController controller = loader.getController();
+			controller.setMainApp(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void showRam() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/RAM.fxml"));
+			AnchorPane ram = (AnchorPane) loader.load();
+			this.rootLayout.setCenter(ram);
+			RAMController controller = loader.getController();
 			controller.setMainApp(this);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -158,6 +171,28 @@ public class MainApp extends Application {
 		return this.wbs;
 	}
 
+	public ObservableList<ResponsibilityAssignmentData> getResponsibilityAssignmentData() {
+		boolean found = false;
+		for (RoleData role : this.getRoleData()) {
+			for (TaskData task : this.getTaskData()) {
+				found = false;
+				for (ResponsibilityAssignmentData responsibilityAssignment : this.responsibilityAssignmentData) {
+					if (responsibilityAssignment.getTask().equals(task) && responsibilityAssignment.getRole().equals(role)) {
+						found = true;
+						break;
+					}
+				}
+				if (!found) {
+					ResponsibilityAssignmentData newResponsibilityAssignment = new ResponsibilityAssignmentData();
+					newResponsibilityAssignment.setTask(task);
+					newResponsibilityAssignment.setRole(role);
+					responsibilityAssignmentData.add(newResponsibilityAssignment);
+				}
+			}
+		}
+		return this.responsibilityAssignmentData;
+	}
+
 	public Stage getPrimaryStage() {
 		return this.primaryStage;
 	}
@@ -196,6 +231,7 @@ public class MainApp extends Application {
 			this.fillPeopleInfo(projectData);
 			this.fillTaskInfo(projectData);
 			this.fillWbsInfo(projectData);
+			this.fillRamInfo(projectData);
 			setStorageFilePath(file);
 		} catch (Exception e) {
 			showAlert(file, "Could not load data", "Could not load data from file");
@@ -230,6 +266,11 @@ public class MainApp extends Application {
 		this.personData.addAll(projectData.getPersons());
 	}
 
+	private void fillRamInfo(ProjectData projectData) {
+		this.responsibilityAssignmentData.clear();
+		this.responsibilityAssignmentData.addAll(UiModelToXml.convertToUiModel(projectData.getResponsibilityAssignments(), this));
+	}
+
 	private void fillRoleInfo(ProjectData projectData) {
 		this.roleData.clear();
 		this.roleData.addAll(projectData.getRoles());
@@ -245,6 +286,7 @@ public class MainApp extends Application {
 			projectData.setTasks(this.taskData);
 			projectData.setRoles(this.roleData);
 			projectData.setWbsRootNode(UiModelToXml.convertToXml(getWbs()));
+			projectData.setResponsibilityAssignments(UiModelToXml.convertToXml(getResponsibilityAssignmentData()));
 			m.marshal(projectData, file);
 			setStorageFilePath(file);
 		} catch (Exception e) {

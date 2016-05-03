@@ -6,6 +6,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import edu.wesimulated.firstapp.persistence.XmlResponsibilityAssignment;
 import edu.wesimulated.firstapp.persistence.XmlWbsNode;
 
 @XmlRootElement(name = "projectData")
@@ -15,6 +16,7 @@ public class ProjectData {
 	private List<TaskData> tasks;
 	private List<RoleData> roles;
 	private XmlWbsNode wbsRootNode;
+	private List<XmlResponsibilityAssignment> xmlRam;
 
 	@XmlElement(name = "person")
 	public List<PersonData> getPersons() {
@@ -70,5 +72,14 @@ public class ProjectData {
 				TaskData.MAX_ID = task.getId();
 			}
 		}
+	}
+
+	public void setResponsibilityAssignments(List<XmlResponsibilityAssignment> xmlRam) {
+		this.xmlRam = xmlRam;
+	}
+
+	@XmlElement(name = "ram")
+	public List<XmlResponsibilityAssignment> getResponsibilityAssignments() {
+		return this.xmlRam;
 	}
 }
