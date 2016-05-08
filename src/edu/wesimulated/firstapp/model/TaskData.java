@@ -33,6 +33,16 @@ public class TaskData {
 		return "Task [name=" + name.get() + ", id=" + id.get() + "]";
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (obj.getClass() != this.getClass()) {
+			return false;
+		}
+		TaskData theOther = (TaskData) obj;
+		return theOther.getId().equals(this.getId());
 
 	public synchronized int getNextId() {
 		return ++MAX_ID;
@@ -67,16 +77,6 @@ public class TaskData {
 
 	public Integer getId() {
 		return this.id.get();
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == null) {
-			return false;
-		}
-		if (obj.getClass() != this.getClass()) {
-			return false;
-		}
-		TaskData theOther = (TaskData) obj;
-		return theOther.getId().equals(this.getId());
 	}
 
 	public void assingId() {
