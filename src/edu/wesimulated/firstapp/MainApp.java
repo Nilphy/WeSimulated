@@ -40,13 +40,18 @@ public class MainApp extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-	private ObservableList<PersonData> personData = FXCollections.observableArrayList();
-	private ObservableList<TaskData> taskData = FXCollections.observableArrayList();
-	private ObservableList<RoleData> roleData = FXCollections.observableArrayList();
-	private WbsInnerNode wbs = new WbsInnerNode();
-	private ObservableList<ResponsibilityAssignmentData> responsibilityAssignmentData = FXCollections.observableArrayList();
+	private ObservableList<PersonData> personData;
+	private ObservableList<TaskData> taskData;
+	private ObservableList<RoleData> roleData;
+	private WbsInnerNode wbs;
+	private ObservableList<ResponsibilityAssignmentData> responsibilityAssignmentData;
 
 	public MainApp() {
+		this.personData = FXCollections.observableArrayList();
+		this.taskData = FXCollections.observableArrayList();
+		this.roleData = FXCollections.observableArrayList();
+		this.wbs = new WbsInnerNode();
+		this.responsibilityAssignmentData = FXCollections.observableArrayList();
 	}
 
 	@Override
