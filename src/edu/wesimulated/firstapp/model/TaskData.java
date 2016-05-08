@@ -4,6 +4,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import edu.wesimulated.firstapp.simulation.domain.UnitsOfWorkInterpreter;
 
 public class TaskData {
@@ -13,6 +15,7 @@ public class TaskData {
 	private StringProperty name;
 	private IntegerProperty unitsOfWork;
 	private IntegerProperty id;
+	private ObservableList<TaskDependency> taskDependencies;
 
 	public TaskData() {
 		this(null, null, null);
@@ -22,6 +25,7 @@ public class TaskData {
 		this.name = new SimpleStringProperty(name);
 		this.unitsOfWork = new SimpleIntegerProperty(unitsOfWork == null ? 0 : unitsOfWork);
 		this.id = new SimpleIntegerProperty(id == null ? 0 : id);
+		this.taskDependencies = FXCollections.observableArrayList();
 	}
 
 	public float calculateEffortInMilliseconds() {
@@ -43,11 +47,16 @@ public class TaskData {
 		}
 		TaskData theOther = (TaskData) obj;
 		return theOther.getId().equals(this.getId());
+	}
+
 	public void assingId() {
 		this.id.set(getNextId());
+	}
 
 	public synchronized int getNextId() {
 		return ++MAX_ID;
+	}
+
 	public StringProperty nameProperty() {
 		return name;
 	}
@@ -72,7 +81,6 @@ public class TaskData {
 		this.unitsOfWork.set(unitsOfWork);
 	}
 
-	}
 	public void setId(Integer id) {
 		this.id.set(id);
 	}
@@ -81,7 +89,11 @@ public class TaskData {
 		return this.id.get();
 	}
 
+	public ObservableList<TaskDependency> getTaskDependencies() {
+		return taskDependencies;
 	}
 
+	public void setTaskDependencies(ObservableList<TaskDependency> taskDependencies) {
+		this.taskDependencies = taskDependencies;
 	}
 }

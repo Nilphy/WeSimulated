@@ -91,4 +91,9 @@ public class RootLayoutController {
 	private void handleRAM() {
 		mainApp.showRam();
 	}
+
+	@FXML
+	private void handleTaskNet() {
+		mainApp.showTaskNet();
+	}
 }

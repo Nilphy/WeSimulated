@@ -20,6 +20,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#handlePersons" text="Persons..." />
                   <MenuItem mnemonicParsing="false" onAction="#handleRoles" text="Roles..." />
                   <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleTaskNet" text="Task Net" />
                   <MenuItem mnemonicParsing="false" onAction="#handleRAM" text="RAM" />
                   <MenuItem mnemonicParsing="false" onAction="#handleWBS" text="WBS" />
                   <SeparatorMenuItem mnemonicParsing="false" />

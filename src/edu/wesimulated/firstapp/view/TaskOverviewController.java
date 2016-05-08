@@ -51,6 +51,8 @@ public class TaskOverviewController {
 			TaskData itemToDelete = this.taskTable.getItems().get(selectedIndex);
 			if (mainApp.getWbs().containsTask(itemToDelete)) {
 				alertError("Delete forbidden", "Task in WBS", "Plase unlink from WBS first");
+			} else if (!mainApp.getTaskNet().validateIfTaskCouldBeDeleted(itemToDelete)) {
+				alertError("Delete forbidden", "Task has dependencies in task net", "Please remove dependencies first from task net");
 			} else {
 				this.taskTable.getItems().remove(selectedIndex);
 			}
@@ -75,6 +77,7 @@ public class TaskOverviewController {
 		if (okClicked) {
 			tempTask.assingId();
 			this.mainApp.getTaskData().add(tempTask);
+			this.mainApp.getTaskNet().addNetTaskToNet(tempTask);
 		}
 	}
 

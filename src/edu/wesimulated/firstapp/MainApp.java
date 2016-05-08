@@ -26,6 +26,7 @@ import edu.wesimulated.firstapp.model.ProjectData;
 import edu.wesimulated.firstapp.model.ResponsibilityAssignmentData;
 import edu.wesimulated.firstapp.model.RoleData;
 import edu.wesimulated.firstapp.model.TaskData;
+import edu.wesimulated.firstapp.model.TaskNet;
 import edu.wesimulated.firstapp.model.WbsInnerNode;
 import edu.wesimulated.firstapp.persistence.UiModelToXml;
 import edu.wesimulated.firstapp.view.PersonOverviewController;
@@ -33,6 +34,7 @@ import edu.wesimulated.firstapp.view.RAMController;
 import edu.wesimulated.firstapp.view.RoleOverviewController;
 import edu.wesimulated.firstapp.view.RootLayoutController;
 import edu.wesimulated.firstapp.view.SimulationOverviewController;
+import edu.wesimulated.firstapp.view.TaskNetController;
 import edu.wesimulated.firstapp.view.TaskOverviewController;
 import edu.wesimulated.firstapp.view.WBSController;
 
@@ -44,6 +46,7 @@ public class MainApp extends Application {
 	private ObservableList<TaskData> taskData;
 	private ObservableList<RoleData> roleData;
 	private WbsInnerNode wbs;
+	private TaskNet taskNet;
 	private ObservableList<ResponsibilityAssignmentData> responsibilityAssignmentData;
 
 	public MainApp() {
@@ -51,6 +54,7 @@ public class MainApp extends Application {
 		this.taskData = FXCollections.observableArrayList();
 		this.roleData = FXCollections.observableArrayList();
 		this.wbs = new WbsInnerNode();
+		this.taskNet = new TaskNet();
 		this.responsibilityAssignmentData = FXCollections.observableArrayList();
 	}
 
@@ -83,6 +87,19 @@ public class MainApp extends Application {
 			AnchorPane rolOverview = (AnchorPane) loader.load();
 			this.rootLayout.setCenter(rolOverview);
 			RoleOverviewController controller = loader.getController();
+			controller.setMainApp(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void showTaskNet() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/TaskNet.fxml"));
+			AnchorPane taskNet = (AnchorPane) loader.load();
+			this.rootLayout.setCenter(taskNet);
+			TaskNetController controller = loader.getController();
 			controller.setMainApp(this);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -176,6 +193,10 @@ public class MainApp extends Application {
 		return this.wbs;
 	}
 
+	public TaskNet getTaskNet() {
+		return taskNet;
+	}
+
 	public ObservableList<ResponsibilityAssignmentData> getResponsibilityAssignmentData() {
 		boolean found = false;
 		for (RoleData role : this.getRoleData()) {
@@ -237,11 +258,17 @@ public class MainApp extends Application {
 			this.fillTaskInfo(projectData);
 			this.fillWbsInfo(projectData);
 			this.fillRamInfo(projectData);
+			this.fillTaskNet();
 			setStorageFilePath(file);
 		} catch (Exception e) {
 			showAlert(file, "Could not load data", "Could not load data from file");
 			e.printStackTrace();
 		}
+	}
+
+	private void fillTaskNet() {
+		this.taskNet.initFromTasks(this.getTaskData());
+
 	}
 
 	private void showAlert(File file, String headerText, String contentText) {
@@ -344,4 +371,5 @@ public class MainApp extends Application {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 }
