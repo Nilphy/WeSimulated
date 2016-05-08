@@ -60,14 +60,13 @@ public class TaskData {
 		this.unitsOfWork.set(unitsOfWork);
 	}
 
-	public Integer getId() {
-		return this.id.get();
 	}
-
 	public void setId(Integer id) {
 		this.id.set(id);
 	}
 
+	public Integer getId() {
+		return this.id.get();
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {
