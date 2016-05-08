@@ -8,10 +8,11 @@ import edu.wesimulated.firstapp.simulation.domain.UnitsOfWorkInterpreter;
 
 public class TaskData {
 
+	public static int MAX_ID = 0;
+
 	private StringProperty name;
 	private IntegerProperty unitsOfWork;
 	private IntegerProperty id;
-	public static int MAX_ID = 0;
 
 	public TaskData() {
 		this(null, null, null);
