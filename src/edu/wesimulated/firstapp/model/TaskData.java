@@ -43,6 +43,8 @@ public class TaskData {
 		}
 		TaskData theOther = (TaskData) obj;
 		return theOther.getId().equals(this.getId());
+	public void assingId() {
+		this.id.set(getNextId());
 
 	public synchronized int getNextId() {
 		return ++MAX_ID;
@@ -79,8 +81,6 @@ public class TaskData {
 		return this.id.get();
 	}
 
-	public void assingId() {
-		this.id.set(getNextId());
 	}
 
 	}
