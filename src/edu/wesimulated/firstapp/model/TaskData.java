@@ -28,6 +28,11 @@ public class TaskData {
 		return UnitsOfWorkInterpreter.uowToMilis(this.getUnitsOfWork());
 	}
 
+	@Override
+	public String toString() {
+		return "Task [name=" + name.get() + ", id=" + id.get() + "]";
+	}
+
 	public StringProperty nameProperty() {
 		return name;
 	}
@@ -58,11 +63,6 @@ public class TaskData {
 
 	public void setId(Integer id) {
 		this.id.set(id);
-	}
-
-	@Override
-	public String toString() {
-		return "Task [name=" + name.get() + ", id=" + id.get() + "]";
 	}
 
 	@Override
