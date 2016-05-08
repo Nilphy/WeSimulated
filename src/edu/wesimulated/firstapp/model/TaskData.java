@@ -33,6 +33,9 @@ public class TaskData {
 		return "Task [name=" + name.get() + ", id=" + id.get() + "]";
 	}
 
+
+	public synchronized int getNextId() {
+		return ++MAX_ID;
 	public StringProperty nameProperty() {
 		return name;
 	}
@@ -81,7 +84,5 @@ public class TaskData {
 		this.id.set(getNextId());
 	}
 
-	public synchronized int getNextId() {
-		return ++MAX_ID;
 	}
 }
