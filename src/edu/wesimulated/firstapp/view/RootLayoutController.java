@@ -9,11 +9,11 @@ import edu.wesimulated.firstapp.MainApp;
 public class RootLayoutController {
 
 	private MainApp mainApp;
-	
+
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}
-	
+
 	@FXML
 	private void handleNew() {
 		mainApp.getPersonData().clear();
@@ -21,7 +21,7 @@ public class RootLayoutController {
 		mainApp.clearWbs();
 		mainApp.setStorageFilePath(null);
 	}
-	
+
 	@FXML
 	private void handleOpen() {
 		FileChooser fileChooser = new FileChooser();
@@ -32,7 +32,7 @@ public class RootLayoutController {
 			mainApp.loadProjectDataFromFile(file);
 		}
 	}
-	
+
 	@FXML
 	private void handleSave() {
 		File programDataFile = mainApp.getStorageFilePath();
@@ -56,37 +56,37 @@ public class RootLayoutController {
 			mainApp.saveProjectDataToFile(file);
 		}
 	}
-	
+
 	@FXML
 	private void handleExit() {
 		System.exit(0);
 	}
-	
+
 	@FXML
 	private void handleTasks() {
 		mainApp.showTaskOverview();
 	}
-	
+
 	@FXML
 	private void handlePersons() {
 		mainApp.showPersonOverview();
 	}
-	
+
 	@FXML
 	private void handleRoles() {
 		mainApp.showRoleOverview();
 	}
-	
+
 	@FXML
 	private void handleSimulationRun() {
 		mainApp.showSimulationOverview();
 	}
-	
+
 	@FXML
 	private void handleWBS() {
 		mainApp.showWbs();
 	}
-	
+
 	@FXML
 	private void handleRAM() {
 		mainApp.showRam();
