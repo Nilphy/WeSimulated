@@ -10,6 +10,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -110,7 +111,7 @@ public class TaskNetController {
 				setText(null);
 				setGraphic(null);
 			} else {
-				setText(getTreeItem().getValue().toString());
+				setText(getTreeItem().getValue().getPrecedence().getTextForNode() + getTreeItem().getValue().toString());
 				setGraphic(getTreeItem().getGraphic());
 				setContextMenu(this.getOperationsMenu());
 			}
