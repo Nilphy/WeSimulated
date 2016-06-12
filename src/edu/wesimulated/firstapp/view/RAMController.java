@@ -10,6 +10,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import edu.wesimulated.firstapp.MainApp;
+import edu.wesimulated.firstapp.model.RaciType;
 import edu.wesimulated.firstapp.model.RamRow;
 import edu.wesimulated.firstapp.model.ResponsibilityAssignmentData;
 import edu.wesimulated.firstapp.model.RoleData;
@@ -55,7 +56,7 @@ public class RAMController {
 			roleColumn.getColumns().add(informedColumn);
 			this.responsibilityAssignmentTable.getColumns().add(roleColumn);
 		}
-		this.responsibilityAssignmentTable.setItems(this.toRows(this.mainApp.getResponsibilityAssignmentData()));
+		this.responsibilityAssignmentTable.setItems(this.toRows(this.mainApp.buildResponsibilityAssignmentData()));
 	}
 
 	private ObservableList<RamRow> toRows(ObservableList<ResponsibilityAssignmentData> responsibilityAssignmentData) {

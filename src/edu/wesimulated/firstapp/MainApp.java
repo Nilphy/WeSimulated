@@ -197,7 +197,7 @@ public class MainApp extends Application {
 		return taskNet;
 	}
 
-	public ObservableList<ResponsibilityAssignmentData> getResponsibilityAssignmentData() {
+	public ObservableList<ResponsibilityAssignmentData> buildResponsibilityAssignmentData() {
 		boolean found = false;
 		for (RoleData role : this.getRoleData()) {
 			for (TaskData task : this.getTaskData()) {
@@ -318,7 +318,7 @@ public class MainApp extends Application {
 			projectData.setTasks(this.taskData);
 			projectData.setRoles(this.roleData);
 			projectData.setWbsRootNode(UiModelToXml.convertToXml(getWbs()));
-			projectData.setResponsibilityAssignments(UiModelToXml.convertToXml(getResponsibilityAssignmentData()));
+			projectData.setResponsibilityAssignments(UiModelToXml.convertToXml(buildResponsibilityAssignmentData()));
 			m.marshal(projectData, file);
 			setStorageFilePath(file);
 		} catch (Exception e) {
