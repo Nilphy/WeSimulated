@@ -15,7 +15,7 @@ public class Project implements CompletableTask {
 	private ProjectWbs wbs;
 	private ProjectGantt gantt;
 	private ProjectRam ram;
-	private HlaProject HlaProject;
+	private HlaProject hlaProject;
 	
 	@Override
 	public boolean isCompleted() {
@@ -29,5 +29,8 @@ public class Project implements CompletableTask {
 
 	public void addPerson(Person person) {
 		this.people.add(person);
+	}
+	public void setHlaProject(HlaProject hlaProject) {
+		this.hlaProject = hlaProject;
 	}
 }
