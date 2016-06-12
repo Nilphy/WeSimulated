@@ -19,6 +19,21 @@ public class ResponsibilityAssignmentData {
 		this.informed = new SimpleBooleanProperty(false);
 	}
 
+	public boolean isOfRaciType(RaciType raciType) {
+		switch (raciType) {
+		case Responsible:
+			return this.isResponsible();
+		case Accountable:
+			return this.isAccountable();
+		case Consulted:
+			return this.isConsulted();
+		case Informed:
+			return this.isInformed();
+		default:
+			return false;
+		}
+	}
+
 	public RoleData getRole() {
 		return this.role;
 	}

@@ -2,6 +2,8 @@ package edu.wesimulated.firstapp;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.prefs.Preferences;
 
@@ -23,6 +25,7 @@ import javax.xml.bind.Unmarshaller;
 
 import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.ProjectData;
+import edu.wesimulated.firstapp.model.RaciType;
 import edu.wesimulated.firstapp.model.ResponsibilityAssignmentData;
 import edu.wesimulated.firstapp.model.RoleData;
 import edu.wesimulated.firstapp.model.TaskData;
@@ -353,6 +356,30 @@ public class MainApp extends Application {
 		return found;
 	}
 
+	public Collection<RoleData> findRolesOfTaskAndRaciType(TaskData taskToFind, RaciType raciType) {
+		ObservableList<ResponsibilityAssignmentData> responsibilityAssignmentData = this.buildResponsibilityAssignmentData();
+		Collection<RoleData> rolesOfTask = new ArrayList<RoleData>();
+		for (ResponsibilityAssignmentData raData : responsibilityAssignmentData) {
+			if (raData.getTask().equals(taskToFind) && raData.isOfRaciType(raciType)) {
+				rolesOfTask.add(raData.getRole());
+			}
+		}
+		return rolesOfTask;
+	}
+
+	public Collection<PersonData> findPeopleWithRoles(Collection<RoleData> roles) {
+		Collection<PersonData> personsWithRoles = new ArrayList<>();
+		for (PersonData person : this.personData) {
+			for (RoleData role : person.getRoles()) {
+				if (roles.contains(role)) {
+					personsWithRoles.add(person);
+				}
+				break;
+			}
+		}
+		return personsWithRoles;
+	}
+
 	public void clearWbs() {
 		this.wbs = new WbsInnerNode();
 	}
@@ -371,5 +398,4 @@ public class MainApp extends Application {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 }

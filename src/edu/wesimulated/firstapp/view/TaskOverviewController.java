@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,7 +19,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import edu.wesimulated.firstapp.MainApp;
+import edu.wesimulated.firstapp.model.PersonData;
+import edu.wesimulated.firstapp.model.RaciType;
 import edu.wesimulated.firstapp.model.TaskData;
+import edu.wesimulated.firstapp.model.TaskPeopleAssignmentRow;
 
 public class TaskOverviewController {
 	@FXML
@@ -27,7 +31,6 @@ public class TaskOverviewController {
 	private TableColumn<TaskData, String> nameColumn;
 	@FXML
 	private TableColumn<TaskData, Integer> unitsOfWorkColumn;
-
 	@FXML
 	private Label nameLabel;
 	@FXML
@@ -36,12 +39,19 @@ public class TaskOverviewController {
 	private Label startDate;
 	@FXML
 	private Label endDate;
+	@FXML
+	private TableView<TaskPeopleAssignmentRow> taskPeopleAssignmentTable;
+	@FXML
+	private TableColumn<TaskPeopleAssignmentRow, String> raciColumn;
+	@FXML
+	private TableColumn<TaskPeopleAssignmentRow, String> personColumn;
 
 	private final String pattern = "yyyy-MM-dd";
 	private MainApp mainApp;
 	StringConverter<LocalDate> converter;
 
 	public TaskOverviewController() {
+
 	}
 
 	private void showTaskDetails(TaskData task) {
@@ -50,6 +60,7 @@ public class TaskOverviewController {
 			unitsOfWorkLabel.setText(task.getUnitsOfWork().toString());
 			startDate.setText(converter.toString(task.getStartDate()));
 			endDate.setText(converter.toString(task.getEndDate()));
+			populateTaskPeopleAssignmentsTable(task);
 		} else {
 			nameLabel.setText("");
 			unitsOfWorkLabel.setText("");
@@ -128,6 +139,7 @@ public class TaskOverviewController {
 			controller.setDialogStage(dialogStage);
 			controller.setDateFormatter(this.converter, this.pattern);
 			controller.setTask(task);
+			controller.setMainApp(this.mainApp);
 			dialogStage.showAndWait();
 			return controller.isOkClicked();
 		} catch (IOException e) {
@@ -136,9 +148,28 @@ public class TaskOverviewController {
 		}
 	}
 
+	private void populateTaskPeopleAssignmentsTable(TaskData taskData) {
+		this.taskPeopleAssignmentTable.getItems().clear();
+		populateTaskPeopleAssignmentsTableOfRaciType(RaciType.Responsible, taskData.getResponsiblePeople());
+		populateTaskPeopleAssignmentsTableOfRaciType(RaciType.Accountable, taskData.getAccountablePeople());
+		populateTaskPeopleAssignmentsTableOfRaciType(RaciType.Consulted, taskData.getConsultedPeople());
+		populateTaskPeopleAssignmentsTableOfRaciType(RaciType.Informed, taskData.getInformedPeople());
+	}
+
+	private void populateTaskPeopleAssignmentsTableOfRaciType(RaciType raciType, ObservableList<PersonData> people) {
+		for (PersonData person : people) {
+			TaskPeopleAssignmentRow newRow = new TaskPeopleAssignmentRow();
+			newRow.setPerson(person);
+			newRow.setRaciType(raciType);
+			this.taskPeopleAssignmentTable.getItems().add(newRow);
+		}
+	}
+
 	public void initialize() {
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		unitsOfWorkColumn.setCellValueFactory(cellData -> cellData.getValue().unitsOfWorkProperty().asObject());
+		raciColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRaciType().toString()));
+		personColumn.setCellValueFactory(cellData -> cellData.getValue().getPerson().firstNameProperty());
 		showTaskDetails(null);
 		taskTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showTaskDetails(newValue));
 		converter = new StringConverter<LocalDate>() {
