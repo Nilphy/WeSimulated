@@ -30,6 +30,11 @@ public class Project implements CompletableTask {
 	public void addPerson(Person person) {
 		this.people.add(person);
 	}
+
+	public void addTask(Task task) {
+		this.tasks.add(task);
+	}
+
 	public void setHlaProject(HlaProject hlaProject) {
 		this.hlaProject = hlaProject;
 	}
