@@ -33,22 +33,22 @@ public class RAMController {
 		for (RoleData role : this.mainApp.getRoleData()) {
 			TableColumn<RamRow, Boolean> roleColumn = new TableColumn<>(role.getName());
 			roleColumn.setEditable(true);
-			TableColumn<RamRow, Boolean> responsibleColumn = new TableColumn<>("R");
+			TableColumn<RamRow, Boolean> responsibleColumn = new TableColumn<>(RaciType.Responsible.toString());
 			responsibleColumn.setCellFactory(CheckBoxTableCell.forTableColumn(responsibleColumn));
 			responsibleColumn.setCellValueFactory(row -> row.getValue().findByRole(role).responsibleProperty());
 			responsibleColumn.setEditable(true);
 			roleColumn.getColumns().add(responsibleColumn);
-			TableColumn<RamRow, Boolean> accountableColumn = new TableColumn<>("A");
+			TableColumn<RamRow, Boolean> accountableColumn = new TableColumn<>(RaciType.Accountable.toString());
 			accountableColumn.setCellFactory(CheckBoxTableCell.forTableColumn(accountableColumn));
 			accountableColumn.setCellValueFactory(row -> row.getValue().findByRole(role).accountableProperty());
 			accountableColumn.setEditable(true);
 			roleColumn.getColumns().add(accountableColumn);
-			TableColumn<RamRow, Boolean> consultedColumn = new TableColumn<>("C");
+			TableColumn<RamRow, Boolean> consultedColumn = new TableColumn<>(RaciType.Consulted.toString());
 			consultedColumn.setCellFactory(CheckBoxTableCell.forTableColumn(consultedColumn));
 			consultedColumn.setCellValueFactory(row -> row.getValue().findByRole(role).consultedProperty());
 			consultedColumn.setEditable(true);
 			roleColumn.getColumns().add(consultedColumn);
-			TableColumn<RamRow, Boolean> informedColumn = new TableColumn<>("I");
+			TableColumn<RamRow, Boolean> informedColumn = new TableColumn<>(RaciType.Informed.toString());
 			informedColumn.setCellFactory(CheckBoxTableCell.forTableColumn(informedColumn));
 			informedColumn.setCellValueFactory(row -> row.getValue().findByRole(role).informedProperty());
 			informedColumn.setEditable(true);
