@@ -30,6 +30,7 @@ public class TaskDependency {
 		Image image = new Image("file:resources/images/" + this.getPrecedence().getImageName() + ".png", 15, 15, true, true);
 		ImageView imageView = new ImageView(image);
 		imageView.setAccessibleHelp(this.getPrecedence().getImageName());
+		imageView.setAccessibleText(this.getPrecedence().getImageName());
 		return imageView;
 	}
 
