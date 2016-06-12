@@ -43,6 +43,10 @@
                         <Label text="Units of work" GridPane.rowIndex="1" />
                         <Label fx:id="nameLabel" text="Label" GridPane.columnIndex="1" />
                         <Label fx:id="unitsOfWorkLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="Start date" GridPane.rowIndex="2" />
+                        <Label fx:id="startDate" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="End date" GridPane.rowIndex="3" />
+                        <Label fx:id="endDate" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                   <ToolBar layoutX="209.0" layoutY="244.0" prefHeight="40.0" prefWidth="168.0" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0">

@@ -1,7 +1,10 @@
 package edu.wesimulated.firstapp.view;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,6 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import edu.wesimulated.firstapp.MainApp;
 import edu.wesimulated.firstapp.model.TaskData;
 
@@ -28,8 +32,14 @@ public class TaskOverviewController {
 	private Label nameLabel;
 	@FXML
 	private Label unitsOfWorkLabel;
+	@FXML
+	private Label startDate;
+	@FXML
+	private Label endDate;
 
+	private final String pattern = "yyyy-MM-dd";
 	private MainApp mainApp;
+	StringConverter<LocalDate> converter;
 
 	public TaskOverviewController() {
 	}
@@ -38,9 +48,13 @@ public class TaskOverviewController {
 		if (task != null) {
 			nameLabel.setText(task.getName());
 			unitsOfWorkLabel.setText(task.getUnitsOfWork().toString());
+			startDate.setText(converter.toString(task.getStartDate()));
+			endDate.setText(converter.toString(task.getEndDate()));
 		} else {
 			nameLabel.setText("");
 			unitsOfWorkLabel.setText("");
+			startDate.setText("");
+			endDate.setText("");
 		}
 	}
 
@@ -112,6 +126,7 @@ public class TaskOverviewController {
 			dialogStage.setScene(scene);
 			TaskEditController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
+			controller.setDateFormatter(this.converter, this.pattern);
 			controller.setTask(task);
 			dialogStage.showAndWait();
 			return controller.isOkClicked();
@@ -126,6 +141,27 @@ public class TaskOverviewController {
 		unitsOfWorkColumn.setCellValueFactory(cellData -> cellData.getValue().unitsOfWorkProperty().asObject());
 		showTaskDetails(null);
 		taskTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showTaskDetails(newValue));
+		converter = new StringConverter<LocalDate>() {
+			DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+
+			@Override
+			public String toString(LocalDate date) {
+				if (date != null) {
+					return dateFormatter.format(date);
+				} else {
+					return "";
+				}
+			}
+
+			@Override
+			public LocalDate fromString(String string) {
+				if (string != null && !string.isEmpty()) {
+					return LocalDate.parse(string, dateFormatter);
+				} else {
+					return null;
+				}
+			}
+		};
 	}
 
 	public void setMainApp(MainApp mainApp) {

@@ -1,11 +1,14 @@
 package edu.wesimulated.firstapp.model;
 
+import java.time.LocalDate;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import edu.wesimulated.firstapp.persistence.LocalDateAdapter;
 import edu.wesimulated.firstapp.simulation.domain.UnitsOfWorkInterpreter;
 
 public class TaskData {
@@ -14,6 +17,8 @@ public class TaskData {
 
 	private StringProperty name;
 	private IntegerProperty unitsOfWork;
+	private LocalDate startDate;
+	private LocalDate endDate;
 	private IntegerProperty id;
 	private ObservableList<TaskDependency> taskDependencies;
 
@@ -96,4 +101,23 @@ public class TaskData {
 	public void setTaskDependencies(ObservableList<TaskDependency> taskDependencies) {
 		this.taskDependencies = taskDependencies;
 	}
+
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
+	}
+
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
+	}
+
 }

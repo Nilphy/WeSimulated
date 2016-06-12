@@ -31,6 +31,10 @@
             <Label text="Units of work" GridPane.rowIndex="1" />
             <TextField fx:id="nameField" GridPane.columnIndex="1" />
             <TextField fx:id="unitsOfWorkField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Start date" GridPane.rowIndex="2" />
+            <Label text="End date" GridPane.rowIndex="3" />
+            <DatePicker fx:id="startDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <DatePicker fx:id="endDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <Label layoutX="24.0" layoutY="14.0" text="Task Edition" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
