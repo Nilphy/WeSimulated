@@ -20,6 +20,20 @@ import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.model.TaskDependency;
 import edu.wesimulated.firstapp.model.TaskNetNode;
 
+/**
+ * 
+ * Las tareas en un proyecto tienen dependencias de distintos tipos:
+ * - start to start
+ * - finish to start
+ * - start to finish
+ * - finish to finish
+ * 
+ * En esta pantalla se pueden ingresar las tareas de las que dependen las tareas armandose varias redes
+ * de un nivel, donde la raiz de cada red es cada una de las tareas del proyecto.
+ * 
+ * @author Carolina
+ *
+ */
 public class TaskNetController {
 	@FXML
 	private TableView<TaskData> taskTable;

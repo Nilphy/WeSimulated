@@ -31,6 +31,22 @@ import edu.wesimulated.firstapp.model.RoleData;
 import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.model.TaskPeopleAssignmentRow;
 
+/**
+ * 
+ * Una tarea se caracteriza por:
+ * - tipo y cantidad de trabajo que implica
+ * - personas asignadas
+ * - fecha de comienzo y fin
+ * 
+ * Y luego por las relaciones que tiene con el proyecto y con otras tareas.
+ * En esta pantalla solamente se pueden ingresar los dos items mencionados.
+ * 
+ * Las personas que se podrán relacionar con esta tarea serán aquellas que tengan los roles
+ * asignados a la tarea en la tabla RACI.
+ * 
+ * @author Carolina
+ *
+ */
 public class TaskEditController {
 
 	@FXML

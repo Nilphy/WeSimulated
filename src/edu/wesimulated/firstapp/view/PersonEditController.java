@@ -24,6 +24,14 @@ import edu.wesimulated.firstapp.MainApp;
 import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.RoleData;
 
+/**
+ * 
+ * Una persona tiene ciertas características personales y cumple roles dentro del proyecto.
+ * En esta pantalla se pueden ingresar todos los datos de las peronas importantes para la simulación.
+ * 
+ * @author Carolina
+ *
+ */
 public class PersonEditController {
 	@FXML
 	private TextField firstNameField;
