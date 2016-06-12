@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wesimulated.firstapp.view.RootLayoutController">
+<BorderPane prefHeight="700" prefWidth="1200" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wesimulated.firstapp.view.RootLayoutController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -18,6 +18,11 @@
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#handleTasks" text="Tasks..." />
                   <MenuItem mnemonicParsing="false" onAction="#handlePersons" text="Persons..." />
+                  <MenuItem mnemonicParsing="false" onAction="#handleRoles" text="Roles..." />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleTaskNet" text="Task Net" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleRAM" text="RAM" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleWBS" text="WBS" />
                   <SeparatorMenuItem mnemonicParsing="false" />
               <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
             </items>

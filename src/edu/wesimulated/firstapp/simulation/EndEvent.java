@@ -1,12 +1,13 @@
 package edu.wesimulated.firstapp.simulation;
 
 import edu.wesimulated.firstapp.simulation.exception.SimulationStillRunningException;
+import edu.wesimulated.firstapp.simulation.hla.AbstractFederate;
 
 public class EndEvent extends SimulationEvent {
 
 	@Override
-	public void updateSimulation(PersonSimulator personSimulator, AbstractFederate abstractFederate) {
-		if (personSimulator != null && personSimulator.isRunning()) {
+	public void updateSimulation(Simulator personRolSimulator, AbstractFederate abstractFederate) {
+		if (personRolSimulator != null && personRolSimulator.isRunning()) {
 			throw new SimulationStillRunningException();
 		}
 		abstractFederate.resignFromFederation();

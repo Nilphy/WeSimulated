@@ -1,22 +1,34 @@
 package edu.wesimulated.firstapp.view;
 
+import java.io.IOException;
+
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import edu.wesimulated.firstapp.MainApp;
-import edu.wesimulated.firstapp.model.Person;
+import edu.wesimulated.firstapp.model.PersonData;
+import edu.wesimulated.firstapp.model.RoleData;
 
 public class PersonOverviewController {
 	@FXML
-	private TableView<Person> personTable;
+	private TableView<PersonData> personTable;
 	@FXML
-	private TableColumn<Person, String> firstNameColumn;
+	private TableColumn<PersonData, String> firstNameColumn;
 	@FXML
-	private TableColumn<Person, String> lastNameColumn;
-	
+	private TableColumn<PersonData, String> lastNameColumn;
+	@FXML
+	private TableView<RoleData> roleTable;
+	@FXML
+	private TableColumn<RoleData, String> roleNameColumn;
 	@FXML
 	private Label firstNameLabel;
 	@FXML
@@ -31,17 +43,42 @@ public class PersonOverviewController {
 	public PersonOverviewController() {
 	}
 
-	private void showPersonDetails(Person person) {
+	public boolean showPersonEditDialog(PersonData person) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/PersonEditDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Edit Person");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(this.mainApp.getPrimaryStage());
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+			PersonEditController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setPerson(person);
+			controller.setMainApp(this.mainApp);
+			dialogStage.showAndWait();
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	private void showPersonDetails(PersonData person) {
 		if (person != null) {
 			firstNameLabel.setText(person.getFirstName());
 			lastNameLabel.setText(person.getLastName());
 			hoursPerDayLabel.setText(person.getHoursPerDay().toString());
 			efficencyLabel.setText(person.getEfficiency().toString());
+			roleTable.setItems(person.getRoles());
 		} else {
 			firstNameLabel.setText("");
 			lastNameLabel.setText("");
 			hoursPerDayLabel.setText("");
 			efficencyLabel.setText("");
+			roleTable.setItems(FXCollections.observableArrayList());
 		}
 	}
 
@@ -62,8 +99,8 @@ public class PersonOverviewController {
 
 	@FXML
 	private void handleNewPerson() {
-		Person tempPerson = new Person();
-		boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
+		PersonData tempPerson = new PersonData();
+		boolean okClicked = this.showPersonEditDialog(tempPerson);
 		if (okClicked) {
 			this.mainApp.getPersonData().add(tempPerson);
 		}
@@ -71,9 +108,9 @@ public class PersonOverviewController {
 
 	@FXML
 	private void handleEditPerson() {
-		Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
+		PersonData selectedPerson = personTable.getSelectionModel().getSelectedItem();
 		if (selectedPerson != null) {
-			boolean okClicked = mainApp.showPersonEditDialog(selectedPerson);
+			boolean okClicked = this.showPersonEditDialog(selectedPerson);
 			if (okClicked) {
 				showPersonDetails(selectedPerson);
 			}
@@ -86,11 +123,12 @@ public class PersonOverviewController {
 			alert.showAndWait();
 		}
 	}
-	
+
 	@FXML
 	private void initialize() {
 		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
+		roleNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		showPersonDetails(null);
 		personTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showPersonDetails(newValue));
 	}

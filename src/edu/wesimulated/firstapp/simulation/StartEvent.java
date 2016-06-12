@@ -1,12 +1,14 @@
 package edu.wesimulated.firstapp.simulation;
 
+import edu.wesimulated.firstapp.simulation.hla.AbstractFederate;
+
 
 public class StartEvent extends SimulationEvent {
 
 	@Override
-	public void updateSimulation(PersonSimulator personSimulator, AbstractFederate personFederate) {
-		if (personSimulator != null) {
-			personSimulator.startExecution();
+	public void updateSimulation(Simulator personRolSimulator, AbstractFederate personFederate) {
+		if (personRolSimulator != null) {
+			personRolSimulator.startExecution();
 		}
 	}
 }

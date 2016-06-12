@@ -9,18 +9,19 @@ import edu.wesimulated.firstapp.MainApp;
 public class RootLayoutController {
 
 	private MainApp mainApp;
-	
+
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}
-	
+
 	@FXML
 	private void handleNew() {
 		mainApp.getPersonData().clear();
 		mainApp.getTaskData().clear();
+		mainApp.clearWbs();
 		mainApp.setStorageFilePath(null);
 	}
-	
+
 	@FXML
 	private void handleOpen() {
 		FileChooser fileChooser = new FileChooser();
@@ -28,15 +29,15 @@ public class RootLayoutController {
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
 		if (file != null) {
-			mainApp.loadProgramDataFromFile(file);
+			mainApp.loadProjectDataFromFile(file);
 		}
 	}
-	
+
 	@FXML
 	private void handleSave() {
 		File programDataFile = mainApp.getStorageFilePath();
 		if (programDataFile != null) {
-			mainApp.savePersonDataToFile(programDataFile);
+			mainApp.saveProjectDataToFile(programDataFile);
 		} else {
 			handleSaveAs();
 		}
@@ -52,27 +53,47 @@ public class RootLayoutController {
 			if (!file.getPath().endsWith(".xml")) {
 				file = new File(file.getPath() + ".xml");
 			}
-			mainApp.savePersonDataToFile(file);
+			mainApp.saveProjectDataToFile(file);
 		}
 	}
-	
+
 	@FXML
 	private void handleExit() {
 		System.exit(0);
 	}
-	
+
 	@FXML
 	private void handleTasks() {
 		mainApp.showTaskOverview();
 	}
-	
+
 	@FXML
 	private void handlePersons() {
 		mainApp.showPersonOverview();
 	}
-	
+
+	@FXML
+	private void handleRoles() {
+		mainApp.showRoleOverview();
+	}
+
 	@FXML
 	private void handleSimulationRun() {
 		mainApp.showSimulationOverview();
+	}
+
+	@FXML
+	private void handleWBS() {
+		mainApp.showWbs();
+	}
+
+	@FXML
+	private void handleRAM() {
+		mainApp.showRam();
+	}
+
+	@FXML
+	private void handleTaskNet() {
+		mainApp.showTaskNet();
 	}
 }

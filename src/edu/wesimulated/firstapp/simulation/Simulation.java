@@ -2,8 +2,12 @@ package edu.wesimulated.firstapp.simulation;
 
 import java.util.Observable;
 
-import edu.wesimulated.firstapp.model.Person;
-import edu.wesimulated.firstapp.model.Task;
+import edu.wesimulated.firstapp.model.PersonData;
+import edu.wesimulated.firstapp.model.TaskData;
+import edu.wesimulated.firstapp.simulation.domain.PersonBuilder;
+import edu.wesimulated.firstapp.simulation.hla.HlaClass;
+import edu.wesimulated.firstapp.simulation.hla.LoggerFederate;
+import edu.wesimulated.firstapp.simulation.hla.PersonFederate;
 import edu.wesimulated.firstapp.view.SimulationOverviewController;
 
 public class Simulation extends Observable {
@@ -29,11 +33,12 @@ public class Simulation extends Observable {
 	public void destroyFederation() {
 		this.setChanged();
 		this.notifyObservers(SimulationEvent.buildEndEvent());
-		this.logger.destroyFederationExecution();
+		if (this.logger != null) {
+			this.logger.destroyFederationExecution();
+		}
 	}
 
 	public void startFederation() {
-		ProjectSimulator.getInstance().assignTasks();
 		this.setChanged();
 		this.notifyObservers(SimulationEvent.buildStartEvent());
 	}
@@ -47,17 +52,22 @@ public class Simulation extends Observable {
 		}
 	}
 
-	public void addPerson(Person person) {
-		PersonFederate personFederate = new PersonFederate(person);
+	public void addPerson(PersonData person) {
+		PersonFederate personFederate = new PersonFederate(PersonBuilder.createFromPersonData(person));
 		this.addObserver(personFederate);
-		personFederate.joinFederationExcecution(PersonFederate.FEDERATE_NAME);
+		personFederate.joinFederationExcecution(HlaClass.getHlaPersonClassInstance().getFederateName());
 	}
 
-	public void addTask(Task task) {
-		ProjectSimulator.getInstance().addTask(new TaskSimulator(task));
+	public void addTask(TaskData task) {
+		// TODO create task federate
 	}
 
 	public void setSimulationOverviewController(SimulationOverviewController simulationOverviewController) {
 		this.simulationOverviewController = simulationOverviewController;
+	}
+
+	public void registerProject(Object projectData) {
+		// TODO Auto-generated method stub
+		
 	}
 }

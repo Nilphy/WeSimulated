@@ -6,10 +6,10 @@ import java.util.Date;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import edu.wesimulated.firstapp.MainApp;
-import edu.wesimulated.firstapp.model.LogEvent;
-import edu.wesimulated.firstapp.model.Person;
-import edu.wesimulated.firstapp.model.Task;
+import edu.wesimulated.firstapp.model.PersonData;
+import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.simulation.Simulation;
+import edu.wesimulated.firstapp.simulation.domain.Work;
 
 public class SimulationOverviewController {
 
@@ -29,13 +29,18 @@ public class SimulationOverviewController {
 
 	@FXML
 	private void loadPeopleAndTasks() {
-		for (Person person : this.mainApp.getPersonData()) {
+		for (PersonData person : this.mainApp.getPersonData()) {
 			Simulation.getInstance().addPerson(person);
 		}
-		for (Task task : this.mainApp.getTaskData()) {
+		for (TaskData task : this.mainApp.getTaskData()) {
 			Simulation.getInstance().addTask(task);
 		}
-		Simulation.getInstance().registerLogger();
+		if (this.mainApp.mustStartLogger()) {
+			Simulation.getInstance().registerLogger();
+		}
+		if (this.mainApp.mustSimulateProject()) {
+			Simulation.getInstance().registerProject(this.mainApp.getProjectData());
+		}
 	}
 
 	@FXML
@@ -52,8 +57,8 @@ public class SimulationOverviewController {
 		this.textDisplay.appendText(this.getTimeToLog(date) + " " + message + "\n");
 	}
 
-	public void log(float workDone, Date date) {
-		this.textDisplay.appendText(this.getTimeToLog(date) + " " + new LogEvent(workDone) + "\n");
+	public void log(Work workDone, Date date) {
+		this.textDisplay.appendText(this.getTimeToLog(date) + " " + workDone + "\n");
 	}
 
 	private String getTimeToLog(Date date) {

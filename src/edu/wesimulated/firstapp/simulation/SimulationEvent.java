@@ -1,5 +1,7 @@
 package edu.wesimulated.firstapp.simulation;
 
+import edu.wesimulated.firstapp.simulation.hla.AbstractFederate;
+
 public abstract class SimulationEvent {
 
 	public final static SimulationEvent buildStartEvent() {
@@ -10,6 +12,6 @@ public abstract class SimulationEvent {
 		return new EndEvent();
 	}
 
-	public abstract void updateSimulation(PersonSimulator personSimulator, AbstractFederate personFederate);
+	public abstract void updateSimulation(Simulator personRolSimulator, AbstractFederate personFederate);
 }
 
