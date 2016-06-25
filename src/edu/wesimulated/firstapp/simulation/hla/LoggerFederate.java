@@ -31,7 +31,7 @@ import com.wesimulated.simulation.hla.DateLogicalTime;
 
 import edu.wesimulated.firstapp.simulation.SimulationEvent;
 import edu.wesimulated.firstapp.simulation.domain.Person;
-import edu.wesimulated.firstapp.simulation.domain.PersonBuilder;
+import edu.wesimulated.firstapp.simulation.domain.RoleBuilder;
 import edu.wesimulated.firstapp.view.SimulationOverviewController;
 
 public class LoggerFederate extends AbstractFederate implements Observer {
@@ -100,7 +100,7 @@ public class LoggerFederate extends AbstractFederate implements Observer {
 				throws FederateInternalError {
 			HlaPerson hlaPerson = null;
 			hlaPerson = new HlaPerson(getRTIAmbassador(), objectClassHandle, objectInstanceHandle, objectInstanceName);
-			personDiscovered(PersonBuilder.createFromHlaPerson(hlaPerson));
+			personDiscovered(RoleBuilder.createFromHlaPerson(hlaPerson));
 		}
 
 		@Override

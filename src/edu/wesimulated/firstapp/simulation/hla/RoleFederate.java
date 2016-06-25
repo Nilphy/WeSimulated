@@ -47,12 +47,12 @@ import edu.wesimulated.firstapp.simulation.SimulationEvent;
 import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 
-public class PersonFederate extends AbstractFederate implements Observer, TimeControllerEntity {
+public class RoleFederate extends AbstractFederate implements Observer, TimeControllerEntity {
 	private PersonRolSimulator personRolSimulator;
 	private Person person;
 	private Project project;
 
-	public PersonFederate(Person person) {
+	public RoleFederate(Person person) {
 		super();
 		this.person = person;
 	}

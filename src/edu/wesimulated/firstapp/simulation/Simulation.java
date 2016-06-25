@@ -2,12 +2,12 @@ package edu.wesimulated.firstapp.simulation;
 
 import java.util.Observable;
 
-import edu.wesimulated.firstapp.model.PersonData;
+import edu.wesimulated.firstapp.model.RoleData;
 import edu.wesimulated.firstapp.model.TaskData;
-import edu.wesimulated.firstapp.simulation.domain.PersonBuilder;
+import edu.wesimulated.firstapp.simulation.domain.RoleBuilder;
 import edu.wesimulated.firstapp.simulation.hla.HlaClass;
 import edu.wesimulated.firstapp.simulation.hla.LoggerFederate;
-import edu.wesimulated.firstapp.simulation.hla.PersonFederate;
+import edu.wesimulated.firstapp.simulation.hla.RoleFederate;
 import edu.wesimulated.firstapp.view.SimulationOverviewController;
 
 public class Simulation extends Observable {
@@ -52,10 +52,10 @@ public class Simulation extends Observable {
 		}
 	}
 
-	public void addPerson(PersonData person) {
-		PersonFederate personFederate = new PersonFederate(PersonBuilder.createFromPersonData(person));
-		this.addObserver(personFederate);
-		personFederate.joinFederationExcecution(HlaClass.getHlaPersonClassInstance().getFederateName());
+	public void addRole(RoleData role) {
+		RoleFederate roleFederate = new RoleFederate(RoleBuilder.createFromRoleData(role));
+		this.addObserver(roleFederate);
+		roleFederate.joinFederationExcecution(HlaClass.getHlaPersonClassInstance().getFederateName());
 	}
 
 	public void addTask(TaskData task) {

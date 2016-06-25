@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import edu.wesimulated.firstapp.MainApp;
 import edu.wesimulated.firstapp.model.PersonData;
+import edu.wesimulated.firstapp.model.RoleData;
 import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.simulation.Simulation;
 import edu.wesimulated.firstapp.simulation.domain.Work;
@@ -29,8 +30,8 @@ public class SimulationOverviewController {
 
 	@FXML
 	private void loadPeopleAndTasks() {
-		for (PersonData person : this.mainApp.getPersonData()) {
-			Simulation.getInstance().addPerson(person);
+		for (RoleData role : this.mainApp.getRoleData()) {
+			Simulation.getInstance().addRole(role);
 		}
 		for (TaskData task : this.mainApp.getTaskData()) {
 			Simulation.getInstance().addTask(task);
