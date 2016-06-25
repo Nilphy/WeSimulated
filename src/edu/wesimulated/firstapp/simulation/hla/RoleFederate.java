@@ -41,14 +41,14 @@ import com.wesimulated.simulation.hla.DateLogicalTime;
 import com.wesimulated.simulation.hla.DateLogicalTimeInterval;
 import com.wesimulated.simulationmotor.des.TimeControllerEntity;
 
-import edu.wesimulated.firstapp.simulation.PersonRolSimulator;
+import edu.wesimulated.firstapp.simulation.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.PersonRolSimulatorBuilder;
 import edu.wesimulated.firstapp.simulation.SimulationEvent;
 import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 
 public class RoleFederate extends AbstractFederate implements Observer, TimeControllerEntity {
-	private PersonRolSimulator personRolSimulator;
+	private RoleSimulator personRolSimulator;
 	private Person person;
 	private Project project;
 
