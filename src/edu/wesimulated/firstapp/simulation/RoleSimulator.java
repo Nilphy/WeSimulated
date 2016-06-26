@@ -7,6 +7,7 @@ import com.wesimulated.simulationmotor.des.BOperation;
 import com.wesimulated.simulationmotor.des.OperationBasedExecutor;
 
 import edu.wesimulated.firstapp.simulation.domain.Person;
+import edu.wesimulated.firstapp.simulation.domain.Role;
 import edu.wesimulated.firstapp.simulation.domain.Task;
 
 /*
@@ -35,18 +36,23 @@ import edu.wesimulated.firstapp.simulation.domain.Task;
 public class RoleSimulator extends Simulator {
 
 	private Collection<Task> tasks;
-	private Person person;
 
 	public RoleSimulator(OperationBasedExecutor executor, Person person) {
+	private Role role;
+	public RoleSimulator(OperationBasedExecutor executor) {
 		this.setExecutor(executor);
-		this.person = person;
 	}
 
+	public RoleSimulator(ThreePhaseExecutor executor, Role role, Project project) {
+		this(executor);
+		this.role = role;
+		this.project = project;
 	public void assignTask(Task task) {
 		if (this.tasks == null) {
 			this.tasks = new LinkedList<>();
 		}
 		this.tasks.add(task);
+	}
 	}
 
 	public void addBOperation(BOperation operation) {

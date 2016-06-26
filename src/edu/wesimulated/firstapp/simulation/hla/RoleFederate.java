@@ -41,20 +41,21 @@ import com.wesimulated.simulation.hla.DateLogicalTime;
 import com.wesimulated.simulation.hla.DateLogicalTimeInterval;
 import com.wesimulated.simulationmotor.des.TimeControllerEntity;
 
+import edu.wesimulated.firstapp.simulation.RolSimulatorBuilder;
 import edu.wesimulated.firstapp.simulation.RoleSimulator;
-import edu.wesimulated.firstapp.simulation.PersonRolSimulatorBuilder;
 import edu.wesimulated.firstapp.simulation.SimulationEvent;
 import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
+import edu.wesimulated.firstapp.simulation.domain.Role;
 
 public class RoleFederate extends AbstractFederate implements Observer, TimeControllerEntity {
-	private RoleSimulator personRolSimulator;
-	private Person person;
+	private RoleSimulator roleSimulator;
 	private Project project;
+	private Role role;
 
-	public RoleFederate(Person person) {
+	public RoleFederate(Role role) {
 		super();
-		this.person = person;
+		this.role = role;
 	}
 	
 	public void requestTimeAdvance(Date newDate) {
@@ -67,21 +68,25 @@ public class RoleFederate extends AbstractFederate implements Observer, TimeCont
 	}
 
 	public void timeRequestGranted(@SuppressWarnings("rawtypes") LogicalTime time) {
-		this.personRolSimulator.getExecutor().continueFromDate((DateLogicalTime) time);
+		this.roleSimulator.getExecutor().continueFromDate((DateLogicalTime) time);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		((SimulationEvent) arg).updateSimulation(this.personRolSimulator, this);
+		((SimulationEvent) arg).updateSimulation(this.roleSimulator, this);
 	}
 
 	public void initClock(DateLogicalTime time) {
-		this.personRolSimulator.getExecutor().initClock(time, this);
+		this.roleSimulator.getExecutor().initClock(time, this);
 	}
 
 	public void discoverProject() {
-		this.personRolSimulator = PersonRolSimulatorBuilder.build(this.person, this.project);
-		this.project.addPerson(this.person);
+		this.roleSimulator = RolSimulatorBuilder.build(this.role, this.project);
+		this.project.addRole(this.role);
+	}
+	
+	public void discoverPerson(Person person) {
+		this.project.addPerson(person);
 	}
 
 	public void joinFederationExcecution(String federateName) {
@@ -92,7 +97,7 @@ public class RoleFederate extends AbstractFederate implements Observer, TimeCont
 			objectInstanceHandle = getRTIAmbassador().registerObjectInstance(getObjectClassHandle(HlaClass.getHlaPersonClassInstance()));
 			objectInstanceName = getRTIAmbassador().getObjectInstanceName(objectInstanceHandle);
 			HlaPerson hlaPerson = new HlaPerson(this.getRTIAmbassador(), getObjectClassHandle(HlaClass.getHlaPersonClassInstance()), objectInstanceHandle, objectInstanceName);
-			this.person.setHlaPerson(hlaPerson);
+			this.role.setHlaPerson(hlaPerson);
 			this.getRTIAmbassador().enableTimeConstrained();
 			this.getRTIAmbassador().enableTimeRegulation(new DateLogicalTimeInterval(Duration.ofMillis(LOOKAHEAD)));
 		} catch (InvalidLookahead | InTimeAdvancingState | RequestForTimeRegulationPending | TimeRegulationAlreadyEnabled | SaveInProgress | RestoreInProgress | FederateNotExecutionMember
@@ -107,7 +112,7 @@ public class RoleFederate extends AbstractFederate implements Observer, TimeCont
 	}
 
 	protected void sendInformInteraction(String message) {
-		this.sendInformInteraction(message, new DateLogicalTime(this.personRolSimulator.getExecutor().getClock().getCurrentDate()));
+		this.sendInformInteraction(message, new DateLogicalTime(this.roleSimulator.getExecutor().getClock().getCurrentDate()));
 	}
 
 	public class PersonFederateAmbassador extends NullFederateAmbassador implements FederateAmbassador {
