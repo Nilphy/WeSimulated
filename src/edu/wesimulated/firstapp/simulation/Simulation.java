@@ -68,6 +68,14 @@ public class Simulation extends Observable {
 
 	public void registerProject(Object projectData) {
 		// TODO Auto-generated method stub
-		
+	}
+
+	/**
+	 * Esto está aquí porque el loggerFederate tiene que escribir mensajes en la UI
+	 *  
+	 * @param simulationOverviewController controlador de la UI donde se muestra el output de la simulación
+	 */
+	public void setSimulationOverviewController(SimulationOverviewController simulationOverviewController) {
+		this.simulationOverviewController = simulationOverviewController;
 	}
 }
