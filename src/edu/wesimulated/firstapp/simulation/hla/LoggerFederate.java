@@ -59,8 +59,7 @@ public class LoggerFederate extends AbstractFederate implements Observer {
 		try {
 			informInteractionClassHandle = this.getRTIAmbassador().getInteractionClassHandle(HlaInformInteraction.INFORM_INTERACTION_NAME);
 			this.getRTIAmbassador().subscribeInteractionClass(informInteractionClassHandle);
-		} catch (NameNotFound | FederateNotExecutionMember | NotConnected | RTIinternalError | FederateServiceInvocationsAreBeingReportedViaMOM | InteractionClassNotDefined | SaveInProgress
-				| RestoreInProgress e) {
+		} catch (NameNotFound | FederateNotExecutionMember | NotConnected | RTIinternalError | FederateServiceInvocationsAreBeingReportedViaMOM | InteractionClassNotDefined | SaveInProgress | RestoreInProgress e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -96,43 +95,39 @@ public class LoggerFederate extends AbstractFederate implements Observer {
 		}
 
 		@Override
-		public void discoverObjectInstance(ObjectInstanceHandle objectInstanceHandle, ObjectClassHandle objectClassHandle, String objectInstanceName, FederateHandle producingFederate)
-				throws FederateInternalError {
+		public void discoverObjectInstance(ObjectInstanceHandle objectInstanceHandle, ObjectClassHandle objectClassHandle, String objectInstanceName, FederateHandle producingFederate) throws FederateInternalError {
 			HlaPerson hlaPerson = null;
 			hlaPerson = new HlaPerson(getRTIAmbassador(), objectClassHandle, objectInstanceHandle, objectInstanceName);
 			personDiscovered(RoleBuilder.createFromHlaPerson(hlaPerson));
 		}
 
 		@Override
-		public void reflectAttributeValues(ObjectInstanceHandle objectInstanceHandle, AttributeHandleValueMap attributeValues, byte[] userSuppliedTag, OrderType sentOrdering,
-				TransportationTypeHandle theTransport, @SuppressWarnings("rawtypes") LogicalTime theTime, OrderType receivedOrdering, SupplementalReflectInfo reflectInfo) throws FederateInternalError {
+		public void reflectAttributeValues(ObjectInstanceHandle objectInstanceHandle, AttributeHandleValueMap attributeValues, byte[] userSuppliedTag, OrderType sentOrdering, TransportationTypeHandle theTransport, @SuppressWarnings("rawtypes") LogicalTime theTime, OrderType receivedOrdering,
+				SupplementalReflectInfo reflectInfo) throws FederateInternalError {
 			this.reflectAttributeValues(objectInstanceHandle, attributeValues, userSuppliedTag, sentOrdering, theTransport, theTime, receivedOrdering, null, reflectInfo);
 		}
 
 		@Override
-		public void reflectAttributeValues(ObjectInstanceHandle objectInstanceHandle, AttributeHandleValueMap attributeValues, byte[] userSuppliedTag, OrderType sentOrdering,
-				TransportationTypeHandle theTransport, @SuppressWarnings("rawtypes") LogicalTime theTime, OrderType receivedOrdering, MessageRetractionHandle retractionHandle, SupplementalReflectInfo reflectInfo)
-				throws FederateInternalError {
+		public void reflectAttributeValues(ObjectInstanceHandle objectInstanceHandle, AttributeHandleValueMap attributeValues, byte[] userSuppliedTag, OrderType sentOrdering, TransportationTypeHandle theTransport, @SuppressWarnings("rawtypes") LogicalTime theTime, OrderType receivedOrdering,
+				MessageRetractionHandle retractionHandle, SupplementalReflectInfo reflectInfo) throws FederateInternalError {
 			Person person = getPeople().get(objectInstanceHandle);
 			person.reflectAttributeValues(attributeValues);
 			getController().log(person.getLastWorkDone(), ((DateLogicalTime) theTime).getValue());
 		}
 
 		@Override
-		public void receiveInteraction(InteractionClassHandle interactionClass, ParameterHandleValueMap theParameters, byte[] userSuppliedTag, OrderType sentOrdering,
-				TransportationTypeHandle theTransport, SupplementalReceiveInfo receiveInfo) throws FederateInternalError {
+		public void receiveInteraction(InteractionClassHandle interactionClass, ParameterHandleValueMap theParameters, byte[] userSuppliedTag, OrderType sentOrdering, TransportationTypeHandle theTransport, SupplementalReceiveInfo receiveInfo) throws FederateInternalError {
 		}
 
 		@Override
-		public void receiveInteraction(InteractionClassHandle interactionClass, ParameterHandleValueMap theParameters, byte[] userSuppliedTag, OrderType sentOrdering,
-				TransportationTypeHandle theTransport, @SuppressWarnings("rawtypes") LogicalTime theTime, OrderType receivedOrdering, SupplementalReceiveInfo receiveInfo) throws FederateInternalError {
+		public void receiveInteraction(InteractionClassHandle interactionClass, ParameterHandleValueMap theParameters, byte[] userSuppliedTag, OrderType sentOrdering, TransportationTypeHandle theTransport, @SuppressWarnings("rawtypes") LogicalTime theTime, OrderType receivedOrdering,
+				SupplementalReceiveInfo receiveInfo) throws FederateInternalError {
 			this.receiveInteraction(interactionClass, theParameters, userSuppliedTag, sentOrdering, theTransport, theTime, receivedOrdering, null, receiveInfo);
 		}
 
 		@Override
-		public void receiveInteraction(InteractionClassHandle interactionClass, ParameterHandleValueMap theParameters, byte[] userSuppliedTag, OrderType sentOrdering,
-				TransportationTypeHandle theTransport, @SuppressWarnings("rawtypes") LogicalTime theTime, OrderType receivedOrdering, MessageRetractionHandle retractionHandle, SupplementalReceiveInfo receiveInfo)
-				throws FederateInternalError {
+		public void receiveInteraction(InteractionClassHandle interactionClass, ParameterHandleValueMap theParameters, byte[] userSuppliedTag, OrderType sentOrdering, TransportationTypeHandle theTransport, @SuppressWarnings("rawtypes") LogicalTime theTime, OrderType receivedOrdering,
+				MessageRetractionHandle retractionHandle, SupplementalReceiveInfo receiveInfo) throws FederateInternalError {
 			HlaInformInteraction informInteraction = new HlaInformInteraction(getRTIAmbassador(), interactionClass);
 			informInteraction.receiveInteraction(theParameters);
 			getController().log("Receive Interaction: " + informInteraction.getMessage(), ((DateLogicalTime) theTime).getValue());

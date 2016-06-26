@@ -7,11 +7,11 @@ public class HlaClass {
 	private static HlaClass hlaPersonClass;
 	private static HlaClass hlaTaskClass;
 	private static HlaClass hlaProjectClass;
-	
+
 	private String name;
 	private String federateName;
 	private Collection<HlaAttribute> attributes;
-	
+
 	public static HlaClass getHlaPersonClassInstance() {
 		if (hlaPersonClass == null) {
 			Collection<HlaAttribute> attributes = new ArrayList<>();
@@ -29,14 +29,14 @@ public class HlaClass {
 		}
 		return hlaTaskClass;
 	}
-	
+
 	public static HlaClass getHlaProjectClassInstance() {
 		if (hlaProjectClass == null) {
 			hlaProjectClass = new HlaClass("Project", "PROJECT_FEDERATE", null);
 		}
 		return hlaProjectClass;
 	}
-	
+
 	public static Collection<HlaClass> getAllClasses() {
 		Collection<HlaClass> returnValue = new ArrayList<HlaClass>();
 		returnValue.add(HlaClass.getHlaPersonClassInstance());
@@ -44,7 +44,7 @@ public class HlaClass {
 		returnValue.add(HlaClass.getHlaTaskClassInstance());
 		return returnValue;
 	}
-	
+
 	private HlaClass(String name, String federateName, Collection<HlaAttribute> attributes) {
 		this.setName(name);
 		this.setFederateName(federateName);

@@ -32,7 +32,7 @@ import edu.wesimulated.firstapp.simulation.domain.Work;
 public class HlaPerson extends HlaObject {
 	private AttributeHandle workDoneAttributeInstanceHandle;
 	private Collection<Work> workDone;
-	
+
 	public HlaPerson(RTIambassador rtiAmbassador, ObjectClassHandle classHandle, ObjectInstanceHandle personHandle, String personName) {
 		super(rtiAmbassador, classHandle, personHandle, personName);
 		try {
