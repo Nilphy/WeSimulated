@@ -47,6 +47,7 @@ import edu.wesimulated.firstapp.simulation.SimulationEvent;
 import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Role;
+import edu.wesimulated.firstapp.simulation.domain.Task;
 
 public class RoleFederate extends AbstractFederate implements Observer, TimeControllerEntity {
 	private RoleSimulator roleSimulator;
@@ -87,6 +88,10 @@ public class RoleFederate extends AbstractFederate implements Observer, TimeCont
 	
 	public void discoverPerson(Person person) {
 		this.project.addPerson(person);
+	}
+
+	public void discoverTask(Task task) {
+		this.project.addTask(task);
 	}
 
 	public void joinFederationExcecution(String federateName) {
