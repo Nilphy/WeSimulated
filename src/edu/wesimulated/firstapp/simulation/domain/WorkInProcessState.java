@@ -2,7 +2,7 @@ package edu.wesimulated.firstapp.simulation.domain;
 
 import java.io.Serializable;
 
-public class WorkInProcessState implements Serializable{
+public class WorkInProcessState implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String name;
 

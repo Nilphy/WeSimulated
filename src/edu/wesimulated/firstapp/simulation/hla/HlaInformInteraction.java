@@ -49,7 +49,8 @@ public class HlaInformInteraction {
 			informInteractionParameterHandleValueMap = this.getRtiAmbassador().getParameterHandleValueMapFactory().create(1);
 			informInteractionParameterHandleValueMap.put(this.getRtiAmbassador().getParameterHandle(this.getInteractionClass(), HlaInformInteraction.INFORM_INTERACTION_MESSAGE_PARAM_NAME), this.encodeMessage(this.getMessage()));
 			// FIXME: make this work
-//			this.rtiAmbassador.sendInteraction(this.getInteractionClass(), informInteractionParameterHandleValueMap, null, logicalTime);
+			// this.rtiAmbassador.sendInteraction(this.getInteractionClass(),
+			// informInteractionParameterHandleValueMap, null, logicalTime);
 		} catch (FederateNotExecutionMember | NotConnected | NameNotFound | InvalidInteractionClassHandle | RTIinternalError e) {
 			throw new RuntimeException(e);
 		}

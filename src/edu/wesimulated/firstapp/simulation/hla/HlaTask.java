@@ -36,7 +36,7 @@ public class HlaTask extends HlaObject {
 
 	public AttributeHandle workToDoAttributeInstanceHandle;
 	public Collection<Work> workToDo;
-	
+
 	public HlaTask(RTIambassador rtiAmbassador, ObjectClassHandle classHandle, ObjectInstanceHandle personHandle, String personName) {
 		super(rtiAmbassador, classHandle, personHandle, personName);
 		try {
@@ -66,7 +66,7 @@ public class HlaTask extends HlaObject {
 	private byte[] encodeWorkToDo() {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		byte[] encodedWorkDone;
-		try (ObjectOutputStream oos = new ObjectOutputStream(baos)){
+		try (ObjectOutputStream oos = new ObjectOutputStream(baos)) {
 			oos.writeObject(this.workToDo);
 			encodedWorkDone = baos.toByteArray();
 		} catch (IOException ioException) {
@@ -84,15 +84,15 @@ public class HlaTask extends HlaObject {
 			throw new RuntimeException(ioException);
 		}
 	}
-	
+
 	private Collection<Work> getWorkToDo() {
 		return workToDo;
 	}
-	
+
 	private void setWorkToDo(Collection<Work> workToDo) {
 		this.workToDo = workToDo;
 	}
-	
+
 	protected AttributeHandle getWorkToDoAttributeHandle() {
 		return workToDoAttributeInstanceHandle;
 	}

@@ -51,14 +51,13 @@ public class ProjectFederate extends AbstractFederate implements Observer, TimeC
 
 	public ProjectFederate(Project project) {
 		super();
-		this.project = 	project;
+		this.project = project;
 	}
 
 	public void requestTimeAdvance(Date newDate) {
 		try {
 			this.getRTIAmbassador().timeAdvanceRequest(new DateLogicalTime(newDate));
-		} catch (LogicalTimeAlreadyPassed | InvalidLogicalTime | InTimeAdvancingState | RequestForTimeRegulationPending | RequestForTimeConstrainedPending | SaveInProgress | RestoreInProgress
-				| FederateNotExecutionMember | NotConnected | RTIinternalError e) {
+		} catch (LogicalTimeAlreadyPassed | InvalidLogicalTime | InTimeAdvancingState | RequestForTimeRegulationPending | RequestForTimeConstrainedPending | SaveInProgress | RestoreInProgress | FederateNotExecutionMember | NotConnected | RTIinternalError e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -85,8 +84,8 @@ public class ProjectFederate extends AbstractFederate implements Observer, TimeC
 			this.project.setHlaProject(hlaProject);
 			this.getRTIAmbassador().enableTimeConstrained();
 			this.getRTIAmbassador().enableTimeRegulation(new DateLogicalTimeInterval(Duration.ofMillis(LOOKAHEAD)));
-		} catch (InvalidLookahead | InTimeAdvancingState | RequestForTimeRegulationPending | TimeRegulationAlreadyEnabled | SaveInProgress | RestoreInProgress | FederateNotExecutionMember
-				| NotConnected | RTIinternalError | RequestForTimeConstrainedPending | TimeConstrainedAlreadyEnabled | ObjectClassNotPublished | ObjectClassNotDefined | ObjectInstanceNotKnown e) {
+		} catch (InvalidLookahead | InTimeAdvancingState | RequestForTimeRegulationPending | TimeRegulationAlreadyEnabled | SaveInProgress | RestoreInProgress | FederateNotExecutionMember | NotConnected | RTIinternalError | RequestForTimeConstrainedPending | TimeConstrainedAlreadyEnabled
+				| ObjectClassNotPublished | ObjectClassNotDefined | ObjectInstanceNotKnown e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -109,20 +108,17 @@ public class ProjectFederate extends AbstractFederate implements Observer, TimeC
 		}
 
 		@Override
-		public void discoverObjectInstance(ObjectInstanceHandle objectInstanceHandle, ObjectClassHandle objectClassHandle, String objectInstanceName, FederateHandle producingFederate)
-				throws FederateInternalError {
+		public void discoverObjectInstance(ObjectInstanceHandle objectInstanceHandle, ObjectClassHandle objectClassHandle, String objectInstanceName, FederateHandle producingFederate) throws FederateInternalError {
 			sendInformInteraction("discoverObjectInstance");
 		}
 
 		@Override
-		public void reflectAttributeValues(ObjectInstanceHandle objectInstanceHandle, AttributeHandleValueMap attributeValues, byte[] tag, OrderType sentOrdering,
-				TransportationTypeHandle transportationTypeHandle, SupplementalReflectInfo reflectInfo) throws FederateInternalError {
+		public void reflectAttributeValues(ObjectInstanceHandle objectInstanceHandle, AttributeHandleValueMap attributeValues, byte[] tag, OrderType sentOrdering, TransportationTypeHandle transportationTypeHandle, SupplementalReflectInfo reflectInfo) throws FederateInternalError {
 			sendInformInteraction("reflectAttributeValues");
 		}
 
 		@Override
-		public void receiveInteraction(InteractionClassHandle interactionClassHandle, ParameterHandleValueMap parameterValues, byte[] tag, OrderType sentOrdering,
-				TransportationTypeHandle transportationTypeHandle, SupplementalReceiveInfo receiveInfo) throws FederateInternalError {
+		public void receiveInteraction(InteractionClassHandle interactionClassHandle, ParameterHandleValueMap parameterValues, byte[] tag, OrderType sentOrdering, TransportationTypeHandle transportationTypeHandle, SupplementalReceiveInfo receiveInfo) throws FederateInternalError {
 			sendInformInteraction("receiveInteraction");
 		}
 

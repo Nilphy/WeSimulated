@@ -56,7 +56,7 @@ public class AbstractFederate {
 	public AbstractFederate() {
 		this.setObjectClassHandles(new HashMap<>());
 	}
-	
+
 	protected void joinFederationExcecution(String federateName, NullFederateAmbassador federateAmbassador) {
 		try {
 			rtiAmbassador = RtiFactoryFactory.getRtiFactory().getRtiAmbassador();
@@ -80,9 +80,8 @@ public class AbstractFederate {
 					t.printStackTrace();
 				}
 			}).start();
-		} catch (CallNotAllowedFromWithinCallback | InconsistentFDD | ErrorReadingFDD | CouldNotOpenFDD | NotConnected | RTIinternalError | CouldNotCreateLogicalTimeFactory
-				| FederationExecutionDoesNotExist | SaveInProgress | RestoreInProgress | FederateAlreadyExecutionMember | ConnectionFailed | InvalidLocalSettingsDesignator | UnsupportedCallbackModel
-				| AlreadyConnected e) {
+		} catch (CallNotAllowedFromWithinCallback | InconsistentFDD | ErrorReadingFDD | CouldNotOpenFDD | NotConnected | RTIinternalError | CouldNotCreateLogicalTimeFactory | FederationExecutionDoesNotExist | SaveInProgress | RestoreInProgress | FederateAlreadyExecutionMember | ConnectionFailed
+				| InvalidLocalSettingsDesignator | UnsupportedCallbackModel | AlreadyConnected e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -96,8 +95,7 @@ public class AbstractFederate {
 			}
 			getRTIAmbassador().publishObjectClassAttributes(this.getObjectClassHandle(hlaClass), attributeHandles);
 			this.getRTIAmbassador().subscribeObjectClassAttributes(this.getObjectClassHandle(hlaClass), attributeHandles);
-		} catch (NameNotFound | FederateNotExecutionMember | NotConnected | RTIinternalError | InvalidObjectClassHandle | AttributeNotDefined | ObjectClassNotDefined | SaveInProgress
-				| RestoreInProgress e) {
+		} catch (NameNotFound | FederateNotExecutionMember | NotConnected | RTIinternalError | InvalidObjectClassHandle | AttributeNotDefined | ObjectClassNotDefined | SaveInProgress | RestoreInProgress e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -127,11 +125,11 @@ public class AbstractFederate {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	protected ObjectClassHandle getObjectClassHandle(HlaClass hlaClass) {
 		return this.getObjectClassHandles().get(hlaClass);
 	}
-	
+
 	protected void setObjectClassHandle(HlaClass hlaClass, ObjectClassHandle objectClassHandle) {
 		this.getObjectClassHandles().put(hlaClass, objectClassHandle);
 	}
@@ -139,7 +137,7 @@ public class AbstractFederate {
 	private Map<HlaClass, ObjectClassHandle> getObjectClassHandles() {
 		return objectClassHandles;
 	}
-	
+
 	private void setObjectClassHandles(Map<HlaClass, ObjectClassHandle> objectClassHandles) {
 		this.objectClassHandles = objectClassHandles;
 	}
