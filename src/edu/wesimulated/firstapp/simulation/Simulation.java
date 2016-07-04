@@ -62,9 +62,6 @@ public class Simulation extends Observable {
 		// TODO create task federate
 	}
 
-	public void setSimulationOverviewController(SimulationOverviewController simulationOverviewController) {
-		this.simulationOverviewController = simulationOverviewController;
-	}
 
 	public void registerProject(Object projectData) {
 		// TODO Auto-generated method stub
