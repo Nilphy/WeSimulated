@@ -41,7 +41,7 @@ import com.wesimulated.simulation.hla.DateLogicalTime;
 import com.wesimulated.simulation.hla.DateLogicalTimeInterval;
 import com.wesimulated.simulationmotor.des.TimeControllerEntity;
 
-import edu.wesimulated.firstapp.simulation.RolSimulatorBuilder;
+import edu.wesimulated.firstapp.simulation.RoleSimulatorBuilder;
 import edu.wesimulated.firstapp.simulation.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.SimulationEvent;
 import edu.wesimulated.firstapp.simulation.domain.Person;
@@ -81,7 +81,7 @@ public class RoleFederate extends AbstractFederate implements Observer, TimeCont
 	}
 
 	public void discoverProject() {
-		this.roleSimulator = RolSimulatorBuilder.build(this.role, this.project);
+		this.roleSimulator = RoleSimulatorBuilder.build(this.role, this.project);
 		this.project.addRole(this.role);
 	}
 
