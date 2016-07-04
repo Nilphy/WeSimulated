@@ -48,6 +48,7 @@ public class MainApp extends Application {
 	private ObservableList<PersonData> personData;
 	private ObservableList<TaskData> taskData;
 	private ObservableList<RoleData> roleData;
+	private ProjectData projectData;
 	private WbsInnerNode wbs;
 	private TaskNet taskNet;
 	private ObservableList<ResponsibilityAssignmentData> responsibilityAssignmentData;
@@ -316,18 +317,23 @@ public class MainApp extends Application {
 			JAXBContext context = JAXBContext.newInstance(ProjectData.class);
 			Marshaller m = context.createMarshaller();
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			ProjectData projectData = new ProjectData();
-			projectData.setPersons(this.personData);
-			projectData.setTasks(this.taskData);
-			projectData.setRoles(this.roleData);
-			projectData.setWbsRootNode(UiModelToXml.convertToXml(getWbs()));
-			projectData.setResponsibilityAssignments(UiModelToXml.convertToXml(buildResponsibilityAssignmentData()));
+			ProjectData projectData = buildProjectData();
 			m.marshal(projectData, file);
 			setStorageFilePath(file);
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.showAlert(file, "Could not save data", "Could not save data to file");
 		}
+	}
+
+	public ProjectData buildProjectData() {
+		ProjectData projectData = new ProjectData();
+		projectData.setPersons(this.personData);
+		projectData.setTasks(this.taskData);
+		projectData.setRoles(this.roleData);
+		projectData.setWbsRootNode(UiModelToXml.convertToXml(getWbs()));
+		projectData.setResponsibilityAssignments(UiModelToXml.convertToXml(buildResponsibilityAssignmentData()));
+		return projectData;
 	}
 
 	public TaskData findTaskById(Integer taskId) {
@@ -387,11 +393,6 @@ public class MainApp extends Application {
 	public boolean mustSimulateProject() {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	public Object getProjectData() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public boolean mustStartLogger() {

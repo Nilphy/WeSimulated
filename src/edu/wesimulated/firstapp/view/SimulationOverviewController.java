@@ -6,7 +6,6 @@ import java.util.Date;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import edu.wesimulated.firstapp.MainApp;
-import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.RoleData;
 import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.simulation.Simulation;
@@ -40,7 +39,7 @@ public class SimulationOverviewController {
 			Simulation.getInstance().registerLogger();
 		}
 		if (this.mainApp.mustSimulateProject()) {
-			Simulation.getInstance().registerProject(this.mainApp.getProjectData());
+			Simulation.getInstance().registerProject(this.mainApp.buildProjectData());
 		}
 	}
 
