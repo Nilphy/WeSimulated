@@ -2,12 +2,17 @@ package edu.wesimulated.firstapp.simulation;
 
 import java.util.Observable;
 
+import edu.wesimulated.firstapp.model.ProjectData;
 import edu.wesimulated.firstapp.model.RoleData;
 import edu.wesimulated.firstapp.model.TaskData;
+import edu.wesimulated.firstapp.simulation.domain.ProjectBuilder;
 import edu.wesimulated.firstapp.simulation.domain.RoleBuilder;
+import edu.wesimulated.firstapp.simulation.domain.TaskBuilder;
 import edu.wesimulated.firstapp.simulation.hla.HlaClass;
 import edu.wesimulated.firstapp.simulation.hla.LoggerFederate;
+import edu.wesimulated.firstapp.simulation.hla.ProjectFederate;
 import edu.wesimulated.firstapp.simulation.hla.RoleFederate;
+import edu.wesimulated.firstapp.simulation.hla.TaskFederate;
 import edu.wesimulated.firstapp.view.SimulationOverviewController;
 
 public class Simulation extends Observable {
@@ -59,12 +64,15 @@ public class Simulation extends Observable {
 	}
 
 	public void addTask(TaskData task) {
-		// TODO create task federate
+		TaskFederate taskFederate = new TaskFederate(TaskBuilder.createFromTaskData(task));
+		this.addObserver(taskFederate);
+		taskFederate.joinFederationExcecution(HlaClass.getHlaTaskClassInstance().getFederateName());
 	}
 
-
-	public void registerProject(Object projectData) {
-		// TODO Auto-generated method stub
+	public void registerProject(ProjectData projectData) {
+		ProjectFederate projectFederate = new ProjectFederate(ProjectBuilder.createFromProjectData(projectData));
+		this.addObserver(projectFederate);
+		projectFederate.joinFederationExcecution(HlaClass.getHlaProjectClassInstance().getFederateName());
 	}
 
 	/**
