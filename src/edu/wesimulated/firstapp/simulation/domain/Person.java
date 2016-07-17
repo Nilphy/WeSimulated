@@ -35,7 +35,7 @@ public class Person implements Resource, NumericallyModeledEntity {
 	}
 
 	@Override
-	public boolean isAvailable() {
+	public boolean isAvailable(TaskWithPriority taskWithPriority) {
 		return available;
 	}
 
