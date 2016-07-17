@@ -3,8 +3,9 @@ package edu.wesimulated.firstapp.simulation.domain;
 import hla.rti1516e.AttributeHandleValueMap;
 import hla.rti1516e.ObjectInstanceHandle;
 import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
+import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
-public class Role {
+public class Role implements NumericallyModeledEntity {
 
 	private HlaPerson hlaPerson;
 

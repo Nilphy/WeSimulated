@@ -6,8 +6,9 @@ import hla.rti1516e.ObjectInstanceHandle;
 import com.wesimulated.simulationmotor.des.Resource;
 
 import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
+import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
-public class Person implements Resource {
+public class Person implements Resource, NumericallyModeledEntity {
 
 	private boolean available;
 	private HlaPerson hlaPerson;

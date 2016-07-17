@@ -5,8 +5,9 @@ import java.util.Collection;
 import com.wesimulated.simulation.runparameters.CompletableTask;
 
 import edu.wesimulated.firstapp.simulation.hla.HlaProject;
+import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
-public class Project implements CompletableTask {
+public class Project implements CompletableTask, NumericallyModeledEntity {
 
 	private Collection<Task> tasks;
 	private Collection<Person> people;
