@@ -53,10 +53,12 @@ public class RoleFederate extends AbstractFederate implements Observer, TimeCont
 	private RoleSimulator roleSimulator;
 	private Project project;
 	private Role role;
+	private Person person;
 
-	public RoleFederate(Role role) {
+	public RoleFederate(Role role, Person person) {
 		super();
 		this.role = role;
+		this.person = person;
 	}
 
 	public void requestTimeAdvance(Date newDate) {
