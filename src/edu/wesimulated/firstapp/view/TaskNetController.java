@@ -10,7 +10,6 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -29,8 +28,9 @@ import edu.wesimulated.firstapp.model.TaskNetNode;
  * - start to finish
  * - finish to finish
  * 
- * En esta pantalla se pueden ingresar las tareas de las que dependen las tareas armandose varias redes
- * de un nivel, donde la raiz de cada red es cada una de las tareas del proyecto.
+ * En esta pantalla se pueden indicar las tareas de las que depende cada tarea.
+ * La visualización es un árbol de un nivel, donde la raiz de cada red es cada una de las tareas del proyecto.
+ * Solo hay que agregar las dependencias de primer nivel.
  * 
  * @author Carolina
  *

@@ -29,7 +29,6 @@ import com.wesimulated.simulation.hla.DateLogicalTime;
 
 import edu.wesimulated.firstapp.simulation.domain.Work;
 
-// TODO Move to edu.wesimulated.firstapp.simulation.hla
 public class HlaTask extends HlaObject {
 	public static final String CLASS_NAME = "Task";
 	public static final String ATTRIBUTE_WORK_TO_DO_NAME = "WorkToDo";
