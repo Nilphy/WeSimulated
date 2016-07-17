@@ -4,6 +4,7 @@ import hla.rti1516e.AttributeHandleValueMap;
 import hla.rti1516e.ObjectInstanceHandle;
 
 import com.wesimulated.simulationmotor.des.Resource;
+import com.wesimulated.simulationmotor.des.TaskWithPriority;
 
 import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
@@ -36,14 +37,27 @@ public class Person implements Resource, NumericallyModeledEntity {
 
 	@Override
 	public boolean isAvailable(TaskWithPriority taskWithPriority) {
+		registerRequestOfAvailability(taskWithPriority);
 		return available;
+	}
+
+	public void increaseExperienceWithWorkbenchTools(Task task, long timeExpended) {
+		// TODO Auto-generated method stub
+	}
+
+	private void registerRequestOfAvailability(TaskWithPriority taskWithPriority) {
+		// TODO Auto-generated method stub
 	}
 
 	private HlaPerson getHlaPerson() {
 		return hlaPerson;
 	}
 
+	public void increaseExperience() {
+		// TODO Auto-generated method stub
+		
 	public void setHlaPerson(HlaPerson hlaPerson) {
 		this.hlaPerson = hlaPerson;
 	}
+}
  }

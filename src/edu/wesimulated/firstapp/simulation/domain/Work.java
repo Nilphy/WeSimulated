@@ -8,6 +8,8 @@ public class Work implements Serializable {
 	private Float timeSpent;
 	private Float uowDone;
 
+	public Work(long duration) {
+		this.timeSpent = new Float(duration);
 	}
 
 	public Float getTimeSpent() {

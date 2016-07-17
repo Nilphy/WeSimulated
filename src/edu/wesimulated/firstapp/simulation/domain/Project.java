@@ -39,4 +39,18 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 	public void setHlaProject(HlaProject hlaProject) {
 		this.hlaProject = hlaProject;
 	}
+	public Date findWorkStartOfRole(Role role) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Date findWorkEndOfRole(Role role) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Task findTaskToWorkOn(Date day, Person person, Role role) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
