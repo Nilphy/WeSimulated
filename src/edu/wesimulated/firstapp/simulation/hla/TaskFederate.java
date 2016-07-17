@@ -67,7 +67,7 @@ public class TaskFederate extends AbstractFederate implements Observer, TimeCont
 	}
 
 	public void timeRequestGranted(@SuppressWarnings("rawtypes") LogicalTime time) {
-		this.taskSimulator.getExecutor().continueFromDate((DateLogicalTime) time);
+		this.taskSimulator.getExecutor().continueFromDate(((DateLogicalTime) time).getValue());
 	}
 
 	@Override
@@ -75,7 +75,8 @@ public class TaskFederate extends AbstractFederate implements Observer, TimeCont
 		((SimulationEvent) arg).updateSimulation(this.taskSimulator, this);
 	}
 
-	public void initClock(DateLogicalTime time) {
+	@Override
+	public void initClock(Date time) {
 		this.taskSimulator.getExecutor().initClock(time, this);
 	}
 
@@ -174,7 +175,7 @@ public class TaskFederate extends AbstractFederate implements Observer, TimeCont
 		@SuppressWarnings("rawtypes")
 		@Override
 		public void timeRegulationEnabled(LogicalTime time) throws FederateInternalError {
-			initClock((DateLogicalTime) time);
+			initClock(((DateLogicalTime) time).getValue());
 			System.out.println("timeRegulationEnabled");
 		}
 

@@ -68,7 +68,7 @@ public class RoleFederate extends AbstractFederate implements Observer, TimeCont
 	}
 
 	public void timeRequestGranted(@SuppressWarnings("rawtypes") LogicalTime time) {
-		this.roleSimulator.getExecutor().continueFromDate((DateLogicalTime) time);
+		this.roleSimulator.getExecutor().continueFromDate(((DateLogicalTime) time).getValue());
 	}
 
 	@Override
@@ -76,13 +76,13 @@ public class RoleFederate extends AbstractFederate implements Observer, TimeCont
 		((SimulationEvent) arg).updateSimulation(this.roleSimulator, this);
 	}
 
-	public void initClock(DateLogicalTime time) {
+	@Override
+	public void initClock(Date time) {
 		this.roleSimulator.getExecutor().initClock(time, this);
 	}
 
 	public void discoverProject() {
-		this.roleSimulator = RoleSimulatorBuilder.build(this.role, this.project);
-		this.project.addRole(this.role);
+		this.roleSimulator = RoleSimulatorBuilder.build(this.role, this.project, this.person);
 	}
 
 	public void discoverPerson(Person person) {
@@ -175,7 +175,7 @@ public class RoleFederate extends AbstractFederate implements Observer, TimeCont
 		@SuppressWarnings("rawtypes")
 		@Override
 		public void timeRegulationEnabled(LogicalTime time) throws FederateInternalError {
-			initClock((DateLogicalTime) time);
+			initClock(((DateLogicalTime) time).getValue());
 			System.out.println("timeRegulationEnabled");
 		}
 

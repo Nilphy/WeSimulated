@@ -63,7 +63,7 @@ public class ProjectFederate extends AbstractFederate implements Observer, TimeC
 	}
 
 	public void timeRequestGranted(@SuppressWarnings("rawtypes") LogicalTime time) {
-		this.projectlSimulator.getExecutor().continueFromDate((DateLogicalTime) time);
+		this.projectlSimulator.getExecutor().continueFromDate(((DateLogicalTime) time).getValue());
 	}
 
 	@Override
@@ -71,7 +71,8 @@ public class ProjectFederate extends AbstractFederate implements Observer, TimeC
 		((SimulationEvent) arg).updateSimulation(this.projectlSimulator, this);
 	}
 
-	public void initClock(DateLogicalTime time) {
+	@Override
+	public void initClock(Date time) {
 		this.projectlSimulator.getExecutor().initClock(time, this);
 	}
 
@@ -155,7 +156,7 @@ public class ProjectFederate extends AbstractFederate implements Observer, TimeC
 		@SuppressWarnings("rawtypes")
 		@Override
 		public void timeRegulationEnabled(LogicalTime time) throws FederateInternalError {
-			initClock((DateLogicalTime) time);
+			initClock(((DateLogicalTime) time).getValue());
 			System.out.println("timeRegulationEnabled");
 		}
 
