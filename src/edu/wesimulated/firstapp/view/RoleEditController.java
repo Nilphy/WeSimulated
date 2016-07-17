@@ -7,6 +7,24 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import edu.wesimulated.firstapp.model.RoleData;
 
+/**
+ * 
+ * Jefe de proyecto
+ * Jefe de producto
+ * Jefe funcional
+ * Sponsor
+ * Cliente
+ * Especialistas: 
+ * - Desarrollador
+ * - Diseñador
+ * - Analista
+ * - QA
+ * - QC
+ * - Operaciones
+ * 
+ * @author Carolina
+ *
+ */
 public class RoleEditController {
 
 	@FXML
