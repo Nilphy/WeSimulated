@@ -29,7 +29,7 @@ public class Person implements Resource, NumericallyModeledEntity {
 	public void reflectAttributeValues(AttributeHandleValueMap attributeValues) {
 		this.hlaPerson.reflectAttributeValues(attributeValues);
 	}
-	
+
 	@Override
 	public void setAvailable(boolean available) {
 		this.available = available;
@@ -39,6 +39,10 @@ public class Person implements Resource, NumericallyModeledEntity {
 	public boolean isAvailable(TaskWithPriority taskWithPriority) {
 		registerRequestOfAvailability(taskWithPriority);
 		return available;
+	}
+
+	public void setHlaPerson(HlaPerson hlaPerson) {
+		this.hlaPerson = hlaPerson;
 	}
 
 	public void increaseExperienceWithWorkbenchTools(Task task, long timeExpended) {
@@ -56,8 +60,5 @@ public class Person implements Resource, NumericallyModeledEntity {
 	public void increaseExperience() {
 		// TODO Auto-generated method stub
 		
-	public void setHlaPerson(HlaPerson hlaPerson) {
-		this.hlaPerson = hlaPerson;
 	}
 }
- }
