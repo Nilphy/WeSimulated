@@ -1,6 +1,5 @@
 package edu.wesimulated.firstapp.simulation.domain;
 
-import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.RoleData;
 import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
 

@@ -1,6 +1,7 @@
 package edu.wesimulated.firstapp.simulation.domain;
 
 import java.util.Collection;
+import java.util.Date;
 
 import com.wesimulated.simulation.runparameters.CompletableTask;
 
@@ -9,15 +10,13 @@ import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
 public class Project implements CompletableTask, NumericallyModeledEntity {
 
-	private Collection<Task> tasks;
-	private Collection<Person> people;
 	private ProjectContract contract;
-	private ProjectCalendar calendar;
 	private ProjectWbs wbs;
-	private ProjectGantt gantt;
 	private ProjectRam ram;
 	private HlaProject hlaProject;
-	
+	private Collection<Person> people;
+	private Collection<Task> tasks;
+
 	@Override
 	public boolean isCompleted() {
 		for (Task task : tasks) {
@@ -39,6 +38,11 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 	public void setHlaProject(HlaProject hlaProject) {
 		this.hlaProject = hlaProject;
 	}
+
+	public void addRole(Role role) {
+		// TODO Auto-generated method stub
+	}
+
 	public Date findWorkStartOfRole(Role role) {
 		// TODO Auto-generated method stub
 		return null;

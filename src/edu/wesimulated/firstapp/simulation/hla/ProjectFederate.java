@@ -83,6 +83,7 @@ public class ProjectFederate extends AbstractFederate implements Observer, TimeC
 			String objectInstanceName = getRTIAmbassador().getObjectInstanceName(objectInstanceHandle);
 			HlaProject hlaProject = new HlaProject(this.getRTIAmbassador(), getObjectClassHandle(HlaClass.getHlaProjectClassInstance()), objectInstanceHandle, objectInstanceName);
 			this.project.setHlaProject(hlaProject);
+			// register all people
 			this.getRTIAmbassador().enableTimeConstrained();
 			this.getRTIAmbassador().enableTimeRegulation(new DateLogicalTimeInterval(Duration.ofMillis(LOOKAHEAD)));
 		} catch (InvalidLookahead | InTimeAdvancingState | RequestForTimeRegulationPending | TimeRegulationAlreadyEnabled | SaveInProgress | RestoreInProgress | FederateNotExecutionMember | NotConnected | RTIinternalError | RequestForTimeConstrainedPending | TimeConstrainedAlreadyEnabled

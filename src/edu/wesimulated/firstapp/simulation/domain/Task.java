@@ -2,6 +2,8 @@ package edu.wesimulated.firstapp.simulation.domain;
 
 import java.util.Date;
 
+import com.wesimulated.simulation.hla.DateLogicalTime;
+
 import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.simulation.hla.HlaTask;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
@@ -20,6 +22,10 @@ public class Task implements NumericallyModeledEntity {
 		return false;
 	}
 
+	public void setHlaTask(HlaTask hlaTask) {
+		this.hlaTask = hlaTask;
+	}
+
 	public long findTimeToConfigureWorkbench() {
 		return TaskStochasticVariableFactory.buildFactory().buildTimeToConfigureWorkbench().findRandomSample();
 	}
@@ -31,5 +37,11 @@ public class Task implements NumericallyModeledEntity {
 	public boolean isCompleted(Role role) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public void increaseWorkDone(long duration, Role role, Date when) {
+		// TODO Fix calculation of work done 
+		this.hlaTask.registerWorkToDo(new Work(duration), new DateLogicalTime(when));
+		
 	}
 }
