@@ -5,16 +5,9 @@ import java.io.Serializable;
 public class Work implements Serializable {
 	private static final long serialVersionUID = 2655337231966603356L;
 
-	private WorkInProcessState workInProcessState;
 	private Float timeSpent;
 	private Float uowDone;
 
-	public WorkInProcessState getWorkInProcessState() {
-		return workInProcessState;
-	}
-
-	public void setWorkInProcessState(WorkInProcessState workInProcessState) {
-		this.workInProcessState = workInProcessState;
 	}
 
 	public Float getTimeSpent() {
