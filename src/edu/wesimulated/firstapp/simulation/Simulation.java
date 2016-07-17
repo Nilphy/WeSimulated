@@ -2,9 +2,11 @@ package edu.wesimulated.firstapp.simulation;
 
 import java.util.Observable;
 
+import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.ProjectData;
 import edu.wesimulated.firstapp.model.RoleData;
 import edu.wesimulated.firstapp.model.TaskData;
+import edu.wesimulated.firstapp.simulation.domain.PersonBuilder;
 import edu.wesimulated.firstapp.simulation.domain.ProjectBuilder;
 import edu.wesimulated.firstapp.simulation.domain.RoleBuilder;
 import edu.wesimulated.firstapp.simulation.domain.TaskBuilder;
@@ -57,8 +59,8 @@ public class Simulation extends Observable {
 		}
 	}
 
-	public void addRole(RoleData role) {
-		RoleFederate roleFederate = new RoleFederate(RoleBuilder.createFromRoleData(role));
+	public void addRole(RoleData role, PersonData person) {
+		RoleFederate roleFederate = new RoleFederate(RoleBuilder.createFromRoleData(role), PersonBuilder.createFromPersonData(person));
 		this.addObserver(roleFederate);
 		roleFederate.joinFederationExcecution(HlaClass.getHlaPersonClassInstance().getFederateName());
 	}
