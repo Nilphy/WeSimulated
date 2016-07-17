@@ -68,23 +68,23 @@ public class LoggerFederate extends AbstractFederate implements Observer {
 		super.joinFederationExcecution(federateName, new LoggerFederateAmbassador());
 	}
 
-	private void personDiscovered(Person person) {
-		if (person != null) {
-			getController().log("Discovered person: " + person.getName(), null);
-			getPeople().put(person.getHlaObjectInstanceHandle(), person);
-		}
-	}
-
-	private SimulationOverviewController getController() {
-		return this.simulationOverviewController;
-	}
-
 	public void setSimulationOverviewController(SimulationOverviewController simulationOverviewController) {
 		this.simulationOverviewController = simulationOverviewController;
 	}
 
 	public Map<ObjectInstanceHandle, Person> getPeople() {
 		return this.people;
+	}
+
+	private SimulationOverviewController getController() {
+		return this.simulationOverviewController;
+	}
+
+	private void personDiscovered(Person person) {
+		if (person != null) {
+			getController().log("Discovered person: " + person.getName(), null);
+			getPeople().put(person.getHlaObjectInstanceHandle(), person);
+		}
 	}
 
 	public class LoggerFederateAmbassador extends NullFederateAmbassador implements FederateAmbassador {

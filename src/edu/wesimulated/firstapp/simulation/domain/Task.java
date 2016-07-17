@@ -40,8 +40,7 @@ public class Task implements NumericallyModeledEntity {
 	}
 
 	public void increaseWorkDone(long duration, Role role, Date when) {
-		// TODO Fix calculation of work done 
+		// TODO Fix calculation of work done
 		this.hlaTask.registerWorkToDo(new Work(duration), new DateLogicalTime(when));
-		
 	}
 }

@@ -25,11 +25,11 @@ public class Role implements NumericallyModeledEntity {
 		this.hlaPerson.reflectAttributeValues(attributeValues);
 	}
 	
-	private HlaPerson getHlaPerson() {
-		return hlaPerson;
-	}
-
 	public void setHlaPerson(HlaPerson hlaPerson) {
 		this.hlaPerson = hlaPerson;
+	}
+
+	private HlaPerson getHlaPerson() {
+		return hlaPerson;
 	}
  }

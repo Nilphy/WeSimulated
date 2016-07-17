@@ -30,6 +30,11 @@ public class EndSetupOfLaboralDay implements BOperation {
 		
 	}
 
+	@Override
+	public Date getStartTime() {
+		return this.when;
+	}
+
 	private TypeOfWork selectTypeOfWorkForNextOperation() {
 		TypeOfWorkSelector selector = TaskClassSelectorFactory.buildFactory();
 		selector.consider(this.simulator.getCurrentTask());
@@ -38,10 +43,5 @@ public class EndSetupOfLaboralDay implements BOperation {
 		selector.consider(this.simulator.getProject());
 		TypeOfWork typeOfWork = selector.selectTypeOfWorkToContinue();
 		return typeOfWork;
-	}
-
-	@Override
-	public Date getStartTime() {
-		return this.when;
 	}
 }

@@ -22,6 +22,18 @@ public class SimulationOverviewController {
 		Simulation.getInstance().setSimulationOverviewController(this);
 	}
 
+	public void log(String message, Date date) {
+		this.textDisplay.appendText(this.getTimeToLog(date) + " " + message + "\n");
+	}
+
+	public void log(Work workDone, Date date) {
+		this.textDisplay.appendText(this.getTimeToLog(date) + " " + workDone + "\n");
+	}
+
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
+	}
+
 	@FXML
 	private void initialize() {
 		this.textDisplay.setEditable(false);
@@ -58,14 +70,6 @@ public class SimulationOverviewController {
 		Simulation.getInstance().startFederation();
 	}
 
-	public void log(String message, Date date) {
-		this.textDisplay.appendText(this.getTimeToLog(date) + " " + message + "\n");
-	}
-
-	public void log(Work workDone, Date date) {
-		this.textDisplay.appendText(this.getTimeToLog(date) + " " + workDone + "\n");
-	}
-
 	private String getTimeToLog(Date date) {
 		Date logDate = date;
 		if (date == null) {
@@ -73,9 +77,5 @@ public class SimulationOverviewController {
 		}
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd  hh:mm");
 		return formatter.format(logDate);
-	}
-
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
 	}
 }

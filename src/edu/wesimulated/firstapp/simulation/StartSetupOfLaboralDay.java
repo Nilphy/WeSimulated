@@ -20,8 +20,7 @@ public class StartSetupOfLaboralDay implements COperation, TaskWithPriority {
 
 	@Override
 	public boolean testIfRequirementsAreMet() {
-		return this.simulator.getPerson().isAvailable(this) && 
-				this.simulator.getExecutor().getClock().getCurrentDate().compareTo(this.day) > 0;
+		return this.simulator.getPerson().isAvailable(this) && this.simulator.getExecutor().getClock().getCurrentDate().compareTo(this.day) > 0;
 	}
 
 	@Override
@@ -31,7 +30,7 @@ public class StartSetupOfLaboralDay implements COperation, TaskWithPriority {
 		this.simulator.setCurrentTask(task);
 		long timeRequiredToConfigureWorkbench = task.findTimeToConfigureWorkbench();
 		long timeRequiredToFocusOnTask = task.findTimeToFocus();
-		Date startSetupEnd = DateUtils.addMilis(day, timeRequiredToConfigureWorkbench + timeRequiredToFocusOnTask); 
+		Date startSetupEnd = DateUtils.addMilis(day, timeRequiredToConfigureWorkbench + timeRequiredToFocusOnTask);
 		this.simulator.addBOperation(new EndSetupOfLaboralDay(this.simulator, day, startSetupEnd));
 	}
 }
