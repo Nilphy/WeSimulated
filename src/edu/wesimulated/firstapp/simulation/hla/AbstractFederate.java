@@ -45,7 +45,7 @@ import com.wesimulated.simulation.hla.DateLogicalTimeFactory;
 
 import edu.wesimulated.firstapp.simulation.Simulation;
 
-public class AbstractFederate {
+public abstract class AbstractFederate {
 	protected static final long LOOKAHEAD = 5000;
 
 	private RTIambassador rtiAmbassador;
