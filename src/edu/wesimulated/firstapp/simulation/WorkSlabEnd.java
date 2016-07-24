@@ -23,8 +23,7 @@ public class WorkSlabEnd implements BOperation {
 	@Override
 	public void doAction() {
 		// TODO Auto-generated method stub
-		this.simulator.getPerson().increaseExperience();
-		this.simulator.getCurrentTask().increaseWorkDone(this.duration, this.simulator.getRole(), this.simulator.getExecutor().getClock().getCurrentDate());
+		this.simulator.getCurrentTypeOfWork().applyEffects(startOfSlab, endOfSlab);
 		if (this.simulator.getCurrentTask().isCompleted(this.simulator.getRole())) {
 			Task taskFromNextSlab = null; // TODO find another task to work in
 											// the project

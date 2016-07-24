@@ -12,6 +12,8 @@ import edu.wesimulated.firstapp.simulation.stochastic.TaskStochasticVariableFact
 public class Task implements NumericallyModeledEntity {
 
 	private HlaTask hlaTask;
+	// timeToFocus
+	// timeRequiredToConfigureWorkbench
 
 	public Task(TaskData task) {
 		// TODO Auto-generated constructor stub
