@@ -12,12 +12,13 @@ import edu.wesimulated.firstapp.simulation.stochastic.classifier.TypeOfWorkSelec
 public class WorkSlabEnd implements BOperation {
 
 	private RoleSimulator simulator;
-	private Date when;
-	private long duration;
+	private Date startOfSlab;
+	private Date endOfSlab;
 
-	public WorkSlabEnd(Date endOfSlab, long duration) {
-		this.when = endOfSlab;
-		this.duration = duration;
+	public WorkSlabEnd(RoleSimulator roleSimulator, Date startOfSlab, Date endOfSlab) {
+		this.startOfSlab = startOfSlab;
+		this.endOfSlab = endOfSlab;
+		this.simulator = roleSimulator;
 	}
 
 	@Override
@@ -36,7 +37,7 @@ public class WorkSlabEnd implements BOperation {
 
 	@Override
 	public Date getStartTime() {
-		return this.when;
+		return this.endOfSlab;
 	}
 
 	private TypeOfWork selectTypeOfWorkForNextOperation() {
