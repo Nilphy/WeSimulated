@@ -13,9 +13,11 @@ import edu.wesimulated.firstapp.simulation.stochastic.var.RandomVar;
 public class WorkSlabStart implements COperation, TaskWithPriority {
 
 	private RoleSimulator simulator;
+	private TypeOfWork typeOfWork;
 
-	public WorkSlabStart(RoleSimulator simulator, TypeOfWork typeOfWork) {
+	public WorkSlabStart(RoleSimulator simulator, TypeOfWork typeOfWork, Task task, Date minDate) {
 		this.simulator = simulator;
+		this.typeOfWork = typeOfWork;
 	}
 
 	@Override
@@ -26,6 +28,7 @@ public class WorkSlabStart implements COperation, TaskWithPriority {
 	@Override
 	public void doAction() {
 		this.simulator.getPerson().setAvailable(false);
+		this.simulator.setCurrentTypeOfWork(this.typeOfWork);
 		long duration = calculateDurationOfWorkSlab();
 		Date endOfSlab = DateUtils.addMilis(this.simulator.getExecutor().getClock().getCurrentDate(), duration);
 		this.simulator.addBOperation(new WorkSlabEnd(this.simulator, this.simulator.getExecutor().getClock().getCurrentDate(), endOfSlab));

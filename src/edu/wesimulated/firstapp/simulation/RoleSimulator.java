@@ -9,6 +9,7 @@ import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Role;
 import edu.wesimulated.firstapp.simulation.domain.Task;
+import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
 
 /*
  * 
@@ -39,6 +40,7 @@ public class RoleSimulator extends Simulator {
 	private Role role;
 	private Person person;
 	private Task currentTask;
+	private TypeOfWork typeOfWork;
 
 	public RoleSimulator(OperationBasedExecutor executor) {
 		this.setExecutor(executor);
@@ -77,5 +79,13 @@ public class RoleSimulator extends Simulator {
 
 	public void setCurrentTask(Task task) {
 		this.currentTask = task;
+	}
+
+	public void setCurrentTypeOfWork(TypeOfWork typeOfWork) {
+		this.typeOfWork = typeOfWork;
+	}
+	
+	public TypeOfWork getCurrentTypeOfWork() {
+		return this.typeOfWork;
 	}
 }
