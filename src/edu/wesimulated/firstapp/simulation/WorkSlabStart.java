@@ -39,6 +39,7 @@ public class WorkSlabStart implements COperation, TaskWithPriority {
 		timeOfWorkSlab.consider(this.simulator.getPerson());
 		timeOfWorkSlab.consider(this.simulator.getRole());
 		timeOfWorkSlab.consider(this.simulator.getCurrentTask());
+		timeOfWorkSlab.consider(this.simulator.getCurrentTypeOfWork());
 		timeOfWorkSlab.consider(this.simulator.getProject());
 		return timeOfWorkSlab.findRandomSample();
 	}

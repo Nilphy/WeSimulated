@@ -43,6 +43,7 @@ public class WorkSlabEnd implements BOperation {
 	private TypeOfWork selectTypeOfWorkForNextOperation() {
 		TypeOfWorkSelector selector = TaskClassSelectorFactory.buildFactory();
 		selector.consider(this.simulator.getCurrentTask());
+		selector.consider(this.simulator.getCurrentTypeOfWork());
 		selector.consider(this.simulator.getPerson());
 		selector.consider(this.simulator.getRole());
 		selector.consider(this.simulator.getProject());
