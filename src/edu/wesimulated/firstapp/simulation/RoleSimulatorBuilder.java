@@ -3,12 +3,14 @@ package edu.wesimulated.firstapp.simulation;
 import java.util.Date;
 
 import com.wesimulated.simulation.runparameters.TaskCompletedEndCondition;
-import com.wesimulated.simulationmotor.DateUtils;
 import com.wesimulated.simulationmotor.des.threefaseaproach.ThreePhaseExecutor;
 
 import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Role;
+import edu.wesimulated.firstapp.simulation.domain.Task;
+import edu.wesimulated.firstapp.simulation.domain.worktype.SetupWorkbench;
+import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
 
 public class RoleSimulatorBuilder {
 
@@ -16,13 +18,12 @@ public class RoleSimulatorBuilder {
 		ThreePhaseExecutor executor = new ThreePhaseExecutor(new TaskCompletedEndCondition(project));
 		RoleSimulator roleSimulator = new RoleSimulator(executor, role, project, person);
 		Date roleWorkStart = project.findWorkStartOfRole(role);
-		Date roleWorkEnd = project.findWorkEndOfRole(role);
-		Date dayInProgress = roleWorkStart;
 		roleSimulator.addBOperation(new StartProject(roleWorkStart));
-		while (dayInProgress.compareTo(roleWorkEnd) < 0) {
-			dayInProgress = DateUtils.addOneDay(dayInProgress);
-			roleSimulator.addCOperation(new StartSetupOfLaboralDay(roleSimulator, dayInProgress));
-		}
+		// TODO ask the project which is the first task to work in
+		Task taskToWorkIn = null;
+		// TODO not every role starts the project with a SetupWorkbench
+		TypeOfWork typeOfWork = new SetupWorkbench(roleSimulator);
+		roleSimulator.addCOperation(new WorkSlabStart(roleSimulator, typeOfWork, taskToWorkIn, roleWorkStart));
 		return roleSimulator;
 	}
 
