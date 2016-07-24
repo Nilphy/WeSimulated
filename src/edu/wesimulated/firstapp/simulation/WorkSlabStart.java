@@ -6,7 +6,7 @@ import com.wesimulated.simulationmotor.DateUtils;
 import com.wesimulated.simulationmotor.des.COperation;
 import com.wesimulated.simulationmotor.des.TaskWithPriority;
 
-import edu.wesimulated.firstapp.simulation.domain.TypeOfWork;
+import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
 import edu.wesimulated.firstapp.simulation.stochastic.TaskStochasticVariableFactory;
 import edu.wesimulated.firstapp.simulation.stochastic.var.RandomVar;
 

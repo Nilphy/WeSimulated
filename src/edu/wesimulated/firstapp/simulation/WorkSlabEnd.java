@@ -5,7 +5,7 @@ import java.util.Date;
 import com.wesimulated.simulationmotor.des.BOperation;
 
 import edu.wesimulated.firstapp.simulation.domain.Task;
-import edu.wesimulated.firstapp.simulation.domain.TypeOfWork;
+import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
 import edu.wesimulated.firstapp.simulation.stochastic.classifier.TaskClassSelectorFactory;
 import edu.wesimulated.firstapp.simulation.stochastic.classifier.TypeOfWorkSelector;
 
