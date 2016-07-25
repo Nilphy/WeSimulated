@@ -60,6 +60,12 @@ public class RoleSimulator extends Simulator {
 	public void addCOperation(COperation operation) {
 		this.getExecutor().addCOperation(operation);
 	}
+	
+	public void acceptInterruption() {
+		// TODO register work done until the moment
+		// TODO remove next BOperation
+		// TODO add next COperation to continue working when the person be free again
+	}
 
 	public Role getRole() {
 		return this.role;
