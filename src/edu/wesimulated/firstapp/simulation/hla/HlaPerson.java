@@ -79,6 +79,8 @@ public class HlaPerson extends HlaObject {
 		}
 	}
 
+	@SuppressWarnings("unused")
+	// TODO make that the hla person has the name of the corresponding person
 	private byte[] encodeName(String objectInstanceName) {
 		return Charset.forName("UTF-8").encode(objectInstanceName).array();
 	}

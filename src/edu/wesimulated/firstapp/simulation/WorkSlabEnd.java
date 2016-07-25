@@ -23,7 +23,6 @@ public class WorkSlabEnd implements BOperation {
 
 	@Override
 	public void doAction() {
-		// TODO Auto-generated method stub
 		this.simulator.getCurrentTypeOfWork().applyEffects(startOfSlab, endOfSlab);
 		Task taskToWorkIn = this.simulator.getCurrentTask();
 		if (this.simulator.getCurrentTask().isCompleted(this.simulator.getRole())) {
