@@ -14,15 +14,17 @@ public class WorkSlabStart implements COperation, TaskWithPriority {
 
 	private RoleSimulator simulator;
 	private TypeOfWork typeOfWork;
+	private Date minDate;
 
 	public WorkSlabStart(RoleSimulator simulator, TypeOfWork typeOfWork, Task task, Date minDate) {
 		this.simulator = simulator;
 		this.typeOfWork = typeOfWork;
+		this.minDate = minDate;
 	}
 
 	@Override
 	public boolean testIfRequirementsAreMet() {
-		return this.simulator.getPerson().isAvailable(this);
+		return this.simulator.getPerson().isAvailable(this) && this.simulator.getExecutor().getClock().dateHasPassed(this.minDate);
 	}
 
 	@Override

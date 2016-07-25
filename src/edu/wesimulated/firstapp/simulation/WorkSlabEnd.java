@@ -31,7 +31,9 @@ public class WorkSlabEnd implements BOperation {
 			this.simulator.setCurrentTask(taskFromNextSlab);
 		}
 		TypeOfWork typeOfWork = this.selectTypeOfWorkForNextOperation();
-		this.simulator.addCOperation(new WorkSlabStart(this.simulator, typeOfWork));
+		// TODO calc min date considering end of laboral day
+		Date minDate = null;
+		this.simulator.addCOperation(new WorkSlabStart(this.simulator, typeOfWork, taskToWorkIn, minDate));
 		this.simulator.getPerson().setAvailable(true);
 	}
 
