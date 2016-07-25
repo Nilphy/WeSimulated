@@ -25,10 +25,10 @@ public class WorkSlabEnd implements BOperation {
 	public void doAction() {
 		// TODO Auto-generated method stub
 		this.simulator.getCurrentTypeOfWork().applyEffects(startOfSlab, endOfSlab);
+		Task taskToWorkIn = this.simulator.getCurrentTask();
 		if (this.simulator.getCurrentTask().isCompleted(this.simulator.getRole())) {
-			Task taskFromNextSlab = null; // TODO find another task to work in
-											// the project
-			this.simulator.setCurrentTask(taskFromNextSlab);
+			// TODO find another task to work in the project
+			taskToWorkIn = this.simulator.getProject().findTaskToWorkOn(endOfSlab, this.simulator.getPerson(), this.simulator.getRole());
 		}
 		TypeOfWork typeOfWork = this.selectTypeOfWorkForNextOperation();
 		// TODO calc min date considering end of laboral day
