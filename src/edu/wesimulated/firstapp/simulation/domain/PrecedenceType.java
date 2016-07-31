@@ -1,4 +1,4 @@
-package edu.wesimulated.firstapp.model;
+package edu.wesimulated.firstapp.simulation.domain;
 
 public enum PrecedenceType {
 	FinishedToStart, StartedToFinish, FinishedToFinish, StartedToStart, IndependentTask;

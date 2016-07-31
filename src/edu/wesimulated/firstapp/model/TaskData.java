@@ -28,7 +28,7 @@ public class TaskData {
 	private ObservableList<PersonData> informedPeople;
 
 	private IntegerProperty id;
-	private ObservableList<TaskDependency> taskDependencies;
+	private ObservableList<TaskDependencyData> taskDependencies;
 
 	public TaskData() {
 		this(null, null, null);
@@ -110,11 +110,11 @@ public class TaskData {
 		return this.id.get();
 	}
 
-	public ObservableList<TaskDependency> getTaskDependencies() {
+	public ObservableList<TaskDependencyData> getTaskDependencies() {
 		return taskDependencies;
 	}
 
-	public void setTaskDependencies(ObservableList<TaskDependency> taskDependencies) {
+	public void setTaskDependencies(ObservableList<TaskDependencyData> taskDependencies) {
 		this.taskDependencies = taskDependencies;
 	}
 

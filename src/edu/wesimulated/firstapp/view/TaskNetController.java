@@ -15,10 +15,10 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.util.Callback;
 import edu.wesimulated.firstapp.MainApp;
-import edu.wesimulated.firstapp.model.PrecedenceType;
 import edu.wesimulated.firstapp.model.TaskData;
-import edu.wesimulated.firstapp.model.TaskDependency;
+import edu.wesimulated.firstapp.model.TaskDependencyData;
 import edu.wesimulated.firstapp.model.TaskNetNode;
+import edu.wesimulated.firstapp.simulation.domain.PrecedenceType;
 
 /**
  * 
@@ -41,7 +41,7 @@ public class TaskNetController {
 	@FXML
 	private TableColumn<TaskData, String> nameColumn;
 	@FXML
-	private TreeView<TaskDependency> taskDependenciesTree;
+	private TreeView<TaskDependencyData> taskDependenciesTree;
 
 	private TaskNetNode taskNetRoot;
 	private TaskData selectedTask;
@@ -62,29 +62,29 @@ public class TaskNetController {
 	}
 
 	private void fillTaskNetTree(ObservableList<TaskData> tasks) {
-		TaskDependency dummyDependency = new TaskDependency();
-		TreeItem<TaskDependency> rootItem = dummyDependency.buildDummyTreeItem();
+		TaskDependencyData dummyDependency = new TaskDependencyData();
+		TreeItem<TaskDependencyData> rootItem = dummyDependency.buildDummyTreeItem();
 		rootItem.setExpanded(true);
 		for (TaskData task : tasks) {
-			TaskDependency taskAsRoot = new TaskDependency(task, PrecedenceType.IndependentTask);
-			TreeItem<TaskDependency> taskNode = taskAsRoot.buildTreeItem();
+			TaskDependencyData taskAsRoot = new TaskDependencyData(task, PrecedenceType.IndependentTask);
+			TreeItem<TaskDependencyData> taskNode = taskAsRoot.buildTreeItem();
 			fillTaskNetChildren(task, taskNode);
 			rootItem.getChildren().add(taskNode);
 		}
 		taskDependenciesTree.setRoot(rootItem);
 		taskDependenciesTree.setEditable(false);
 		taskDependenciesTree.setShowRoot(false);
-		taskDependenciesTree.setCellFactory(new Callback<TreeView<TaskDependency>, TreeCell<TaskDependency>>() {
+		taskDependenciesTree.setCellFactory(new Callback<TreeView<TaskDependencyData>, TreeCell<TaskDependencyData>>() {
 			@Override
-			public TreeCell<TaskDependency> call(TreeView<TaskDependency> param) {
+			public TreeCell<TaskDependencyData> call(TreeView<TaskDependencyData> param) {
 				return new EditableTreeCellTaskNet();
 			}
 		});
 	}
 
-	private void fillTaskNetChildren(TaskData task, TreeItem<TaskDependency> treeNode) {
-		for (TaskDependency childNode : task.getTaskDependencies()) {
-			TreeItem<TaskDependency> treeChildNode = childNode.buildTreeItem();
+	private void fillTaskNetChildren(TaskData task, TreeItem<TaskDependencyData> treeNode) {
+		for (TaskDependencyData childNode : task.getTaskDependencies()) {
+			TreeItem<TaskDependencyData> treeChildNode = childNode.buildTreeItem();
 			treeNode.getChildren().add(treeChildNode);
 		}
 	}
@@ -97,7 +97,7 @@ public class TaskNetController {
 		this.taskNetRoot = taskNetRoot;
 	}
 
-	public class EditableTreeCellTaskNet extends TreeCell<TaskDependency> {
+	public class EditableTreeCellTaskNet extends TreeCell<TaskDependencyData> {
 
 		private ContextMenu operationsMenu;
 
@@ -105,7 +105,7 @@ public class TaskNetController {
 		}
 
 		@Override
-		public void updateItem(TaskDependency item, boolean empty) {
+		public void updateItem(TaskDependencyData item, boolean empty) {
 			super.updateItem(item, empty);
 			if (empty) {
 				setText(null);
@@ -139,7 +139,7 @@ public class TaskNetController {
 			menuItem.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-					TaskDependency newDependencyNode = new TaskDependency(selectedTask, precedenceType);
+					TaskDependencyData newDependencyNode = new TaskDependencyData(selectedTask, precedenceType);
 					if (this.validateIfSelectedTaskCouldBeAddedToDependencyOfNode(newDependencyNode)) {
 						getTreeItem().getValue().getTask().getTaskDependencies().add(newDependencyNode);
 						mainApp.getTaskNet().addNewDependencyToTask(getTreeItem().getValue().getTask(), newDependencyNode);
@@ -147,7 +147,7 @@ public class TaskNetController {
 					}
 				}
 
-				private boolean validateIfSelectedTaskCouldBeAddedToDependencyOfNode(TaskDependency value) {
+				private boolean validateIfSelectedTaskCouldBeAddedToDependencyOfNode(TaskDependencyData value) {
 					String errorMessage = null;
 					String errorSolution = null;
 					if (selectedTask == null) {

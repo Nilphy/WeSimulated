@@ -34,12 +34,12 @@ public class TaskNet {
 		return taskNetNode.getDependencies().size() == 0 && taskNetNode.getDependents().size() == 0;
 	}
 
-	public boolean validateIfDependencyCouldBeAddedToTask(TaskData task, TaskDependency taskDependency) {
+	public boolean validateIfDependencyCouldBeAddedToTask(TaskData task, TaskDependencyData taskDependency) {
 		TaskNetNode taskNetNode = this.findTaskNetNodeInAllNets(task);
 		return taskNetNode.taskIsDependencyOrDependent(taskDependency.getTask());
 	}
 
-	public void addNewDependencyToTask(TaskData task, TaskDependency newDependencyNode) {
+	public void addNewDependencyToTask(TaskData task, TaskDependencyData newDependencyNode) {
 		TaskNetNode taskNetNode = findTaskNetNodeInAllNets(task);
 		TaskNetNode taskNetNodeOfDependency = findTaskNetNodeInAllNets(newDependencyNode.getTask());
 		taskNetNode.getDependencies().add(taskNetNodeOfDependency);
@@ -59,7 +59,7 @@ public class TaskNet {
 	}
 
 	private void loadTaskDependenciesInTaskNet(TaskNetNode taskNetNode) {
-		for (TaskDependency taskDependency : taskNetNode.getTask().getTaskDependencies()) {
+		for (TaskDependencyData taskDependency : taskNetNode.getTask().getTaskDependencies()) {
 			TaskNetNode taskNetNodeOfDependency = findTaskNetNodeInAllNets(taskDependency.getTask());
 			if (taskNetNodeOfDependency == null) {
 				taskNetNodeOfDependency = new TaskNetNode(taskDependency.getTask());
@@ -87,7 +87,7 @@ public class TaskNet {
 		}
 	}
 
-	public void removeDependency(TaskData task, TaskDependency taskDependency) {
+	public void removeDependency(TaskData task, TaskDependencyData taskDependency) {
 		TaskNetNode nodeFromTask = this.findTaskNetNodeInAllNets(task);
 		TaskNetNode nodeFromDependency = this.findTaskNetNodeInAllNets(taskDependency.getTask());
 		nodeFromTask.removeDependency(taskDependency.getTask());

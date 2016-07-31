@@ -1,29 +1,30 @@
 package edu.wesimulated.firstapp.model;
 
+import edu.wesimulated.firstapp.simulation.domain.PrecedenceType;
 import javafx.scene.Node;
 import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class TaskDependency {
+public class TaskDependencyData {
 
 	private TaskData task;
 	private PrecedenceType precedence;
 
-	public TaskDependency() {
+	public TaskDependencyData() {
 	}
 
-	public TaskDependency(TaskData taskData, PrecedenceType precedenceType) {
+	public TaskDependencyData(TaskData taskData, PrecedenceType precedenceType) {
 		this.task = taskData;
 		this.precedence = precedenceType;
 	}
 
-	public TreeItem<TaskDependency> buildTreeItem() {
+	public TreeItem<TaskDependencyData> buildTreeItem() {
 		return new TreeItem<>(this, buildNewIcon());
 	}
 
-	public TreeItem<TaskDependency> buildDummyTreeItem() {
-		return new TreeItem<TaskDependency>(this);
+	public TreeItem<TaskDependencyData> buildDummyTreeItem() {
+		return new TreeItem<TaskDependencyData>(this);
 	}
 
 	public Node buildNewIcon() {
