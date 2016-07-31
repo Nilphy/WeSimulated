@@ -4,7 +4,7 @@ import edu.wesimulated.firstapp.model.PersonData;
 
 public class PersonBuilder {
 
-	public static Person createFromPersonData(PersonData roleData) {
+	public static Person createFromPersonData(PersonData personData) {
 		return null;
 	}
 }
