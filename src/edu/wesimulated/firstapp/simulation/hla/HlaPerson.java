@@ -70,6 +70,7 @@ public class HlaPerson extends HlaObject {
 		return encodedWorkDone;
 	}
 
+	@SuppressWarnings("unchecked")
 	private void decodeWorkDone(byte[] buffer) {
 		ByteArrayInputStream bais = new ByteArrayInputStream(buffer);
 		try (ObjectInputStream ois = new ObjectInputStream(bais)) {
