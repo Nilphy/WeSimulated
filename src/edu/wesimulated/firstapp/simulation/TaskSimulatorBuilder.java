@@ -7,9 +7,9 @@ import edu.wesimulated.firstapp.simulation.domain.Task;
  * 
  * Comportamiento a simular sobre una tarea:
  * 
- * Irá completando el trabajo requerido para realizarse cuando las personas asignadas realizen trabajo para la tarea.
- * Irá teniendo bugs
- * Irá generando necesidades de cambio
+ * Irá completando el trabajo requerido para realizarse cuando las personas
+ * asignadas realizen trabajo para la tarea. Irá teniendo bugs Irá generando
+ * necesidades de cambio
  * 
  * @author Carolina
  *
