@@ -63,7 +63,7 @@ public class ProjectFederate extends AbstractFederate implements Observer, TimeC
 	}
 
 	public void timeRequestGranted(@SuppressWarnings("rawtypes") LogicalTime time) {
-		this.projectlSimulator.getExecutor().continueFromDate(((DateLogicalTime) time).getValue());
+		this.projectlSimulator.getOperationBasedExecutor().continueFromDate(((DateLogicalTime) time).getValue());
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class ProjectFederate extends AbstractFederate implements Observer, TimeC
 
 	@Override
 	public void initClock(Date time) {
-		this.projectlSimulator.getExecutor().initClock(time, this);
+		this.projectlSimulator.getOperationBasedExecutor().initClock(time, this);
 	}
 
 	public void joinFederationExcecution(String federateName) {
@@ -98,7 +98,7 @@ public class ProjectFederate extends AbstractFederate implements Observer, TimeC
 	}
 
 	protected void sendInformInteraction(String message) {
-		this.sendInformInteraction(message, new DateLogicalTime(this.projectlSimulator.getExecutor().getClock().getCurrentDate()));
+		this.sendInformInteraction(message, new DateLogicalTime(this.projectlSimulator.getOperationBasedExecutor().getClock().getCurrentDate()));
 	}
 
 	public class ProjectFederateAmbassador extends NullFederateAmbassador implements FederateAmbassador {

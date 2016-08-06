@@ -67,7 +67,7 @@ public class TaskFederate extends AbstractFederate implements Observer, TimeCont
 	}
 
 	public void timeRequestGranted(@SuppressWarnings("rawtypes") LogicalTime time) {
-		this.taskSimulator.getExecutor().continueFromDate(((DateLogicalTime) time).getValue());
+		this.taskSimulator.getOperationBasedExecutor().continueFromDate(((DateLogicalTime) time).getValue());
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class TaskFederate extends AbstractFederate implements Observer, TimeCont
 
 	@Override
 	public void initClock(Date time) {
-		this.taskSimulator.getExecutor().initClock(time, this);
+		this.taskSimulator.getOperationBasedExecutor().initClock(time, this);
 	}
 
 	public void discoverProject() {
@@ -116,7 +116,7 @@ public class TaskFederate extends AbstractFederate implements Observer, TimeCont
 	}
 
 	protected void sendInformInteraction(String message) {
-		this.sendInformInteraction(message, new DateLogicalTime(this.taskSimulator.getExecutor().getClock().getCurrentDate()));
+		this.sendInformInteraction(message, new DateLogicalTime(this.taskSimulator.getOperationBasedExecutor().getClock().getCurrentDate()));
 	}
 
 	public class TaskFederateAmbassador extends NullFederateAmbassador implements FederateAmbassador {

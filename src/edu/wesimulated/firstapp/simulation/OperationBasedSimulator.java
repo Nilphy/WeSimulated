@@ -5,20 +5,7 @@ import com.wesimulated.simulationmotor.des.OperationBasedExecutor;
 
 public class OperationBasedSimulator extends BaseSimulator {
 
-	public void startExecution() {
-		this.executor.run();
+	public OperationBasedExecutor getOperationBasedExecutor() {
+		return (OperationBasedExecutor) this.getExecutor();
 	}
-
-	public OperationBasedExecutor getExecutor() {
-		return executor;
-	}
-
-	public void setExecutor(OperationBasedExecutor executor) {
-		this.executor = executor;
-	}
-
-	public boolean isRunning() {
-		return !this.getExecutor().isSimulationEnd();
-	}
-
 }

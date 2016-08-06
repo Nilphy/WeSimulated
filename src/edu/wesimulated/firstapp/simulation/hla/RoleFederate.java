@@ -70,7 +70,7 @@ public class RoleFederate extends AbstractFederate implements Observer, TimeCont
 	}
 
 	public void timeRequestGranted(@SuppressWarnings("rawtypes") LogicalTime time) {
-		this.roleSimulator.getExecutor().continueFromDate(((DateLogicalTime) time).getValue());
+		this.roleSimulator.getOperationBasedExecutor().continueFromDate(((DateLogicalTime) time).getValue());
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class RoleFederate extends AbstractFederate implements Observer, TimeCont
 
 	@Override
 	public void initClock(Date time) {
-		this.roleSimulator.getExecutor().initClock(time, this);
+		this.roleSimulator.getOperationBasedExecutor().initClock(time, this);
 	}
 
 	public void discoverProject() {
@@ -118,7 +118,7 @@ public class RoleFederate extends AbstractFederate implements Observer, TimeCont
 	}
 
 	protected void sendInformInteraction(String message) {
-		this.sendInformInteraction(message, new DateLogicalTime(this.roleSimulator.getExecutor().getClock().getCurrentDate()));
+		this.sendInformInteraction(message, new DateLogicalTime(this.roleSimulator.getOperationBasedExecutor().getClock().getCurrentDate()));
 	}
 
 	public class PersonFederateAmbassador extends NullFederateAmbassador implements FederateAmbassador {

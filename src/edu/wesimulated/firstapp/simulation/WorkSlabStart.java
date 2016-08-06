@@ -28,7 +28,7 @@ public class WorkSlabStart implements COperation, TaskWithPriority {
 
 	@Override
 	public boolean testIfRequirementsAreMet() {
-		return this.simulator.getPerson().isAvailable(this) && this.simulator.getExecutor().getClock().dateHasPassed(this.minDate);
+		return this.simulator.getPerson().isAvailable(this) && this.simulator.getOperationBasedExecutor().getClock().dateHasPassed(this.minDate);
 	}
 
 	@Override
@@ -37,8 +37,8 @@ public class WorkSlabStart implements COperation, TaskWithPriority {
 		this.simulator.setCurrentTask(this.task);
 		this.simulator.setCurrentTypeOfWork(this.typeOfWork);
 		long duration = calculateDurationOfWorkSlab();
-		Date endOfSlab = DateUtils.addMilis(this.simulator.getExecutor().getClock().getCurrentDate(), duration);
-		this.simulator.addBOperation(new WorkSlabEnd(this.simulator, this.simulator.getExecutor().getClock().getCurrentDate(), endOfSlab));
+		Date endOfSlab = DateUtils.addMilis(this.simulator.getOperationBasedExecutor().getClock().getCurrentDate(), duration);
+		this.simulator.addBOperation(new WorkSlabEnd(this.simulator, this.simulator.getOperationBasedExecutor().getClock().getCurrentDate(), endOfSlab));
 	}
 
 	private long calculateDurationOfWorkSlab() {

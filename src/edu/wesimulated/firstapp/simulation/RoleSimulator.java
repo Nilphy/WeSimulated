@@ -54,11 +54,11 @@ public class RoleSimulator extends OperationBasedSimulator {
 	}
 
 	public void addBOperation(BOperation operation) {
-		this.getExecutor().addBOperation(operation);
+		this.getOperationBasedExecutor().addBOperation(operation);
 	}
 
 	public void addCOperation(COperation operation) {
-		this.getExecutor().addCOperation(operation);
+		this.getOperationBasedExecutor().addCOperation(operation);
 	}
 	
 	public void acceptInterruption() {
