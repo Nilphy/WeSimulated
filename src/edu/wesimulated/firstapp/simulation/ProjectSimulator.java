@@ -9,7 +9,7 @@ import com.wesimulated.simulation.runparameters.CompletableTask;
 import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Task;
 
-public class ProjectSimulator extends Simulator implements CompletableTask {
+public class ProjectSimulator extends OperationBasedSimulator implements CompletableTask {
 
 	private Collection<Task> tasks;
 	private Collection<Person> people;

@@ -12,6 +12,6 @@ public abstract class SimulationEvent {
 		return new EndEvent();
 	}
 
-	public abstract void updateSimulation(Simulator personRolSimulator, AbstractFederate personFederate);
+	public abstract void updateSimulation(OperationBasedSimulator personRolSimulator, AbstractFederate personFederate);
 }
 

@@ -1,9 +1,9 @@
 package edu.wesimulated.firstapp.simulation;
 
+import com.wesimulated.simulation.BaseSimulator;
 import com.wesimulated.simulationmotor.des.OperationBasedExecutor;
 
-public class Simulator {
-	private OperationBasedExecutor executor;
+public class OperationBasedSimulator extends BaseSimulator {
 
 	public void startExecution() {
 		this.executor.run();

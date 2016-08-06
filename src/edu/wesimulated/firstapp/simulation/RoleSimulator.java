@@ -34,7 +34,7 @@ import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
  *  
  *  Las tareas van a requerir a un rol una cantidad de personas para trabajar en ellas
  */
-public class RoleSimulator extends Simulator {
+public class RoleSimulator extends OperationBasedSimulator {
 
 	private Project project;
 	private Role role;
