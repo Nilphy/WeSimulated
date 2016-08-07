@@ -1,32 +1,29 @@
 package edu.wesimulated.firstapp.simulation;
 
-import com.wesimulated.simulationmotor.des.OperationBasedSimulator;
+import com.wesimulated.simulationmotor.systemdynamics.CoreStructureAspect.Flow;
+import com.wesimulated.simulationmotor.systemdynamics.CoreStructureAspect.Stock;
+import com.wesimulated.simulationmotor.systemdynamics.SystemDynamicsSimulator;
 
-import edu.wesimulated.firstapp.model.TaskData;
+import edu.wesimulated.firstapp.simulation.domain.Task;
 
+public class TaskSimulator extends SystemDynamicsSimulator {
 
-public class TaskSimulator extends OperationBasedSimulator {
+	private Task task;
 
-	private TaskData task;
-	private float workDoneInMiliseconds;
-	
-	public TaskSimulator(TaskData task) {
+	public TaskSimulator(Task task) {
 		this.task = task;
-		this.workDoneInMiliseconds = 0; 
-	}
-	
-	public boolean isCompleted() {
-		return this.task.calculateEffortInMilliseconds() - this.workDoneInMiliseconds <= 0;
 	}
 
-	public Float consumeTime(Float availableMilisecondsPerDay) {
-		if (!this.isCompleted()) {
-			float remainingTime = availableMilisecondsPerDay - this.task.calculateEffortInMilliseconds() - this.workDoneInMiliseconds;
-			this.workDoneInMiliseconds += availableMilisecondsPerDay; // it doesn't matter that this number could be greater than the total effort in milliseconds
-			return remainingTime;
-		} else {
-			return availableMilisecondsPerDay;
-		}
+	public boolean isCompleted() {
+		return this.task.isCompleted();
+	}
+
+	public void addStock(Stock stock) {
+		this.getOperationBasedExecutor().addStock(stock);
+	}
+
+	public void addFlow(Flow flow) {
+		this.getOperationBasedExecutor().addFlow(flow);
 	}
 
 	@Override
