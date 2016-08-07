@@ -1,6 +1,6 @@
 package edu.wesimulated.firstapp.simulation;
 
-import com.wesimulated.simulationmotor.des.OperationBasedSimulator;
+import com.wesimulated.simulation.BaseSimulator;
 
 import edu.wesimulated.firstapp.simulation.hla.AbstractFederate;
 
@@ -14,6 +14,6 @@ public abstract class SimulationEvent {
 		return new EndEvent();
 	}
 
-	public abstract void updateSimulation(OperationBasedSimulator personRolSimulator, AbstractFederate personFederate);
+	public abstract void updateSimulation(BaseSimulator personRolSimulator, AbstractFederate personFederate);
 }
 
