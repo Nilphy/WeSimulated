@@ -3,6 +3,7 @@ package edu.wesimulated.firstapp.simulation;
 import com.wesimulated.simulationmotor.des.BOperation;
 import com.wesimulated.simulationmotor.des.COperation;
 import com.wesimulated.simulationmotor.des.OperationBasedExecutor;
+import com.wesimulated.simulationmotor.des.OperationBasedSimulator;
 import com.wesimulated.simulationmotor.des.threefaseaproach.ThreePhaseExecutor;
 
 import edu.wesimulated.firstapp.simulation.domain.Person;
