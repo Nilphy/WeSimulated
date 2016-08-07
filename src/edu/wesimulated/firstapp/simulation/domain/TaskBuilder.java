@@ -33,7 +33,6 @@ public class TaskBuilder {
 
 	@FunctionalInterface
 	private interface PersonAssignerToTask {
-
 		public void assign(Person person, Task task);
 	}
 }
