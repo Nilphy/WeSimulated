@@ -61,4 +61,24 @@ public class Person implements Resource, NumericallyModeledEntity {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public Double getEfficiency() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Double getQualityOfWork() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Double getTimeReviewPerDetection() {
+		// TODO Auto-generated method stub the task should be involved too
+		return null;
+	}
+
+	public Double getTimeQcPerDetection() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

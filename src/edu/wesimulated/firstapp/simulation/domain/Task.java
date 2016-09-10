@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.wesimulated.simulation.hla.DateLogicalTime;
 
+import edu.wesimulated.firstapp.model.WorkType;
 import edu.wesimulated.firstapp.simulation.hla.HlaTask;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 import edu.wesimulated.firstapp.simulation.stochastic.TaskStochasticVariableFactory;
@@ -90,5 +91,30 @@ public class Task implements NumericallyModeledEntity {
 	public void setUnitsOfWork(Integer unitsOfWork) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public Person getResponsiblePerson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Double getLinesOfCodeToComplete() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Double getWorkDoneToComplete(WorkType key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Person getConsultedPerson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Person getAccountablePerson() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
