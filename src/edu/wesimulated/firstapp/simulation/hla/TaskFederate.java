@@ -81,7 +81,7 @@ public class TaskFederate extends AbstractFederate implements Observer, TimeCont
 	}
 
 	public void discoverProject() {
-		this.taskSimulator = TaskSimulatorBuilder.build(this.task, this.project);
+		this.taskSimulator = TaskSimulatorBuilder.getInstance().build(this.task, this.project);
 		this.project.addTask(this.task);
 	}
 
