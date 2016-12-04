@@ -43,7 +43,7 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 		// TODO Auto-generated method stub
 	}
 
-	public Date findWorkStartOfRole(Role role) {
+	public Date findStartDateToWorkForRole(Role role, Person person) {
 		// TODO Auto-generated method stub
 		return null;
 	}

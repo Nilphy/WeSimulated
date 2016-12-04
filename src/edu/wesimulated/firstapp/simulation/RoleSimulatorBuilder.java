@@ -25,7 +25,7 @@ public class RoleSimulatorBuilder {
 	public static RoleSimulator build(Role role, Project project, Person person) {
 		ThreePhaseExecutor executor = new ThreePhaseExecutor(new TaskCompletedEndCondition(project));
 		RoleSimulator roleSimulator = new RoleSimulator(executor, role, project, person);
-		Date roleWorkStart = project.findWorkStartOfRole(role);
+		Date roleWorkStart = project.findStartDateToWorkForRole(role, person);
 		roleSimulator.addBOperation(new StartProject(roleWorkStart));
 		// FIXME ask the project which is the first task to work in
 		Task taskToWorkIn = null;
