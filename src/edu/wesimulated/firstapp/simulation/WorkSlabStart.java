@@ -13,14 +13,13 @@ import edu.wesimulated.firstapp.simulation.stochastic.var.RandomVar;
 
 public class WorkSlabStart implements COperation, TaskWithPriority {
 
-	// TODO rename to roleSimulator
-	private RoleSimulator simulator;
+	private RoleSimulator roleSimulator;
 	private TypeOfWork typeOfWork;
 	private Task task;
 	private Date minDate;
 
 	public WorkSlabStart(RoleSimulator simulator, TypeOfWork typeOfWork, Task task, Date minDate) {
-		this.simulator = simulator;
+		this.roleSimulator = simulator;
 		this.typeOfWork = typeOfWork;
 		this.task = task;
 		this.minDate = minDate;
@@ -28,17 +27,13 @@ public class WorkSlabStart implements COperation, TaskWithPriority {
 
 	@Override
 	public boolean testIfRequirementsAreMet() {
-		return this.simulator.getPerson().isAvailable(this) && this.simulator.getOperationBasedExecutor().getClock().dateHasPassed(this.minDate);
+		return this.roleSimulator.getPerson().isAvailable(this) && this.roleSimulator.getOperationBasedExecutor().getClock().dateHasPassed(this.minDate);
 	}
 
 	@Override
 	public void doAction() {
-		this.simulator.getPerson().setAvailable(false);
-		this.simulator.setCurrentTask(this.task);
-		this.simulator.setCurrentTypeOfWork(this.typeOfWork);
 		long duration = calculateDurationOfWorkSlab();
-		Date endOfSlab = DateUtils.addMilis(this.simulator.getOperationBasedExecutor().getClock().getCurrentDate(), duration);
-		this.simulator.addBOperation(new WorkSlabEnd(this.simulator, this.simulator.getOperationBasedExecutor().getClock().getCurrentDate(), endOfSlab));
+		this.roleSimulator.getPerson().setAvailable(false);
 	}
 
 	private long calculateDurationOfWorkSlab() {
@@ -52,5 +47,9 @@ public class WorkSlabStart implements COperation, TaskWithPriority {
 		timeOfWorkSlab.consider(this.simulator.getCurrentTypeOfWork());
 		timeOfWorkSlab.consider(this.simulator.getProject());
 		return timeOfWorkSlab.findRandomSample();
+		this.roleSimulator.setCurrentTask(this.task);
+		this.roleSimulator.setCurrentTypeOfWork(this.typeOfWork);
+		Date endOfSlab = DateUtils.addMilis(this.roleSimulator.getOperationBasedExecutor().getClock().getCurrentDate(), duration);
+		this.roleSimulator.addBOperation(new WorkSlabEnd(this.roleSimulator, this.roleSimulator.getOperationBasedExecutor().getClock().getCurrentDate(), endOfSlab));
 	}
 }
