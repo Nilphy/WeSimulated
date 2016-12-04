@@ -6,9 +6,14 @@ import java.util.Date;
 import com.wesimulated.simulation.hla.DateLogicalTime;
 
 import edu.wesimulated.firstapp.model.WorkType;
+import edu.wesimulated.firstapp.simulation.RoleSimulator;
+import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
 import edu.wesimulated.firstapp.simulation.hla.HlaTask;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 import edu.wesimulated.firstapp.simulation.stochastic.TaskStochasticVariableFactory;
+import edu.wesimulated.firstapp.simulation.stochastic.classifier.TaskClassSelectorFactory;
+import edu.wesimulated.firstapp.simulation.stochastic.classifier.TypeOfWorkSelector;
+import edu.wesimulated.firstapp.simulation.stochastic.var.RandomVar;
 
 public class Task implements NumericallyModeledEntity {
 
@@ -116,5 +121,17 @@ public class Task implements NumericallyModeledEntity {
 	public Person getAccountablePerson() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	public long findDurationOfWorkSlab(RoleSimulator roleSimulator) {
+		RandomVar timeOfWorkSlab = TaskStochasticVariableFactory.buildFactory().buildTimeOfWorkSlab();
+		// TODO The person will have a list of all interruptions it has had
+		// given the priority of this task and the ones that has interrupted it
+		// The duration of this task could be calculated
+		timeOfWorkSlab.consider(roleSimulator.getPerson());
+		timeOfWorkSlab.consider(roleSimulator.getRole());
+		timeOfWorkSlab.consider(roleSimulator.getCurrentTask());
+		timeOfWorkSlab.consider(roleSimulator.getCurrentTypeOfWork());
+		timeOfWorkSlab.consider(roleSimulator.getProject());
+		return timeOfWorkSlab.findRandomSample();
 	}
 }

@@ -8,8 +8,6 @@ import com.wesimulated.simulationmotor.des.TaskWithPriority;
 
 import edu.wesimulated.firstapp.simulation.domain.Task;
 import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
-import edu.wesimulated.firstapp.simulation.stochastic.TaskStochasticVariableFactory;
-import edu.wesimulated.firstapp.simulation.stochastic.var.RandomVar;
 
 public class WorkSlabStart implements COperation, TaskWithPriority {
 
@@ -32,23 +30,10 @@ public class WorkSlabStart implements COperation, TaskWithPriority {
 
 	@Override
 	public void doAction() {
-		long duration = calculateDurationOfWorkSlab();
 		this.roleSimulator.getPerson().setAvailable(false);
-	}
-
-	private long calculateDurationOfWorkSlab() {
-		RandomVar timeOfWorkSlab = TaskStochasticVariableFactory.buildFactory().buildTimeOfWorkSlab();
-		// TODO The person will have a list of all interruptions it has had
-		// given the priority of this task and the ones that has interrupted it
-		// The duration of this task could be calculated
-		timeOfWorkSlab.consider(this.simulator.getPerson());
-		timeOfWorkSlab.consider(this.simulator.getRole());
-		timeOfWorkSlab.consider(this.simulator.getCurrentTask());
-		timeOfWorkSlab.consider(this.simulator.getCurrentTypeOfWork());
-		timeOfWorkSlab.consider(this.simulator.getProject());
-		return timeOfWorkSlab.findRandomSample();
 		this.roleSimulator.setCurrentTask(this.task);
 		this.roleSimulator.setCurrentTypeOfWork(this.typeOfWork);
+		long duration = this.task.findDurationOfWorkSlab(this.roleSimulator);
 		Date endOfSlab = DateUtils.addMilis(this.roleSimulator.getOperationBasedExecutor().getClock().getCurrentDate(), duration);
 		this.roleSimulator.addBOperation(new WorkSlabEnd(this.roleSimulator, this.roleSimulator.getOperationBasedExecutor().getClock().getCurrentDate(), endOfSlab));
 	}
