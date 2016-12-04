@@ -11,19 +11,19 @@ import edu.wesimulated.firstapp.simulation.stochastic.classifier.TypeOfWorkSelec
 
 public class WorkSlabEnd implements BOperation {
 
-	private RoleSimulator simulator;
+	private RoleSimulator roleSimulator;
 	private Date startOfSlab;
 	private Date endOfSlab;
 
 	public WorkSlabEnd(RoleSimulator roleSimulator, Date startOfSlab, Date endOfSlab) {
 		this.startOfSlab = startOfSlab;
 		this.endOfSlab = endOfSlab;
-		this.simulator = roleSimulator;
+		this.roleSimulator = roleSimulator;
 	}
 
 	@Override
 	public void doAction() {
-		this.simulator.getCurrentTypeOfWork().applyEffects(startOfSlab, endOfSlab);
+		this.roleSimulator.getCurrentTypeOfWork().applyEffects(startOfSlab, endOfSlab);
 		Task taskToWorkIn = this.simulator.getCurrentTask();
 		if (this.simulator.getCurrentTask().isCompleted(this.simulator.getRole())) {
 			// TODO find another task to work in the project
@@ -32,8 +32,8 @@ public class WorkSlabEnd implements BOperation {
 		TypeOfWork typeOfWork = this.selectTypeOfWorkForNextOperation();
 		// TODO calc min date considering end of laboral day
 		Date minDate = null;
-		this.simulator.addCOperation(new WorkSlabStart(this.simulator, typeOfWork, taskToWorkIn, minDate));
-		this.simulator.getPerson().setAvailable(true);
+		this.roleSimulator.addCOperation(new WorkSlabStart(this.roleSimulator, typeOfWork, nextTask, minDate));
+		this.roleSimulator.getPerson().setAvailable(true);
 	}
 
 	@Override
