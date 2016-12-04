@@ -35,4 +35,23 @@ public class RoleSimulatorBuilder {
 		return roleSimulator;
 	}
 
+	/**
+	 * Role simulator for an avature proyect
+	 * 
+	 * @param role
+	 * @param project
+	 * @param person
+	 * @return the simulator builded
+	 */
+	public static RoleSimulator buildAvatureDeveloperSimulator(Project project, Person person) {
+		ThreePhaseExecutor executor = new ThreePhaseExecutor(new TaskCompletedEndCondition(project));
+		Role role = RolePool.getAvatureDeveloperRole();
+		RoleSimulator roleSimulator = new RoleSimulator(executor, role, project, person);
+		Date roleWorkStart = project.findStartDateToWorkForRole(role, person);
+		roleSimulator.addBOperation(new StartProject(roleWorkStart));
+		Task taskToWorkIn = project.findTaskToWorkForRole(role);
+		TypeOfWork typeOfWork = taskToWorkIn.findTypeOfTaskToWorkForRole(roleSimulator);
+		roleSimulator.addCOperation(new WorkSlabStart(roleSimulator, typeOfWork, taskToWorkIn, roleWorkStart));
+		return roleSimulator;
+	}
 }
