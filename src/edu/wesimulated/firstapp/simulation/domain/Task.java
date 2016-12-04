@@ -18,8 +18,6 @@ import edu.wesimulated.firstapp.simulation.stochastic.var.RandomVar;
 public class Task implements NumericallyModeledEntity {
 
 	private HlaTask hlaTask;
-	// timeToFocus
-	// timeRequiredToConfigureWorkbench
 
 	public Task() {
 		// TODO Auto-generated constructor stub

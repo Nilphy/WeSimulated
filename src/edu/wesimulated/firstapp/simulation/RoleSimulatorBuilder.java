@@ -14,14 +14,22 @@ import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
 
 public class RoleSimulatorBuilder {
 
+	/**
+	 * Generic role simulator builder, not used
+	 * 
+	 * @param role
+	 * @param project
+	 * @param person
+	 * @return
+	 */
 	public static RoleSimulator build(Role role, Project project, Person person) {
 		ThreePhaseExecutor executor = new ThreePhaseExecutor(new TaskCompletedEndCondition(project));
 		RoleSimulator roleSimulator = new RoleSimulator(executor, role, project, person);
 		Date roleWorkStart = project.findWorkStartOfRole(role);
 		roleSimulator.addBOperation(new StartProject(roleWorkStart));
-		// TODO ask the project which is the first task to work in
+		// FIXME ask the project which is the first task to work in
 		Task taskToWorkIn = null;
-		// TODO not every role starts the project with a SetupWorkbench
+		// FIXME not every role starts the project with a SetupWorkbench
 		TypeOfWork typeOfWork = new SetupWorkbench(roleSimulator);
 		roleSimulator.addCOperation(new WorkSlabStart(roleSimulator, typeOfWork, taskToWorkIn, roleWorkStart));
 		return roleSimulator;
