@@ -31,6 +31,7 @@ public class WorkSlabStart implements COperation, TaskWithPriority {
 	@Override
 	public void doAction() {
 		this.roleSimulator.getPerson().setAvailable(false);
+		this.roleSimulator.getPerson().setCurrentTask(this.task);
 		this.roleSimulator.setCurrentTask(this.task);
 		this.roleSimulator.setCurrentTypeOfWork(this.typeOfWork);
 		long duration = this.task.findDurationOfWorkSlab(this.roleSimulator);

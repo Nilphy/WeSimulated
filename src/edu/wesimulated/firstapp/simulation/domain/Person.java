@@ -13,6 +13,7 @@ public class Person implements Resource, NumericallyModeledEntity {
 
 	private boolean available;
 	private HlaPerson hlaPerson;
+	private Task currentTask;
 
 	public String getLastWorkDone() {
 		return this.getHlaPerson().getLastWorkDone();
@@ -80,5 +81,9 @@ public class Person implements Resource, NumericallyModeledEntity {
 	public Double getTimeQcPerDetection() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void setCurrentTask(Task task) {
+		this.currentTask = task;
 	}
 }
