@@ -57,4 +57,9 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public Task findTaskToWorkForRole(Role role) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
