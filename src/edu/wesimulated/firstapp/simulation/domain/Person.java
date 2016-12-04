@@ -3,6 +3,8 @@ package edu.wesimulated.firstapp.simulation.domain;
 import hla.rti1516e.AttributeHandleValueMap;
 import hla.rti1516e.ObjectInstanceHandle;
 
+import java.util.Date;
+
 import com.wesimulated.simulationmotor.des.Resource;
 import com.wesimulated.simulationmotor.des.TaskWithPriority;
 
@@ -80,6 +82,14 @@ public class Person implements Resource, NumericallyModeledEntity {
 
 	public Double getTimeQcPerDetection() {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Date findNextAvailableDate() {
+		// TODO find hour to start working today
+		// TODO find current hour
+		// TODO if not reached the end of the day return now
+		// TODO if reached return first laboral day tomorrow
 		return null;
 	}
 
