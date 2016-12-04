@@ -120,6 +120,18 @@ public class Task implements NumericallyModeledEntity {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public TypeOfWork findTypeOfTaskToWorkForRole(RoleSimulator roleSimulator) {
+		TypeOfWorkSelector selector = TaskClassSelectorFactory.buildFactory().buildTypeOfWorkSelector();
+		selector.consider(roleSimulator.getCurrentTask());
+		selector.consider(roleSimulator.getCurrentTypeOfWork());
+		selector.consider(roleSimulator.getPerson());
+		selector.consider(roleSimulator.getRole());
+		selector.consider(roleSimulator.getProject());
+		TypeOfWork typeOfWork = selector.selectTypeOfWorkToContinue();
+		return typeOfWork;
+	}
+
 	public long findDurationOfWorkSlab(RoleSimulator roleSimulator) {
 		RandomVar timeOfWorkSlab = TaskStochasticVariableFactory.buildFactory().buildTimeOfWorkSlab();
 		// TODO The person will have a list of all interruptions it has had

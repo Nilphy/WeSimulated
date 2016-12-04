@@ -6,8 +6,6 @@ import com.wesimulated.simulationmotor.des.BOperation;
 
 import edu.wesimulated.firstapp.simulation.domain.Task;
 import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
-import edu.wesimulated.firstapp.simulation.stochastic.classifier.TaskClassSelectorFactory;
-import edu.wesimulated.firstapp.simulation.stochastic.classifier.TypeOfWorkSelector;
 
 public class WorkSlabEnd implements BOperation {
 
@@ -28,7 +26,7 @@ public class WorkSlabEnd implements BOperation {
 		if (this.roleSimulator.getCurrentTask().isCompleted(this.roleSimulator.getRole())) {
 			nextTask = this.roleSimulator.getProject().findTaskToWorkOn(endOfSlab, this.roleSimulator.getPerson(), this.roleSimulator.getRole());
 		}
-		TypeOfWork typeOfWork = this.selectTypeOfWorkForNextOperation();
+		TypeOfWork typeOfWork = nextTask.findTypeOfTaskToWorkForRole(this.roleSimulator);
 		// TODO calc min date considering end of laboral day
 		Date minDate = null;
 		this.roleSimulator.addCOperation(new WorkSlabStart(this.roleSimulator, typeOfWork, nextTask, minDate));
@@ -39,16 +37,4 @@ public class WorkSlabEnd implements BOperation {
 	public Date getStartTime() {
 		return this.endOfSlab;
 	}
-
-	private TypeOfWork selectTypeOfWorkForNextOperation() {
-		TypeOfWorkSelector selector = TaskClassSelectorFactory.buildFactory().buildTypeOfWorkSelector();
-		selector.consider(this.simulator.getCurrentTask());
-		selector.consider(this.simulator.getCurrentTypeOfWork());
-		selector.consider(this.simulator.getPerson());
-		selector.consider(this.simulator.getRole());
-		selector.consider(this.simulator.getProject());
-		TypeOfWork typeOfWork = selector.selectTypeOfWorkToContinue();
-		return typeOfWork;
-	}
-
 }
