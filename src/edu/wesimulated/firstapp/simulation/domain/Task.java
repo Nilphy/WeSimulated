@@ -33,11 +33,11 @@ public class Task implements NumericallyModeledEntity {
 	}
 
 	public long findTimeToConfigureWorkbench() {
-		return TaskStochasticVariableFactory.buildFactory().buildTimeToConfigureWorkbench().findRandomSample();
+		return TaskStochasticVariableFactory.buildFactory().buildTimeToConfigureWorkbench().findSample();
 	}
 
 	public long findTimeToFocus() {
-		return TaskStochasticVariableFactory.buildFactory().buildTimeToFocus().findRandomSample();
+		return TaskStochasticVariableFactory.buildFactory().buildTimeToFocus().findSample();
 	}
 
 	public boolean isCompleted(Role role) {
@@ -142,6 +142,6 @@ public class Task implements NumericallyModeledEntity {
 		timeOfWorkSlab.consider(roleSimulator.getCurrentTask());
 		timeOfWorkSlab.consider(roleSimulator.getCurrentTypeOfWork());
 		timeOfWorkSlab.consider(roleSimulator.getProject());
-		return timeOfWorkSlab.findRandomSample();
+		return timeOfWorkSlab.findSample();
 	}
 }

@@ -84,7 +84,7 @@ public class TaskSimulatorBuilder {
 
 			@Override
 			public Double calculateNext(Double previousValue) {
-				return 	uowBugsProportion.findRandomSample() *
+				return 	uowBugsProportion.findSample() *
 						(
 							v(WorkType.Rework.c(WorkModule.STOCK_INTEGRATED_WORK)) 
 							+ v(WorkType.Development.c(WorkModule.STOCK_INTEGRATED_WORK))
