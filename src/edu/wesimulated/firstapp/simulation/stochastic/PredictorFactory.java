@@ -2,9 +2,9 @@ package edu.wesimulated.firstapp.simulation.stochastic;
 
 import edu.wesimulated.firstapp.simulation.stochastic.var.RandomVar;
 
-public class TaskStochasticVariableFactory {
+public class PredictorFactory {
 
-	public static TaskStochasticVariableFactory buildFactory() {
+	public static PredictorFactory buildFactory() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -1,8 +1,8 @@
 package edu.wesimulated.firstapp.simulation.stochastic.classifier;
 
-public class TaskClassSelectorFactory {
+public class ClassSelectorFactory {
 
-	public static TaskClassSelectorFactory buildFactory() {
+	public static ClassSelectorFactory buildFactory() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -98,12 +98,12 @@ public class RoleFederate extends AbstractFederate implements Observer, TimeCont
 	public void joinFederationExcecution(String federateName) {
 		super.joinFederationExcecution(federateName, new PersonFederateAmbassador());
 		try {
+			// No va a pasar acá, primero hay que saber que persona va a estar cumpliendo el rol
 			ObjectInstanceHandle objectInstanceHandle;
 			String objectInstanceName;
 			objectInstanceHandle = getRTIAmbassador().registerObjectInstance(getObjectClassHandle(HlaClass.getHlaPersonClassInstance()));
 			objectInstanceName = getRTIAmbassador().getObjectInstanceName(objectInstanceHandle);
 			HlaPerson hlaPerson = new HlaPerson(this.getRTIAmbassador(), getObjectClassHandle(HlaClass.getHlaPersonClassInstance()), objectInstanceHandle, objectInstanceName);
-			this.role.setHlaPerson(hlaPerson);
 			this.getRTIAmbassador().enableTimeConstrained();
 			this.getRTIAmbassador().enableTimeRegulation(new DateLogicalTimeInterval(Duration.ofMillis(LOOKAHEAD)));
 		} catch (InvalidLookahead | InTimeAdvancingState | RequestForTimeRegulationPending | TimeRegulationAlreadyEnabled | SaveInProgress | RestoreInProgress | FederateNotExecutionMember | NotConnected | RTIinternalError | RequestForTimeConstrainedPending | TimeConstrainedAlreadyEnabled

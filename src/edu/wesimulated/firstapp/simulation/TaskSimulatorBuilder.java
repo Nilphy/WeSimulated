@@ -8,7 +8,7 @@ import com.wesimulated.simulationmotor.systemdynamics.Stock;
 import edu.wesimulated.firstapp.model.WorkType;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Task;
-import edu.wesimulated.firstapp.simulation.stochastic.TaskStochasticVariableFactory;
+import edu.wesimulated.firstapp.simulation.stochastic.PredictorFactory;
 import edu.wesimulated.firstapp.simulation.stochastic.var.RandomVar;
 
 /**
@@ -76,7 +76,7 @@ public class TaskSimulatorBuilder {
 		simulator.register(automatedQcModule);
 		sinkFlow.connectInput(automatedQcModule.getOutputStock());
 
-		RandomVar uowBugsProportion = TaskStochasticVariableFactory.buildFactory().buildUowBugs();
+		RandomVar uowBugsProportion = PredictorFactory.buildFactory().buildUowBugs();
 		uowBugsProportion.consider(task);
 		uowBugsProportion.consider(task.getResponsiblePerson());
 		// TODO add all the other people involved

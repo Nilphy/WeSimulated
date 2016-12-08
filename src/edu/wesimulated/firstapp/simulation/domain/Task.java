@@ -10,8 +10,8 @@ import edu.wesimulated.firstapp.simulation.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
 import edu.wesimulated.firstapp.simulation.hla.HlaTask;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
-import edu.wesimulated.firstapp.simulation.stochastic.TaskStochasticVariableFactory;
-import edu.wesimulated.firstapp.simulation.stochastic.classifier.TaskClassSelectorFactory;
+import edu.wesimulated.firstapp.simulation.stochastic.PredictorFactory;
+import edu.wesimulated.firstapp.simulation.stochastic.classifier.ClassSelectorFactory;
 import edu.wesimulated.firstapp.simulation.stochastic.classifier.TypeOfWorkSelector;
 import edu.wesimulated.firstapp.simulation.stochastic.var.RandomVar;
 
@@ -33,11 +33,11 @@ public class Task implements NumericallyModeledEntity {
 	}
 
 	public long findTimeToConfigureWorkbench() {
-		return TaskStochasticVariableFactory.buildFactory().buildTimeToConfigureWorkbench().findSample();
+		return PredictorFactory.buildFactory().buildTimeToConfigureWorkbench().findSample();
 	}
 
 	public long findTimeToFocus() {
-		return TaskStochasticVariableFactory.buildFactory().buildTimeToFocus().findSample();
+		return PredictorFactory.buildFactory().buildTimeToFocus().findSample();
 	}
 
 	public boolean isCompleted(Role role) {
@@ -122,7 +122,7 @@ public class Task implements NumericallyModeledEntity {
 	}
 
 	public TypeOfWork findTypeOfTaskToWorkForRole(RoleSimulator roleSimulator) {
-		TypeOfWorkSelector selector = TaskClassSelectorFactory.buildFactory().buildTypeOfWorkSelector();
+		TypeOfWorkSelector selector = ClassSelectorFactory.buildFactory().buildTypeOfWorkSelector();
 		selector.consider(roleSimulator.getCurrentTask());
 		selector.consider(roleSimulator.getCurrentTypeOfWork());
 		selector.consider(roleSimulator.getPerson());
@@ -133,7 +133,7 @@ public class Task implements NumericallyModeledEntity {
 	}
 
 	public long findDurationOfWorkSlab(RoleSimulator roleSimulator) {
-		RandomVar timeOfWorkSlab = TaskStochasticVariableFactory.buildFactory().buildTimeOfWorkSlab();
+		RandomVar timeOfWorkSlab = PredictorFactory.buildFactory().buildTimeOfWorkSlab();
 		// TODO The person will have a list of all interruptions it has had
 		// given the priority of this task and the ones that has interrupted it
 		// The duration of this task could be calculated
