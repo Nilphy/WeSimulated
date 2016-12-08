@@ -2,9 +2,11 @@ package edu.wesimulated.firstapp.simulation.domain.worktype;
 
 import java.util.Date;
 
+import com.wesimulated.simulationmotor.des.State;
 
 import edu.wesimulated.firstapp.simulation.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
+import edu.wesimulated.firstapp.simulation.stochastic.classifier.Classification;
 
 /**
  * Algo curioso sobre el diseño de los simuladores es que hay cosas que van a
@@ -19,7 +21,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
  * @author Carolina
  *
  */
-public abstract class TypeOfWork implements NumericallyModeledEntity {
+public abstract class TypeOfWork implements NumericallyModeledEntity, State, Classification {
 
 	private RoleSimulator roleSimulator;
 

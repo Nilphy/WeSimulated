@@ -12,7 +12,7 @@ import edu.wesimulated.firstapp.simulation.hla.HlaTask;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 import edu.wesimulated.firstapp.simulation.stochastic.PredictorFactory;
 import edu.wesimulated.firstapp.simulation.stochastic.classifier.ClassificationSelectorFactory;
-import edu.wesimulated.firstapp.simulation.stochastic.classifier.TypeOfWorkSelector;
+import edu.wesimulated.firstapp.simulation.stochastic.classifier.RandomClassification;
 import edu.wesimulated.firstapp.simulation.stochastic.predictor.RandomVar;
 
 public class Task implements NumericallyModeledEntity {
@@ -122,14 +122,13 @@ public class Task implements NumericallyModeledEntity {
 	}
 
 	public TypeOfWork findTypeOfTaskToWorkForRole(RoleSimulator roleSimulator) {
-		TypeOfWorkSelector selector = ClassSelectorFactory.buildFactory().buildTypeOfWorkSelector();
-		selector.consider(roleSimulator.getCurrentTask());
-		selector.consider(roleSimulator.getCurrentTypeOfWork());
-		selector.consider(roleSimulator.getPerson());
-		selector.consider(roleSimulator.getRole());
-		selector.consider(roleSimulator.getProject());
-		TypeOfWork typeOfWork = selector.selectTypeOfWorkToContinue();
-		return typeOfWork;
+		RandomClassification typeOfWork = ClassificationSelectorFactory.buildFactory().buildTypeOfWorkSelector();
+		typeOfWork.consider(roleSimulator.getCurrentTask());
+		typeOfWork.consider(roleSimulator.getCurrentTypeOfWork());
+		typeOfWork.consider(roleSimulator.getPerson());
+		typeOfWork.consider(roleSimulator.getRole());
+		typeOfWork.consider(roleSimulator.getProject());
+		return (TypeOfWork) typeOfWork.findSample();
 	}
 
 	public long findDurationOfWorkSlab(RoleSimulator roleSimulator) {
