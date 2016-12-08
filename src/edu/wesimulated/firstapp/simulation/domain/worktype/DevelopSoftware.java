@@ -5,6 +5,7 @@ import java.util.Date;
 import com.wesimulated.simulationmotor.des.State;
 
 import edu.wesimulated.firstapp.simulation.RoleSimulator;
+import edu.wesimulated.firstapp.simulation.stochastic.PredictorFactory;
 
 public abstract class DevelopSoftware extends TypeOfWork implements State {
 
@@ -13,6 +14,7 @@ public abstract class DevelopSoftware extends TypeOfWork implements State {
 	}
 	
 	public void applyEffects(Date start, Date end) {
+		
 		this.getRoleSimulator().getPerson().increaseExperience();
 		// TODO se mandan horas o se manda trabajo ya procesado? sería mejor mandar horas para que
 		// los simuladores sean más independientes, porque si no la tarea no sabe como está el 

@@ -1,6 +1,6 @@
 package edu.wesimulated.firstapp.simulation.stochastic;
 
-import edu.wesimulated.firstapp.simulation.stochastic.var.RandomVar;
+import edu.wesimulated.firstapp.simulation.stochastic.predictor.RandomVar;
 
 public class PredictorFactory {
 

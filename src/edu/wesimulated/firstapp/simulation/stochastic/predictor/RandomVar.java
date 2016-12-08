@@ -1,4 +1,4 @@
-package edu.wesimulated.firstapp.simulation.stochastic.var;
+package edu.wesimulated.firstapp.simulation.stochastic.predictor;
 
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 

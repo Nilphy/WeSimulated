@@ -13,7 +13,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 import edu.wesimulated.firstapp.simulation.stochastic.PredictorFactory;
 import edu.wesimulated.firstapp.simulation.stochastic.classifier.ClassSelectorFactory;
 import edu.wesimulated.firstapp.simulation.stochastic.classifier.TypeOfWorkSelector;
-import edu.wesimulated.firstapp.simulation.stochastic.var.RandomVar;
+import edu.wesimulated.firstapp.simulation.stochastic.predictor.RandomVar;
 
 public class Task implements NumericallyModeledEntity {
 

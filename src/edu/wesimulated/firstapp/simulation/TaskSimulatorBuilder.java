@@ -9,7 +9,7 @@ import edu.wesimulated.firstapp.model.WorkType;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Task;
 import edu.wesimulated.firstapp.simulation.stochastic.PredictorFactory;
-import edu.wesimulated.firstapp.simulation.stochastic.var.RandomVar;
+import edu.wesimulated.firstapp.simulation.stochastic.predictor.RandomVar;
 
 /**
  * Comportamiento a simular sobre una tarea:
