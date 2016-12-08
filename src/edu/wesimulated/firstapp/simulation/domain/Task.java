@@ -11,7 +11,7 @@ import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
 import edu.wesimulated.firstapp.simulation.hla.HlaTask;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 import edu.wesimulated.firstapp.simulation.stochastic.PredictorFactory;
-import edu.wesimulated.firstapp.simulation.stochastic.classifier.ClassSelectorFactory;
+import edu.wesimulated.firstapp.simulation.stochastic.classifier.ClassificationSelectorFactory;
 import edu.wesimulated.firstapp.simulation.stochastic.classifier.TypeOfWorkSelector;
 import edu.wesimulated.firstapp.simulation.stochastic.predictor.RandomVar;
 
