@@ -17,6 +17,12 @@ import java.util.Map;
 public class ParametricAlgorithm {
 
 	private Map<String, EntryValue> availableAttributes;
+	private StochasticMethod method;
+
+	public ParametricAlgorithm(StochasticMethod method) {
+		this.method = method;
+	}
+	
 	public static ParametricAlgorithm buildParamethricAlgorithmForVar(StochasticVar var) {
 		return new ParametricAlgorithm(StochasticRegistry.getInstance().getStochasticMethod(var));
 	}

@@ -28,10 +28,12 @@ import edu.wesimulated.firstapp.model.ProjectData;
 import edu.wesimulated.firstapp.model.RaciType;
 import edu.wesimulated.firstapp.model.ResponsibilityAssignmentData;
 import edu.wesimulated.firstapp.model.RoleData;
+import edu.wesimulated.firstapp.model.StochasticRegistryData;
 import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.model.TaskNet;
 import edu.wesimulated.firstapp.model.WbsInnerNode;
 import edu.wesimulated.firstapp.persistence.UiModelToXml;
+import edu.wesimulated.firstapp.simulation.stochastic.StochasticRegistry;
 import edu.wesimulated.firstapp.view.PersonOverviewController;
 import edu.wesimulated.firstapp.view.RAMController;
 import edu.wesimulated.firstapp.view.RoleOverviewController;
@@ -175,10 +177,10 @@ public class MainApp extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		File file = getStorageFilePath();
-		if (file != null) {
-			loadProjectDataFromFile(file);
-		}
+		File projectFile = getStorageFilePath(FileType.project);
+		loadProjectDataFromFile(projectFile);
+		File stochasticDataFile = getStorageFilePath(FileType.stochasticData);
+		loadStochasticDataFromFile(stochasticDataFile);
 	}
 
 	public ObservableList<TaskData> getTaskData() {
@@ -231,9 +233,9 @@ public class MainApp extends Application {
 		launch(args);
 	}
 
-	public File getStorageFilePath() {
+	public File getStorageFilePath(FileType fileType) {
 		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-		String filePath = prefs.get("filePath", null);
+		String filePath = prefs.get(fileType.name(), null);
 		if (filePath != null) {
 			return new File(filePath);
 		} else {
@@ -241,31 +243,46 @@ public class MainApp extends Application {
 		}
 	}
 
-	public void setStorageFilePath(File file) {
+	public void setStorageFilePath(File file, FileType fileType) {
 		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
 		if (file != null) {
-			prefs.put("filePath", file.getPath());
-			primaryStage.setTitle("FirstApp - " + file.getName());
+			prefs.put(fileType.name(), file.getPath());
 		} else {
-			prefs.remove("filePath");
-			primaryStage.setTitle("FirstApp");
+			prefs.remove(fileType.name());
 		}
 	}
 
-	public void loadProjectDataFromFile(File file) {
+	public void loadProjectDataFromFile(File projectFile) {
 		try {
-			JAXBContext context = JAXBContext.newInstance(ProjectData.class);
-			Unmarshaller um = context.createUnmarshaller();
-			ProjectData projectData = (ProjectData) um.unmarshal(file);
-			this.fillRoleInfo(projectData);
-			this.fillPeopleInfo(projectData);
-			this.fillTaskInfo(projectData);
-			this.fillWbsInfo(projectData);
-			this.fillRamInfo(projectData);
-			this.fillTaskNet();
-			setStorageFilePath(file);
+			if (projectFile != null) {
+				JAXBContext context = JAXBContext.newInstance(ProjectData.class);
+				Unmarshaller um = context.createUnmarshaller();
+				ProjectData projectData = (ProjectData) um.unmarshal(projectFile);
+				this.fillRoleInfo(projectData);
+				this.fillPeopleInfo(projectData);
+				this.fillTaskInfo(projectData);
+				this.fillWbsInfo(projectData);
+				this.fillRamInfo(projectData);
+				this.fillTaskNet();
+				setStorageFilePath(projectFile, FileType.project);
+			}
 		} catch (Exception e) {
-			showAlert(file, "Could not load data", "Could not load data from file");
+			showAlert("Could not load data", "Could not load data from file");
+			e.printStackTrace();
+		}
+	}
+	
+	public void loadStochasticDataFromFile(File file) {
+		try {
+			if (file != null) {
+				JAXBContext context = JAXBContext.newInstance(StochasticRegistryData.class);
+				Unmarshaller um = context.createUnmarshaller();
+				StochasticRegistryData stochasticRegistryData = (StochasticRegistryData) um.unmarshal(file);
+				StochasticRegistry.getInstance().loadData(stochasticRegistryData);
+				setStorageFilePath(file, FileType.stochasticData);
+			}
+		} catch (Exception e) {
+			showAlert("Could not load data", "Could not load data from file");
 			e.printStackTrace();
 		}
 	}
@@ -275,11 +292,11 @@ public class MainApp extends Application {
 
 	}
 
-	private void showAlert(File file, String headerText, String contentText) {
+	private void showAlert(String headerText, String contentText) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error");
 		alert.setHeaderText(headerText);
-		alert.setContentText(contentText + ": \n" + file.getPath());
+		alert.setContentText(contentText);
 		alert.showAndWait();
 	}
 
@@ -312,18 +329,28 @@ public class MainApp extends Application {
 		this.roleData.addAll(projectData.getRoles());
 	}
 
-	public void saveProjectDataToFile(File file) {
+	public void saveDataToFile(File file, FileType fileType) {
 		try {
-			JAXBContext context = JAXBContext.newInstance(ProjectData.class);
+			JAXBContext context = JAXBContext.newInstance(FileType.project.equals(fileType) ? ProjectData.class : StochasticRegistryData.class);
 			Marshaller m = context.createMarshaller();
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			ProjectData projectData = buildProjectData();
-			m.marshal(projectData, file);
-			setStorageFilePath(file);
+			if (FileType.project.equals(fileType)) {
+				ProjectData projectData = buildProjectData();
+				m.marshal(projectData, file);
+			} else {
+				StochasticRegistryData stochasticRegistryData = buildStochasticRegistryData();
+				m.marshal(stochasticRegistryData, file);
+			}
+			setStorageFilePath(file, fileType);
 		} catch (Exception e) {
 			e.printStackTrace();
-			this.showAlert(file, "Could not save data", "Could not save data to file");
+			this.showAlert("Could not save data", "Could not save data to file");
 		}
+	}
+
+	private StochasticRegistryData buildStochasticRegistryData() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public ProjectData buildProjectData() {
@@ -398,5 +425,11 @@ public class MainApp extends Application {
 	public boolean mustStartLogger() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public void clearStorageFilePaths() {
+		for (FileType fileType : FileType.values()) {
+			this.setStorageFilePath(null, fileType);
+		}
 	}
 }

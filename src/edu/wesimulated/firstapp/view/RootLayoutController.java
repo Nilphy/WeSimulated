@@ -4,6 +4,7 @@ import java.io.File;
 
 import javafx.fxml.FXML;
 import javafx.stage.FileChooser;
+import edu.wesimulated.firstapp.FileType;
 import edu.wesimulated.firstapp.MainApp;
 
 public class RootLayoutController {
@@ -19,7 +20,7 @@ public class RootLayoutController {
 		mainApp.getPersonData().clear();
 		mainApp.getTaskData().clear();
 		mainApp.clearWbs();
-		mainApp.setStorageFilePath(null);
+		mainApp.clearStorageFilePaths();
 	}
 
 	@FXML
@@ -34,27 +35,44 @@ public class RootLayoutController {
 	}
 
 	@FXML
+	private void handleOpenStochasticRegistry() {
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+		fileChooser.getExtensionFilters().add(extFilter);
+		File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
+		if (file != null) {
+			mainApp.loadStochasticDataFromFile(file);
+		}
+	}
+
+	@FXML
 	private void handleSave() {
-		File programDataFile = mainApp.getStorageFilePath();
+		File programDataFile = mainApp.getStorageFilePath(FileType.project);
 		if (programDataFile != null) {
-			mainApp.saveProjectDataToFile(programDataFile);
+			mainApp.saveDataToFile(programDataFile, FileType.project);
 		} else {
-			handleSaveAs();
+			saveAs(FileType.project);
+		}
+	}
+
+	@FXML
+	private void handleSaveStochasticRegistry() {
+		File programDataFile = mainApp.getStorageFilePath(FileType.stochasticData);
+		if (programDataFile != null) {
+			mainApp.saveDataToFile(programDataFile, FileType.stochasticData);
+		} else {
+			saveAs(FileType.stochasticData);
 		}
 	}
 
 	@FXML
 	private void handleSaveAs() {
-		FileChooser fileChooser = new FileChooser();
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
-		fileChooser.getExtensionFilters().add(extFilter);
-		File file = fileChooser.showSaveDialog(mainApp.getPrimaryStage());
-		if (file != null) {
-			if (!file.getPath().endsWith(".xml")) {
-				file = new File(file.getPath() + ".xml");
-			}
-			mainApp.saveProjectDataToFile(file);
-		}
+		saveAs(FileType.project);
+	}
+
+	@FXML
+	private void handleSaveAsStochasticRegistry() {
+		this.saveAs(FileType.stochasticData);
 	}
 
 	@FXML
@@ -95,5 +113,18 @@ public class RootLayoutController {
 	@FXML
 	private void handleTaskNet() {
 		mainApp.showTaskNet();
+	}
+	
+	private void saveAs(FileType fileType) {
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+		fileChooser.getExtensionFilters().add(extFilter);
+		File file = fileChooser.showSaveDialog(mainApp.getPrimaryStage());
+		if (file != null) {
+			if (!file.getPath().endsWith(".xml")) {
+				file = new File(file.getPath() + ".xml");
+			}
+			mainApp.saveDataToFile(file, fileType);
+		}
 	}
 }
