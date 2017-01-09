@@ -8,8 +8,8 @@ import com.wesimulated.simulationmotor.systemdynamics.Stock;
 import edu.wesimulated.firstapp.model.WorkType;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Task;
-import edu.wesimulated.firstapp.simulation.stochastic.PredictorFactory;
-import edu.wesimulated.firstapp.simulation.stochastic.predictor.RandomVar;
+import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
+import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 
 /**
  * Comportamiento a simular sobre una tarea:
@@ -76,7 +76,7 @@ public class TaskSimulatorBuilder {
 		simulator.register(automatedQcModule);
 		sinkFlow.connectInput(automatedQcModule.getOutputStock());
 
-		RandomVar uowBugsProportion = PredictorFactory.buildFactory().buildUowBugs();
+		ParametricAlgorithm uowBugsProportion = ParametricAlgorithm.buildParamethricAlgorithmForVar(StochasticVar.UowBugs);
 		uowBugsProportion.consider(task);
 		uowBugsProportion.consider(task.getResponsiblePerson());
 		// TODO add all the other people involved
@@ -84,7 +84,7 @@ public class TaskSimulatorBuilder {
 
 			@Override
 			public Double calculateNext(Double previousValue) {
-				return 	uowBugsProportion.findSample() *
+				return 	uowBugsProportion.findSample().getPrediction().getValue().doubleValue() *
 						(
 							v(WorkType.Rework.c(WorkModule.STOCK_INTEGRATED_WORK)) 
 							+ v(WorkType.Development.c(WorkModule.STOCK_INTEGRATED_WORK))

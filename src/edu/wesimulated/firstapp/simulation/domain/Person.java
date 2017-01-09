@@ -4,11 +4,13 @@ import hla.rti1516e.AttributeHandleValueMap;
 import hla.rti1516e.ObjectInstanceHandle;
 
 import java.util.Date;
+import java.util.Map;
 
 import com.wesimulated.simulationmotor.des.Resource;
 import com.wesimulated.simulationmotor.des.TaskWithPriority;
 
 import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
+import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
 public class Person implements Resource, NumericallyModeledEntity {
@@ -95,5 +97,11 @@ public class Person implements Resource, NumericallyModeledEntity {
 
 	public void setCurrentTask(Task task) {
 		this.currentTask = task;
+	}
+
+	@Override
+	public Map<String, EntryValue> extractValues() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

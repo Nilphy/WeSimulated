@@ -1,4 +1,4 @@
-package edu.wesimulated.firstapp.simulation.stochastic.classifier;
+package edu.wesimulated.firstapp.simulation.stochastic;
 
 /**
  * Data mining classification algorithms return Classifications (to avoid using

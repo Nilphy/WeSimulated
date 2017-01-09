@@ -1,5 +1,8 @@
 package edu.wesimulated.firstapp.simulation;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import com.wesimulated.simulationmotor.des.BOperation;
 import com.wesimulated.simulationmotor.des.COperation;
 import com.wesimulated.simulationmotor.des.OperationBasedExecutor;
@@ -11,6 +14,7 @@ import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Role;
 import edu.wesimulated.firstapp.simulation.domain.Task;
 import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
+import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
 /*
  * 
@@ -66,6 +70,16 @@ public class RoleSimulator extends OperationBasedSimulator {
 		// TODO register work done until the moment
 		// TODO remove next BOperation
 		// TODO add next COperation to continue working when the person be free again
+	}
+	
+	public Collection<NumericallyModeledEntity> getAllNumericallyModeledEntities() {
+		Collection<NumericallyModeledEntity> out = new ArrayList<>();
+		out.add(this.getRole());
+		out.add(this.getProject());
+		out.add(this.getPerson());
+		out.add(this.getCurrentTask());
+		out.add(this.getCurrentTypeOfWork());
+		return out;
 	}
 
 	public Role getRole() {

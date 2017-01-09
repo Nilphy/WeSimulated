@@ -5,7 +5,6 @@ import java.util.Date;
 import com.wesimulated.simulationmotor.des.State;
 
 import edu.wesimulated.firstapp.simulation.RoleSimulator;
-import edu.wesimulated.firstapp.simulation.stochastic.PredictorFactory;
 
 public abstract class DevelopSoftware extends TypeOfWork implements State {
 

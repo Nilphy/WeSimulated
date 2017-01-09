@@ -2,6 +2,7 @@ package edu.wesimulated.firstapp.simulation.domain;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Map;
 
 import com.wesimulated.simulation.hla.DateLogicalTime;
 
@@ -9,11 +10,10 @@ import edu.wesimulated.firstapp.model.WorkType;
 import edu.wesimulated.firstapp.simulation.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
 import edu.wesimulated.firstapp.simulation.hla.HlaTask;
+import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
-import edu.wesimulated.firstapp.simulation.stochastic.PredictorFactory;
-import edu.wesimulated.firstapp.simulation.stochastic.classifier.ClassificationSelectorFactory;
-import edu.wesimulated.firstapp.simulation.stochastic.classifier.RandomClassification;
-import edu.wesimulated.firstapp.simulation.stochastic.predictor.RandomVar;
+import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
+import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 
 public class Task implements NumericallyModeledEntity {
 
@@ -30,14 +30,6 @@ public class Task implements NumericallyModeledEntity {
 
 	public void setHlaTask(HlaTask hlaTask) {
 		this.hlaTask = hlaTask;
-	}
-
-	public long findTimeToConfigureWorkbench() {
-		return PredictorFactory.buildFactory().buildTimeToConfigureWorkbench().findSample();
-	}
-
-	public long findTimeToFocus() {
-		return PredictorFactory.buildFactory().buildTimeToFocus().findSample();
 	}
 
 	public boolean isCompleted(Role role) {
@@ -122,25 +114,22 @@ public class Task implements NumericallyModeledEntity {
 	}
 
 	public TypeOfWork findTypeOfTaskToWorkForRole(RoleSimulator roleSimulator) {
-		RandomClassification typeOfWork = ClassificationSelectorFactory.buildFactory().buildTypeOfWorkSelector();
-		typeOfWork.consider(roleSimulator.getCurrentTask());
-		typeOfWork.consider(roleSimulator.getCurrentTypeOfWork());
-		typeOfWork.consider(roleSimulator.getPerson());
-		typeOfWork.consider(roleSimulator.getRole());
-		typeOfWork.consider(roleSimulator.getProject());
-		return (TypeOfWork) typeOfWork.findSample();
+		ParametricAlgorithm typeOfWork = ParametricAlgorithm.buildParamethricAlgorithmForVar(StochasticVar.TypeOfTaskToWorkForRole);
+		typeOfWork.considerAll(roleSimulator.getAllNumericallyModeledEntities());
+		return (TypeOfWork) typeOfWork.findSample().getClassifictation();
 	}
 
 	public long findDurationOfWorkSlab(RoleSimulator roleSimulator) {
-		RandomVar timeOfWorkSlab = PredictorFactory.buildFactory().buildTimeOfWorkSlab();
+		ParametricAlgorithm timeOfWorkSlab = ParametricAlgorithm.buildParamethricAlgorithmForVar(StochasticVar.TimeOfWorkSlab);
 		// TODO The person will have a list of all interruptions it has had
 		// given the priority of this task and the ones that has interrupted it
 		// The duration of this task could be calculated
-		timeOfWorkSlab.consider(roleSimulator.getPerson());
-		timeOfWorkSlab.consider(roleSimulator.getRole());
-		timeOfWorkSlab.consider(roleSimulator.getCurrentTask());
-		timeOfWorkSlab.consider(roleSimulator.getCurrentTypeOfWork());
-		timeOfWorkSlab.consider(roleSimulator.getProject());
-		return timeOfWorkSlab.findSample();
+		return timeOfWorkSlab.findSample().getPrediction().getValue().longValue();
+	}
+
+	@Override
+	public Map<String, EntryValue> extractValues() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

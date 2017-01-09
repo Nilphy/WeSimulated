@@ -2,10 +2,12 @@ package edu.wesimulated.firstapp.simulation.domain;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 
 import com.wesimulated.simulation.runparameters.CompletableTask;
 
 import edu.wesimulated.firstapp.simulation.hla.HlaProject;
+import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
 public class Project implements CompletableTask, NumericallyModeledEntity {
@@ -59,6 +61,12 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 	}
 
 	public Task findTaskToWorkForRole(Role role) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, EntryValue> extractValues() {
 		// TODO Auto-generated method stub
 		return null;
 	}
