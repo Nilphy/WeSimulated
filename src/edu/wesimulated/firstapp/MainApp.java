@@ -50,7 +50,6 @@ public class MainApp extends Application {
 	private ObservableList<PersonData> personData;
 	private ObservableList<TaskData> taskData;
 	private ObservableList<RoleData> roleData;
-	private ProjectData projectData;
 	private WbsInnerNode wbs;
 	private TaskNet taskNet;
 	private ObservableList<ResponsibilityAssignmentData> responsibilityAssignmentData;
@@ -289,7 +288,7 @@ public class MainApp extends Application {
 
 	private void fillTaskNet() {
 		this.taskNet.initFromTasks(this.getTaskData());
-
+		
 	}
 
 	private void showAlert(String headerText, String contentText) {

@@ -44,12 +44,12 @@ public class Task implements NumericallyModeledEntity {
 
 	public void setName(String name) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void addAccountablePerson(Person newPerson) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void addAcountablePerson(Person person) {
@@ -70,22 +70,22 @@ public class Task implements NumericallyModeledEntity {
 
 	public void setEndDate(LocalDate endDate) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void setStartDate(LocalDate startDate) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void addTaskDependency(TaskDependency taskDependency) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void setUnitsOfWork(Integer unitsOfWork) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public Person getResponsiblePerson() {

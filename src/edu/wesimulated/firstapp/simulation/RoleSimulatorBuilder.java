@@ -22,6 +22,7 @@ public class RoleSimulatorBuilder {
 	 * @param person
 	 * @return
 	 */
+	@Deprecated
 	public static RoleSimulator build(Role role, Project project, Person person) {
 		ThreePhaseExecutor executor = new ThreePhaseExecutor(new TaskCompletedEndCondition(project));
 		RoleSimulator roleSimulator = new RoleSimulator(executor, role, project, person);
