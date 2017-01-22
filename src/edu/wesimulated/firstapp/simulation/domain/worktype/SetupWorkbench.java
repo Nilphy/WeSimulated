@@ -23,4 +23,8 @@ public class SetupWorkbench extends TypeOfWork {
 		return null;
 	}
 
+	@Override
+	public String getName() {
+		return "TypeOfWork";
+	}
 }

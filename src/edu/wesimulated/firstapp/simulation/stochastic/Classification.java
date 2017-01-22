@@ -9,4 +9,6 @@ package edu.wesimulated.firstapp.simulation.stochastic;
  */
 public interface Classification {
 
+	String getName();
+
 }
