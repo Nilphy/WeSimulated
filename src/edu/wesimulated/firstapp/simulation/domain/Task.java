@@ -1,6 +1,7 @@
 package edu.wesimulated.firstapp.simulation.domain;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
 
@@ -103,16 +104,6 @@ public class Task implements NumericallyModeledEntity {
 		return null;
 	}
 
-	public Person getConsultedPerson() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Person getAccountablePerson() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public TypeOfWork findTypeOfTaskToWorkForRole(RoleSimulator roleSimulator) {
 		ParametricAlgorithm typeOfWork = ParametricAlgorithm.buildParamethricAlgorithmForVar(StochasticVar.TypeOfTaskToWorkForRole);
 		typeOfWork.considerAll(roleSimulator.getAllNumericallyModeledEntities());
@@ -129,6 +120,11 @@ public class Task implements NumericallyModeledEntity {
 
 	@Override
 	public Map<String, EntryValue> extractValues() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Collection<NumericallyModeledEntity> getAllRelatedNumericallyModeledEntities() {
 		// TODO Auto-generated method stub
 		return null;
 	}

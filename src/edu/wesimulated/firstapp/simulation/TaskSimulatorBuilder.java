@@ -45,6 +45,18 @@ public class TaskSimulatorBuilder {
 	}
 
 	public TaskSimulator build(Task task, Project project) {
+		ParametricAlgorithm reviewTimeToReworkFactor = ParametricAlgorithm.buildParamethricAlgorithmForVar(StochasticVar.ReviewTimeToReworkFactor);
+		reviewTimeToReworkFactor.consider(task);
+		reviewTimeToReworkFactor.considerAll(task.getAllRelatedNumericallyModeledEntities());
+		ParametricAlgorithm qcTimeToReworkFactor = ParametricAlgorithm.buildParamethricAlgorithmForVar(StochasticVar.QcTimeToReworkFactor);
+		qcTimeToReworkFactor.consider(task);
+		qcTimeToReworkFactor.considerAll(task.getAllRelatedNumericallyModeledEntities());
+		ParametricAlgorithm autoQcToReworkFactor = ParametricAlgorithm.buildParamethricAlgorithmForVar(StochasticVar.AutoQcToReworkFactor);
+		autoQcToReworkFactor.consider(task);
+		ParametricAlgorithm uowBugsProportion = ParametricAlgorithm.buildParamethricAlgorithmForVar(StochasticVar.UowBugs);
+		uowBugsProportion.consider(task);
+		uowBugsProportion.considerAll(task.getAllRelatedNumericallyModeledEntities());
+
 		TaskSimulator simulator = new TaskSimulator(task);
 
 		// This flow is to be used of output of all stocks that are consumed entirely on each step
@@ -75,11 +87,6 @@ public class TaskSimulatorBuilder {
 		WorkModule automatedQcModule = new WorkModule(WorkType.AutoQc, task);
 		simulator.register(automatedQcModule);
 		sinkFlow.connectInput(automatedQcModule.getOutputStock());
-
-		ParametricAlgorithm uowBugsProportion = ParametricAlgorithm.buildParamethricAlgorithmForVar(StochasticVar.UowBugs);
-		uowBugsProportion.consider(task);
-		uowBugsProportion.consider(task.getResponsiblePerson());
-		// TODO add all the other people involved
 		Flow reworkGeneration = new Flow(FLOW_REWORK_GENERATION) {
 
 			@Override
@@ -99,9 +106,10 @@ public class TaskSimulatorBuilder {
 		simulator.register(allRework);
 		allRework.connectInputFlow(reworkGeneration);
 
-		Constant timeReviewPerDetection = new Constant(CONST_TIME_REVIEW_PER_DETECTION, task.getConsultedPerson().getTimeReviewPerDetection());
-		Constant timeQCPerDetection = new Constant(CONST_TIME_QC_PER_DETECTION, task.getAccountablePerson().getTimeQcPerDetection());
-		Constant qualityAutoQc = new Constant(CONST_QUALITY_AUTO_QC, task.getAccountablePerson().getTimeQcPerDetection());
+		autoQcToReworkFactor.considerAll(task.getAllRelatedNumericallyModeledEntities());
+		Constant timeReviewPerDetection = new Constant(CONST_TIME_REVIEW_PER_DETECTION, reviewTimeToReworkFactor.findSample().getPrediction().getValue().doubleValue());
+		Constant timeQCPerDetection = new Constant(CONST_TIME_QC_PER_DETECTION, qcTimeToReworkFactor.findSample().getPrediction().getValue().doubleValue());
+		Constant qualityAutoQc = new Constant(CONST_QUALITY_AUTO_QC, autoQcToReworkFactor.findSample().getPrediction().getValue().doubleValue());
 		Flow reworkDetection = new Flow(FLOW_REWORK_DETECTION) {
 
 			@Override

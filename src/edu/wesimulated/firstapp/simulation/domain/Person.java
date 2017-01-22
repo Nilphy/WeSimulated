@@ -77,16 +77,6 @@ public class Person implements Resource, NumericallyModeledEntity {
 		return null;
 	}
 
-	public Double getTimeReviewPerDetection() {
-		// TODO Auto-generated method stub the task should be involved too
-		return null;
-	}
-
-	public Double getTimeQcPerDetection() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public Date findNextAvailableDate() {
 		// TODO find hour to start working today
 		// TODO find current hour
