@@ -62,13 +62,16 @@ public class RoleSimulator extends OperationBasedSimulator {
 	public void addCOperation(COperation operation) {
 		this.getOperationBasedExecutor().addCOperation(operation);
 	}
-	
+
 	public void acceptInterruption() {
 		// TODO register work done until the moment
 		// TODO remove next BOperation
-		// TODO add next COperation to continue working when the person be free again
+		/*
+		 * TODO add next COperation to continue working when the person be free
+		 * again
+		 */
 	}
-	
+
 	public Collection<NumericallyModeledEntity> getAllNumericallyModeledEntities() {
 		Collection<NumericallyModeledEntity> out = new ArrayList<>();
 		out.add(this.getRole());
@@ -102,7 +105,7 @@ public class RoleSimulator extends OperationBasedSimulator {
 	public void setCurrentTypeOfWork(TypeOfWork typeOfWork) {
 		this.typeOfWork = typeOfWork;
 	}
-	
+
 	public TypeOfWork getCurrentTypeOfWork() {
 		return this.typeOfWork;
 	}

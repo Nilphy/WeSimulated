@@ -59,12 +59,15 @@ public class TaskSimulatorBuilder {
 
 		TaskSimulator simulator = new TaskSimulator(task);
 
-		// This flow is to be used of output of all stocks that are consumed entirely on each step
+		// This flow is to be used of output of all stocks that are consumed
+		// entirely on each step
 		Flow sinkFlow = new SinkFlow();
 		simulator.register(sinkFlow);
 
-		// The output of all this stocks is accumulated (not dropped to another flow being a physical input) because 
-		// they have is the work done in the task, and is used to know if the task is finished
+		// The output of all this stocks is accumulated (not dropped to another
+		// flow being a physical input) because
+		// they have is the work done in the task, and is used to know if the
+		// task is finished
 		WorkModule developmentModule = new WorkModule(WorkType.Development, task);
 		simulator.registerPlannedTaskWorkModule(developmentModule);
 		WorkModule techInvestigationModule = new WorkModule(WorkType.TechnologyInvestigation, task);
@@ -74,7 +77,8 @@ public class TaskSimulatorBuilder {
 		WorkModule designModule = new WorkModule(WorkType.Desing, task);
 		simulator.registerPlannedTaskWorkModule(designModule);
 
-		// The output of this stocks is consumed completely on each time step, so its dropped to a sink flow
+		// The output of this stocks is consumed completely on each time step,
+		// so its dropped to a sink flow
 		WorkModule reworkModule = new WorkModule(WorkType.Rework, task);
 		simulator.register(reworkModule);
 		sinkFlow.connectInput(reworkModule.getOutputStock());
@@ -91,11 +95,8 @@ public class TaskSimulatorBuilder {
 
 			@Override
 			public Double calculateNext(Double previousValue) {
-				return 	uowBugsProportion.findSample().getPrediction().getValue().doubleValue() *
-						(
-							v(WorkType.Rework.c(WorkModule.STOCK_INTEGRATED_WORK)) 
-							+ v(WorkType.Development.c(WorkModule.STOCK_INTEGRATED_WORK))
-						);
+				double uowBugsProportionSample = uowBugsProportion.findSample().getPrediction().getValue().doubleValue();
+				return uowBugsProportionSample * (v(WorkType.Rework.c(WorkModule.STOCK_INTEGRATED_WORK)) + v(WorkType.Development.c(WorkModule.STOCK_INTEGRATED_WORK)));
 			}
 		};
 		simulator.register(reworkGeneration);
@@ -114,7 +115,8 @@ public class TaskSimulatorBuilder {
 
 			@Override
 			public Double calculateNext(Double previousValue) {
-				Double totalReworkDetectionWork = v(CONST_TIME_REVIEW_PER_DETECTION) * v(WorkType.Review.c(WorkModule.STOCK_INTEGRATED_WORK)) 
+				Double totalReworkDetectionWork = 
+						v(CONST_TIME_REVIEW_PER_DETECTION) * v(WorkType.Review.c(WorkModule.STOCK_INTEGRATED_WORK)) 
 						+ v(CONST_TIME_QC_PER_DETECTION) * v(WorkType.Qc.c(WorkModule.STOCK_INTEGRATED_WORK)) 
 						+ v(CONST_QUALITY_AUTO_QC) * v(WorkType.AutoQc.c(WorkModule.STOCK_INTEGRATED_WORK));
 				if (v(STOCK_ALL_REWORK) > totalReworkDetectionWork) {
@@ -136,9 +138,9 @@ public class TaskSimulatorBuilder {
 		Stock reworkDetected = new Stock(STOCK_REWORK_DETECTED);
 		simulator.register(reworkDetected);
 		reworkDetected.connectInputFlow(reworkDetection);
-		
+
 		Flow reworkCompletion = new Flow(FLOW_REWORK_COMPLETION) {
-			
+
 			@Override
 			public Double calculateNext(Double previousValue) {
 				if (v(STOCK_REWORK_DETECTED) > v(WorkType.Rework.c(WorkModule.STOCK_INTEGRATED_WORK))) {
@@ -155,7 +157,7 @@ public class TaskSimulatorBuilder {
 		Stock reworkFixed = new Stock(STOCK_REWORK_FIXED);
 		simulator.register(reworkFixed);
 		reworkFixed.connectInputFlow(reworkCompletion);
-		
+
 		return simulator;
 	}
 }

@@ -6,9 +6,18 @@ public enum WorkType {
 	TechnologyInvestigation("TECH_INV"),
 	BussinessInvestigation("BUSS_INV"),
 	Desing("DESING"), 
-	Rework("REWORK"), 
-	Review("REVIEW"), 
+	Rework("REWORK"),
+	/**
+	 * Pair review
+	 */
+	Review("REVIEW"),
+	/**
+	 * Manual tests
+	 */
 	Qc("QC"), 
+	/**
+	 * Automatic tests
+	 */
 	AutoQc("AUTO_QC");
 
 	private String initial;

@@ -39,9 +39,11 @@ public class TaskSimulator extends SystemDynamicsSimulator {
 				return false;
 			}
 		}
-		// TODO and bugs found is acceptable
-		// Mybe if the task has a getWorkDoneToComplete for the rework tasks its stocks
-		// could be controlled as the workDone stocks
+		/*
+		 * TODO and bugs found is acceptable Maybe if the task has a
+		 * getWorkDoneToComplete for the rework tasks its stocks could be
+		 * controlled as the workDone stocks
+		 */
 		return true;
 	}
 
