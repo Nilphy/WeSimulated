@@ -3,8 +3,6 @@ package edu.wesimulated.firstapp.simulation.stochastic;
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.wesimulated.firstapp.model.StochasticVarData;
-
 /**
  * This class is created with the intention of having a way to configure the
  * stochastic methods used by the simulation without needing an UI
