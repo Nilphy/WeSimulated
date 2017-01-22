@@ -22,23 +22,21 @@ public class ParametricAlgorithm {
 	public ParametricAlgorithm(StochasticMethod method) {
 		this.method = method;
 	}
-	
+
 	public static ParametricAlgorithm buildParamethricAlgorithmForVar(StochasticVar var) {
 		return new ParametricAlgorithm(StochasticRegistry.getInstance().getStochasticMethod(var));
 	}
 
 	public void consider(NumericallyModeledEntity entity) {
-		// TODO implement consider numerically modeled entity
 		/**
-		 * load values
+		 * TODO load values implement consider numerically modeled entity
 		 */
 	}
 
 	public StochasticValue findSample() {
-		// TODO Auto-generated method stub
 		/**
-		 * get vector of values to pass to the machine learning method Using
-		 * machine learnig or other algorithms to calculate a value
+		 * TODO get vector of values to pass to the machine learning method
+		 * Using machine learnig or other algorithms to calculate a value
 		 */
 		return this.method.evaluate();
 	}

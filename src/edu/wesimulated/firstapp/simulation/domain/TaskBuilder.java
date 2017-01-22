@@ -20,7 +20,7 @@ public class TaskBuilder {
 			Task dependentTask = TaskBuilder.createFromTaskData(taskDependency.getTask());
 			newTask.addTaskDependency(new TaskDependency(dependentTask, taskDependency.getPrecedence()));
 		}
-		// TODO this couldn't be this way
+		// TODO this couldn't be this way the units of work should be separated into different categories of work
 		newTask.setUnitsOfWork(task.getUnitsOfWork());
 		return newTask;
 	}

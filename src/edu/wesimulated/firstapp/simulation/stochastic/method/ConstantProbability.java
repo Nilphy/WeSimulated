@@ -7,6 +7,12 @@ import edu.wesimulated.firstapp.simulation.stochastic.StochasticMethodConfig;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticMethodConfig.StochasticMethodConfigType;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticValue;
 
+/**
+ * This stochastic method that returns allways the same value when evaluate is called
+ * 
+ * @author Carolina
+ *
+ */
 public class ConstantProbability implements StochasticMethod {
 
 	public enum StochasticConfig implements StochasticMethodConfigType {
