@@ -2,9 +2,6 @@ package edu.wesimulated.firstapp.simulation;
 
 import java.util.Date;
 
-import com.wesimulated.simulation.runparameters.TaskCompletedEndCondition;
-import com.wesimulated.simulationmotor.des.threefaseaproach.ThreePhaseExecutor;
-
 import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Role;
@@ -24,8 +21,7 @@ public class RoleSimulatorBuilder {
 	 */
 	@Deprecated
 	public static RoleSimulator build(Role role, Project project, Person person) {
-		ThreePhaseExecutor executor = new ThreePhaseExecutor(new TaskCompletedEndCondition(project));
-		RoleSimulator roleSimulator = new RoleSimulator(executor, role, project, person);
+		RoleSimulator roleSimulator = new RoleSimulator(role, project, person);
 		Date roleWorkStart = project.findStartDateToWorkForRole(role, person);
 		roleSimulator.addBOperation(new StartProject(roleWorkStart));
 		// FIXME ask the project which is the first task to work in
@@ -45,9 +41,8 @@ public class RoleSimulatorBuilder {
 	 * @return the simulator builded
 	 */
 	public static RoleSimulator buildAvatureDeveloperSimulator(Project project, Person person) {
-		ThreePhaseExecutor executor = new ThreePhaseExecutor(new TaskCompletedEndCondition(project));
 		Role role = RolePool.getAvatureDeveloperRole();
-		RoleSimulator roleSimulator = new RoleSimulator(executor, role, project, person);
+		RoleSimulator roleSimulator = new RoleSimulator(role, project, person);
 		Date roleWorkStart = project.findStartDateToWorkForRole(role, person);
 		roleSimulator.addBOperation(new StartProject(roleWorkStart));
 		Task taskToWorkIn = project.findTaskToWorkForRole(role);

@@ -3,6 +3,7 @@ package edu.wesimulated.firstapp.simulation;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.wesimulated.simulation.runparameters.TaskCompletedEndCondition;
 import com.wesimulated.simulationmotor.des.BOperation;
 import com.wesimulated.simulationmotor.des.COperation;
 import com.wesimulated.simulationmotor.des.OperationBasedExecutor;
@@ -47,12 +48,8 @@ public class RoleSimulator extends OperationBasedSimulator {
 	private Task currentTask;
 	private TypeOfWork typeOfWork;
 
-	public RoleSimulator(OperationBasedExecutor executor) {
-		this.setExecutor(executor);
-	}
-
-	public RoleSimulator(ThreePhaseExecutor executor, Role role, Project project, Person person) {
-		this(executor);
+	public RoleSimulator(Role role, Project project, Person person) {
+		super(new ThreePhaseExecutor(new TaskCompletedEndCondition(project)));
 		this.role = role;
 		this.project = project;
 		this.person = person;
