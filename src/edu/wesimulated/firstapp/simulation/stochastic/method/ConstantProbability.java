@@ -13,18 +13,16 @@ import edu.wesimulated.firstapp.simulation.stochastic.StochasticValue;
  * @author Carolina
  *
  */
-public class ConstantProbability implements StochasticMethod {
+public class ConstantProbability extends StochasticMethod {
+
+	public ConstantProbability(StochasticMethodConfig config, String name) {
+		super(config, name);
+	}
 
 	public enum StochasticConfig implements StochasticMethodConfigType {
 		ConstantValue
 	}
-	
-	private StochasticMethodConfig config;
 
-	public ConstantProbability(StochasticMethodConfig config) {
-		this.config = config;
-	}
-	
 	@Override
 	public StochasticValue evaluate() {
 		Prediction prediction = new Prediction(Double.valueOf(this.getConfig().getValue(StochasticConfig.ConstantValue)));
@@ -35,17 +33,10 @@ public class ConstantProbability implements StochasticMethod {
 	@Override
 	public void train() {
 		throw new RuntimeException("This stochastic method doesnt support training by now");
-
 	}
 
 	@Override
 	public StochasticMehodType getType() {
 		return StochasticMehodType.ConstantProbability;
 	}
-
-	@Override
-	public StochasticMethodConfig getConfig() {
-		return this.config;
-	}
-
 }
