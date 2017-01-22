@@ -15,7 +15,7 @@ import edu.wesimulated.firstapp.model.StochasticVarData;
  */
 public class StochasticRegistry {
 
-	private static StochasticRegistry entry;
+	private static StochasticRegistry instance;
 
 	private Map<StochasticVar, StochasticMethod> entries;
 
@@ -23,10 +23,10 @@ public class StochasticRegistry {
 	}
 
 	public static StochasticRegistry getInstance() {
-		if (entry == null) {
-			entry = new StochasticRegistry();
+		if (instance == null) {
+			instance = new StochasticRegistry();
 		}
-		return entry;
+		return instance;
 	}
 
 	public StochasticMethod getStochasticMethod(StochasticVar var) {
