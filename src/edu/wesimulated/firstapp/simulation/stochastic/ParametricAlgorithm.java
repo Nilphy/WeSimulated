@@ -23,7 +23,7 @@ public class ParametricAlgorithm {
 		this.method = method;
 	}
 
-	public static ParametricAlgorithm buildParamethricAlgorithmForVar(StochasticVar var) {
+	public static ParametricAlgorithm buildParametricAlgorithmForVar(StochasticVar var) {
 		return new ParametricAlgorithm(StochasticRegistry.getInstance().getStochasticMethod(var));
 	}
 

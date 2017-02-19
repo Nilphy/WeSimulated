@@ -45,15 +45,15 @@ public class TaskSimulatorBuilder {
 	}
 
 	public TaskSimulator build(Task task, Project project) {
-		ParametricAlgorithm reviewTimeToReworkFactor = ParametricAlgorithm.buildParamethricAlgorithmForVar(StochasticVar.ReviewTimeToReworkFactor);
+		ParametricAlgorithm reviewTimeToReworkFactor = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.ReviewTimeToReworkFactor);
 		reviewTimeToReworkFactor.consider(task);
 		reviewTimeToReworkFactor.considerAll(task.getAllRelatedNumericallyModeledEntities());
-		ParametricAlgorithm qcTimeToReworkFactor = ParametricAlgorithm.buildParamethricAlgorithmForVar(StochasticVar.QcTimeToReworkFactor);
+		ParametricAlgorithm qcTimeToReworkFactor = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.QcTimeToReworkFactor);
 		qcTimeToReworkFactor.consider(task);
 		qcTimeToReworkFactor.considerAll(task.getAllRelatedNumericallyModeledEntities());
-		ParametricAlgorithm autoQcToReworkFactor = ParametricAlgorithm.buildParamethricAlgorithmForVar(StochasticVar.AutoQcToReworkFactor);
+		ParametricAlgorithm autoQcToReworkFactor = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.AutoQcToReworkFactor);
 		autoQcToReworkFactor.consider(task);
-		ParametricAlgorithm uowBugsProportion = ParametricAlgorithm.buildParamethricAlgorithmForVar(StochasticVar.UowBugs);
+		ParametricAlgorithm uowBugsProportion = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.UowBugs);
 		uowBugsProportion.consider(task);
 		uowBugsProportion.considerAll(task.getAllRelatedNumericallyModeledEntities());
 

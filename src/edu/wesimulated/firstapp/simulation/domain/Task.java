@@ -105,13 +105,13 @@ public class Task implements NumericallyModeledEntity {
 	}
 
 	public TypeOfWork findTypeOfTaskToWorkForRole(RoleSimulator roleSimulator) {
-		ParametricAlgorithm typeOfWork = ParametricAlgorithm.buildParamethricAlgorithmForVar(StochasticVar.TypeOfTaskToWorkForRole);
+		ParametricAlgorithm typeOfWork = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.TypeOfTaskToWorkForRole);
 		typeOfWork.considerAll(roleSimulator.getAllNumericallyModeledEntities());
 		return (TypeOfWork) typeOfWork.findSample().getClassifictation();
 	}
 
 	public long findDurationOfWorkSlab(RoleSimulator roleSimulator) {
-		ParametricAlgorithm timeOfWorkSlab = ParametricAlgorithm.buildParamethricAlgorithmForVar(StochasticVar.TimeOfWorkSlab);
+		ParametricAlgorithm timeOfWorkSlab = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.TimeOfWorkSlab);
 		// TODO The person will have a list of all interruptions it has had
 		// given the priority of this task and the ones that has interrupted it
 		// The duration of this task could be calculated
