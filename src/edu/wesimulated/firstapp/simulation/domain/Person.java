@@ -64,12 +64,6 @@ public class Person implements Resource, NumericallyModeledEntity {
 
 	public void increaseExperience() {
 		// TODO Auto-generated method stub
-		
-	}
-
-	public Double getEfficiency() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public Double getQualityOfWork() {

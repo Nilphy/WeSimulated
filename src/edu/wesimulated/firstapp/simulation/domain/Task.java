@@ -89,11 +89,6 @@ public class Task implements NumericallyModeledEntity {
 
 	}
 
-	public Person getResponsiblePerson() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public Double getLinesOfCodeToComplete() {
 		// TODO Auto-generated method stub
 		return null;
