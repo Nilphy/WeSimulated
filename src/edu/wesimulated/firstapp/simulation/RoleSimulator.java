@@ -6,7 +6,6 @@ import java.util.Collection;
 import com.wesimulated.simulation.runparameters.TaskCompletedEndCondition;
 import com.wesimulated.simulationmotor.des.BOperation;
 import com.wesimulated.simulationmotor.des.COperation;
-import com.wesimulated.simulationmotor.des.OperationBasedExecutor;
 import com.wesimulated.simulationmotor.des.OperationBasedSimulator;
 import com.wesimulated.simulationmotor.des.threefaseaproach.ThreePhaseExecutor;
 
@@ -40,6 +39,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
  *  
  *  Las tareas van a requerir a un rol una cantidad de personas para trabajar en ellas
  */
+// TODO change to aggregation
 public class RoleSimulator extends OperationBasedSimulator {
 
 	private Project project;

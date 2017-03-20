@@ -2,6 +2,9 @@ package edu.wesimulated.firstapp.simulation;
 
 import java.util.Date;
 
+import com.wesimulated.simulation.runparameters.TaskCompletedEndCondition;
+import com.wesimulated.simulationmotor.des.processbased.ProcessBasedExecutor;
+
 import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Role;
@@ -49,5 +52,11 @@ public class RoleSimulatorBuilder {
 		TypeOfWork typeOfWork = taskToWorkIn.findTypeOfTaskToWorkForRole(roleSimulator);
 		roleSimulator.addCOperation(new WorkSlabStart(roleSimulator, typeOfWork, taskToWorkIn, roleWorkStart));
 		return roleSimulator;
+	}
+	
+	public static ProcessBasedExecutor buildAvatureInterruptibleRoleSimulator(Project project, Person person) {
+		ProcessBasedExecutor executor = new ProcessBasedExecutor(new TaskCompletedEndCondition(project));
+		// TODO complete process based executor
+		return executor;
 	}
 }

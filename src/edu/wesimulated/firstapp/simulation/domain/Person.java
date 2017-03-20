@@ -88,4 +88,15 @@ public class Person implements Resource, NumericallyModeledEntity {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public Float getPriorityOfImFrom(Person sender) {
+		this.isWorkingWithMe(sender);
+		// TODO Auto-generated method stub
+		return 1f;
+	}
+
+	private void isWorkingWithMe(Person sender) {
+		// TODO Auto-generated method stub
+		
+	}
 }
