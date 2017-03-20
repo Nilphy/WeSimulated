@@ -10,7 +10,7 @@ import com.wesimulated.simulationmotor.DateUtils;
 
 import edu.wesimulated.firstapp.simulation.domain.ImMessage.Antiquity;
 
-public class CheckIMTest {
+public class InstantMessengerTest {
 
 	@Test
 	public void testPriorityLists() {
