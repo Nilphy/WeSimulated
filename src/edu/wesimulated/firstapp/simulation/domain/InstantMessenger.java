@@ -6,9 +6,9 @@ import java.util.Date;
 import java.util.List;
 
 import com.wesimulated.simulationmotor.des.Prioritized;
+import com.wesimulated.simulationmotor.des.processbased.Entity;
 
-import edu.wesimulated.firstapp.simulation.HighlyInterruptibleRole;
-import edu.wesimulated.firstapp.simulation.HighlyInterruptibleRoleActivity;
+import edu.wesimulated.firstapp.simulation.HighlyInterruptibleRolePrioritized;
 
 /**
  * 
@@ -18,20 +18,22 @@ import edu.wesimulated.firstapp.simulation.HighlyInterruptibleRoleActivity;
  * @author Carolina
  *
  */
-public class CheckIM implements HighlyInterruptibleRoleActivity {
+public class InstantMessenger extends Entity implements HighlyInterruptibleRolePrioritized {
 
 	private List<ImMessage> unreadMessages;
 	private List<ImMessage> pendingImMessages;
+	private Person person;
 
-	public CheckIM() {
+	public InstantMessenger(Person person) {
 		this.unreadMessages = new ArrayList<>();
 		this.pendingImMessages = new ArrayList<>();
+		this.person = person;
 	}
 
 	@Override
-	public Date process(HighlyInterruptibleRole highlyInterruptibleRole) {
-		this.getUnreadMessages().addAll(highlyInterruptibleRole.readAndCategorizeUnreadIM(this.unreadMessages));
-		this.getPendingMessages().addAll(highlyInterruptibleRole.resolvePendingImMessages(this.pendingImMessages));
+	protected Date doProcess() {
+		this.getUnreadMessages().addAll(this.person.readAndCategorizeUnreadIM(this.unreadMessages));
+		this.getPendingMessages().addAll(this.person.resolvePendingImMessages(this.pendingImMessages));
 		return null;
 	}
 

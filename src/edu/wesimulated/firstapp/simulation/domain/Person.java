@@ -3,7 +3,9 @@ package edu.wesimulated.firstapp.simulation.domain;
 import hla.rti1516e.AttributeHandleValueMap;
 import hla.rti1516e.ObjectInstanceHandle;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import com.wesimulated.simulationmotor.des.Prioritized;
@@ -98,5 +100,15 @@ public class Person implements Resource, NumericallyModeledEntity {
 	private void isWorkingWithMe(Person sender) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public Collection<? extends ImMessage> readAndCategorizeUnreadIM(List<ImMessage> unreadMessages) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Collection<? extends ImMessage> resolvePendingImMessages(List<ImMessage> pendingImMessages) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

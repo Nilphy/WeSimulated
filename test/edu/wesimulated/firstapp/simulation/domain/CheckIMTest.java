@@ -16,7 +16,7 @@ public class CheckIMTest {
 	public void testPriorityLists() {
 		Date date = new Date();
 		Clock clock = new Clock(date, null, null);
-		CheckIM task = new CheckIM();
+		InstantMessenger task = new InstantMessenger();
 		Person sender = new Person();
 		Person recipient = new Person();
 		Date before = DateUtils.addMilis(date, -(Antiquity.LOW.get() * 1000));

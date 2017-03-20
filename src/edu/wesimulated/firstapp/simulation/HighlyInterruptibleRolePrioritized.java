@@ -1,12 +1,8 @@
 package edu.wesimulated.firstapp.simulation;
 
-import java.util.Date;
-
 import com.wesimulated.simulationmotor.des.Prioritized;
 
-public interface HighlyInterruptibleRoleActivity extends Prioritized {
-
-	public Date process(HighlyInterruptibleRole highlyInterruptibleRole);
+public interface HighlyInterruptibleRolePrioritized extends Prioritized {
 
 	public Float MaxPriority();
 	
