@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.wesimulated.simulation.runparameters.TaskCompletedEndCondition;
 import com.wesimulated.simulationmotor.systemdynamics.Stock;
+import com.wesimulated.simulationmotor.systemdynamics.SystemDynamicsExecutor;
 import com.wesimulated.simulationmotor.systemdynamics.SystemDynamicsSimulator;
 
 import edu.wesimulated.firstapp.model.WorkType;
@@ -16,6 +18,7 @@ public class TaskSimulator extends SystemDynamicsSimulator {
 	private Map<WorkType, Stock> workDoneStocks;
 
 	public TaskSimulator(Task task) {
+		super(new SystemDynamicsExecutor(new TaskCompletedEndCondition(task)));
 		this.task = task;
 		this.workDoneStocks = new HashMap<>();
 	}
