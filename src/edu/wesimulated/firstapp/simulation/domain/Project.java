@@ -2,6 +2,7 @@ package edu.wesimulated.firstapp.simulation.domain;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.Map;
 
 import com.wesimulated.simulation.runparameters.CompletableTask;
@@ -18,6 +19,7 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 	private HlaProject hlaProject;
 	private Collection<Person> people;
 	private Collection<Task> tasks;
+	private Date startDate;
 
 	@Override
 	public boolean isCompleted() {
@@ -30,11 +32,17 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 	}
 
 	public void addPerson(Person person) {
+		if (this.people == null) {
+			this.people = new LinkedList<>();
+		}
 		this.people.add(person);
 	}
 
-	public void addTask(Task task) {
-		this.tasks.add(task);
+	public void addTask(Task taskSimulator) {
+		if (this.tasks == null) {
+			this.tasks = new LinkedList<>();
+		}
+		this.tasks.add(taskSimulator);
 	}
 
 	public void setHlaProject(HlaProject hlaProject) {
@@ -67,6 +75,16 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 
 	@Override
 	public Map<String, EntryValue> extractValues() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Collection<Risk> getRisks() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Collection<MaintenanceTask> getMaintenanceTasks() {
 		// TODO Auto-generated method stub
 		return null;
 	}
