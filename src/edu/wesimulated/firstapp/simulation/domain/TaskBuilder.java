@@ -11,7 +11,7 @@ public class TaskBuilder {
 		Task newTask = new Task();
 		newTask.setName(task.getName());
 		TaskBuilder.incorporatePersonToTask((Person personParam, Task taskParam) -> taskParam.addResponsiblePerson(personParam), task.getResponsiblePeople(), newTask);
-		TaskBuilder.incorporatePersonToTask((Person personParam, Task taskParam) -> taskParam.addAcountablePerson(personParam), task.getAccountablePeople(), newTask);
+		TaskBuilder.incorporatePersonToTask((Person personParam, Task taskParam) -> taskParam.addAccountablePerson(personParam), task.getAccountablePeople(), newTask);
 		TaskBuilder.incorporatePersonToTask((Person personParam, Task taskParam) -> taskParam.addConsultedPerson(personParam), task.getConsultedPeople(), newTask);
 		TaskBuilder.incorporatePersonToTask((Person personParam, Task taskParam) -> taskParam.addInformedPerson(personParam), task.getInformedPeople(), newTask);
 		newTask.setEndDate(task.getEndDate());

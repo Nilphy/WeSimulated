@@ -53,7 +53,7 @@ public class Task implements NumericallyModeledEntity {
 
 	}
 
-	public void addAcountablePerson(Person person) {
+	private Collection<Person> getAccountablePeople() {
 		// TODO Auto-generated method stub
 	}
 
