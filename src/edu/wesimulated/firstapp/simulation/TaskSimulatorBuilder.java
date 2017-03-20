@@ -108,9 +108,9 @@ public class TaskSimulatorBuilder {
 		allRework.connectInputFlow(reworkGeneration);
 
 		autoQcToReworkFactor.considerAll(task.getAllRelatedNumericallyModeledEntities());
-		Constant timeReviewPerDetection = new Constant(CONST_TIME_REVIEW_PER_DETECTION, reviewTimeToReworkFactor.findSample().getPrediction().getValue().doubleValue());
-		Constant timeQCPerDetection = new Constant(CONST_TIME_QC_PER_DETECTION, qcTimeToReworkFactor.findSample().getPrediction().getValue().doubleValue());
-		Constant qualityAutoQc = new Constant(CONST_QUALITY_AUTO_QC, autoQcToReworkFactor.findSample().getPrediction().getValue().doubleValue());
+		Constant timeReviewPerDetection = new Constant(CONST_TIME_REVIEW_PER_DETECTION, reviewTimeToReworkFactor);
+		Constant timeQCPerDetection = new Constant(CONST_TIME_QC_PER_DETECTION, qcTimeToReworkFactor);
+		Constant qualityAutoQc = new Constant(CONST_QUALITY_AUTO_QC, autoQcToReworkFactor);
 		Flow reworkDetection = new Flow(FLOW_REWORK_DETECTION) {
 
 			@Override

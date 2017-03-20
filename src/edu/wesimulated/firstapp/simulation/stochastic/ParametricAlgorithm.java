@@ -3,6 +3,8 @@ package edu.wesimulated.firstapp.simulation.stochastic;
 import java.util.Collection;
 import java.util.Map;
 
+import com.wesimulated.simulationmotor.systemdynamics.VariableValue;
+
 /**
  * Todas las funciones que se van a hacer para calcular el valor de una variable
  * aleatoria sean de probabilidad o de data mining van a tener ciertos
@@ -14,7 +16,7 @@ import java.util.Map;
  * @author Carolina
  *
  */
-public class ParametricAlgorithm {
+public class ParametricAlgorithm implements VariableValue {
 
 	private Map<String, EntryValue> availableAttributes;
 	private StochasticMethod method;
@@ -45,5 +47,10 @@ public class ParametricAlgorithm {
 		for (NumericallyModeledEntity numericallyModeledEntity : allNumericallyModeledEntities) {
 			availableAttributes.putAll(numericallyModeledEntity.extractValues());
 		}
+	}
+
+	@Override
+	public Double findValue() {
+		return this.findSample().getPrediction().getValue().doubleValue();
 	}
 }

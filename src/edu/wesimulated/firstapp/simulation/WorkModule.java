@@ -11,6 +11,8 @@ import com.wesimulated.simulationmotor.systemdynamics.Stock;
 
 import edu.wesimulated.firstapp.model.WorkType;
 import edu.wesimulated.firstapp.simulation.domain.Task;
+import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
+import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 
 class WorkModule implements Module {
 	public static final String SOURCE_BRUTE_WORK = "SOURCE_BRUTE_WORK";
@@ -34,7 +36,10 @@ class WorkModule implements Module {
 
 	private void buildWorkTypeModule() {
 		Source bruteWork = new Source(getWorkType().c(SOURCE_BRUTE_WORK));
-		Constant efficiency = new Constant(getWorkType().c(CONST_EFICIENCY), task.getResponsiblePerson().getEfficiency());
+		ParametricAlgorithm timeWorkedEffectiveUowFactor = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.TimeWorkedForEffectiveUowFactor);
+		timeWorkedEffectiveUowFactor.consider(task);
+		timeWorkedEffectiveUowFactor.considerAll(task.getAllRelatedNumericallyModeledEntities());
+		Constant efficiency = new Constant(getWorkType().c(CONST_EFICIENCY), timeWorkedEffectiveUowFactor);
 
 		Flow polishedWork = new Flow(getWorkType().c(FLOW_POLISHED_WORK)) {
 
