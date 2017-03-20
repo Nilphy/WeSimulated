@@ -51,14 +51,7 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 				return mostPrioritaryMessage.calculatePriority();
 			}
 			Integer amountOfUnreadMessages = this.getUnreadMessages().size();
-			switch (AmountRange.fromValue(amountOfUnreadMessages)) {
-			case LOW:
-				return mostPrioritaryMessage.calculatePriority() * Priority.LOW.get();
-			case MED:
-				return mostPrioritaryMessage.calculatePriority() * Priority.MED.get();
-			case HIGH:
-				return mostPrioritaryMessage.calculatePriority();
-			}
+			return mostPrioritaryMessage.calculatePriority() * AmountRange.fromValue(amountOfUnreadMessages).getAssociatedPriority();
 		}
 		return 0f;
 	}
@@ -122,6 +115,19 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 				return MED;
 			}
 			return HIGH;
+		}
+		
+		public Float getAssociatedPriority() {
+			switch (this) {
+			case LOW:
+				return Priority.LOW.get();
+			case MED:
+				return Priority.MED.get();
+			case HIGH:
+				return 1f;
+			default:
+				throw new IllegalStateException("The AmountRange is not considered into the getAssociatedPriority method");
+			}
 		}
 	}
 }
