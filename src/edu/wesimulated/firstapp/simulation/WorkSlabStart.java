@@ -4,12 +4,12 @@ import java.util.Date;
 
 import com.wesimulated.simulationmotor.DateUtils;
 import com.wesimulated.simulationmotor.des.COperation;
-import com.wesimulated.simulationmotor.des.TaskWithPriority;
+import com.wesimulated.simulationmotor.des.Prioritized;
 
 import edu.wesimulated.firstapp.simulation.domain.Task;
 import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
 
-public class WorkSlabStart implements COperation, TaskWithPriority {
+public class WorkSlabStart extends COperation implements Prioritized {
 
 	private RoleSimulator roleSimulator;
 	private TypeOfWork typeOfWork;
@@ -37,5 +37,10 @@ public class WorkSlabStart implements COperation, TaskWithPriority {
 		long duration = this.task.findDurationOfWorkSlab(this.roleSimulator);
 		Date endOfSlab = DateUtils.addMilis(this.roleSimulator.getOperationBasedExecutor().getClock().getCurrentDate(), duration);
 		this.roleSimulator.addBOperation(new WorkSlabEnd(this.roleSimulator, this.roleSimulator.getOperationBasedExecutor().getClock().getCurrentDate(), endOfSlab));
+	}
+	@Override
+	public Float calculatePriority() {
+		// TODO Auto-generated method stub
+		return 0f;
 	}
 }

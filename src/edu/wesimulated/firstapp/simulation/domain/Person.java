@@ -6,8 +6,8 @@ import hla.rti1516e.ObjectInstanceHandle;
 import java.util.Date;
 import java.util.Map;
 
+import com.wesimulated.simulationmotor.des.Prioritized;
 import com.wesimulated.simulationmotor.des.Resource;
-import com.wesimulated.simulationmotor.des.TaskWithPriority;
 
 import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
@@ -41,7 +41,7 @@ public class Person implements Resource, NumericallyModeledEntity {
 	}
 
 	@Override
-	public boolean isAvailable(TaskWithPriority taskWithPriority) {
+	public boolean isAvailable(Prioritized taskWithPriority) {
 		registerRequestOfAvailability(taskWithPriority);
 		return available;
 	}
@@ -54,7 +54,7 @@ public class Person implements Resource, NumericallyModeledEntity {
 		// TODO Auto-generated method stub
 	}
 
-	private void registerRequestOfAvailability(TaskWithPriority taskWithPriority) {
+	private void registerRequestOfAvailability(Prioritized taskWithPriority) {
 		// TODO Auto-generated method stub
 	}
 
