@@ -38,6 +38,12 @@ public class WorkSlabStart extends COperation implements Prioritized {
 		Date endOfSlab = DateUtils.addMilis(this.roleSimulator.getOperationBasedExecutor().getClock().getCurrentDate(), duration);
 		this.roleSimulator.addBOperation(new WorkSlabEnd(this.roleSimulator, this.roleSimulator.getOperationBasedExecutor().getClock().getCurrentDate(), endOfSlab));
 	}
+
+	@Override
+	public Date getDateOfOccurrence() {
+		return this.minDate;
+	}
+
 	@Override
 	public Float calculatePriority() {
 		// TODO Auto-generated method stub
