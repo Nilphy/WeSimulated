@@ -20,6 +20,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 public class Task implements NumericallyModeledEntity, CompletableTask {
 
 	private HlaTask hlaTask;
+	private Collection<Person> accountablePeople;
 
 	public Task() {
 		// TODO Auto-generated constructor stub
@@ -51,12 +52,12 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 	}
 
 	public void addAccountablePerson(Person newPerson) {
-		// TODO Auto-generated method stub
+		this.getAccountablePeople().add(newPerson);
 
 	}
 
 	private Collection<Person> getAccountablePeople() {
-		// TODO Auto-generated method stub
+		return this.accountablePeople;
 	}
 
 	public void addInformedPerson(Person personParam) {
