@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Map;
 
 import com.wesimulated.simulation.hla.DateLogicalTime;
+import com.wesimulated.simulation.runparameters.CompletableTask;
 
 import edu.wesimulated.firstapp.model.WorkType;
 import edu.wesimulated.firstapp.simulation.RoleSimulator;
@@ -16,7 +17,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 
-public class Task implements NumericallyModeledEntity {
+public class Task implements NumericallyModeledEntity, CompletableTask {
 
 	private HlaTask hlaTask;
 
@@ -24,6 +25,7 @@ public class Task implements NumericallyModeledEntity {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
 	public boolean isCompleted() {
 		// TODO Auto-generated method stub
 		return false;
