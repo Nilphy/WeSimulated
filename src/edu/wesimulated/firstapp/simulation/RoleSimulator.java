@@ -39,7 +39,6 @@ import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
  *  
  *  Las tareas van a requerir a un rol una cantidad de personas para trabajar en ellas
  */
-// TODO change to aggregation
 public class RoleSimulator extends OperationBasedSimulator {
 
 	private Project project;
