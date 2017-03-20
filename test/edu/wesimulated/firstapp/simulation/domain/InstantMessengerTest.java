@@ -16,9 +16,9 @@ public class InstantMessengerTest {
 	public void testPriorityLists() {
 		Date date = new Date();
 		Clock clock = new Clock(date, null, null);
-		InstantMessenger task = new InstantMessenger();
 		Person sender = new Person();
 		Person recipient = new Person();
+		InstantMessenger task = new InstantMessenger(recipient);
 		Date before = DateUtils.addMilis(date, -(Antiquity.LOW.get() * 1000));
 		ImMessage message = new ImMessage(sender, before, clock);
 		message.addRecipient(recipient);
