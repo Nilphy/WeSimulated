@@ -16,8 +16,7 @@ import edu.wesimulated.firstapp.simulation.domain.Task;
 import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
-/*
- * 
+/**
  * En el diagrama de estados se ve que una persona durante la ejecución de un proyecto, 
  * pasa de un rol a otro y de un estado a otro constántemente.
  * 

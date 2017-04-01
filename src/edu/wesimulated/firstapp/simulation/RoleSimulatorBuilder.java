@@ -16,7 +16,7 @@ import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
 public class RoleSimulatorBuilder {
 
 	/**
-	 * Generic role simulator builder, not used
+	 * Generic role simulator builder, not used by now
 	 * 
 	 * @param role
 	 * @param project
@@ -25,15 +25,7 @@ public class RoleSimulatorBuilder {
 	 */
 	@Deprecated
 	public static RoleSimulator build(Role role, Project project, Person person) {
-		RoleSimulator roleSimulator = new RoleSimulator(role, project, person);
-		Date roleWorkStart = project.findStartDateToWorkForRole(role, person);
-		roleSimulator.addBOperation(new StartProject(roleWorkStart));
-		// FIXME ask the project which is the first task to work in
-		Task taskToWorkIn = null;
-		// FIXME not every role starts the project with a SetupWorkbench
-		TypeOfWork typeOfWork = new SetupWorkbench(roleSimulator);
-		roleSimulator.addCOperation(new WorkSlabStart(roleSimulator, typeOfWork, taskToWorkIn, roleWorkStart));
-		return roleSimulator;
+		return null;
 	}
 
 	/**

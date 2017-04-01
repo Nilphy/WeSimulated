@@ -8,7 +8,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.StochasticMethodConfig.Sto
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticValue;
 
 /**
- * This stochastic method that returns allways the same value when evaluate is called
+ * This stochastic method that returns always the same value when evaluate is called
  * 
  * @author Carolina
  *

@@ -15,7 +15,7 @@ public class PersonData {
 	private StringProperty lastName;
 	private IntegerProperty hoursPerDay;
 	// [Unit] unit of work per hour
-	private FloatProperty efficiency;
+	private FloatProperty efficiency; // TODO replace this only characteristic with the map of characteristics
 	private ObservableList<RoleData> roles;
 
 	public PersonData() {

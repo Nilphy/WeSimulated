@@ -70,12 +70,16 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 	}
 
 	private List<ImMessage> getSortedPendingMessages() {
-		Collections.sort(this.getPendingMessages(), (ImMessage first, ImMessage second) -> { return - first.calculatePriority().compareTo(second.calculatePriority()); });
+		Collections.sort(this.getPendingMessages(), (ImMessage first, ImMessage second) -> {
+			return -first.calculatePriority().compareTo(second.calculatePriority());
+		});
 		return this.getPendingMessages();
 	}
 
 	private List<ImMessage> getSortedUnreadMessages() {
-		Collections.sort(this.getUnreadMessages(), (ImMessage first, ImMessage second) -> { return - first.calculatePriority().compareTo(second.calculatePriority()); });
+		Collections.sort(this.getUnreadMessages(), (ImMessage first, ImMessage second) -> {
+			return -first.calculatePriority().compareTo(second.calculatePriority());
+		});
 		return this.getUnreadMessages();
 	}
 
@@ -116,7 +120,7 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 			}
 			return HIGH;
 		}
-		
+
 		public Float getAssociatedPriority() {
 			switch (this) {
 			case LOW:

@@ -16,9 +16,9 @@ public class ProjectSimulatorBuilder {
 		Project project = new Project();
 		ProjectSimulator projectSimulator = new ProjectSimulator(project);
 		/**
-		 * Los risks pueden tener dos efectos, o hacer que una persona no esté
-		 * mas disponible en el trabajo, o crear tareas nuevas asignadas a una
-		 * persona
+		 * Los risks pueden tener variso efectos, o hacer que una persona no esté
+		 * mas disponible en el trabajo, crear tareas nuevas asignadas a una
+		 * persona, cambiar la longitud de las treas, agregar nuevas personas al proyecto
 		 */
 		for (Risk risk : project.getRisks()) {
 			projectSimulator.addCOperation(risk);
