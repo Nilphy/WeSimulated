@@ -20,6 +20,7 @@ public class Person implements Resource, NumericallyModeledEntity {
 	private boolean available;
 	private HlaPerson hlaPerson;
 	private Task currentTask;
+	private Project project;
 
 	public String getLastWorkDone() {
 		return this.getHlaPerson().getLastWorkDone();
@@ -110,5 +111,13 @@ public class Person implements Resource, NumericallyModeledEntity {
 	public Collection<? extends ImMessage> resolvePendingImMessages(List<ImMessage> pendingImMessages) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void resign() {
+		this.getProject().getPeople().remove(this);
+	}
+
+	private Project getProject() {
+		return this.project;
 	}
 }

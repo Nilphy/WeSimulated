@@ -3,6 +3,7 @@ package edu.wesimulated.firstapp.simulation.domain;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import com.wesimulated.simulation.runparameters.CompletableTask;
@@ -17,8 +18,8 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 	private ProjectWbs wbs;
 	private ProjectRam ram;
 	private HlaProject hlaProject;
-	private Collection<Person> people;
-	private Collection<Task> tasks;
+	private List<Person> people;
+	private List<Task> tasks;
 	private Date startDate;
 
 	@Override
@@ -87,5 +88,15 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 	public Collection<MaintenanceTask> getMaintenanceTasks() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Person pickRandomPerson() {
+		List<Person> people = this.getPeople();
+		int index = (int) Math.round(Math.random() * people.size());
+		return people.get(index);
+	}
+
+	public List<Person> getPeople() {
+		return this.people;
 	}
 }
