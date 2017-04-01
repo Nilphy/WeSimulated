@@ -1,36 +1,50 @@
 package edu.wesimulated.firstapp.simulation.domain;
 
 import java.util.Date;
+import java.util.Random;
 
+import com.wesimulated.simulationmotor.DateUtils;
 import com.wesimulated.simulationmotor.des.COperation;
 
+import edu.wesimulated.firstapp.view.ThingsWithoutAUi;
+
 /**
- * Un riesgo va a tener una variable asociada que va a indicar dados ciertos
- * parámetros de entrada si sucede o no en el método test if requirements are
- * met.
+ * Un riesgo es un evento que tiene cierta probabilidad de ocurrencia en el
+ * proyecto, cuyos efectos no son siempre negativos.
+ * 
+ * Posibles riesgos podrían ser la rotura de equipo de trabajo, renuncias de
+ * peronal, problemas peronales, enfermedades, etc
  * 
  * @author Carolina
  *
  */
 public abstract class Risk extends COperation {
 
-	@Override
-	public boolean testIfRequirementsAreMet() {
-		/**
-		 * TODO probabilidad y otras cosas que deban estar activas para que se manifieste este riesgo
-		 */
-		return false;
+	private float probability;
+	private Random rand;
+	private Date dateOfOccurrence;
+
+	public Risk(float probability, Date periodStart, Date periodEnd) {
+		this.probability = probability;
+		this.rand = new Random(ThingsWithoutAUi.RANDOM_SEED);
+		if (this.evaluateConsideringProbability()) {
+			float proportion = this.rand.nextFloat();
+			this.dateOfOccurrence = DateUtils.calculateProportionalDateInPeriod(periodStart, periodEnd, proportion);
+		}
 	}
 
-	/**
-	 * Podría devolver siempre el siguiente día durante el período que tiene
-	 * probabilidad de ocurrencia. Otra posibilidad es que si no hay otras
-	 * condiciones además de la probabilidad de ocurrencia, se calcule al
-	 * principio de la simulación cuando es que va a pasar si va a pasar.
-	 */
+	@Override
+	public boolean testIfRequirementsAreMet() {
+		return this.getDateOfOccurrence() != null;
+	}
+
+	private boolean evaluateConsideringProbability() {
+		return rand.nextFloat() < probability;
+	}
+
 	@Override
 	public Date getDateOfOccurrence() {
-		return null;
+		return dateOfOccurrence;
 	}
 
 }
