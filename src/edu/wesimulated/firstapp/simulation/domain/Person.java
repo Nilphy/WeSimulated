@@ -20,6 +20,7 @@ public class Person implements Resource, NumericallyModeledEntity {
 	private boolean available;
 	private HlaPerson hlaPerson;
 	private Task currentTask;
+	private Profile profile;
 	private Project project;
 
 	public String getLastWorkDone() {
@@ -119,5 +120,9 @@ public class Person implements Resource, NumericallyModeledEntity {
 
 	private Project getProject() {
 		return this.project;
+	}
+
+	public Profile getProfile() {
+		return this.profile;
 	}
 }

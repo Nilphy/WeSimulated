@@ -39,8 +39,7 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 
 	@Override
 	public Float MaxPriority() {
-		// FIXME this shouldn't be hardcoded
-		return 0.7f;
+		return person.getProfile().get(PersonCharacteristic.MaxPriorityOfIM).getPrediction().getValue().floatValue();
 	}
 
 	@Override
