@@ -1,5 +1,7 @@
 package edu.wesimulated.firstapp.simulation.domain;
 
+import java.util.Date;
+
 import javafx.collections.ObservableList;
 import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.TaskData;
@@ -8,9 +10,15 @@ import edu.wesimulated.firstapp.model.WorkType;
 
 public class TaskBuilder {
 
-	public static Task createFromTaskData(TaskData task) {
+	/**
+	 * If the date is null it means that all attribute changes should be sent to hla rmi when the simulation starts all togheter
+	 * @param task
+	 * @param when
+	 * @return
+	 */
+	public static Task createFromTaskData(TaskData task, Date when) {
 		Task newTask = new Task();
-		newTask.setName(task.getName());
+		newTask.setName(task.getName(), when);
 		TaskBuilder.incorporatePersonToTask((Person personParam, Task taskParam) -> taskParam.addResponsiblePerson(personParam), task.getResponsiblePeople(), newTask);
 		TaskBuilder.incorporatePersonToTask((Person personParam, Task taskParam) -> taskParam.addAccountablePerson(personParam), task.getAccountablePeople(), newTask);
 		TaskBuilder.incorporatePersonToTask((Person personParam, Task taskParam) -> taskParam.addConsultedPerson(personParam), task.getConsultedPeople(), newTask);
@@ -18,7 +26,7 @@ public class TaskBuilder {
 		newTask.setEndDate(task.getEndDate());
 		newTask.setStartDate(task.getStartDate());
 		for (TaskDependencyData taskDependency : task.getTaskDependencies()) {
-			Task dependentTask = TaskBuilder.createFromTaskData(taskDependency.getTask());
+			Task dependentTask = TaskBuilder.createFromTaskData(taskDependency.getTask(), when);
 			newTask.addTaskDependency(new TaskDependency(dependentTask, taskDependency.getPrecedence()));
 		}
 		newTask.setCostInHours(task.getUnitsOfWork(), WorkType.Development);

@@ -55,6 +55,10 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 	public void increaseWorkDone(long duration, Role role, Date when) {
 		Number currentWorkDone = this.workDoneInHoursPerWorkType.get(role.getWorkType());
 		this.workDoneInHoursPerWorkType.put(role.getWorkType(), new Long(duration + currentWorkDone.longValue()));
+		if (when == null) {
+			this.hlaTask.registerWorkToDo(new Work(duration), new DateLogicalTime(when));
+			// FIXME register pending changes to send to hla
+		}
 	}
 
 	public void extendDuration(double scale) {
@@ -64,9 +68,13 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 			entry.setValue(escalatedCostInHours);
 		}
 	}
-	public void setName(String name) {
-		// TODO Auto-generated method stub
 
+	public void setName(String name, Date when) {
+		this.profile.set(TaskCharacteristic.Name, new EntryValue(EntryValue.Type.String, name));
+		if (when == null) {
+			this.hlaTask.registerName(name, new DateLogicalTime(when));
+			// FIXME register pending changes to send to hla
+		}
 	}
 
 	public void addAccountablePerson(Person newPerson) {
@@ -165,4 +173,5 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 	public void setHlaTask(HlaTask hlaTask) {
 		this.hlaTask = hlaTask;
 	}
+
 }
