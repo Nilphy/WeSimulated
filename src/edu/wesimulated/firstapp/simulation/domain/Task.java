@@ -21,6 +21,14 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 
 	private HlaTask hlaTask;
 	private Collection<Person> accountablePeople;
+	private Collection<Person> informedPeople;
+	private Collection<Person> responsiblePeople;
+	private Collection<Person> consultedPeople;
+	private Profile profile;
+	private Number workDoneInHours;
+	private LocalDate endDate;
+	private LocalDate startDate;
+	private Collection<TaskDependency> taskDependencies;
 
 	public Task() {
 		// TODO Auto-generated constructor stub
@@ -31,11 +39,6 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-	public void setHlaTask(HlaTask hlaTask) {
-		this.hlaTask = hlaTask;
-	}
-
 	public boolean isCompleted(Role role) {
 		// TODO Auto-generated method stub
 		return false;
@@ -53,43 +56,57 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 
 	public void addAccountablePerson(Person newPerson) {
 		this.getAccountablePeople().add(newPerson);
-
+		// FIXME: register change in hla task
 	}
 
-	private Collection<Person> getAccountablePeople() {
+	public Collection<Person> getAccountablePeople() {
 		return this.accountablePeople;
 	}
 
-	public void addInformedPerson(Person personParam) {
-		// TODO Auto-generated method stub
+	public void addInformedPerson(Person newPerson) {
+		this.getInformedPeople().add(newPerson);
+		// FIXME: register change in hla task
 	}
 
-	public void addResponsiblePerson(Person personParam) {
-		// TODO Auto-generated method stub
+	public Collection<Person> getInformedPeople() {
+		return this.informedPeople;
 	}
 
-	public void addConsultedPerson(Person personParam) {
-		// TODO Auto-generated method stub
+	public void addResponsiblePerson(Person newPerson) {
+		this.getResponsiblePeople().add(newPerson);
+		// FIXME: register change in hla task
+	}
+
+	public Collection<Person> getResponsiblePeople() {
+		return this.responsiblePeople;
+	}
+
+	public void addConsultedPerson(Person newPerson) {
+		this.getConsultedPeople().add(newPerson);
+		// FIXME: register change in hla task
+	}
+
+	public Collection<Person> getConsultedPeople() {
+		return this.consultedPeople;
 	}
 
 	public void setEndDate(LocalDate endDate) {
-		// TODO Auto-generated method stub
-
+		this.endDate = endDate;
+		// FIXME: register change in hla task
 	}
 
 	public void setStartDate(LocalDate startDate) {
-		// TODO Auto-generated method stub
-
+		this.startDate = startDate;
+		// FIXME: register change in hla task
 	}
 
 	public void addTaskDependency(TaskDependency taskDependency) {
-		// TODO Auto-generated method stub
-
+		this.getTaskDependencies().add(taskDependency);
+		// FIXME: register change in hla task
 	}
 
-	public void setUnitsOfWork(Integer unitsOfWork) {
-		// TODO Auto-generated method stub
-
+	private Collection<TaskDependency> getTaskDependencies() {
+		return this.taskDependencies;
 	}
 
 	public Double getLinesOfCodeToComplete() {
@@ -125,5 +142,13 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 	public Collection<NumericallyModeledEntity> getAllRelatedNumericallyModeledEntities() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Profile getProfile() {
+		return this.profile;
+	}
+
+	public void setHlaTask(HlaTask hlaTask) {
+		this.hlaTask = hlaTask;
 	}
 }
