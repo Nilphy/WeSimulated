@@ -2,15 +2,11 @@ package edu.wesimulated.firstapp.simulation;
 
 import java.util.Date;
 
-import com.wesimulated.simulation.runparameters.TaskCompletedEndCondition;
-import com.wesimulated.simulationmotor.des.processbased.ProcessBasedExecutor;
-
 import edu.wesimulated.firstapp.simulation.domain.InstantMessenger;
 import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Role;
 import edu.wesimulated.firstapp.simulation.domain.Task;
-import edu.wesimulated.firstapp.simulation.domain.worktype.SetupWorkbench;
 import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
 
 public class RoleSimulatorBuilder {

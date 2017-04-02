@@ -4,12 +4,12 @@ import java.util.Date;
 
 public class PersonResignation extends Risk {
 
+	private Person person;
+	private Project project;
+
 	public PersonResignation(float probability, Date periodStart, Date periodEnd) {
 		super(probability, periodStart, periodEnd);
 	}
-
-	private Person person;
-	private Project project;
 
 	@Override
 	public void doAction() {

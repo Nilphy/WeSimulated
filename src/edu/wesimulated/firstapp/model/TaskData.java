@@ -26,7 +26,6 @@ public class TaskData {
 	private ObservableList<PersonData> accountablePeople;
 	private ObservableList<PersonData> consultedPeople;
 	private ObservableList<PersonData> informedPeople;
-
 	private IntegerProperty id;
 	private ObservableList<TaskDependencyData> taskDependencies;
 
