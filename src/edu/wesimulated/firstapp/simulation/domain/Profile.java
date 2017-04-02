@@ -2,7 +2,8 @@ package edu.wesimulated.firstapp.simulation.domain;
 
 import java.util.Map;
 
-import edu.wesimulated.firstapp.simulation.stochastic.StochasticValue;
+import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
+import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
 
 /**
  * Most of the entities can be modeled by characteristics... to give more
@@ -14,13 +15,13 @@ import edu.wesimulated.firstapp.simulation.stochastic.StochasticValue;
  */
 public class Profile {
 
-	Map<Characteristic, StochasticValue> characteristics;
+	Map<Characteristic, EntryValue> characteristics;
 
-	public Profile(Map<Characteristic, StochasticValue> characteristics) {
+	public Profile(Map<Characteristic, EntryValue> characteristics) {
 		this.characteristics = characteristics;
 	}
 
-	public StochasticValue get(Characteristic characteristic) {
+	public EntryValue get(Characteristic characteristic) {
 		return this.characteristics.get(characteristic);
 	}
 
