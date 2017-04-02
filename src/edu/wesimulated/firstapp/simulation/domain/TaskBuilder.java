@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.model.TaskDependencyData;
+import edu.wesimulated.firstapp.model.WorkType;
 
 public class TaskBuilder {
 
@@ -20,8 +21,7 @@ public class TaskBuilder {
 			Task dependentTask = TaskBuilder.createFromTaskData(taskDependency.getTask());
 			newTask.addTaskDependency(new TaskDependency(dependentTask, taskDependency.getPrecedence()));
 		}
-		// TODO this couldn't be this way the units of work should be separated into different categories of work
-		newTask.setUnitsOfWork(task.getUnitsOfWork());
+		newTask.setCostInHours(task.getUnitsOfWork(), WorkType.Development);
 		return newTask;
 	}
 

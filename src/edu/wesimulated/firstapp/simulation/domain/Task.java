@@ -3,7 +3,9 @@ package edu.wesimulated.firstapp.simulation.domain;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.wesimulated.simulation.hla.DateLogicalTime;
 import com.wesimulated.simulation.runparameters.CompletableTask;
@@ -25,28 +27,34 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 	private Collection<Person> responsiblePeople;
 	private Collection<Person> consultedPeople;
 	private Profile profile;
-	private Number workDoneInHours;
 	private LocalDate endDate;
 	private LocalDate startDate;
 	private Collection<TaskDependency> taskDependencies;
+	private Map<WorkType, Number> costInHoursPerWorkType;
+	private Map<WorkType, Number> workDoneInHoursPerWorkType;
 
 	public Task() {
-		// TODO Auto-generated constructor stub
+		this.workDoneInHoursPerWorkType = new HashMap<>();
 	}
 
 	@Override
 	public boolean isCompleted() {
-		// TODO Auto-generated method stub
-		return false;
+		for (Entry<WorkType, Number> entry : this.costInHoursPerWorkType.entrySet()) {
+			Number workDoneForWorkType = this.workDoneInHoursPerWorkType.get(entry.getKey());
+			if (workDoneForWorkType.longValue() < entry.getValue().longValue()) {
+				return false;
+			}
+		}
+		return true;
 	}
+
 	public boolean isCompleted(Role role) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.workDoneInHoursPerWorkType.get(role.getWorkType()).doubleValue() >= this.costInHoursPerWorkType.get(role.getWorkType()).doubleValue();
 	}
 
 	public void increaseWorkDone(long duration, Role role, Date when) {
-		// TODO Fix calculation of work done
-		this.hlaTask.registerWorkToDo(new Work(duration), new DateLogicalTime(when));
+		Number currentWorkDone = this.workDoneInHoursPerWorkType.get(role.getWorkType());
+		this.workDoneInHoursPerWorkType.put(role.getWorkType(), new Long(duration + currentWorkDone.longValue()));
 	}
 
 	public void setName(String name) {
@@ -109,9 +117,8 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 		return this.taskDependencies;
 	}
 
-	public Double getLinesOfCodeToComplete() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setCostInHours(Integer costInHours, WorkType workType) {
+		this.costInHoursPerWorkType.put(workType, costInHours);
 	}
 
 	public Double getWorkDoneToComplete(WorkType key) {
