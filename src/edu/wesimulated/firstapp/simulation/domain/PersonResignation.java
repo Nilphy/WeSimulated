@@ -20,4 +20,12 @@ public class PersonResignation extends Risk {
 			this.project.pickRandomPerson().resign();
 		}
 	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
 }
