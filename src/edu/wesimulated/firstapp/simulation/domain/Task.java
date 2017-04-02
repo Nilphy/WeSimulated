@@ -57,6 +57,13 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 		this.workDoneInHoursPerWorkType.put(role.getWorkType(), new Long(duration + currentWorkDone.longValue()));
 	}
 
+	public void extendDuration(double scale) {
+		for (Entry<WorkType, Number> entry : this.costInHoursPerWorkType.entrySet()) {
+			Double actualCostInHours = entry.getValue().doubleValue();
+			Double escalatedCostInHours = actualCostInHours + actualCostInHours * scale;
+			entry.setValue(escalatedCostInHours);
+		}
+	}
 	public void setName(String name) {
 		// TODO Auto-generated method stub
 
