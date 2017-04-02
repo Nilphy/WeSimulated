@@ -25,4 +25,20 @@ public class Profile {
 		return this.characteristics.get(characteristic);
 	}
 
+	public void scaleDown(Characteristic characteristic, double deterioration) {
+		Number originalValue = this.characteristics.get(characteristic).getNumber();
+		EntryValue newValue = new EntryValue(Type.Float, originalValue.doubleValue() * deterioration);
+		this.characteristics.put(characteristic, newValue);
+	}
+
+	public void scaleUp(Characteristic characteristic, double scale) {
+		Number originalValue = this.characteristics.get(characteristic).getNumber();
+		EntryValue newValue = new EntryValue(Type.Float, originalValue.doubleValue() * scale + originalValue.doubleValue());
+		this.characteristics.put(characteristic, newValue);
+	}
+
+	public void set(Characteristic characteristic, EntryValue value) {
+		this.characteristics.put(characteristic, value);
+	}
+
 }
