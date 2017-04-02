@@ -32,14 +32,18 @@ import edu.wesimulated.firstapp.simulation.domain.Work;
 public class HlaTask extends HlaObject {
 	public static final String CLASS_NAME = "Task";
 	public static final String ATTRIBUTE_WORK_TO_DO_NAME = "WorkToDo";
+	public static final String ATTRIBUT_NAME_NAME = "Name";
 
 	public AttributeHandle workToDoAttributeInstanceHandle;
+	private AttributeHandle nameAttributeInstanceHandle;
 	public Collection<Work> workToDo;
+	private String name;
 
 	public HlaTask(RTIambassador rtiAmbassador, ObjectClassHandle classHandle, ObjectInstanceHandle personHandle, String personName) {
 		super(rtiAmbassador, classHandle, personHandle, personName);
 		try {
 			this.setWorkToDoAttributeHandle(this.getRtiAmbassador().getAttributeHandle(classHandle, ATTRIBUTE_WORK_TO_DO_NAME));
+			this.setNameAttributeHandle(this.getRtiAmbassador().getAttributeHandle(classHandle, ATTRIBUT_NAME_NAME));
 		} catch (RTIinternalError | NameNotFound | InvalidObjectClassHandle | FederateNotExecutionMember | NotConnected e) {
 			throw new RuntimeException(e);
 		}
@@ -57,9 +61,22 @@ public class HlaTask extends HlaObject {
 		}
 	}
 
+	public void registerName(String name, DateLogicalTime time) {
+		this.setName(name);
+		try {
+			AttributeHandleValueMap attributeValues = this.getRtiAmbassador().getAttributeHandleValueMapFactory().create(1);
+			attributeValues.put(this.getNameAttributeHandle(), this.encodeName());
+			this.getRtiAmbassador().updateAttributeValues(this.getObjectInstanceHandle(), attributeValues, null, time);
+		} catch (FederateNotExecutionMember | NotConnected | AttributeNotOwned | AttributeNotDefined | ObjectInstanceNotKnown | SaveInProgress | RestoreInProgress | RTIinternalError | InvalidLogicalTime e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	public void reflectAttributeValues(AttributeHandleValueMap attributeValues) {
 		byte[] work = attributeValues.get(getWorkToDoAttributeHandle());
+		byte[] name = attributeValues.get(getNameAttributeHandle());
 		this.decodeWorkToDo(work);
+		this.decodeName(name);
 	}
 
 	private byte[] encodeWorkToDo() {
@@ -74,13 +91,34 @@ public class HlaTask extends HlaObject {
 		return encodedWorkDone;
 	}
 
+	private byte[] encodeName() {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		byte[] encodedName;
+		try (ObjectOutputStream oos = new ObjectOutputStream(baos)) {
+			oos.writeObject(this.name);
+			encodedName = baos.toByteArray();
+		} catch (IOException ioException) {
+			throw new RuntimeException(ioException);
+		}
+		return encodedName;
+	}
+
 	@SuppressWarnings("unchecked")
 	private void decodeWorkToDo(byte[] buffer) {
 		ByteArrayInputStream bais = new ByteArrayInputStream(buffer);
 		try (ObjectInputStream ois = new ObjectInputStream(bais)) {
 			this.setWorkToDo((Collection<Work>) ois.readObject());
-		} catch (IOException | ClassNotFoundException ioException) {
-			throw new RuntimeException(ioException);
+		} catch (IOException | ClassNotFoundException exception) {
+			throw new RuntimeException(exception);
+		}
+	}
+
+	private void decodeName(byte[] buffer) {
+		ByteArrayInputStream bais = new ByteArrayInputStream(buffer);
+		try (ObjectInputStream ois = new ObjectInputStream(bais)) {
+			this.setName((String) ois.readObject());
+		} catch (IOException | ClassNotFoundException exception) {
+			throw new RuntimeException(exception);
 		}
 	}
 
@@ -92,11 +130,23 @@ public class HlaTask extends HlaObject {
 		this.workToDo = workToDo;
 	}
 
+	private void setName(String name) {
+		this.name = name;
+	}
+
 	protected AttributeHandle getWorkToDoAttributeHandle() {
 		return workToDoAttributeInstanceHandle;
 	}
 
 	private void setWorkToDoAttributeHandle(AttributeHandle workToDoAttributeHandle) {
 		this.workToDoAttributeInstanceHandle = workToDoAttributeHandle;
+	}
+
+	protected AttributeHandle getNameAttributeHandle() {
+		return this.nameAttributeInstanceHandle;
+	}
+
+	private void setNameAttributeHandle(AttributeHandle nameAttributeHandle) {
+		this.nameAttributeInstanceHandle = nameAttributeHandle;
 	}
 }
