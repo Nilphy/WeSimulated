@@ -18,7 +18,7 @@ import com.wesimulated.simulationmotor.systemdynamics.VariableValue;
  */
 public class ParametricAlgorithm implements VariableValue {
 
-	private Map<String, EntryValue> availableAttributes;
+	private Map<StochasticVariableName, EntryValue> availableAttributes;
 	private StochasticMethod method;
 
 	public ParametricAlgorithm(StochasticMethod method) {

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import edu.wesimulated.firstapp.simulation.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
+import edu.wesimulated.firstapp.simulation.stochastic.StochasticVariableName;
 
 public class SetupWorkbench extends TypeOfWork {
 
@@ -18,7 +19,7 @@ public class SetupWorkbench extends TypeOfWork {
 	}
 
 	@Override
-	public Map<String, EntryValue> extractValues() {
+	public Map<StochasticVariableName, EntryValue> extractValues() {
 		// TODO Auto-generated method stub
 		return null;
 	}

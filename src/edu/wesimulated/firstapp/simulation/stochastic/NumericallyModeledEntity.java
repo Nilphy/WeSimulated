@@ -4,5 +4,5 @@ import java.util.Map;
 
 public interface NumericallyModeledEntity {
 
-	public Map<String, EntryValue> extractValues();
+	public Map<StochasticVariableName, EntryValue> extractValues();
 }

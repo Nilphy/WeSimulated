@@ -156,7 +156,7 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 	}
 
 	@Override
-	public Map<String, EntryValue> extractValues() {
+	public Map<StochasticVariableName, EntryValue> extractValues() {
 		// TODO Auto-generated method stub
 		return null;
 	}
