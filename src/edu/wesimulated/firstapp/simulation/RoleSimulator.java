@@ -2,6 +2,7 @@ package edu.wesimulated.firstapp.simulation;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import com.wesimulated.simulation.runparameters.TaskCompletedEndCondition;
 import com.wesimulated.simulationmotor.des.BOperation;
@@ -45,6 +46,7 @@ public class RoleSimulator extends OperationBasedSimulator {
 	private Person person;
 	private Task currentTask;
 	private TypeOfWork typeOfWork;
+	private Date currentTaskStart;
 
 	public RoleSimulator(Role role, Project project, Person person) {
 		super(new ThreePhaseExecutor(new TaskCompletedEndCondition(project)));
@@ -62,6 +64,9 @@ public class RoleSimulator extends OperationBasedSimulator {
 	}
 
 	public void acceptInterruption() {
+		Date interruptionDate = this.getOperationBasedExecutor().getClock().getCurrentDate();
+		long durationOfCurrentTask = interruptionDate.getTime() - this.currentTaskStart.getTime();
+		this.currentTask.increaseWorkDone(durationOfCurrentTask, this.currentTypeOfWork.getTaskNeedFulfilled(), interruptionDate);
 		// TODO register work done until the moment
 		// TODO remove next BOperation
 		/*
@@ -106,5 +111,7 @@ public class RoleSimulator extends OperationBasedSimulator {
 
 	public TypeOfWork getCurrentTypeOfWork() {
 		return this.typeOfWork;
+	public void setCurrentTaskStart(Date date) {
+		this.currentTaskStart = date;
 	}
 }

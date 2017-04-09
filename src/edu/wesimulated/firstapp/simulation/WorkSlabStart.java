@@ -33,6 +33,7 @@ public class WorkSlabStart extends COperation implements Prioritized {
 		this.roleSimulator.getPerson().setAvailable(false);
 		this.roleSimulator.getPerson().setCurrentTask(this.task);
 		this.roleSimulator.setCurrentTask(this.task);
+		this.roleSimulator.setCurrentTaskStart(this.roleSimulator.getOperationBasedExecutor().getClock().getCurrentDate());
 		this.roleSimulator.setCurrentTypeOfWork(this.typeOfWork);
 		long duration = this.task.findDurationOfWorkSlab(this.roleSimulator);
 		Date endOfSlab = DateUtils.addMilis(this.roleSimulator.getOperationBasedExecutor().getClock().getCurrentDate(), duration);
