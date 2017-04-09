@@ -1,7 +1,9 @@
-package edu.wesimulated.firstapp.simulation.stochastic;
+package edu.wesimulated.firstapp.view;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 
 /**
  * This class is created with the intention of having a way to configure the
