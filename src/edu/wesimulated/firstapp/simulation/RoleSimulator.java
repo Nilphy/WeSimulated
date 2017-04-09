@@ -45,7 +45,7 @@ public class RoleSimulator extends OperationBasedSimulator {
 	private Role role;
 	private Person person;
 	private Task currentTask;
-	private TypeOfWork typeOfWork;
+	private TypeOfWork currentTypeOfWork;
 	private Date currentTaskStart;
 
 	public RoleSimulator(Role role, Project project, Person person) {
@@ -106,11 +106,13 @@ public class RoleSimulator extends OperationBasedSimulator {
 	}
 
 	public void setCurrentTypeOfWork(TypeOfWork typeOfWork) {
-		this.typeOfWork = typeOfWork;
+		this.currentTypeOfWork = typeOfWork;
 	}
 
 	public TypeOfWork getCurrentTypeOfWork() {
-		return this.typeOfWork;
+		return this.currentTypeOfWork;
+	}
+
 	public void setCurrentTaskStart(Date date) {
 		this.currentTaskStart = date;
 	}
