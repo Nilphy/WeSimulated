@@ -41,6 +41,12 @@ public class Profile implements NumericallyModeledEntity {
 		this.characteristics.put(characteristic, newValue);
 	}
 
+	public void increase(Characteristic characteristic, double amount) {
+		Number originalValue = this.characteristics.get(characteristic).getNumber();
+		EntryValue newValue = new EntryValue(Type.Float, originalValue.doubleValue() + amount);
+		this.characteristics.put(characteristic, newValue);
+	}
+
 	public void set(Characteristic characteristic, EntryValue value) {
 		this.characteristics.put(characteristic, value);
 	}

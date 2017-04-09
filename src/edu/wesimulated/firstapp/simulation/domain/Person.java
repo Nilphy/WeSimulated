@@ -14,6 +14,7 @@ import com.wesimulated.simulationmotor.des.Resource;
 import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
+import edu.wesimulated.firstapp.simulation.stochastic.StochasticVariableName;
 
 public class Person implements Resource, NumericallyModeledEntity {
 
@@ -54,8 +55,8 @@ public class Person implements Resource, NumericallyModeledEntity {
 		this.hlaPerson = hlaPerson;
 	}
 
-	public void increaseExperienceWithWorkbenchTools(Task task, long timeExpended) {
-		// TODO Auto-generated method stub
+	public void increaseExperienceWithWorkbenchTools(Task task, double timeExpended) {
+		this.profile.increase(PersonCharacteristic.ExperienceWithWorkbenchTools, timeExpended);
 	}
 
 	private void registerRequestOfAvailability(Prioritized taskWithPriority) {
