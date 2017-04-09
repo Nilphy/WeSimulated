@@ -1,5 +1,7 @@
 package edu.wesimulated.firstapp.simulation.domain;
 
-public interface Characteristic {
+import edu.wesimulated.firstapp.simulation.stochastic.StochasticVariableName;
+
+public interface Characteristic extends StochasticVariableName {
 
 }

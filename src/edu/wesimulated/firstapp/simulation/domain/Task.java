@@ -18,6 +18,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
+import edu.wesimulated.firstapp.simulation.stochastic.StochasticVariableName;
 
 public class Task implements NumericallyModeledEntity, CompletableTask {
 
@@ -161,8 +162,25 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 
 	@Override
 	public Map<StochasticVariableName, EntryValue> extractValues() {
-		// TODO Auto-generated method stub
-		return null;
+		Map<StochasticVariableName, EntryValue> returnValue = new HashMap<>();
+		returnValue.putAll(profile.extractValues());
+		/*
+		 * TODO: Sobre que características poner sobre las personas, supongo que
+		 * podria poner una nota promedio sobre accountable people, informed
+		 * people, responsible people y consulted people y después poner por
+		 * separado la cantidad
+		 */
+		// private Collection<Person> accountablePeople;
+		// private Collection<Person> informedPeople;
+		// private Collection<Person> responsiblePeople;
+		// private Collection<Person> consultedPeople;
+		// private LocalDate endDate;
+		// private LocalDate startDate;
+		// private Collection<TaskDependency> taskDependencies;
+		// private Map<WorkType, Number> costInHoursPerWorkType;
+		// private Map<WorkType, Number> workDoneInHoursPerWorkType;
+
+		return returnValue;
 	}
 
 	public Collection<NumericallyModeledEntity> getAllRelatedNumericallyModeledEntities() {
@@ -177,5 +195,4 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 	public void setHlaTask(HlaTask hlaTask) {
 		this.hlaTask = hlaTask;
 	}
-
 }

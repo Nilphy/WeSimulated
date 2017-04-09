@@ -1,11 +1,14 @@
 package edu.wesimulated.firstapp.simulation.domain.worktype;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import edu.wesimulated.firstapp.simulation.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
+import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVariableName;
+import edu.wesimulated.firstapp.simulation.stochastic.VariableName;
 
 public class SetupWorkbench extends TypeOfWork {
 
@@ -20,8 +23,9 @@ public class SetupWorkbench extends TypeOfWork {
 
 	@Override
 	public Map<StochasticVariableName, EntryValue> extractValues() {
-		// TODO Auto-generated method stub
-		return null;
+		Map<StochasticVariableName, EntryValue> values = new HashMap<>();
+		values.put(VariableName.WorkTypeName, new EntryValue(Type.String, this.getName()));
+		return values;
 	}
 
 	@Override
