@@ -10,7 +10,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVariableName;
 import edu.wesimulated.firstapp.simulation.stochastic.VariableName;
 
-public class SetupWorkbench extends TypeOfWork {
+public class SetupWorkbench extends WorkType {
 
 	public SetupWorkbench(RoleSimulator roleSimulator) {
 		super(roleSimulator);
@@ -30,6 +30,6 @@ public class SetupWorkbench extends TypeOfWork {
 
 	@Override
 	public String getName() {
-		return "TypeOfWork";
+		return "SetupWorkbench";
 	}
 }

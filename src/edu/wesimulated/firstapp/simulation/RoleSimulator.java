@@ -14,7 +14,7 @@ import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Role;
 import edu.wesimulated.firstapp.simulation.domain.Task;
-import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
+import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
 /**
@@ -45,7 +45,7 @@ public class RoleSimulator extends OperationBasedSimulator {
 	private Role role;
 	private Person person;
 	private Task currentTask;
-	private TypeOfWork currentTypeOfWork;
+	private WorkType currentWorkType;
 	private Date currentTaskStart;
 
 	public RoleSimulator(Role role, Project project, Person person) {
@@ -66,7 +66,7 @@ public class RoleSimulator extends OperationBasedSimulator {
 	public void acceptInterruption() {
 		Date interruptionDate = this.getOperationBasedExecutor().getClock().getCurrentDate();
 		long durationOfCurrentTask = interruptionDate.getTime() - this.currentTaskStart.getTime();
-		this.currentTask.increaseWorkDone(durationOfCurrentTask, this.currentTypeOfWork.getTaskNeedFulfilled(), interruptionDate);
+		this.currentTask.increaseWorkDone(durationOfCurrentTask, this.currentWorkType.getTaskNeedFulfilled(), interruptionDate);
 		// TODO register work done until the moment
 		// TODO remove next BOperation
 		/*
@@ -81,7 +81,7 @@ public class RoleSimulator extends OperationBasedSimulator {
 		out.add(this.getProject());
 		out.add(this.getPerson());
 		out.add(this.getCurrentTask());
-		out.add(this.getCurrentTypeOfWork());
+		out.add(this.getCurrentWorkType());
 		return out;
 	}
 
@@ -105,12 +105,12 @@ public class RoleSimulator extends OperationBasedSimulator {
 		this.currentTask = task;
 	}
 
-	public void setCurrentTypeOfWork(TypeOfWork typeOfWork) {
-		this.currentTypeOfWork = typeOfWork;
+	public void setCurrentWorkType(WorkType workType) {
+		this.currentWorkType = workType;
 	}
 
-	public TypeOfWork getCurrentTypeOfWork() {
-		return this.currentTypeOfWork;
+	public WorkType getCurrentWorkType() {
+		return this.currentWorkType;
 	}
 
 	public void setCurrentTaskStart(Date date) {

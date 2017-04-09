@@ -12,7 +12,7 @@ import com.wesimulated.simulation.runparameters.CompletableTask;
 
 import edu.wesimulated.firstapp.model.TaskNeed;
 import edu.wesimulated.firstapp.simulation.RoleSimulator;
-import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
+import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 import edu.wesimulated.firstapp.simulation.hla.HlaTask;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
@@ -146,10 +146,10 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 		return this.costInHoursPerTaskNeed.get(taskNeed);
 	}
 
-	public TypeOfWork findTypeOfTaskToWorkForRole(RoleSimulator roleSimulator) {
-		ParametricAlgorithm typeOfWork = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.TypeOfTaskToWorkForRole);
-		typeOfWork.considerAll(roleSimulator.getAllNumericallyModeledEntities());
-		return (TypeOfWork) typeOfWork.findSample().getClassifictation();
+	public WorkType findWorkTypeForRole(RoleSimulator roleSimulator) {
+		ParametricAlgorithm stochasticWorkType = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.WorkTypeForRole);
+		stochasticWorkType.considerAll(roleSimulator.getAllNumericallyModeledEntities());
+		return (WorkType) stochasticWorkType.findSample().getClassifictation();
 	}
 
 	public long findDurationOfWorkSlab(RoleSimulator roleSimulator) {

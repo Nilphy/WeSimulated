@@ -7,7 +7,7 @@ import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Role;
 import edu.wesimulated.firstapp.simulation.domain.Task;
-import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
+import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 
 public class RoleSimulatorBuilder {
 
@@ -38,8 +38,8 @@ public class RoleSimulatorBuilder {
 		Date roleWorkStart = project.findStartDateToWorkForRole(role, person);
 		roleSimulator.addBOperation(new StartProject(roleWorkStart));
 		Task taskToWorkIn = project.findTaskToWorkForRole(role);
-		TypeOfWork typeOfWork = taskToWorkIn.findTypeOfTaskToWorkForRole(roleSimulator);
-		roleSimulator.addCOperation(new WorkSlabStart(roleSimulator, typeOfWork, taskToWorkIn, roleWorkStart));
+		WorkType workType = taskToWorkIn.findWorkTypeForRole(roleSimulator);
+		roleSimulator.addCOperation(new WorkSlabStart(roleSimulator, workType, taskToWorkIn, roleWorkStart));
 		return roleSimulator;
 	}
 

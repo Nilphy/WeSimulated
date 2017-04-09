@@ -6,7 +6,7 @@ import com.wesimulated.simulationmotor.des.State;
 
 import edu.wesimulated.firstapp.simulation.RoleSimulator;
 
-public abstract class DevelopSoftware extends TypeOfWork implements State {
+public abstract class DevelopSoftware extends WorkType implements State {
 
 	public DevelopSoftware(RoleSimulator roleSimulator) {
 		super(roleSimulator);

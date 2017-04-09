@@ -5,7 +5,7 @@ import java.util.Date;
 import com.wesimulated.simulationmotor.des.BOperation;
 
 import edu.wesimulated.firstapp.simulation.domain.Task;
-import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
+import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 
 public class WorkSlabEnd implements BOperation {
 
@@ -21,14 +21,14 @@ public class WorkSlabEnd implements BOperation {
 
 	@Override
 	public void doAction() {
-		this.roleSimulator.getCurrentTypeOfWork().applyEffects(startOfSlab, endOfSlab);
+		this.roleSimulator.getCurrentWorkType().applyEffects(startOfSlab, endOfSlab);
 		Task nextTask = this.roleSimulator.getCurrentTask();
 		if (this.roleSimulator.getCurrentTask().isCompleted(this.roleSimulator.getRole())) {
 			nextTask = this.roleSimulator.getProject().findTaskToWorkOn(endOfSlab, this.roleSimulator.getPerson(), this.roleSimulator.getRole());
 		}
-		TypeOfWork typeOfWork = nextTask.findTypeOfTaskToWorkForRole(this.roleSimulator);
+		WorkType workType = nextTask.findWorkTypeForRole(this.roleSimulator);
 		Date minDate = this.roleSimulator.getPerson().findNextAvailableDate();
-		this.roleSimulator.addCOperation(new WorkSlabStart(this.roleSimulator, typeOfWork, nextTask, minDate));
+		this.roleSimulator.addCOperation(new WorkSlabStart(this.roleSimulator, workType, nextTask, minDate));
 		this.roleSimulator.getPerson().setAvailable(true);
 	}
 

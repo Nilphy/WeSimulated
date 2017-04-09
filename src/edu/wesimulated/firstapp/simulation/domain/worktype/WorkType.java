@@ -22,12 +22,12 @@ import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
  * @author Carolina
  *
  */
-public abstract class TypeOfWork implements NumericallyModeledEntity, State, Classification {
+public abstract class WorkType implements NumericallyModeledEntity, State, Classification {
 
 	private RoleSimulator roleSimulator;
 	private TaskNeed taskNeedFulfilled;
 
-	public TypeOfWork(RoleSimulator roleSimulator) {
+	public WorkType(RoleSimulator roleSimulator) {
 		this.setRoleSimulator(roleSimulator);
 	}
 

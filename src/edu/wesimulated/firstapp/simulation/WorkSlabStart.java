@@ -7,18 +7,18 @@ import com.wesimulated.simulationmotor.des.COperation;
 import com.wesimulated.simulationmotor.des.Prioritized;
 
 import edu.wesimulated.firstapp.simulation.domain.Task;
-import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
+import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 
 public class WorkSlabStart extends COperation implements Prioritized {
 
 	private RoleSimulator roleSimulator;
-	private TypeOfWork typeOfWork;
+	private WorkType workType;
 	private Task task;
 	private Date minDate;
 
-	public WorkSlabStart(RoleSimulator simulator, TypeOfWork typeOfWork, Task task, Date minDate) {
+	public WorkSlabStart(RoleSimulator simulator, WorkType workType, Task task, Date minDate) {
 		this.roleSimulator = simulator;
-		this.typeOfWork = typeOfWork;
+		this.workType = workType;
 		this.task = task;
 		this.minDate = minDate;
 	}
@@ -34,7 +34,7 @@ public class WorkSlabStart extends COperation implements Prioritized {
 		this.roleSimulator.getPerson().setCurrentTask(this.task);
 		this.roleSimulator.setCurrentTask(this.task);
 		this.roleSimulator.setCurrentTaskStart(this.roleSimulator.getOperationBasedExecutor().getClock().getCurrentDate());
-		this.roleSimulator.setCurrentTypeOfWork(this.typeOfWork);
+		this.roleSimulator.setCurrentWorkType(this.workType);
 		long duration = this.task.findDurationOfWorkSlab(this.roleSimulator);
 		Date endOfSlab = DateUtils.addMilis(this.roleSimulator.getOperationBasedExecutor().getClock().getCurrentDate(), duration);
 		this.roleSimulator.addBOperation(new WorkSlabEnd(this.roleSimulator, this.roleSimulator.getOperationBasedExecutor().getClock().getCurrentDate(), endOfSlab));
