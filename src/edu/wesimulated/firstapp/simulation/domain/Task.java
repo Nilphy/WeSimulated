@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 import com.wesimulated.simulation.hla.DateLogicalTime;
 import com.wesimulated.simulation.runparameters.CompletableTask;
 
-import edu.wesimulated.firstapp.model.WorkType;
+import edu.wesimulated.firstapp.model.TaskNeed;
 import edu.wesimulated.firstapp.simulation.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.domain.worktype.TypeOfWork;
 import edu.wesimulated.firstapp.simulation.hla.HlaTask;
@@ -30,17 +30,17 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 	private LocalDate endDate;
 	private LocalDate startDate;
 	private Collection<TaskDependency> taskDependencies;
-	private Map<WorkType, Number> costInHoursPerWorkType;
-	private Map<WorkType, Number> workDoneInHoursPerWorkType;
+	private Map<TaskNeed, Number> costInHoursPerTaskNeed;
+	private Map<TaskNeed, Number> workDoneInHoursPerTaskNeed;
 
 	public Task() {
-		this.workDoneInHoursPerWorkType = new HashMap<>();
+		this.workDoneInHoursPerTaskNeed = new HashMap<>();
 	}
 
 	@Override
 	public boolean isCompleted() {
-		for (Entry<WorkType, Number> entry : this.costInHoursPerWorkType.entrySet()) {
-			Number workDoneForWorkType = this.workDoneInHoursPerWorkType.get(entry.getKey());
+		for (Entry<TaskNeed, Number> entry : this.costInHoursPerTaskNeed.entrySet()) {
+			Number workDoneForWorkType = this.workDoneInHoursPerTaskNeed.get(entry.getKey());
 			if (workDoneForWorkType.longValue() < entry.getValue().longValue()) {
 				return false;
 			}
@@ -49,12 +49,17 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 	}
 
 	public boolean isCompleted(Role role) {
-		return this.workDoneInHoursPerWorkType.get(role.getWorkType()).doubleValue() >= this.costInHoursPerWorkType.get(role.getWorkType()).doubleValue();
+		for (TaskNeed taskNeed : role.getTaskNeedsThatCanBeMet()) {
+			if (this.workDoneInHoursPerTaskNeed.get(taskNeed).doubleValue() < this.costInHoursPerTaskNeed.get(taskNeed).doubleValue()) {
+				return false;
+			}
+		}
+		return true;
 	}
 
-	public void increaseWorkDone(long duration, Role role, Date when) {
-		Number currentWorkDone = this.workDoneInHoursPerWorkType.get(role.getWorkType());
-		this.workDoneInHoursPerWorkType.put(role.getWorkType(), new Long(duration + currentWorkDone.longValue()));
+	public void increaseWorkDone(long duration, TaskNeed taskNeed, Date when) {
+		Number currentWorkDone = this.workDoneInHoursPerTaskNeed.get(taskNeed);
+		this.workDoneInHoursPerTaskNeed.put(taskNeed, new Long(duration + currentWorkDone.longValue()));
 		if (when == null) {
 			this.hlaTask.registerWorkToDo(new Work(duration), new DateLogicalTime(when));
 			// FIXME register pending changes to send to hla
@@ -62,7 +67,7 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 	}
 
 	public void extendDuration(double scale) {
-		for (Entry<WorkType, Number> entry : this.costInHoursPerWorkType.entrySet()) {
+		for (Entry<TaskNeed, Number> entry : this.costInHoursPerTaskNeed.entrySet()) {
 			Double actualCostInHours = entry.getValue().doubleValue();
 			Double escalatedCostInHours = actualCostInHours + actualCostInHours * scale;
 			entry.setValue(escalatedCostInHours);
@@ -132,13 +137,12 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 		return this.taskDependencies;
 	}
 
-	public void setCostInHours(Integer costInHours, WorkType workType) {
-		this.costInHoursPerWorkType.put(workType, costInHours);
+	public void setCostInHours(Integer costInHours, TaskNeed taskNeed) {
+		this.costInHoursPerTaskNeed.put(taskNeed, costInHours);
 	}
 
-	public Double getWorkDoneToComplete(WorkType key) {
-		// TODO Auto-generated method stub
-		return null;
+	public Number getCostInHours(TaskNeed taskNeed) {
+		return this.costInHoursPerTaskNeed.get(taskNeed);
 	}
 
 	public TypeOfWork findTypeOfTaskToWorkForRole(RoleSimulator roleSimulator) {

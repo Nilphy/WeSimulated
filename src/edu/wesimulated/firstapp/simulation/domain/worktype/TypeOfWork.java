@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.wesimulated.simulationmotor.des.State;
 
+import edu.wesimulated.firstapp.model.TaskNeed;
 import edu.wesimulated.firstapp.simulation.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.stochastic.Classification;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
@@ -24,6 +25,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 public abstract class TypeOfWork implements NumericallyModeledEntity, State, Classification {
 
 	private RoleSimulator roleSimulator;
+	private TaskNeed taskNeedFulfilled;
 
 	public TypeOfWork(RoleSimulator roleSimulator) {
 		this.setRoleSimulator(roleSimulator);
@@ -37,5 +39,9 @@ public abstract class TypeOfWork implements NumericallyModeledEntity, State, Cla
 
 	public void setRoleSimulator(RoleSimulator roleSimulator) {
 		this.roleSimulator = roleSimulator;
+	}
+
+	public TaskNeed getTaskNeedFulfilled() {
+		return this.taskNeedFulfilled;
 	}
 }

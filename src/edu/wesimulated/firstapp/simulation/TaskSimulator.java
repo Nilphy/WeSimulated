@@ -9,13 +9,13 @@ import com.wesimulated.simulationmotor.systemdynamics.Stock;
 import com.wesimulated.simulationmotor.systemdynamics.SystemDynamicsExecutor;
 import com.wesimulated.simulationmotor.systemdynamics.SystemDynamicsSimulator;
 
-import edu.wesimulated.firstapp.model.WorkType;
+import edu.wesimulated.firstapp.model.TaskNeed;
 import edu.wesimulated.firstapp.simulation.domain.Task;
 
 public class TaskSimulator extends SystemDynamicsSimulator {
 
 	private Task task;
-	private Map<WorkType, Stock> workDoneStocks;
+	private Map<TaskNeed, Stock> workDoneStocks;
 
 	public TaskSimulator(Task task) {
 		super(new SystemDynamicsExecutor(new TaskCompletedEndCondition(task)));
@@ -25,20 +25,20 @@ public class TaskSimulator extends SystemDynamicsSimulator {
 
 	public void registerPlannedTaskWorkModule(WorkModule module) {
 		this.register(module);
-		this.registerWorkDoneStock(module.getWorkType(), module.getOutputStock());
+		this.registerWorkDoneStock(module.getTaskNeed(), module.getOutputStock());
 	}
 
-	private void registerWorkDoneStock(WorkType taskWorkType, Stock outputStock) {
-		this.getWorkDoneStocks().put(taskWorkType, outputStock);
+	private void registerWorkDoneStock(TaskNeed taskNeed, Stock outputStock) {
+		this.getWorkDoneStocks().put(taskNeed, outputStock);
 	}
 
-	private Map<WorkType, Stock> getWorkDoneStocks() {
+	private Map<TaskNeed, Stock> getWorkDoneStocks() {
 		return this.workDoneStocks;
 	}
 
 	public boolean isCompleted() {
-		for (Entry<WorkType, Stock> entry : this.getWorkDoneStocks().entrySet()) {
-			if (this.task.getWorkDoneToComplete(entry.getKey()) > entry.getValue().getActualValue()) {
+		for (Entry<TaskNeed, Stock> entry : this.getWorkDoneStocks().entrySet()) {
+			if (this.task.getCostInHours(entry.getKey()).doubleValue() > entry.getValue().getActualValue()) {
 				return false;
 			}
 		}

@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.model.TaskDependencyData;
-import edu.wesimulated.firstapp.model.WorkType;
+import edu.wesimulated.firstapp.model.TaskNeed;
 
 public class TaskBuilder {
 
@@ -29,7 +29,7 @@ public class TaskBuilder {
 			Task dependentTask = TaskBuilder.createFromTaskData(taskDependency.getTask(), when);
 			newTask.addTaskDependency(new TaskDependency(dependentTask, taskDependency.getPrecedence()));
 		}
-		newTask.setCostInHours(task.getUnitsOfWork(), WorkType.Development);
+		newTask.setCostInHours(task.getUnitsOfWork(), TaskNeed.Development);
 		return newTask;
 	}
 

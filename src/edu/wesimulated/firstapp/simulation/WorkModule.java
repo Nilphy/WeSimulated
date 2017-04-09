@@ -9,7 +9,7 @@ import com.wesimulated.simulationmotor.systemdynamics.Module;
 import com.wesimulated.simulationmotor.systemdynamics.Source;
 import com.wesimulated.simulationmotor.systemdynamics.Stock;
 
-import edu.wesimulated.firstapp.model.WorkType;
+import edu.wesimulated.firstapp.model.TaskNeed;
 import edu.wesimulated.firstapp.simulation.domain.Task;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
@@ -21,46 +21,46 @@ class WorkModule implements Module {
 	public static final String STOCK_INTEGRATED_WORK = "STOCK_INTEGRATED_WORK";
 
 	private Task task;
-	private WorkType workType;
+	private TaskNeed taskNeed;
 	private Stock outputStock;
 	private Collection<Stock> stocks;
 	private Collection<Flow> flows;
 
-	WorkModule(WorkType workType, Task task) {
+	WorkModule(TaskNeed taskNeed, Task task) {
 		this.task = task;
-		this.workType = workType;
+		this.taskNeed = taskNeed;
 		this.stocks = new ArrayList<Stock>();
 		this.flows = new ArrayList<>();
 		this.buildWorkTypeModule();
 	}
 
 	private void buildWorkTypeModule() {
-		Source bruteWork = new Source(getWorkType().c(SOURCE_BRUTE_WORK));
+		Source bruteWork = new Source(getTaskNeed().c(SOURCE_BRUTE_WORK));
 		ParametricAlgorithm timeWorkedEffectiveUowFactor = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.TimeWorkedForEffectiveUowFactor);
 		timeWorkedEffectiveUowFactor.consider(task);
 		timeWorkedEffectiveUowFactor.considerAll(task.getAllRelatedNumericallyModeledEntities());
-		Constant efficiency = new Constant(getWorkType().c(CONST_EFICIENCY), timeWorkedEffectiveUowFactor);
+		Constant efficiency = new Constant(getTaskNeed().c(CONST_EFICIENCY), timeWorkedEffectiveUowFactor);
 
-		Flow polishedWork = new Flow(getWorkType().c(FLOW_POLISHED_WORK)) {
+		Flow polishedWork = new Flow(getTaskNeed().c(FLOW_POLISHED_WORK)) {
 
 			@Override
 			public Double calculateNext(Double previousValue) {
-				return v(getWorkType().c(SOURCE_BRUTE_WORK)) * v(getWorkType().c(CONST_EFICIENCY));
+				return v(getTaskNeed().c(SOURCE_BRUTE_WORK)) * v(getTaskNeed().c(CONST_EFICIENCY));
 			}
 		};
 		this.addFlow(polishedWork);
 		polishedWork.connectInput(bruteWork);
 		polishedWork.connectInput(efficiency);
 
-		Stock integratedWork = new Stock(getWorkType().c(STOCK_INTEGRATED_WORK));
+		Stock integratedWork = new Stock(getTaskNeed().c(STOCK_INTEGRATED_WORK));
 		this.addStock(integratedWork);
 		integratedWork.connectInputFlow(polishedWork);
 
 		this.outputStock = integratedWork;
 	}
 
-	public WorkType getWorkType() {
-		return this.workType;
+	public TaskNeed getTaskNeed() {
+		return this.taskNeed;
 	}
 
 	public Stock getOutputStock() {

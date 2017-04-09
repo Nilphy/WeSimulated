@@ -1,6 +1,10 @@
 package edu.wesimulated.firstapp.model;
-
-public enum WorkType {
+/**
+ * Each task requires some things to be completed os this class 
+ * @author Carolina
+ *
+ */
+public enum TaskNeed {
 
 	Development("DEV"), 
 	TechnologyInvestigation("TECH_INV"),
@@ -22,7 +26,7 @@ public enum WorkType {
 
 	private String initial;
 
-	WorkType(String initial) {
+	TaskNeed(String initial) {
 		this.initial = initial;
 	}
 
