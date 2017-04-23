@@ -6,7 +6,8 @@ import edu.wesimulated.firstapp.simulation.domain.InstantMessenger;
 import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Role;
-import edu.wesimulated.firstapp.simulation.domain.Task;
+import edu.wesimulated.firstapp.simulation.domain.avaturedeveloper.AvatureDeveloperTask;
+import edu.wesimulated.firstapp.simulation.domain.highlyinterruptiblerole.HighlyInterruptibleRolePerson;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 
 public class RoleSimulatorBuilder {
@@ -37,7 +38,7 @@ public class RoleSimulatorBuilder {
 		RoleSimulator roleSimulator = new RoleSimulator(role, project, person);
 		Date roleWorkStart = project.findStartDateToWorkForRole(role, person);
 		roleSimulator.addBOperation(new StartProject(roleWorkStart));
-		Task taskToWorkIn = project.findTaskToWorkForRole(role);
+		AvatureDeveloperTask taskToWorkIn = (AvatureDeveloperTask) project.findTaskToWorkForRole(role);
 		WorkType workType = taskToWorkIn.findWorkTypeForRole(roleSimulator);
 		roleSimulator.addCOperation(new WorkSlabStart(roleSimulator, workType, taskToWorkIn, roleWorkStart));
 		return roleSimulator;
@@ -48,7 +49,6 @@ public class RoleSimulatorBuilder {
 		simulator.registerSimulationEntity(new InstantMessenger(person));
 		return simulator;
 	}
-	
 
 	public enum RoleSimulatorType implements SimulatorType {
 		HighlyInterruptible, AvatureDeveloper;
