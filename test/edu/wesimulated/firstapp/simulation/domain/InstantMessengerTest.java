@@ -10,6 +10,7 @@ import com.wesimulated.simulationmotor.DateUtils;
 
 import edu.wesimulated.firstapp.simulation.domain.highlyinterruptiblerole.HighlyInterruptibleRolePerson;
 import edu.wesimulated.firstapp.simulation.domain.highlyinterruptiblerole.ImMessage;
+import edu.wesimulated.firstapp.simulation.domain.highlyinterruptiblerole.InstantMessenger;
 import edu.wesimulated.firstapp.simulation.domain.highlyinterruptiblerole.ImMessage.Antiquity;
 
 public class InstantMessengerTest {

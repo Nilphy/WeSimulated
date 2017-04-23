@@ -1,4 +1,4 @@
-package edu.wesimulated.firstapp.simulation.domain;
+package edu.wesimulated.firstapp.simulation.domain.highlyinterruptiblerole;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,8 +9,7 @@ import com.wesimulated.simulationmotor.des.Prioritized;
 import com.wesimulated.simulationmotor.des.processbased.Entity;
 
 import edu.wesimulated.firstapp.simulation.HighlyInterruptibleRolePrioritized;
-import edu.wesimulated.firstapp.simulation.domain.highlyinterruptiblerole.HighlyInterruptibleRolePerson;
-import edu.wesimulated.firstapp.simulation.domain.highlyinterruptiblerole.ImMessage;
+import edu.wesimulated.firstapp.simulation.domain.PersonCharacteristic;
 
 /**
  * 
