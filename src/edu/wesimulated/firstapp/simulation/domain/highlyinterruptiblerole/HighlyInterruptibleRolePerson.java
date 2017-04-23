@@ -3,7 +3,6 @@ package edu.wesimulated.firstapp.simulation.domain.highlyinterruptiblerole;
 import java.util.Collection;
 import java.util.List;
 
-import edu.wesimulated.firstapp.simulation.domain.ImMessage;
 import edu.wesimulated.firstapp.simulation.domain.Person;
 
 public class HighlyInterruptibleRolePerson extends Person {

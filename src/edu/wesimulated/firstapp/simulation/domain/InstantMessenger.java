@@ -9,6 +9,8 @@ import com.wesimulated.simulationmotor.des.Prioritized;
 import com.wesimulated.simulationmotor.des.processbased.Entity;
 
 import edu.wesimulated.firstapp.simulation.HighlyInterruptibleRolePrioritized;
+import edu.wesimulated.firstapp.simulation.domain.highlyinterruptiblerole.HighlyInterruptibleRolePerson;
+import edu.wesimulated.firstapp.simulation.domain.highlyinterruptiblerole.ImMessage;
 
 /**
  * 
