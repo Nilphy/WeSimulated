@@ -48,4 +48,9 @@ public class RoleSimulatorBuilder {
 		simulator.registerSimulationEntity(new InstantMessenger(person));
 		return simulator;
 	}
+	
+	public enum RoleSimulatorType {
+		HighlyInterruptible,
+		AvatureDeveloper;
+	}
 }
