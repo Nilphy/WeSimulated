@@ -67,7 +67,8 @@ public class Simulation extends Observable {
 	}
 
 	public void addTask(TaskData task) {
-		TaskFederate taskFederate = new TaskFederate(TaskBuilder.createFromTaskData(task, null));
+		SimulatorFactory simulatorFactory = SimulatorFactory.getInstance(task);
+		TaskFederate taskFederate = new TaskFederate(TaskBuilder.createFromTaskData(task, null, simulatorFactory));
 		this.addObserver(taskFederate);
 		taskFederate.joinFederationExcecution(HlaClass.getHlaTaskClassInstance().getFederateName());
 	}

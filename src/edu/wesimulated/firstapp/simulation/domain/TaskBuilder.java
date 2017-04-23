@@ -16,26 +16,26 @@ public class TaskBuilder {
 	 * @param when
 	 * @return
 	 */
-	public static Task createFromTaskData(TaskData task, Date when) {
-		Task newTask = new Task();
+	public static Task createFromTaskData(TaskData task, Date when, SimulatorFactory factory) {
+		Task newTask = factory.makeTask();
 		newTask.setName(task.getName(), when);
-		TaskBuilder.incorporatePersonToTask((Person personParam, Task taskParam) -> taskParam.addResponsiblePerson(personParam), task.getResponsiblePeople(), newTask);
-		TaskBuilder.incorporatePersonToTask((Person personParam, Task taskParam) -> taskParam.addAccountablePerson(personParam), task.getAccountablePeople(), newTask);
-		TaskBuilder.incorporatePersonToTask((Person personParam, Task taskParam) -> taskParam.addConsultedPerson(personParam), task.getConsultedPeople(), newTask);
-		TaskBuilder.incorporatePersonToTask((Person personParam, Task taskParam) -> taskParam.addInformedPerson(personParam), task.getInformedPeople(), newTask);
+		TaskBuilder.incorporatePersonToTask((Person personParam, Task taskParam) -> taskParam.addResponsiblePerson(personParam), task.getResponsiblePeople(), newTask, factory);
+		TaskBuilder.incorporatePersonToTask((Person personParam, Task taskParam) -> taskParam.addAccountablePerson(personParam), task.getAccountablePeople(), newTask, factory);
+		TaskBuilder.incorporatePersonToTask((Person personParam, Task taskParam) -> taskParam.addConsultedPerson(personParam), task.getConsultedPeople(), newTask, factory);
+		TaskBuilder.incorporatePersonToTask((Person personParam, Task taskParam) -> taskParam.addInformedPerson(personParam), task.getInformedPeople(), newTask, factory);
 		newTask.setEndDate(task.getEndDate());
 		newTask.setStartDate(task.getStartDate());
 		for (TaskDependencyData taskDependency : task.getTaskDependencies()) {
-			Task dependentTask = TaskBuilder.createFromTaskData(taskDependency.getTask(), when);
+			Task dependentTask = TaskBuilder.createFromTaskData(taskDependency.getTask(), when, factory);
 			newTask.addTaskDependency(new TaskDependency(dependentTask, taskDependency.getPrecedence()));
 		}
 		newTask.setCostInHours(task.getUnitsOfWork(), TaskNeed.Development);
 		return newTask;
 	}
 
-	private static void incorporatePersonToTask(PersonAssignerToTask personAssigner, ObservableList<PersonData> peopleData, Task task) {
+	private static void incorporatePersonToTask(PersonAssignerToTask personAssigner, ObservableList<PersonData> peopleData, Task task, SimulatorFactory factory) {
 		for (PersonData person : peopleData) {
-			personAssigner.assign(PersonBuilder.createFromPersonData(person), task);
+			personAssigner.assign(PersonBuilder.createFromPersonData(person, factory), task);
 		}
 	}
 

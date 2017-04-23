@@ -6,17 +6,17 @@ import com.wesimulated.simulationmotor.DateUtils;
 import com.wesimulated.simulationmotor.des.COperation;
 import com.wesimulated.simulationmotor.des.Prioritized;
 
-import edu.wesimulated.firstapp.simulation.domain.Task;
+import edu.wesimulated.firstapp.simulation.domain.avaturedeveloper.AvatureDeveloperTask;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 
 public class WorkSlabStart extends COperation implements Prioritized {
 
 	private RoleSimulator roleSimulator;
 	private WorkType workType;
-	private Task task;
+	private AvatureDeveloperTask task;
 	private Date minDate;
 
-	public WorkSlabStart(RoleSimulator simulator, WorkType workType, Task task, Date minDate) {
+	public WorkSlabStart(RoleSimulator simulator, WorkType workType, AvatureDeveloperTask task, Date minDate) {
 		this.roleSimulator = simulator;
 		this.workType = workType;
 		this.task = task;
