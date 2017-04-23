@@ -61,11 +61,6 @@ public abstract class Person implements Resource, NumericallyModeledEntity {
 		// TODO Auto-generated method stub
 	}
 
-	public Double getQualityOfWork() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public Date findNextAvailableDate() {
 		// TODO find hour to start working today
 		// TODO find current hour
