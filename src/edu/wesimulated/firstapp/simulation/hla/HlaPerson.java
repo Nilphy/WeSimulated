@@ -31,7 +31,9 @@ import edu.wesimulated.firstapp.simulation.domain.Work;
 
 public class HlaPerson extends HlaObject {
 	private AttributeHandle workDoneAttributeInstanceHandle;
+	private AttributeHandle isAvailableAttributeInstanceHandle;
 	private Collection<Work> workDone;
+	private boolean isAvailable;
 
 	public HlaPerson(RTIambassador rtiAmbassador, ObjectClassHandle classHandle, ObjectInstanceHandle personHandle, String personName) {
 		super(rtiAmbassador, classHandle, personHandle, personName);
