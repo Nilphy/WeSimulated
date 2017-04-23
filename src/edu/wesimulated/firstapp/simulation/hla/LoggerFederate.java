@@ -112,7 +112,8 @@ public class LoggerFederate extends AbstractFederate implements Observer {
 				MessageRetractionHandle retractionHandle, SupplementalReflectInfo reflectInfo) throws FederateInternalError {
 			Person person = getPeople().get(objectInstanceHandle);
 			person.reflectAttributeValues(attributeValues);
-			getController().log(person.getLastWorkDone(), ((DateLogicalTime) theTime).getValue());
+			/* TODO log the information about the person if this is the logger of the person
+			getController().log(person.getLastWorkDone(), ((DateLogicalTime) theTime).getValue()); */
 		}
 
 		@Override
