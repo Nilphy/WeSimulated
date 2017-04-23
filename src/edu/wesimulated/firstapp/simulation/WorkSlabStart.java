@@ -30,8 +30,6 @@ public class WorkSlabStart extends COperation implements Prioritized {
 
 	@Override
 	public void doAction() {
-		this.roleSimulator.getPerson().setAvailable(false);
-		this.roleSimulator.getPerson().setCurrentTask(this.task);
 		this.roleSimulator.setCurrentTask(this.task);
 		this.roleSimulator.setCurrentTaskStart(this.roleSimulator.getOperationBasedExecutor().getClock().getCurrentDate());
 		this.roleSimulator.setCurrentWorkType(this.workType);

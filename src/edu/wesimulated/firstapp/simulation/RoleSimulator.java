@@ -102,7 +102,9 @@ public class RoleSimulator extends OperationBasedSimulator {
 	}
 
 	public void setCurrentTask(Task task) {
+		this.getPerson().setAvailable(false);
 		this.currentTask = task;
+		this.getPerson().setCurrentTask(task);
 	}
 
 	public void setCurrentWorkType(WorkType workType) {
