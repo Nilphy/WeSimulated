@@ -50,6 +50,17 @@ public class HlaTask extends HlaObject {
 		this.workToDo = new LinkedList<Work>();
 	}
 
+	public void registerAll(DateLogicalTime time) {
+		try {
+			AttributeHandleValueMap attributeValues = this.getRtiAmbassador().getAttributeHandleValueMapFactory().create(2);
+			attributeValues.put(this.getWorkToDoAttributeHandle(), encodeWorkToDo());
+			attributeValues.put(this.getNameAttributeHandle(), encodeName());
+			this.getRtiAmbassador().updateAttributeValues(this.getObjectInstanceHandle(), attributeValues, null, time);
+		} catch (FederateNotExecutionMember | NotConnected | AttributeNotOwned | AttributeNotDefined | ObjectInstanceNotKnown | SaveInProgress | RestoreInProgress | RTIinternalError | InvalidLogicalTime e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	public void registerWorkToDo(Work workToDo, DateLogicalTime time) {
 		this.getWorkToDo().add(workToDo);
 		try {

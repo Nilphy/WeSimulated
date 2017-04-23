@@ -38,6 +38,10 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 		this.workDoneInHoursPerTaskNeed = new HashMap<>();
 	}
 
+	public void registerAllAtributes(Date when) {
+		this.hlaTask.registerAll(new DateLogicalTime(when));
+	}
+
 	@Override
 	public boolean isCompleted() {
 		for (Entry<TaskNeed, Number> entry : this.costInHoursPerTaskNeed.entrySet()) {
