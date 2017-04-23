@@ -58,6 +58,8 @@ public class HlaPerson extends HlaObject {
 	public void reflectAttributeValues(AttributeHandleValueMap attributeValues) {
 		byte[] workDone = attributeValues.get(getWorkDoneAttributeHandle());
 		decodeWorkDone(workDone);
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	private byte[] encodeWorkDone() {

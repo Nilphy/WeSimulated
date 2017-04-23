@@ -6,7 +6,6 @@ import hla.rti1516e.ObjectInstanceHandle;
 import java.util.Date;
 import java.util.Map;
 
-import com.wesimulated.simulationmotor.des.Prioritized;
 import com.wesimulated.simulationmotor.des.Resource;
 
 import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
@@ -21,6 +20,7 @@ public abstract class Person implements Resource, NumericallyModeledEntity {
 	private Task currentTask;
 	private Profile profile;
 	private Project project;
+	private Date dateLastUpdate;
 
 	public ObjectInstanceHandle getHlaObjectInstanceHandle() {
 		return this.getHlaPerson().getObjectInstanceHandle();
@@ -30,8 +30,9 @@ public abstract class Person implements Resource, NumericallyModeledEntity {
 		return this.getHlaPerson().getObjectInstanceName();
 	}
 
-	public void reflectAttributeValues(AttributeHandleValueMap attributeValues) {
+	public void reflectAttributeValues(AttributeHandleValueMap attributeValues, Date when) {
 		this.hlaPerson.reflectAttributeValues(attributeValues);
+		this.setDateLastUpdate(when);
 	}
 
 	@Override
@@ -52,8 +53,7 @@ public abstract class Person implements Resource, NumericallyModeledEntity {
 		this.profile.increase(PersonCharacteristic.ExperienceWithWorkbenchTools, timeExpended);
 	}
 
-
-	private HlaPerson getHlaPerson() {
+	public HlaPerson getHlaPerson() {
 		return hlaPerson;
 	}
 
@@ -99,5 +99,13 @@ public abstract class Person implements Resource, NumericallyModeledEntity {
 
 	public Profile getProfile() {
 		return this.profile;
+	}
+
+	public Date getDateLastUpdate() {
+		return this.dateLastUpdate;
+	}
+
+	private void setDateLastUpdate(Date dateLastUpdate) {
+		this.dateLastUpdate = dateLastUpdate;
 	}
 }

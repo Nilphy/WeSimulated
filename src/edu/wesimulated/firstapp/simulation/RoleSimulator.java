@@ -3,6 +3,8 @@ package edu.wesimulated.firstapp.simulation;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Observable;
+import java.util.Observer;
 
 import com.wesimulated.simulation.runparameters.TaskCompletedEndCondition;
 import com.wesimulated.simulationmotor.des.BOperation;
@@ -39,7 +41,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
  *  
  *  Las tareas van a requerir a un rol una cantidad de personas para trabajar en ellas
  */
-public class RoleSimulator extends OperationBasedSimulator {
+public class RoleSimulator extends OperationBasedSimulator implements Observer {
 
 	private Project project;
 	private Role role;
@@ -64,15 +66,13 @@ public class RoleSimulator extends OperationBasedSimulator {
 	}
 
 	public void acceptInterruption() {
+		// FIXME: has to determine if will accept the interruption or not (and count interruptions)???
 		Date interruptionDate = this.getOperationBasedExecutor().getClock().getCurrentDate();
 		long durationOfCurrentTask = interruptionDate.getTime() - this.currentTaskStart.getTime();
 		this.currentTask.increaseWorkDone(durationOfCurrentTask, this.currentWorkType.getTaskNeedFulfilled(), interruptionDate);
-		// TODO register work done until the moment
-		// TODO remove next BOperation
-		/*
-		 * TODO add next COperation to continue working when the person be free
-		 * again
-		 */
+		this.getOperationBasedExecutor().removeFirstBOperation();
+		this.getPerson().getHlaPerson().addObserver(this);
+		this.getOperationBasedExecutor().reprogramCurrentCOperation();
 	}
 
 	public Collection<NumericallyModeledEntity> getAllNumericallyModeledEntities() {
@@ -117,5 +117,14 @@ public class RoleSimulator extends OperationBasedSimulator {
 
 	public void setCurrentTaskStart(Date date) {
 		this.currentTaskStart = date;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if (this.person.isAvailable()) {
+			this.addBOperation(new RecoverFocus(this.person.getDateLastUpdate(), this));
+		} else {
+			this.acceptInterruption();
+		}
 	}
 }

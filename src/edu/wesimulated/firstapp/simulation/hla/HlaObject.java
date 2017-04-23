@@ -1,10 +1,12 @@
 package edu.wesimulated.firstapp.simulation.hla;
 
+import java.util.Observable;
+
 import hla.rti1516e.ObjectClassHandle;
 import hla.rti1516e.ObjectInstanceHandle;
 import hla.rti1516e.RTIambassador;
 
-public class HlaObject {
+public class HlaObject extends Observable {
 
 	private RTIambassador rtiAmbassador;
 	private ObjectClassHandle objectClassHandle;
