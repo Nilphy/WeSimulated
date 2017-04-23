@@ -22,9 +22,9 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 
 	private List<ImMessage> unreadMessages;
 	private List<ImMessage> pendingImMessages;
-	private Person person;
+	private HighlyInterruptibleRolePerson person;
 
-	public InstantMessenger(Person person) {
+	public InstantMessenger(HighlyInterruptibleRolePerson person) {
 		this.unreadMessages = new ArrayList<>();
 		this.pendingImMessages = new ArrayList<>();
 		this.person = person;

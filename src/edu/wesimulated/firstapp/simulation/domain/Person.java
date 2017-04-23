@@ -3,9 +3,7 @@ package edu.wesimulated.firstapp.simulation.domain;
 import hla.rti1516e.AttributeHandleValueMap;
 import hla.rti1516e.ObjectInstanceHandle;
 
-import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import com.wesimulated.simulationmotor.des.Prioritized;
@@ -16,17 +14,13 @@ import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVariableName;
 
-public class Person implements Resource, NumericallyModeledEntity {
+public abstract class Person implements Resource, NumericallyModeledEntity {
 
 	private boolean available;
 	private HlaPerson hlaPerson;
 	private Task currentTask;
 	private Profile profile;
 	private Project project;
-
-	public String getLastWorkDone() {
-		return this.getHlaPerson().getLastWorkDone();
-	}
 
 	public ObjectInstanceHandle getHlaObjectInstanceHandle() {
 		return this.getHlaPerson().getObjectInstanceHandle();
@@ -90,25 +84,9 @@ public class Person implements Resource, NumericallyModeledEntity {
 		return null;
 	}
 
-	public Float getPriorityOfImFrom(Person sender) {
-		this.isWorkingWithMe(sender);
+	protected void isWorkingWithMe(Person sender) {
 		// TODO Auto-generated method stub
-		return 1f;
-	}
 
-	private void isWorkingWithMe(Person sender) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public Collection<? extends ImMessage> readAndCategorizeUnreadIM(List<ImMessage> unreadMessages) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Collection<? extends ImMessage> resolvePendingImMessages(List<ImMessage> pendingImMessages) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public void resign() {

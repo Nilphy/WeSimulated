@@ -10,19 +10,19 @@ import com.wesimulated.simulationmotor.des.Prioritized;
 
 public class ImMessage implements Prioritized {
 
-	private Person sender;
-	private Collection<Person> recipients;
+	private HighlyInterruptibleRolePerson sender;
+	private Collection<HighlyInterruptibleRolePerson> recipients;
 	private Date timestamp;
 	private Clock clock;
 
-	public ImMessage(Person sender, Collection<Person> recipients, Date timestamp, Clock clock) {
+	public ImMessage(HighlyInterruptibleRolePerson sender, Collection<HighlyInterruptibleRolePerson> recipients, Date timestamp, Clock clock) {
 		this.sender = sender;
 		this.recipients = recipients;
 		this.timestamp = timestamp;
 		this.clock = clock;
 	}
 
-	public ImMessage(Person sender, Date timestamp, Clock clock) {
+	public ImMessage(HighlyInterruptibleRolePerson sender, Date timestamp, Clock clock) {
 		this(sender, null, timestamp, clock);
 	}
 
@@ -31,7 +31,7 @@ public class ImMessage implements Prioritized {
 		return this.escalateConsideringAntiquity(this.calculateTimelessPriority());
 	}
 
-	public void addRecipient(Person person) {
+	public void addRecipient(HighlyInterruptibleRolePerson person) {
 		this.getRecipients().add(person);
 	}
 
@@ -39,7 +39,7 @@ public class ImMessage implements Prioritized {
 		if (this.getRecipients().size() > 1) {
 			return Prioritized.Priority.LOW.get();
 		}
-		Person recipient = this.getRecipients().iterator().next();
+		HighlyInterruptibleRolePerson recipient = this.getRecipients().iterator().next();
 		return recipient.getPriorityOfImFrom(sender);
 	}
 
@@ -52,9 +52,9 @@ public class ImMessage implements Prioritized {
 		return DateUtils.calculateDifferenceInMinutes(this.timestamp, this.clock.getCurrentDate());
 	}
 
-	private Collection<Person> getRecipients() {
+	private Collection<HighlyInterruptibleRolePerson> getRecipients() {
 		if (this.recipients == null) {
-			this.recipients = new ArrayList<Person>();
+			this.recipients = new ArrayList<HighlyInterruptibleRolePerson>();
 		}
 		return this.recipients;
 	}

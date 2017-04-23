@@ -10,6 +10,7 @@ import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.simulation.domain.PersonBuilder;
 import edu.wesimulated.firstapp.simulation.domain.ProjectBuilder;
 import edu.wesimulated.firstapp.simulation.domain.RoleBuilder;
+import edu.wesimulated.firstapp.simulation.domain.SimulatorFactory;
 import edu.wesimulated.firstapp.simulation.domain.TaskBuilder;
 import edu.wesimulated.firstapp.simulation.hla.HlaClass;
 import edu.wesimulated.firstapp.simulation.hla.LoggerFederate;
@@ -61,7 +62,8 @@ public class Simulation extends Observable {
 	}
 
 	public void addRole(RoleData role, PersonData person) {
-		RoleFederate roleFederate = new RoleFederate(RoleBuilder.createFromRoleData(role), PersonBuilder.createFromPersonData(person));
+		SimulatorFactory simulatorFactory = SimulatorFactory.getInstance(role);
+		RoleFederate roleFederate = new RoleFederate(RoleBuilder.createFromRoleData(role, simulatorFactory), PersonBuilder.createFromPersonData(person, simulatorFactory));
 		this.addObserver(roleFederate);
 		roleFederate.joinFederationExcecution(HlaClass.getHlaPersonClassInstance().getFederateName());
 	}
