@@ -46,8 +46,7 @@ public class Person implements Resource, NumericallyModeledEntity {
 	}
 
 	@Override
-	public boolean isAvailable(Prioritized taskWithPriority) {
-		registerRequestOfAvailability(taskWithPriority);
+	public boolean isAvailable() {
 		return available;
 	}
 
@@ -59,9 +58,6 @@ public class Person implements Resource, NumericallyModeledEntity {
 		this.profile.increase(PersonCharacteristic.ExperienceWithWorkbenchTools, timeExpended);
 	}
 
-	private void registerRequestOfAvailability(Prioritized taskWithPriority) {
-		// TODO Auto-generated method stub
-	}
 
 	private HlaPerson getHlaPerson() {
 		return hlaPerson;

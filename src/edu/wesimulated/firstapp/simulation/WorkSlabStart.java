@@ -25,7 +25,7 @@ public class WorkSlabStart extends COperation implements Prioritized {
 
 	@Override
 	public boolean testIfRequirementsAreMet() {
-		return this.roleSimulator.getPerson().isAvailable(this) && this.roleSimulator.getOperationBasedExecutor().getClock().dateHasPassed(this.minDate);
+		return this.roleSimulator.getPerson().isAvailable() && this.roleSimulator.getOperationBasedExecutor().getClock().dateHasPassed(this.minDate);
 	}
 
 	@Override
