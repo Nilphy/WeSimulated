@@ -1,10 +1,12 @@
-package edu.wesimulated.firstapp.simulation.domain;
+package edu.wesimulated.firstapp.simulation.domain.avatureproject;
 
 import java.util.Date;
 
+import edu.wesimulated.firstapp.simulation.domain.Risk;
+
 public class TaskExtension extends Risk {
 
-	private Task task;
+	private AvatureProjectTask task;
 
 	public TaskExtension(float probability, Date periodStart, Date periodEnd) {
 		super(probability, periodStart, periodEnd);
@@ -16,7 +18,7 @@ public class TaskExtension extends Risk {
 		task.extendDuration(scale);
 	}
 
-	public void setTask(Task task) {
+	public void setTask(AvatureProjectTask task) {
 		this.task = task;
 	}
 }
