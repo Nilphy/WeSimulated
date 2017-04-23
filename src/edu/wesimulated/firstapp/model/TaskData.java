@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import edu.wesimulated.firstapp.persistence.LocalDateAdapter;
+import edu.wesimulated.firstapp.simulation.TaskSimulatorBuilder.TaskSimulatorType;
 import edu.wesimulated.firstapp.simulation.domain.UnitsOfWorkInterpreter;
 
 public class TaskData {
@@ -165,6 +166,11 @@ public class TaskData {
 
 	public void setInformedPeople(ObservableList<PersonData> informedPeople) {
 		this.informedPeople = informedPeople;
+	}
+
+	public TaskSimulatorType calculateTaskSimulatorType() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -49,8 +49,8 @@ public class RoleSimulatorBuilder {
 		return simulator;
 	}
 	
-	public enum RoleSimulatorType {
-		HighlyInterruptible,
-		AvatureDeveloper;
+
+	public enum RoleSimulatorType implements SimulatorType {
+		HighlyInterruptible, AvatureDeveloper;
 	}
 }

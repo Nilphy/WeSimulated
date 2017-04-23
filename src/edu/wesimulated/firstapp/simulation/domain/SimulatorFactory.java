@@ -1,11 +1,18 @@
 package edu.wesimulated.firstapp.simulation.domain;
 
+import java.util.Map;
+
 import edu.wesimulated.firstapp.model.RoleData;
 import edu.wesimulated.firstapp.model.TaskData;
+import edu.wesimulated.firstapp.simulation.SimulatorType;
+import edu.wesimulated.firstapp.simulation.TaskSimulatorBuilder.TaskSimulatorType;
 import edu.wesimulated.firstapp.simulation.domain.highlyinterruptiblerole.HighlyInterruptibleRoleSimulatorFactory;
+import edu.wesimulated.firstapp.simulation.domain.systemdynamics.SystemDynamicsSimulatorFactory;
 import edu.wesimulated.firstapp.view.ThingsWithoutAUi;
 
 public abstract class SimulatorFactory {
+	
+	private static Map<SimulatorType, SimulatorFactory> instancesByType;
 	
 	public abstract Person makePerson();
 
@@ -19,7 +26,20 @@ public abstract class SimulatorFactory {
 	}
 
 	public static SimulatorFactory getInstance(TaskData task) {
-		// TODO Auto-generated method stub
+		SimulatorType simulatorType = task.calculateTaskSimulatorType();
+		SimulatorFactory simulatorFactory = instancesByType.get(simulatorType);
+		if (simulatorFactory == null) {
+			simulatorFactory = constructFactory(simulatorType);
+			instancesByType.put(simulatorType, simulatorFactory);
+			return simulatorFactory;
+		}
+		return simulatorFactory;
+	}
+
+	private static SimulatorFactory constructFactory(SimulatorType simulatorType) {
+		if (simulatorType == TaskSimulatorType.SystemDynamics) {
+			return new SystemDynamicsSimulatorFactory();
+		}
 		return null;
 	}
 }

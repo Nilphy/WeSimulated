@@ -160,4 +160,8 @@ public class TaskSimulatorBuilder {
 
 		return simulator;
 	}
+
+	public enum TaskSimulatorType implements SimulatorType {
+		SystemDynamics;
+	}
 }
