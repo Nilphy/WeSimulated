@@ -8,7 +8,6 @@ import java.util.List;
 import com.wesimulated.simulationmotor.des.Prioritized;
 import com.wesimulated.simulationmotor.des.processbased.Entity;
 
-import edu.wesimulated.firstapp.simulation.HighlyInterruptibleRolePrioritized;
 import edu.wesimulated.firstapp.simulation.domain.PersonCharacteristic;
 
 /**

@@ -6,6 +6,7 @@ import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Role;
 import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.HighlyInterruptibleRolePerson;
+import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.HighlyInterruptibleRoleSimulator;
 import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.InstantMessenger;
 import edu.wesimulated.firstapp.simulation.domain.avature.role.AvatureDeveloperTask;
 import edu.wesimulated.firstapp.simulation.domain.avature.role.WorkSlabStart;

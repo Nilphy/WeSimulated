@@ -26,7 +26,7 @@ public class WorkModule implements Module {
 	private Collection<Stock> stocks;
 	private Collection<Flow> flows;
 
-	WorkModule(TaskNeed taskNeed, Task task) {
+	public WorkModule(TaskNeed taskNeed, Task task) {
 		this.task = task;
 		this.taskNeed = taskNeed;
 		this.stocks = new ArrayList<Stock>();

@@ -1,4 +1,4 @@
-package edu.wesimulated.firstapp.simulation;
+package edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole;
 
 import com.wesimulated.simulation.BaseSimulator;
 import com.wesimulated.simulation.runparameters.TaskCompletedEndCondition;

@@ -1,4 +1,4 @@
-package edu.wesimulated.firstapp.simulation;
+package edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole;
 
 import com.wesimulated.simulationmotor.des.Prioritized;
 
