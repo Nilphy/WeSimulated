@@ -14,7 +14,7 @@ import edu.wesimulated.firstapp.simulation.domain.Task;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 
-class WorkModule implements Module {
+public class WorkModule implements Module {
 	public static final String SOURCE_BRUTE_WORK = "SOURCE_BRUTE_WORK";
 	public static final String FLOW_POLISHED_WORK = "FLOW_POLISHED_WORK";
 	public static final String CONST_EFICIENCY = "CONST_EFICIENCY";
