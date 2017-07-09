@@ -1,4 +1,4 @@
-package edu.wesimulated.firstapp.simulation.domain.avaturedeveloper;
+package edu.wesimulated.firstapp.simulation.domain.avature.developer;
 
 import edu.wesimulated.firstapp.simulation.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.domain.Task;

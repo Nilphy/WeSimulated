@@ -5,7 +5,7 @@ import java.util.Date;
 import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Role;
-import edu.wesimulated.firstapp.simulation.domain.avaturedeveloper.AvatureDeveloperTask;
+import edu.wesimulated.firstapp.simulation.domain.avature.developer.AvatureDeveloperTask;
 import edu.wesimulated.firstapp.simulation.domain.highlyinterruptiblerole.HighlyInterruptibleRolePerson;
 import edu.wesimulated.firstapp.simulation.domain.highlyinterruptiblerole.InstantMessenger;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;

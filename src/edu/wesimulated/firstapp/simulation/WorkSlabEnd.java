@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.wesimulated.simulationmotor.des.BOperation;
 
-import edu.wesimulated.firstapp.simulation.domain.avaturedeveloper.AvatureDeveloperTask;
+import edu.wesimulated.firstapp.simulation.domain.avature.developer.AvatureDeveloperTask;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 
 public class WorkSlabEnd implements BOperation {
