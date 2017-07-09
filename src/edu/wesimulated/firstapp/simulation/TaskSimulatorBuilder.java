@@ -6,6 +6,7 @@ import com.wesimulated.simulationmotor.systemdynamics.SinkFlow;
 import com.wesimulated.simulationmotor.systemdynamics.Stock;
 
 import edu.wesimulated.firstapp.model.TaskNeed;
+import edu.wesimulated.firstapp.simulation.avature.task.WorkModule;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Task;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
