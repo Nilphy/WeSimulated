@@ -1,4 +1,4 @@
-package edu.wesimulated.firstapp.simulation.domain;
+package edu.wesimulated.firstapp.simulation.domain.avature.project;
 
 import java.util.Date;
 import java.util.Random;

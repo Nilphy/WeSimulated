@@ -2,8 +2,6 @@ package edu.wesimulated.firstapp.simulation.domain.avature.project;
 
 import java.util.Date;
 
-import edu.wesimulated.firstapp.simulation.domain.Risk;
-
 public class TaskExtension extends Risk {
 
 	private AvatureProjectTask task;

@@ -1,6 +1,9 @@
-package edu.wesimulated.firstapp.simulation.domain;
+package edu.wesimulated.firstapp.simulation.domain.avature.project;
 
 import java.util.Date;
+
+import edu.wesimulated.firstapp.simulation.domain.Person;
+import edu.wesimulated.firstapp.simulation.domain.Project;
 
 public class PersonResignation extends Risk {
 

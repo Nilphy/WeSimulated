@@ -2,7 +2,7 @@ package edu.wesimulated.firstapp.simulation;
 
 import edu.wesimulated.firstapp.simulation.domain.MaintenanceTask;
 import edu.wesimulated.firstapp.simulation.domain.Project;
-import edu.wesimulated.firstapp.simulation.domain.Risk;
+import edu.wesimulated.firstapp.simulation.domain.avature.project.Risk;
 
 /**
  * 
