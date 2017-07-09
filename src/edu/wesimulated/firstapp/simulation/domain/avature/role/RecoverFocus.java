@@ -1,13 +1,10 @@
-package edu.wesimulated.firstapp.simulation;
+package edu.wesimulated.firstapp.simulation.domain.avature.role;
 
 import java.util.Date;
 
 import com.wesimulated.simulationmotor.DateUtils;
 import com.wesimulated.simulationmotor.des.BOperation;
 
-import edu.wesimulated.firstapp.simulation.domain.avature.role.AvatureDeveloperTask;
-import edu.wesimulated.firstapp.simulation.domain.avature.role.RoleSimulator;
-import edu.wesimulated.firstapp.simulation.domain.avature.role.WorkSlabStart;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 
 public class RecoverFocus implements BOperation {

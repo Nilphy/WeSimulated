@@ -12,7 +12,6 @@ import com.wesimulated.simulationmotor.des.COperation;
 import com.wesimulated.simulationmotor.des.OperationBasedSimulator;
 import com.wesimulated.simulationmotor.des.threefaseaproach.ThreePhaseExecutor;
 
-import edu.wesimulated.firstapp.simulation.RecoverFocus;
 import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Role;
