@@ -7,8 +7,12 @@ import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 public class AvatureDeveloperTask extends Task {
 
 	public long findDurationOfRecoverFocus(RoleSimulator roleSimulator) {
-		// TODO Auto-generated method stub
-		return 0;
+		ParametricAlgorithm durationOfRecoverFocus = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.TimeToFocus);
+		// TODO ask the role simulator when has the person done this task before and consider that value in the calculus
+		durationOfRecoverFocus.consider(roleSimulator.getCurrentTask());
+		durationOfRecoverFocus.consider(roleSimulator.getCurrentWorkType());
+		durationOfRecoverFocus.considerAll(roleSimulator.getCurrentTask().getAllRelatedNumericallyModeledEntities());
+		return durationOfRecoverFocus.findSample().getPrediction().getValue().longValue();
 	}
 
 	public long findDurationOfWorkSlab(RoleSimulator roleSimulator) {
