@@ -4,7 +4,6 @@ import java.util.Date;
 
 import com.wesimulated.simulationmotor.des.BOperation;
 
-import edu.wesimulated.firstapp.simulation.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 
 public class WorkSlabEnd implements BOperation {

@@ -6,7 +6,6 @@ import com.wesimulated.simulationmotor.DateUtils;
 import com.wesimulated.simulationmotor.des.COperation;
 import com.wesimulated.simulationmotor.des.Prioritized;
 
-import edu.wesimulated.firstapp.simulation.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 
 public class WorkSlabStart extends COperation implements Prioritized {

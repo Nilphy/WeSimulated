@@ -11,7 +11,7 @@ import com.wesimulated.simulation.hla.DateLogicalTime;
 import com.wesimulated.simulation.runparameters.CompletableTask;
 
 import edu.wesimulated.firstapp.model.TaskNeed;
-import edu.wesimulated.firstapp.simulation.RoleSimulator;
+import edu.wesimulated.firstapp.simulation.domain.avature.role.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 import edu.wesimulated.firstapp.simulation.hla.HlaTask;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
