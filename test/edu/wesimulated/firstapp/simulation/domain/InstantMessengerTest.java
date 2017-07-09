@@ -8,10 +8,10 @@ import org.junit.Test;
 import com.wesimulated.simulation.Clock;
 import com.wesimulated.simulationmotor.DateUtils;
 
-import edu.wesimulated.firstapp.simulation.domain.highlyinterruptiblerole.HighlyInterruptibleRolePerson;
-import edu.wesimulated.firstapp.simulation.domain.highlyinterruptiblerole.ImMessage;
-import edu.wesimulated.firstapp.simulation.domain.highlyinterruptiblerole.InstantMessenger;
-import edu.wesimulated.firstapp.simulation.domain.highlyinterruptiblerole.ImMessage.Antiquity;
+import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.HighlyInterruptibleRolePerson;
+import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.ImMessage;
+import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.InstantMessenger;
+import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.ImMessage.Antiquity;
 
 public class InstantMessengerTest {
 

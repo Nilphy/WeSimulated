@@ -6,7 +6,7 @@ import edu.wesimulated.firstapp.model.RoleData;
 import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.simulation.SimulatorType;
 import edu.wesimulated.firstapp.simulation.TaskSimulatorBuilder.TaskSimulatorType;
-import edu.wesimulated.firstapp.simulation.domain.highlyinterruptiblerole.HighlyInterruptibleRoleSimulatorFactory;
+import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.HighlyInterruptibleRoleSimulatorFactory;
 import edu.wesimulated.firstapp.simulation.domain.systemdynamics.SystemDynamicsSimulatorFactory;
 import edu.wesimulated.firstapp.view.ThingsWithoutAUi;
 

@@ -1,4 +1,4 @@
-package edu.wesimulated.firstapp.simulation.domain.highlyinterruptiblerole;
+package edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole;
 
 import java.util.Collection;
 import java.util.List;
