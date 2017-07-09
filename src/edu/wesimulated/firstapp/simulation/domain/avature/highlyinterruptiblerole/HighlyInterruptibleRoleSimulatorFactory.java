@@ -11,7 +11,6 @@ public class HighlyInterruptibleRoleSimulatorFactory extends edu.wesimulated.fir
 
 	@Override
 	public Task makeTask() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new IllegalStateException();
 	}
 }
