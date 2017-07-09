@@ -127,4 +127,14 @@ public class RoleSimulator extends OperationBasedSimulator implements Observer {
 			this.acceptInterruption();
 		}
 	}
+
+	public String findTimeSinceLastTimeTask() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String findTimeInThisMonthTask() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

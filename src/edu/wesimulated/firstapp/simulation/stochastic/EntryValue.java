@@ -8,7 +8,7 @@ package edu.wesimulated.firstapp.simulation.stochastic;
 public class EntryValue {
 
 	public enum Type {
-		Int, Float, String
+		Long, Float, String
 	}
 
 	private Type type;
@@ -29,8 +29,8 @@ public class EntryValue {
 		if (this.numberValue != null) {
 			return this.numberValue;
 		}
-		if (this.type == Type.Int) {
-			return Integer.getInteger(this.stringValue);
+		if (this.type == Type.Long) {
+			return Long.getLong(this.stringValue);
 		}
 		if (this.type == Type.Float) {
 			return Float.parseFloat(this.stringValue);

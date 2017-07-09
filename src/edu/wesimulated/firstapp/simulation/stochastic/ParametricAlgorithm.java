@@ -3,6 +3,8 @@ package edu.wesimulated.firstapp.simulation.stochastic;
 import java.util.Collection;
 import java.util.Map;
 
+import javafx.util.Pair;
+
 import com.wesimulated.simulationmotor.systemdynamics.VariableValue;
 
 /**
@@ -52,5 +54,9 @@ public class ParametricAlgorithm implements VariableValue {
 	@Override
 	public Double findValue() {
 		return this.findSample().getPrediction().getValue().doubleValue();
+	}
+
+	public void considerSingleValue(Pair<StochasticVariableName, EntryValue> pair) {
+		this.availableAttributes.put(pair.getKey(), pair.getValue());
 	}
 }
