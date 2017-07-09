@@ -1,4 +1,4 @@
-package edu.wesimulated.firstapp.simulation.domain.avatureproject;
+package edu.wesimulated.firstapp.simulation.domain.avature.project;
 
 import edu.wesimulated.firstapp.simulation.domain.Task;
 
