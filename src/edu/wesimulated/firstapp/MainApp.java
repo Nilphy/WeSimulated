@@ -417,12 +417,12 @@ public class MainApp extends Application {
 	}
 
 	public boolean mustSimulateProject() {
-		// TODO Auto-generated method stub
+		// TODO Still need to define how to configure the application to run distributed
 		return false;
 	}
 
 	public boolean mustStartLogger() {
-		// TODO Auto-generated method stub
+		// TODO Still need to define how to configure the application to run distributed
 		return false;
 	}
 

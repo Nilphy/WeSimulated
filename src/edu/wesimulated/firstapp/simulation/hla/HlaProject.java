@@ -13,7 +13,7 @@ public class HlaProject extends HlaObject {
 
 	public HlaProject(RTIambassador rtiAmbassador, ObjectClassHandle classHandle, ObjectInstanceHandle personHandle, String personName) {
 		super(rtiAmbassador, classHandle, personHandle, personName);
-		// TODO Auto-generated constructor stub
+		// TODO HLA entities
 	}
 
 }
