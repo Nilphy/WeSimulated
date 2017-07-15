@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import javafx.util.Pair;
+
 import com.wesimulated.simulationmotor.des.Prioritized;
 import com.wesimulated.simulationmotor.des.processbased.Entity;
 
@@ -23,6 +25,51 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 	private List<ImMessage> unreadMessages;
 	private List<ImMessage> pendingImMessages;
 	private HighlyInterruptibleRolePerson person;
+	private ImMessage messageInProccess;
+
+	/**
+	 * This enum is used to have ranges of amounts, because the priority to do
+	 * this task will depend on the amount of pending messages
+	 * 
+	 * @author Carolina
+	 *
+	 */
+	public enum AmountRange {
+		LOW(3), MED(10), HIGH(20);
+
+		private Integer amount;
+
+		private AmountRange(Integer amount) {
+			this.amount = amount;
+		}
+
+		public Integer get() {
+			return this.amount;
+		}
+
+		static public AmountRange fromValue(Integer amount) {
+			if (amount < LOW.get()) {
+				return LOW;
+			}
+			if (amount < MED.get()) {
+				return MED;
+			}
+			return HIGH;
+		}
+
+		public Float getAssociatedPriority() {
+			switch (this) {
+			case LOW:
+				return Priority.LOW.get();
+			case MED:
+				return Priority.MED.get();
+			case HIGH:
+				return 1f;
+			default:
+				throw new IllegalStateException("The AmountRange is not considered into the getAssociatedPriority method");
+			}
+		}
+	}
 
 	public InstantMessenger(HighlyInterruptibleRolePerson person) {
 		this.unreadMessages = new ArrayList<>();
@@ -91,51 +138,8 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 		return this.unreadMessages;
 	}
 
-	/**
-	 * This enum is used to have ranges of amounts, because the priority to do
-	 * this task will depend on the amount of pending messages
-	 * 
-	 * @author Carolina
-	 *
-	 */
-	public enum AmountRange {
-		LOW(3), MED(10), HIGH(20);
-
-		private Integer amount;
-
-		private AmountRange(Integer amount) {
-			this.amount = amount;
-		}
-
-		public Integer get() {
-			return this.amount;
-		}
-
-		static public AmountRange fromValue(Integer amount) {
-			if (amount < LOW.get()) {
-				return LOW;
-			}
-			if (amount < MED.get()) {
-				return MED;
-			}
-			return HIGH;
-		}
-	}
-
 	@Override
 	public void acceptInterruption(Date interruptionDate) {
 		this.pendingImMessages.add(this.messageInProccess);
-		public Float getAssociatedPriority() {
-			switch (this) {
-			case LOW:
-				return Priority.LOW.get();
-			case MED:
-				return Priority.MED.get();
-			case HIGH:
-				return 1f;
-			default:
-				throw new IllegalStateException("The AmountRange is not considered into the getAssociatedPriority method");
-			}
-		}
 	}
 }
