@@ -54,7 +54,6 @@ public class HighlyInterruptibleRoleSimulator extends BaseSimulator implements O
 		// FIXME: has to determine if will accept the interruption or not (and
 		// count interruptions)???
 		Date interruptionDate = this.getMyExecutor().getClock().getCurrentDate();
-		long durationOfCurrentTask = interruptionDate.getTime() - this.getMyExecutor().getNextEventTime().getTime();
 		for (Entity currentEvent : this.getMyExecutor().getCurrentEventsList()) {
 			currentEvent.acceptInterruption(interruptionDate);
 		}
