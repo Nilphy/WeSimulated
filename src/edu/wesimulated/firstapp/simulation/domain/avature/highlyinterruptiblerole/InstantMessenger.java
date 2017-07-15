@@ -77,10 +77,16 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 
 	@Override
 	protected Date doProcess() {
+		this.finishProcessingOfPreviousMessage();
 		this.getPendingMessages().addAll(this.getPerson().readAndAnalizeUnreadIM());
 		Pair<Date, ImMessage> toProcess = this.getPerson().resolvePendingImMessages(this.getPendingMessages());
 		this.messageInProccess = toProcess.getValue();
 		return toProcess.getKey();
+	}
+
+	private void finishProcessingOfPreviousMessage() {
+		this.messageInProccess.setStatus(ImMessage.Status.RESPONDED);
+		this.messageInProccess = null;
 	}
 
 	@Override
