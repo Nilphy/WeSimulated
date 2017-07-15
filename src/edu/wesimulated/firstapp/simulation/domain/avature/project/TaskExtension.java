@@ -6,8 +6,9 @@ public class TaskExtension extends Risk {
 
 	private AvatureProjectTask task;
 
-	public TaskExtension(float probability, Date periodStart, Date periodEnd) {
+	public TaskExtension(float probability, Date periodStart, Date periodEnd, AvatureProjectTask task) {
 		super(probability, periodStart, periodEnd);
+		this.setTask(task);
 	}
 
 	@Override

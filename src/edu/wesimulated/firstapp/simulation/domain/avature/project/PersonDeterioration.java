@@ -7,8 +7,9 @@ import edu.wesimulated.firstapp.simulation.domain.PersonCharacteristic;
 
 public class PersonDeterioration extends Risk {
 
-	public PersonDeterioration(float probability, Date periodStart, Date periodEnd) {
+	public PersonDeterioration(float probability, Date periodStart, Date periodEnd, Person person) {
 		super(probability, periodStart, periodEnd);
+		this.setPerson(person);
 	}
 
 	private Person person;

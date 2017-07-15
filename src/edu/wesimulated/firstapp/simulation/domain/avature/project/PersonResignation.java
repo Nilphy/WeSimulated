@@ -10,8 +10,9 @@ public class PersonResignation extends Risk {
 	private Person person;
 	private Project project;
 
-	public PersonResignation(float probability, Date periodStart, Date periodEnd) {
+	public PersonResignation(float probability, Date periodStart, Date periodEnd, Person person) {
 		super(probability, periodStart, periodEnd);
+		this.setPerson(person);
 	}
 
 	@Override
