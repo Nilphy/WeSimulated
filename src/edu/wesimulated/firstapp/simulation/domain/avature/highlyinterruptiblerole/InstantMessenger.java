@@ -22,6 +22,11 @@ import edu.wesimulated.firstapp.simulation.domain.PersonCharacteristic;
  */
 public class InstantMessenger extends Entity implements HighlyInterruptibleRolePrioritized {
 
+	/**
+	 * los unread messages están en el instant messager en vez de en la persona
+	 * así puedo tener una entidad separada que le ocupa tiempo a la persona
+	 * pero no necesito tener la lista de mensajes en la persona
+	 */
 	private List<ImMessage> unreadMessages;
 	private List<ImMessage> pendingImMessages;
 	private HighlyInterruptibleRolePerson person;
