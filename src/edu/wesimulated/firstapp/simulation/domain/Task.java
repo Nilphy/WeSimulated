@@ -71,14 +71,6 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 		}
 	}
 
-	public void extendDuration(double scale) {
-		for (Entry<TaskNeed, Number> entry : this.costInHoursPerTaskNeed.entrySet()) {
-			Double actualCostInHours = entry.getValue().doubleValue();
-			Double escalatedCostInHours = actualCostInHours + actualCostInHours * scale;
-			entry.setValue(escalatedCostInHours);
-		}
-	}
-
 	public void setName(String name, Date when) {
 		this.profile.set(TaskCharacteristic.Name, new EntryValue(EntryValue.Type.String, name));
 		if (when == null) {
@@ -190,5 +182,9 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 
 	public void setHlaTask(HlaTask hlaTask) {
 		this.hlaTask = hlaTask;
+	}
+
+	protected Map<TaskNeed, Number> getCostInHoursPerTaskNeed() {
+		return this.costInHoursPerTaskNeed;
 	}
 }
