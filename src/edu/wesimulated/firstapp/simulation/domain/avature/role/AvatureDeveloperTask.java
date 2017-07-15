@@ -6,7 +6,6 @@ import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
-import edu.wesimulated.firstapp.simulation.stochastic.StochasticVariableName;
 import edu.wesimulated.firstapp.simulation.stochastic.VariableName;
 
 public class AvatureDeveloperTask extends Task {
