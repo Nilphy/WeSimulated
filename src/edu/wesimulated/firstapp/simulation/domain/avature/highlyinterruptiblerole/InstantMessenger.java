@@ -103,6 +103,10 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 		return 0f;
 	}
 
+	@Override
+	public void acceptInterruption(Date interruptionDate) {
+		this.pendingImMessages.add(this.messageInProccess);
+	}
 	public void addUnreadMessage(ImMessage message) {
 		this.getUnreadMessages().add(message);
 	}
@@ -138,8 +142,5 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 		return this.unreadMessages;
 	}
 
-	@Override
-	public void acceptInterruption(Date interruptionDate) {
-		this.pendingImMessages.add(this.messageInProccess);
 	}
 }
