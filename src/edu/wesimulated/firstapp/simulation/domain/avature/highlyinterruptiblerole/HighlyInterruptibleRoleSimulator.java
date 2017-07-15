@@ -60,16 +60,16 @@ public class HighlyInterruptibleRoleSimulator extends BaseSimulator implements O
 		this.getPerson().getHlaPerson().addObserver(this);
 	}
 
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Check if the person is free and try to interrupt it
+	}
+
 	public Person getPerson() {
 		return person;
 	}
 
 	public void setPerson(Person person) {
 		this.person = person;
-	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Check if the person is free and try to interrupt it
 	}
 }
