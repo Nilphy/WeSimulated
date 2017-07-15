@@ -8,6 +8,7 @@ import edu.wesimulated.firstapp.simulation.domain.Role;
 import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.HighlyInterruptibleRolePerson;
 import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.HighlyInterruptibleRoleSimulator;
 import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.InstantMessenger;
+import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.Squealer;
 import edu.wesimulated.firstapp.simulation.domain.avature.role.AvatureDeveloperTask;
 import edu.wesimulated.firstapp.simulation.domain.avature.role.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.domain.avature.role.WorkSlabStart;
@@ -47,9 +48,18 @@ public class RoleSimulatorBuilder {
 		return roleSimulator;
 	}
 
+	/**
+	 * Some persons are exposed to some heavy interruption agents like the
+	 * system monitoring systems, customer service areas
+	 * 
+	 * @param project
+	 * @param person
+	 * @return
+	 */
 	public static HighlyInterruptibleRoleSimulator buildAvatureInterruptibleRoleSimulator(Project project, HighlyInterruptibleRolePerson person) {
 		HighlyInterruptibleRoleSimulator simulator = new HighlyInterruptibleRoleSimulator(project, person);
 		simulator.registerSimulationEntity(new InstantMessenger(person));
+		simulator.registerSimulationEntity(new Squealer(person));
 		return simulator;
 	}
 
