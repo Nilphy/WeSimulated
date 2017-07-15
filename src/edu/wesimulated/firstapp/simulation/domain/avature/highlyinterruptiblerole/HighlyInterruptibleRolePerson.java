@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import javafx.util.Pair;
 import edu.wesimulated.firstapp.simulation.domain.Person;
 
 public class HighlyInterruptibleRolePerson extends Person {
@@ -27,20 +28,22 @@ public class HighlyInterruptibleRolePerson extends Person {
 		return pendingMessages;
 	}
 
-	public Date resolvePendingImMessages(List<ImMessage> pendingImMessages) {
+	public Pair<Date, ImMessage> resolvePendingImMessages(List<ImMessage> pendingImMessages) {
 		Date dateUntilResolution = null;
-		for (ImMessage imMessage : pendingImMessages) {
-			switch (imMessage.getState()) {
-			case RELEASE_PERSON:
-				this.setAvailable(true);
-				break;
-			case ANALYSIS:
-				dateUntilResolution = imMessage.calculateTimeToResolve();
-			default:
-				break;
-			}
+		ImMessage imMessage = pendingImMessages.get(0);
+		switch (imMessage.getState()) {
+		case RELEASE_PERSON:
+			this.setAvailable(true);
+			dateUntilResolution = null;
+			break;
+		case ANALYSIS:
+			dateUntilResolution = imMessage.calculateTimeToResolve();
+			break;
+		default:
+			throw new IllegalStateException("cannot resolve another type of message");
 		}
-		return dateUntilResolution;
+		pendingImMessages.remove(imMessage);
+		return new Pair<>(dateUntilResolution, imMessage);
 	}
 
 	public Float getPriorityOfImFrom(HighlyInterruptibleRolePerson sender) {

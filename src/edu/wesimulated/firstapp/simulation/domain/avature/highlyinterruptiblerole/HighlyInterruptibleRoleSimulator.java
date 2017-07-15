@@ -1,10 +1,15 @@
 package edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole;
 
+import java.util.Date;
+import java.util.Observable;
+import java.util.Observer;
+
 import com.wesimulated.simulation.BaseSimulator;
 import com.wesimulated.simulation.runparameters.TaskCompletedEndCondition;
 import com.wesimulated.simulationmotor.des.processbased.Entity;
 import com.wesimulated.simulationmotor.des.processbased.ProcessBasedExecutor;
 
+import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 
 /**
@@ -29,10 +34,12 @@ import edu.wesimulated.firstapp.simulation.domain.Project;
  * @author Carolina
  *
  */
-public class HighlyInterruptibleRoleSimulator extends BaseSimulator {
+public class HighlyInterruptibleRoleSimulator extends BaseSimulator implements Observer {
+	public Person person;
 
-	public HighlyInterruptibleRoleSimulator(Project project) {
+	public HighlyInterruptibleRoleSimulator(Project project, HighlyInterruptibleRolePerson person) {
 		super(new ProcessBasedExecutor(new TaskCompletedEndCondition(project)));
+		this.setPerson(person);
 	}
 
 	public void registerSimulationEntity(Entity entity) {
@@ -41,5 +48,29 @@ public class HighlyInterruptibleRoleSimulator extends BaseSimulator {
 
 	private ProcessBasedExecutor getMyExecutor() {
 		return (ProcessBasedExecutor) this.getExecutor();
+	}
+
+	public void acceptInterruption() {
+		// FIXME: has to determine if will accept the interruption or not (and
+		// count interruptions)???
+		Date interruptionDate = this.getMyExecutor().getClock().getCurrentDate();
+		long durationOfCurrentTask = interruptionDate.getTime() - this.getMyExecutor().getNextEventTime().getTime();
+		for (Entity currentEvent : this.getMyExecutor().getCurrentEventsList()) {
+			currentEvent.acceptInterruption(interruptionDate);
+		}
+		this.getPerson().getHlaPerson().addObserver(this);
+	}
+
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Check if the person is free and try to interrupt it
 	}
 }

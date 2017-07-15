@@ -33,7 +33,9 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 	@Override
 	protected Date doProcess() {
 		this.getPendingMessages().addAll(this.person.readAndAnalizeUnreadIM(this.unreadMessages));
-		return this.person.resolvePendingImMessages(this.getPendingMessages());
+		Pair<Date, ImMessage> toProcess = this.person.resolvePendingImMessages(this.getPendingMessages());
+		this.messageInProccess = toProcess.getValue();
+		return toProcess.getKey();
 	}
 
 	@Override
@@ -118,7 +120,11 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 			}
 			return HIGH;
 		}
+	}
 
+	@Override
+	public void acceptInterruption(Date interruptionDate) {
+		this.pendingImMessages.add(this.messageInProccess);
 		public Float getAssociatedPriority() {
 			switch (this) {
 			case LOW:

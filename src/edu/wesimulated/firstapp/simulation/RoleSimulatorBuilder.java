@@ -48,7 +48,7 @@ public class RoleSimulatorBuilder {
 	}
 
 	public static HighlyInterruptibleRoleSimulator buildAvatureInterruptibleRoleSimulator(Project project, HighlyInterruptibleRolePerson person) {
-		HighlyInterruptibleRoleSimulator simulator = new HighlyInterruptibleRoleSimulator(project);
+		HighlyInterruptibleRoleSimulator simulator = new HighlyInterruptibleRoleSimulator(project, person);
 		simulator.registerSimulationEntity(new InstantMessenger(person));
 		return simulator;
 	}
