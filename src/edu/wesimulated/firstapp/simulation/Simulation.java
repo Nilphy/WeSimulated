@@ -1,6 +1,5 @@
 package edu.wesimulated.firstapp.simulation;
 
-import java.util.Date;
 import java.util.Observable;
 
 import edu.wesimulated.firstapp.model.PersonData;
@@ -73,11 +72,6 @@ public class Simulation extends Observable {
 		TaskFederate taskFederate = new TaskFederate(TaskBuilder.createFromTaskData(task, null, simulatorFactory));
 		this.addObserver(taskFederate);
 		taskFederate.joinFederationExcecution(HlaClass.getHlaTaskClassInstance().getFederateName());
-	}
-
-	private Date getStartDate() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public void registerProject(ProjectData projectData) {
