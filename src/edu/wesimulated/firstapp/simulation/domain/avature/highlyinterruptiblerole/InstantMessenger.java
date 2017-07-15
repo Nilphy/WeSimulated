@@ -134,7 +134,7 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 		return this.pendingImMessages;
 	}
 
-	public List<ImMessage> getUnreadMessages() {
+	private List<ImMessage> getUnreadMessages() {
 		return this.unreadMessages;
 	}
 
