@@ -60,6 +60,9 @@ public class RoleSimulatorBuilder {
 		HighlyInterruptibleRoleSimulator simulator = new HighlyInterruptibleRoleSimulator(project, person);
 		simulator.registerSimulationEntity(new InstantMessenger(person));
 		simulator.registerSimulationEntity(new Squealer(person));
+		for (Team team : person.getTeams()) {
+			simulator.registerSimulationEntity(new Team(person));
+		}
 		return simulator;
 	}
 

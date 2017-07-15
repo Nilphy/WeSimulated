@@ -21,6 +21,7 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 	private ProjectRam ram;
 	private HlaProject hlaProject;
 	private List<Person> people;
+	private List<Team> teams;
 	private List<Task> tasks;
 	private List<Role> roles;
 	private Date startDate;

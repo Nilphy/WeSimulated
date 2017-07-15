@@ -3,6 +3,7 @@ package edu.wesimulated.firstapp.simulation.domain;
 import hla.rti1516e.AttributeHandleValueMap;
 import hla.rti1516e.ObjectInstanceHandle;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ public abstract class Person implements Resource, NumericallyModeledEntity {
 	private Task currentTask;
 	private Profile profile;
 	private Project project;
+	private Collection<Team> teams;
 	private Date dateLastUpdate;
 
 	public ObjectInstanceHandle getHlaObjectInstanceHandle() {
@@ -102,5 +104,13 @@ public abstract class Person implements Resource, NumericallyModeledEntity {
 
 	private void setDateLastUpdate(Date dateLastUpdate) {
 		this.dateLastUpdate = dateLastUpdate;
+	}
+
+	public Collection<Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(Collection<Team> teams) {
+		this.teams = teams;
 	}
 }
