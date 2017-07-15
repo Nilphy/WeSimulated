@@ -5,10 +5,12 @@ import java.util.Date;
 import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Role;
+import edu.wesimulated.firstapp.simulation.domain.Team;
 import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.HighlyInterruptibleRolePerson;
 import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.HighlyInterruptibleRoleSimulator;
 import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.InstantMessenger;
 import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.Squealer;
+import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.TeamWork;
 import edu.wesimulated.firstapp.simulation.domain.avature.role.AvatureDeveloperTask;
 import edu.wesimulated.firstapp.simulation.domain.avature.role.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.domain.avature.role.WorkSlabStart;
@@ -61,7 +63,7 @@ public class RoleSimulatorBuilder {
 		simulator.registerSimulationEntity(new InstantMessenger(person));
 		simulator.registerSimulationEntity(new Squealer(person));
 		for (Team team : person.getTeams()) {
-			simulator.registerSimulationEntity(new Team(person));
+			simulator.registerSimulationEntity(new TeamWork(person, team));
 		}
 		return simulator;
 	}
