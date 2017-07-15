@@ -33,7 +33,7 @@ public class HighlyInterruptibleRolePerson extends Person {
 	public Pair<Date, ImMessage> resolvePendingImMessages(List<ImMessage> pendingImMessages) {
 		Date dateUntilResolution = null;
 		ImMessage imMessage = pendingImMessages.get(0);
-		switch (imMessage.getState()) {
+		switch (imMessage.getStatus()) {
 		case RELEASE_PERSON:
 			this.setAvailable(true);
 			dateUntilResolution = null;

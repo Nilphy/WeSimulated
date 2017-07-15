@@ -94,11 +94,11 @@ public class ImMessage implements Prioritized {
 		return this.recipients;
 	}
 
-	public Status getState() {
+	public Status getStatus() {
 		return this.status;
 	}
 
-	private void setStatus(Status status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 
