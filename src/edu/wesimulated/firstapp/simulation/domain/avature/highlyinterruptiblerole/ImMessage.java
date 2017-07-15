@@ -23,20 +23,20 @@ import edu.wesimulated.firstapp.simulation.stochastic.StochasticVariableName;
 import edu.wesimulated.firstapp.simulation.stochastic.VariableName;
 
 public class ImMessage implements Prioritized {
-	private final static State[] statesThatRequireWork = { State.ANALYSIS, State.RELEASE_PERSON, State.UNREAD };
+	private final static Status[] statesThatRequireWork = { Status.ANALYSIS, Status.RELEASE_PERSON, Status.UNREAD };
 
 	private HighlyInterruptibleRolePerson sender;
 	private Collection<HighlyInterruptibleRolePerson> recipients;
 	private Date timestamp;
 	private Clock clock;
-	private State status;
+	private Status status;
 
 	public ImMessage(HighlyInterruptibleRolePerson sender, Collection<HighlyInterruptibleRolePerson> recipients, Date timestamp, Clock clock) {
 		this.sender = sender;
 		this.recipients = recipients;
 		this.timestamp = timestamp;
 		this.clock = clock;
-		this.status = State.UNREAD;
+		this.setStatus(Status.UNREAD);
 	}
 
 	public ImMessage(HighlyInterruptibleRolePerson sender, Date timestamp, Clock clock) {
@@ -57,7 +57,7 @@ public class ImMessage implements Prioritized {
 		status.consider(sender);
 		status.consider(this.status);
 		status.considerSingleValue(new Pair<>(VariableName.AmountOfRecipients, new EntryValue(EntryValue.Type.Long, this.recipients.size())));
-		this.status = (State) status.findSample().getClassifictation();
+		this.status = (Status) status.findSample().getClassifictation();
 	}
 
 	public boolean isPending() {
@@ -94,12 +94,12 @@ public class ImMessage implements Prioritized {
 		return this.recipients;
 	}
 
-	public State getState() {
+	public Status getState() {
 		return this.status;
 	}
 
-	private void setState(State state) {
-		this.status = state;
+	private void setStatus(Status status) {
+		this.status = status;
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class ImMessage implements Prioritized {
 		}
 	}
 
-	public enum State implements Classification, NumericallyModeledEntity {
+	public enum Status implements Classification, NumericallyModeledEntity {
 		UNREAD, ANALYSIS, RELEASE_PERSON, RESPONDED;
 
 		@Override
