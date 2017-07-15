@@ -81,9 +81,8 @@ public abstract class Person implements Resource, NumericallyModeledEntity {
 		return null;
 	}
 
-	protected void isWorkingWithMe(Person sender) {
-		// TODO Auto-generated method stub
-
+	protected boolean isWorkingWithMe(Person sender) {
+		return this.currentTask.getAllPeopleInvolved().contains(sender); 
 	}
 
 	public void resign() {

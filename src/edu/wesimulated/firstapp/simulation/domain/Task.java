@@ -1,6 +1,7 @@
 package edu.wesimulated.firstapp.simulation.domain;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -174,6 +175,15 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 	public Collection<NumericallyModeledEntity> getAllRelatedNumericallyModeledEntities() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Collection<Person> getAllPeopleInvolved() {
+		Collection<Person> allPeople = new ArrayList<>();
+		allPeople.addAll(this.getAccountablePeople());
+		allPeople.addAll(this.getConsultedPeople());
+		allPeople.addAll(this.getInformedPeople());
+		allPeople.addAll(this.getResponsiblePeople());
+		return allPeople;
 	}
 
 	public Profile getProfile() {
