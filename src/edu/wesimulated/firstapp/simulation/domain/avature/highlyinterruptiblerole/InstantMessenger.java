@@ -22,12 +22,6 @@ import edu.wesimulated.firstapp.simulation.domain.PersonCharacteristic;
  */
 public class InstantMessenger extends Entity implements HighlyInterruptibleRolePrioritized {
 
-	/**
-	 * los unread messages están en el instant messager en vez de en la persona
-	 * así puedo tener una entidad separada que le ocupa tiempo a la persona
-	 * pero no necesito tener la lista de mensajes en la persona
-	 */
-	private List<ImMessage> unreadMessages;
 	private List<ImMessage> pendingImMessages;
 	private HighlyInterruptibleRolePerson person;
 	private ImMessage messageInProccess;
@@ -77,7 +71,6 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 	}
 
 	public InstantMessenger(HighlyInterruptibleRolePerson person) {
-		this.unreadMessages = new ArrayList<>();
 		this.pendingImMessages = new ArrayList<>();
 		this.person = person;
 	}
@@ -85,7 +78,7 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 	@Override
 	protected Date doProcess() {
 		this.generateUnreadMessages();
-		this.getPendingMessages().addAll(this.getPerson().readAndAnalizeUnreadIM(this.getUnreadMessages()));
+		this.getPendingMessages().addAll(this.getPerson().readAndAnalizeUnreadIM());
 		Pair<Date, ImMessage> toProcess = this.getPerson().resolvePendingImMessages(this.getPendingMessages());
 		this.messageInProccess = toProcess.getValue();
 		return toProcess.getKey();
@@ -103,7 +96,7 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 			if (Prioritized.Priority.fromValue(mostPrioritaryMessage.calculatePriority()) == Priority.HIGH) {
 				return mostPrioritaryMessage.calculatePriority();
 			}
-			Integer amountOfUnreadMessages = this.getUnreadMessages().size();
+			Integer amountOfUnreadMessages = this.getPerson().getUnreadMessages().size();
 			return mostPrioritaryMessage.calculatePriority() * AmountRange.fromValue(amountOfUnreadMessages).getAssociatedPriority();
 		}
 		return 0f;
@@ -114,12 +107,8 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 		this.pendingImMessages.add(this.messageInProccess);
 	}
 
-	public void addUnreadMessage(ImMessage message) {
-		this.getUnreadMessages().add(message);
-	}
-
 	public ImMessage getMostPrioritaryMessage() {
-		if (this.getUnreadMessages().size() > 0) {
+		if (this.getPerson().getUnreadMessages().size() > 0) {
 			return getSortedUnreadMessages().iterator().next();
 		} else if (this.getPendingMessages().size() > 0) {
 			return this.getSortedPendingMessages().iterator().next();
@@ -140,18 +129,14 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 	}
 
 	private List<ImMessage> getSortedUnreadMessages() {
-		Collections.sort(this.getUnreadMessages(), (ImMessage first, ImMessage second) -> {
+		Collections.sort(this.getPerson().getUnreadMessages(), (ImMessage first, ImMessage second) -> {
 			return -first.calculatePriority().compareTo(second.calculatePriority());
 		});
-		return this.getUnreadMessages();
+		return this.getPerson().getUnreadMessages();
 	}
 
 	private List<ImMessage> getPendingMessages() {
 		return this.pendingImMessages;
-	}
-
-	private List<ImMessage> getUnreadMessages() {
-		return this.unreadMessages;
 	}
 
 	private HighlyInterruptibleRolePerson getPerson() {

@@ -10,6 +10,8 @@ import edu.wesimulated.firstapp.simulation.domain.Person;
 
 public class HighlyInterruptibleRolePerson extends Person {
 
+	private List<ImMessage> unreadMessages;
+
 	/** 
 	 * Reeding messages is considered to not take time... if a message resultion involves an investigation,
 	 * being responded, or to release the person to dedicate to do a role, that will be done in the processing
@@ -17,9 +19,9 @@ public class HighlyInterruptibleRolePerson extends Person {
 	 * @param unreadMessages
 	 * @return
 	 */
-	public Collection<ImMessage> readAndAnalizeUnreadIM(List<ImMessage> unreadMessages) {
+	public Collection<ImMessage> readAndAnalizeUnreadIM() {
 		Collection<ImMessage> pendingMessages = new ArrayList<>();
-		for (ImMessage imMessage : unreadMessages) {
+		for (ImMessage imMessage : this.getUnreadMessages()) {
 			imMessage.analize();
 			if (imMessage.isPending()) {
 				pendingMessages.add(imMessage);
@@ -50,5 +52,15 @@ public class HighlyInterruptibleRolePerson extends Person {
 		this.isWorkingWithMe(sender);
 		// TODO Auto-generated method stub
 		return 1f;
+
+	public void addUnreadMessages(Collection<ImMessage> newUnreadMessages) {
+		this.getUnreadMessages().addAll(newUnreadMessages);
+	}
+	public List<ImMessage> getUnreadMessages() {
+		return unreadMessages;
+	}
+
+	public void setUnreadMessages(List<ImMessage> unreadMessages) {
+		this.unreadMessages = unreadMessages;
 	}
 }
