@@ -1,6 +1,6 @@
 package edu.wesimulated.firstapp.simulation.stochastic;
 
 public enum VariableName implements StochasticVariableName {
-	WorkTypeName, TimeSinceLastTimeTask, TimeInThisMonthTask
+	WorkTypeName, TimeSinceLastTimeTask, TimeInThisMonthTask, AmountOfRecipients, ImMessageStatus
 
 }

@@ -1,25 +1,42 @@
 package edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javafx.util.Pair;
 
 import com.wesimulated.simulation.Clock;
 import com.wesimulated.simulationmotor.DateUtils;
 import com.wesimulated.simulationmotor.des.Prioritized;
 
+import edu.wesimulated.firstapp.simulation.stochastic.Classification;
+import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
+import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
+import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
+import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
+import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
+import edu.wesimulated.firstapp.simulation.stochastic.StochasticVariableName;
+import edu.wesimulated.firstapp.simulation.stochastic.VariableName;
+
 public class ImMessage implements Prioritized {
+	private final static State[] statesThatRequireWork = { State.ANALYSIS, State.RELEASE_PERSON, State.UNREAD };
 
 	private HighlyInterruptibleRolePerson sender;
 	private Collection<HighlyInterruptibleRolePerson> recipients;
 	private Date timestamp;
 	private Clock clock;
+	private State status;
 
 	public ImMessage(HighlyInterruptibleRolePerson sender, Collection<HighlyInterruptibleRolePerson> recipients, Date timestamp, Clock clock) {
 		this.sender = sender;
 		this.recipients = recipients;
 		this.timestamp = timestamp;
 		this.clock = clock;
+		this.status = State.UNREAD;
 	}
 
 	public ImMessage(HighlyInterruptibleRolePerson sender, Date timestamp, Clock clock) {
@@ -35,10 +52,28 @@ public class ImMessage implements Prioritized {
 		this.getRecipients().add(person);
 	}
 
+	public void analize() {
+		ParametricAlgorithm status = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.ImMessageStatus);
+		status.consider(sender);
+		status.consider(this.status);
+		status.considerSingleValue(new Pair<>(VariableName.AmountOfRecipients, new EntryValue(EntryValue.Type.Long, this.recipients.size())));
+		this.status = (State) status.findSample().getClassifictation();
+	}
+
+	public boolean isPending() {
+		return Arrays.asList(statesThatRequireWork).contains(this.status);
+	}
+
+	public Date calculateTimeToResolve() {
+		ParametricAlgorithm timeToResolveIm = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.TimeToResolveIm);
+		return DateUtils.addMilis(this.clock.getCurrentDate(), timeToResolveIm.findSample().getPrediction().getValue().floatValue());
+	}
+
 	private Float calculateTimelessPriority() {
 		if (this.getRecipients().size() > 1) {
 			return Prioritized.Priority.LOW.get();
 		}
+		// FIXME: really? to the first one?
 		HighlyInterruptibleRolePerson recipient = this.getRecipients().iterator().next();
 		return recipient.getPriorityOfImFrom(sender);
 	}
@@ -57,6 +92,14 @@ public class ImMessage implements Prioritized {
 			this.recipients = new ArrayList<HighlyInterruptibleRolePerson>();
 		}
 		return this.recipients;
+	}
+
+	public State getState() {
+		return this.status;
+	}
+
+	private void setState(State state) {
+		this.status = state;
 	}
 
 	/**
@@ -101,4 +144,21 @@ public class ImMessage implements Prioritized {
 			}
 		}
 	}
+
+	public enum State implements Classification, NumericallyModeledEntity {
+		UNREAD, ANALYSIS, RELEASE_PERSON, RESPONDED;
+
+		@Override
+		public String getName() {
+			return this.toString();
+		}
+
+		@Override
+		public Map<StochasticVariableName, EntryValue> extractValues() {
+			Map<StochasticVariableName, EntryValue> values = new HashMap<>();
+			values.put(VariableName.ImMessageStatus, new EntryValue(Type.String, this.toString()));
+			return values;
+		}
+	}
+
 }

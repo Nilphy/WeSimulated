@@ -32,9 +32,8 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 
 	@Override
 	protected Date doProcess() {
-		this.getUnreadMessages().addAll(this.person.readAndCategorizeUnreadIM(this.unreadMessages));
-		this.getPendingMessages().addAll(this.person.resolvePendingImMessages(this.pendingImMessages));
-		return null;
+		this.getPendingMessages().addAll(this.person.readAndAnalizeUnreadIM(this.unreadMessages));
+		return this.person.resolvePendingImMessages(this.getPendingMessages());
 	}
 
 	@Override

@@ -37,4 +37,11 @@ public class EntryValue {
 		}
 		throw new IllegalStateException();
 	}
+
+	public String getString() {
+		if (this.type == Type.String) {
+			return this.stringValue;
+		}
+		throw new IllegalStateException();
+	}
 }

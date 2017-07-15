@@ -1,20 +1,46 @@
 package edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import edu.wesimulated.firstapp.simulation.domain.Person;
 
 public class HighlyInterruptibleRolePerson extends Person {
 
-	public Collection<? extends ImMessage> readAndCategorizeUnreadIM(List<ImMessage> unreadMessages) {
-		// TODO Auto-generated method stub
-		return null;
+	/** 
+	 * Reeding messages is considered to not take time... if a message resultion involves an investigation,
+	 * being responded, or to release the person to dedicate to do a role, that will be done in the processing
+	 * of the pending messages.
+	 * @param unreadMessages
+	 * @return
+	 */
+	public Collection<ImMessage> readAndAnalizeUnreadIM(List<ImMessage> unreadMessages) {
+		Collection<ImMessage> pendingMessages = new ArrayList<>();
+		for (ImMessage imMessage : unreadMessages) {
+			imMessage.analize();
+			if (imMessage.isPending()) {
+				pendingMessages.add(imMessage);
+			}
+		}
+		return pendingMessages;
 	}
 
-	public Collection<? extends ImMessage> resolvePendingImMessages(List<ImMessage> pendingImMessages) {
-		// TODO Auto-generated method stub
-		return null;
+	public Date resolvePendingImMessages(List<ImMessage> pendingImMessages) {
+		Date dateUntilResolution = null;
+		for (ImMessage imMessage : pendingImMessages) {
+			switch (imMessage.getState()) {
+			case RELEASE_PERSON:
+				this.setAvailable(true);
+				break;
+			case ANALYSIS:
+				dateUntilResolution = imMessage.calculateTimeToResolve();
+			default:
+				break;
+			}
+		}
+		return dateUntilResolution;
 	}
 
 	public Float getPriorityOfImFrom(HighlyInterruptibleRolePerson sender) {
