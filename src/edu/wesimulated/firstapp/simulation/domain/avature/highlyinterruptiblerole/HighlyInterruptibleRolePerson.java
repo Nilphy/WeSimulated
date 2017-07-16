@@ -14,7 +14,7 @@ import edu.wesimulated.firstapp.simulation.domain.Team;
 
 public class HighlyInterruptibleRolePerson extends Person {
 
-	private List<ImMessage> unreadMessages;
+	private List<ImMessage> unreadImMessages;
 
 	/**
 	 * Reeding messages is considered to not take time... if a message
@@ -22,12 +22,12 @@ public class HighlyInterruptibleRolePerson extends Person {
 	 * person to dedicate to do a role, that will be done in the processing of
 	 * the pending messages.
 	 * 
-	 * @param unreadMessages
+	 * @param unreadImMessages
 	 * @return
 	 */
 	public Collection<ImMessage> readAndAnalizeUnreadIM() {
 		Collection<ImMessage> pendingMessages = new ArrayList<>();
-		for (ImMessage imMessage : this.getUnreadMessages()) {
+		for (ImMessage imMessage : this.getUnreadImMessages()) {
 			imMessage.analize();
 			if (imMessage.isPending()) {
 				pendingMessages.add(imMessage);
@@ -80,20 +80,20 @@ public class HighlyInterruptibleRolePerson extends Person {
 		return false;
 	}
 
-	public void addUnreadMessages(Collection<ImMessage> newUnreadMessages) {
-		this.getUnreadMessages().addAll(newUnreadMessages);
+	public void addUnreadMessages(Collection<ImMessage> newUnreadImMessages) {
+		this.getUnreadImMessages().addAll(newUnreadImMessages);
 	}
 
-	public List<ImMessage> getUnreadMessages() {
-		return unreadMessages;
+	public List<ImMessage> getUnreadImMessages() {
+		return unreadImMessages;
 	}
 
-	public void setUnreadMessages(List<ImMessage> unreadMessages) {
-		this.unreadMessages = unreadMessages;
+	public void setUnreadMessages(List<ImMessage> unreadImMessages) {
+		this.unreadImMessages = unreadImMessages;
 	}
 
-	public void addUnreadMessage(ImMessage message) {
-		this.getUnreadMessages().add(message);
+	public void addUnreadImMessage(ImMessage message) {
+		this.getUnreadImMessages().add(message);
 	}
 
 	public boolean hasToProcessReportsWithoutIssuesToday() {

@@ -101,7 +101,7 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 			if (Prioritized.Priority.fromValue(mostPrioritaryMessage.calculatePriority()) == Priority.HIGH) {
 				return mostPrioritaryMessage.calculatePriority();
 			}
-			Integer amountOfUnreadMessages = this.getPerson().getUnreadMessages().size();
+			Integer amountOfUnreadMessages = this.getPerson().getUnreadImMessages().size();
 			return mostPrioritaryMessage.calculatePriority() * AmountRange.fromValue(amountOfUnreadMessages).getAssociatedPriority();
 		}
 		return 0f;
@@ -113,7 +113,7 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 	}
 
 	public ImMessage getMostPrioritaryMessage() {
-		if (this.getPerson().getUnreadMessages().size() > 0) {
+		if (this.getPerson().getUnreadImMessages().size() > 0) {
 			return getSortedUnreadMessages().iterator().next();
 		} else if (this.getPendingMessages().size() > 0) {
 			return this.getSortedPendingMessages().iterator().next();
@@ -129,10 +129,10 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 	}
 
 	private List<ImMessage> getSortedUnreadMessages() {
-		Collections.sort(this.getPerson().getUnreadMessages(), (ImMessage first, ImMessage second) -> {
+		Collections.sort(this.getPerson().getUnreadImMessages(), (ImMessage first, ImMessage second) -> {
 			return -first.calculatePriority().compareTo(second.calculatePriority());
 		});
-		return this.getPerson().getUnreadMessages();
+		return this.getPerson().getUnreadImMessages();
 	}
 
 	private List<ImMessage> getPendingMessages() {
