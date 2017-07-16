@@ -43,10 +43,10 @@ import com.wesimulated.simulationmotor.des.TimeControllerEntity;
 
 import edu.wesimulated.firstapp.simulation.SimulationEvent;
 import edu.wesimulated.firstapp.simulation.TaskSimulatorBuilder;
-import edu.wesimulated.firstapp.simulation.avature.task.TaskSimulator;
 import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Task;
+import edu.wesimulated.firstapp.simulation.domain.avature.task.TaskSimulator;
 
 public class TaskFederate extends AbstractFederate implements Observer, TimeControllerEntity {
 	private TaskSimulator taskSimulator;

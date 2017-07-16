@@ -1,4 +1,4 @@
-package edu.wesimulated.firstapp.simulation.avature.task;
+package edu.wesimulated.firstapp.simulation.domain.avature.task;
 
 import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.SimulatorFactory;
