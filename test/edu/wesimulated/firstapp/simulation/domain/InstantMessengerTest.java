@@ -25,12 +25,12 @@ public class InstantMessengerTest {
 		Date before = DateUtils.addMilis(date, -(Antiquity.LOW.get() * 1000));
 		ImMessage message = new ImMessage(sender, before, clock);
 		message.addRecipient(recipient);
-		task.getPerson().addUnreadMessage(message);
+		task.getPerson().addUnreadImMessage(message);
 		HighlyInterruptibleRolePerson otherRecipient = new HighlyInterruptibleRolePerson();
 		ImMessage otherMessage = new ImMessage(sender, before, clock);
 		otherMessage.addRecipient(recipient);
 		otherMessage.addRecipient(otherRecipient);
-		task.getPerson().addUnreadMessage(otherMessage);
+		task.getPerson().addUnreadImMessage(otherMessage);
 		Assert.assertEquals(message, task.getMostPrioritaryMessage());
 	}
 }
