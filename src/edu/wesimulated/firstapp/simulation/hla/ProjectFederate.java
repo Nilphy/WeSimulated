@@ -41,9 +41,9 @@ import com.wesimulated.simulation.hla.DateLogicalTime;
 import com.wesimulated.simulation.hla.DateLogicalTimeInterval;
 import com.wesimulated.simulationmotor.des.TimeControllerEntity;
 
-import edu.wesimulated.firstapp.simulation.ProjectSimulator;
 import edu.wesimulated.firstapp.simulation.SimulationEvent;
 import edu.wesimulated.firstapp.simulation.domain.Project;
+import edu.wesimulated.firstapp.simulation.domain.avature.project.ProjectSimulator;
 
 public class ProjectFederate extends AbstractFederate implements Observer, TimeControllerEntity {
 	private ProjectSimulator projectlSimulator;

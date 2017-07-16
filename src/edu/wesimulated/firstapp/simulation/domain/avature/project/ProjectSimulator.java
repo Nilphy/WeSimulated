@@ -1,4 +1,4 @@
-package edu.wesimulated.firstapp.simulation;
+package edu.wesimulated.firstapp.simulation.domain.avature.project;
 
 import com.wesimulated.simulation.runparameters.TaskCompletedEndCondition;
 import com.wesimulated.simulationmotor.des.COperation;
