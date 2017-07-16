@@ -27,7 +27,7 @@ public class ProjectSimulatorBuilder {
 		for (MaintenanceTask maintenanceTask : project.getMaintenanceTasks()) {
 			Long period = maintenanceTask.getPeriodInMinutes();
 			if (period > 0) {
-				projectSimulator.registerPeriodicMaintenance(period, maintenanceTask);
+				projectSimulator.registerPeriodicMaintenance(maintenanceTask);
 			} else {
 				projectSimulator.addCOperation(maintenanceTask);
 			}
