@@ -91,4 +91,29 @@ public class HighlyInterruptibleRolePerson extends Person {
 	public void setUnreadMessages(List<ImMessage> unreadMessages) {
 		this.unreadMessages = unreadMessages;
 	}
+
+	public void addUnreadMessage(ImMessage message) {
+		this.getUnreadMessages().add(message);
+	}
+
+	public boolean hasToProcessReportsWithoutIssuesToday() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean hasToProcessReportsWithoutIssueToday() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean hastToProcessIssuedReportsToday() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean hasToProcessUnreadSquealerEmails() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

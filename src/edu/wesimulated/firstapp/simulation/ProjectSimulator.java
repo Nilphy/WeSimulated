@@ -5,9 +5,10 @@ import com.wesimulated.simulationmotor.des.COperation;
 import com.wesimulated.simulationmotor.des.OperationBasedSimulator;
 import com.wesimulated.simulationmotor.des.activityScanningAproach.ActivityScanningExecutor;
 
+import edu.wesimulated.firstapp.simulation.domain.MaintenanceTask;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 
-// TODO change to agregation
+// TODO change to agregation (the simulator contains a simulator doesn't extends)
 public class ProjectSimulator extends OperationBasedSimulator {
 
 	private Project project;
@@ -19,5 +20,10 @@ public class ProjectSimulator extends OperationBasedSimulator {
 
 	public void addCOperation(COperation operation) {
 		this.getOperationBasedExecutor().addCOperation(operation);
+	}
+
+	public void registerPeriodicMaintenance(Long period, MaintenanceTask maintenanceTask) {
+		// TODO Auto-generated method stub
+		
 	}
 }

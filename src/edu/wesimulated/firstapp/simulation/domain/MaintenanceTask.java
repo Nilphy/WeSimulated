@@ -1,7 +1,5 @@
 package edu.wesimulated.firstapp.simulation.domain;
 
-import java.util.Date;
-
 import com.wesimulated.simulationmotor.des.COperation;
 
 /**
@@ -12,24 +10,7 @@ import com.wesimulated.simulationmotor.des.COperation;
  * @author Carolina
  *
  */
-public class MaintenanceTask extends COperation {
-
-	@Override
-	public boolean testIfRequirementsAreMet() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void doAction() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Date getDateOfOccurrence() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+public abstract class MaintenanceTask extends COperation {
+	
+	public abstract long getPeriodInMinutes();
 }
