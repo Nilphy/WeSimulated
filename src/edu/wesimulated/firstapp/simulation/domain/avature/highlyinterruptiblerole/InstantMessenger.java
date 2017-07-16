@@ -139,7 +139,7 @@ public class InstantMessenger extends Entity implements HighlyInterruptibleRoleP
 		return this.pendingImMessages;
 	}
 
-	private HighlyInterruptibleRolePerson getPerson() {
+	public HighlyInterruptibleRolePerson getPerson() {
 		return this.person;
 	}
 }
