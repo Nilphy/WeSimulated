@@ -20,9 +20,4 @@ public class ProjectSimulator extends OperationBasedSimulator {
 	public void addCOperation(COperation operation) {
 		this.getOperationBasedExecutor().addCOperation(operation);
 	}
-
-	public void registerPeriodicMaintenance(MaintenanceTask maintenanceTask) {
-		// TODO Auto-generated method stub
-		
-	}
 }

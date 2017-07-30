@@ -35,7 +35,7 @@ public abstract class Risk extends COperation {
 
 	@Override
 	public boolean testIfRequirementsAreMet() {
-		return this.getDateOfOccurrence() != null;
+		return true;
 	}
 
 	private boolean evaluateConsideringProbability() {
@@ -43,7 +43,7 @@ public abstract class Risk extends COperation {
 	}
 
 	@Override
-	public Date getDateOfOccurrence() {
+	public Date getDateOfOccurrence(Date actualDate) {
 		return dateOfOccurrence;
 	}
 

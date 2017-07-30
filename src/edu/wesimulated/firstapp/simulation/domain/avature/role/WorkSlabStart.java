@@ -38,7 +38,7 @@ public class WorkSlabStart extends COperation implements Prioritized {
 	}
 
 	@Override
-	public Date getDateOfOccurrence() {
+	public Date getDateOfOccurrence(Date actualDate) {
 		return this.minDate;
 	}
 
