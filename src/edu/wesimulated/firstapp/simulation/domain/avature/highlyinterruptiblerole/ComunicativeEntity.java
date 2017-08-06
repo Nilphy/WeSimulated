@@ -45,7 +45,7 @@ public abstract class ComunicativeEntity extends Entity implements HighlyInterru
 
 	@Override
 	public Float calculatePriority() {
-		ImMessage mostPrioritaryMessage = getMostPrioritaryMessage();
+		Message mostPrioritaryMessage = getMostPrioritaryMessage();
 		if (mostPrioritaryMessage != null) {
 			if (Prioritized.Priority.fromValue(mostPrioritaryMessage.calculatePriority()) == Priority.HIGH) {
 				return mostPrioritaryMessage.calculatePriority();
@@ -56,15 +56,15 @@ public abstract class ComunicativeEntity extends Entity implements HighlyInterru
 		return 0f;
 	}
 
-	public ImMessage getMostPrioritaryMessage() {
+	public Message getMostPrioritaryMessage() {
 		if (this.getPerson().getPendingImMessages().size() > 0) {
 			return this.getSortedPendingMessages().iterator().next();
 		}
 		return null;
 	}
 
-	private List<ImMessage> getSortedPendingMessages() {
-		Collections.sort(this.person.getPendingImMessages(), (ImMessage first, ImMessage second) -> {
+	private List<Message> getSortedPendingMessages() {
+		Collections.sort(this.person.getPendingImMessages(), (Message first, Message second) -> {
 			return -first.calculatePriority().compareTo(second.calculatePriority());
 		});
 		return this.person.getPendingImMessages();

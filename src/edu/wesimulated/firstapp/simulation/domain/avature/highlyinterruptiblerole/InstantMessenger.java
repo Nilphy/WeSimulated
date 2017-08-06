@@ -21,7 +21,7 @@ public class InstantMessenger extends ComunicativeEntity {
 
 	@Override
 	protected void finishProcessingOfPreviousMessage() {
-		this.getMessageInProcess().setStatus(ImMessage.Status.PROCESSED);
+		this.getMessageInProcess().setStatus(Message.Status.PROCESSED);
 	}
 
 	@Override

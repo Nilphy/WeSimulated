@@ -17,16 +17,17 @@ import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 
 public class HighlyInterruptibleRolePerson extends Person {
 
-	private List<ImMessage> pendingImMessages;
-	private List<Email> pendingEmails;
-	private List<TeamMemberQuestion> pendingFaceToFaceQuestions;
+	private List<Message> questions;
+	private List<Message> pendingImMessages;
+	private List<Message> pendingEmails;
+	private List<Message> pendingFaceToFaceQuestions;
 
 	public Pair<Date, Message> resolvePendingEmails() {
 		Date dateUntilResolution = null;
-		Email pendingEmailToResolve = null;
-		Collection<Email> pendingEmailsResolved = new ArrayList<>();
+		Message pendingEmailToResolve = null;
+		Collection<Message> pendingEmailsResolved = new ArrayList<>();
 		boolean endProcessing = false;
-		for (Email pendingEmail : this.getPendingEmails()) {
+		for (Message pendingEmail : this.getPendingEmails()) {
 			switch (pendingEmail.getStatus()) {
 			case NEW:
 				dateUntilResolution = this.calculateMessageTime(pendingEmail, StochasticVar.TimeToReadEmail);
@@ -60,10 +61,10 @@ public class HighlyInterruptibleRolePerson extends Person {
 
 	public Pair<Date, Message> resolvePendingImMessages() {
 		Date dateUntilResolution = null;
-		ImMessage pendingImMessageToResolve = null;
-		Collection<ImMessage> pendingImMessagesResolved = new ArrayList<>();
+		Message pendingImMessageToResolve = null;
+		Collection<Message> pendingImMessagesResolved = new ArrayList<>();
 		boolean endProcessing = false;
-		for (ImMessage pendingImMessage : this.getPendingImMessages()) {
+		for (Message pendingImMessage : this.getPendingImMessages()) {
 			// The difference is here that ImMessages don't take time to read
 			pendingImMessage.analize();
 			switch (pendingImMessage.getStatus()) {
@@ -125,9 +126,9 @@ public class HighlyInterruptibleRolePerson extends Person {
 		return false;
 	}
 
-	private List<ImMessage> categorizeInteractions() {
-		Collection<ImMessage> unreadImMessages = new ArrayList<ImMessage>();
-		for (Question question : this.getQuestions()) {
+	private List<Message> categorizeInteractions() {
+		Collection<Message> unreadImMessages = new ArrayList<>();
+		for (Message question : this.getQuestions()) {
 			// FIXME si las dos personas están trabajando y no están en el mismo
 			// lugar
 			// seguramente sea un imMessage a menos de que el mensaje sea muy
@@ -136,22 +137,22 @@ public class HighlyInterruptibleRolePerson extends Person {
 		return null;
 	}
 
-	public List<ImMessage> getPendingImMessages() {
+	public List<Message> getPendingImMessages() {
 		this.categorizeInteractions();
 		return this.pendingImMessages;
 	}
 
-	public List<Email> getPendingEmails() {
+	public List<Message> getPendingEmails() {
 		this.categorizeInteractions();
 		return this.pendingEmails;
 	}
 
-	public List<TeamMemberQuestion> getPendingFaceToFaceQuestions() {
+	public List<Message> getPendingFaceToFaceQuestions() {
 		this.categorizeInteractions();
 		return this.pendingFaceToFaceQuestions;
 	}
 
-	public void addUnreadImMessage(ImMessage message) {
+	public void addUnreadImMessage(Message message) {
 		this.getPendingImMessages().add(message);
 	}
 
@@ -182,11 +183,11 @@ public class HighlyInterruptibleRolePerson extends Person {
 	 * 
 	 * @return
 	 */
-	private List<Question> getQuestions() {
+	private List<Message> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(List<Question> questions) {
+	public void setQuestions(List<Message> questions) {
 		this.questions = questions;
 	}
 

@@ -22,7 +22,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVariableName;
 import edu.wesimulated.firstapp.simulation.stochastic.VariableName;
 
-public abstract class Message implements Prioritized, NumericallyModeledEntity {
+public class Message implements Prioritized, NumericallyModeledEntity {
 
 	private MessageValuator messageAgeValuator;
 	private HighlyInterruptibleRolePerson sender;
@@ -30,7 +30,8 @@ public abstract class Message implements Prioritized, NumericallyModeledEntity {
 	private Date timestamp;
 	private Clock clock;
 	private Status status;
-
+	private static final Status[] statusThatRequireWork = { Status.RESPOND, Status.RELEASE_PERSON, Status.NEW };
+	
 	public enum Status implements Classification, NumericallyModeledEntity {
 		NEW, RESPOND, RELEASE_PERSON, PROCESSED;
 
@@ -55,8 +56,14 @@ public abstract class Message implements Prioritized, NumericallyModeledEntity {
 		this.clock = clock;
 		this.status = status;
 	}
+	
+	public Message(HighlyInterruptibleRolePerson sender, Collection<HighlyInterruptibleRolePerson> recipients, Date timestamp, Clock clock) {
+		this(sender, recipients, timestamp, clock, Status.NEW);
+	}
 
-	protected abstract Status[] getStatusThatRequireWork();
+	private Status[] getStatusThatRequireWork() {
+		return statusThatRequireWork;
+	}
 
 	/**
 	 * Decide if after new a message becames processed, respond or release_person
