@@ -34,7 +34,7 @@ public class FixedClassProbability extends StochasticMethod {
 				break;
 			}
 		}
-		return new StochasticValue(ClassifictionBuilder.buildFromName(this.accumulatedProbabilityFunction.get(accumulatedProbabilityValue)));
+		return new StochasticValue(ClassificationBuilder.buildFromName(this.accumulatedProbabilityFunction.get(accumulatedProbabilityValue)));
 	}
 
 	@Override
