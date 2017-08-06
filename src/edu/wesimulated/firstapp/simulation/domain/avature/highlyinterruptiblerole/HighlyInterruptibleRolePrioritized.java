@@ -4,13 +4,13 @@ import com.wesimulated.simulationmotor.des.Prioritized;
 
 public interface HighlyInterruptibleRolePrioritized extends Prioritized {
 
-	public Float MaxPriority();
+	public Float getMaxPriority();
 	
 	public default Float calculateEscalatedPriority() {
 		return this.escalatePriority(this.calculatePriority());
 	}
 	
 	default Float escalatePriority(Float priority) {
-		return priority * this.MaxPriority();
+		return priority * this.getMaxPriority();
 	}
 }

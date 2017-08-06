@@ -114,7 +114,7 @@ public class Squealer extends Entity implements HighlyInterruptibleRolePrioritiz
 	}
 
 	@Override
-	public Float MaxPriority() {
+	public Float getMaxPriority() {
 		// TODO Auto-generated method stub
 		return null;
 	}
