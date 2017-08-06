@@ -6,6 +6,7 @@ import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Role;
 import edu.wesimulated.firstapp.simulation.domain.Team;
+import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.EmailClient;
 import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.HighlyInterruptibleRolePerson;
 import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.HighlyInterruptibleRoleSimulator;
 import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.InstantMessenger;
@@ -62,6 +63,7 @@ public class RoleSimulatorBuilder {
 		HighlyInterruptibleRoleSimulator simulator = new HighlyInterruptibleRoleSimulator(project, person);
 		simulator.registerSimulationEntity(new InstantMessenger(person));
 		simulator.registerSimulationEntity(new Squealer(person));
+		simulator.registerSimulationEntity(new EmailClient(person));
 		for (Team team : person.getTeams()) {
 			simulator.registerSimulationEntity(new TeamWork(person, team));
 		}
