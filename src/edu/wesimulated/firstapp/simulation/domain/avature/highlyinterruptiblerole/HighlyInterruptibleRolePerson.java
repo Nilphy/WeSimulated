@@ -55,8 +55,51 @@ public class HighlyInterruptibleRolePerson extends Person {
 				break;
 			}
 		}
+		this.applyEffectsOfResolvedMessages(pendingEmailsResolved);
 		this.getPendingEmails().removeAll(pendingEmailsResolved);
 		return new Pair<>(dateUntilResolution, pendingEmailToResolve);
+	}
+
+	// TODO rename to pending face to face interactions
+	public Pair<Date, Message> resolvePendingFaceToFaceQuestions() {
+		Date dateUntilResolution = null;
+		Message pendingFaceToFaceQuestionToResolve = null;
+		Collection<Message> faceToFaceQuestionsResolved = new ArrayList<>();
+		boolean endProcessing = false;
+		for (Message pendingFaceToFaceQuestion : this.getPendingFaceToFaceQuestions()) {
+			switch (pendingFaceToFaceQuestion.getStatus()) {
+			case NEW:
+				dateUntilResolution = this.calculateMessageTime(pendingFaceToFaceQuestionToResolve, StochasticVar.TimeToListenFaceToFaceQuestion);
+				pendingFaceToFaceQuestionToResolve = pendingFaceToFaceQuestion;
+				endProcessing = true;
+				break;
+			case RELEASE_PERSON:
+				this.setAvailable(true);
+				faceToFaceQuestionsResolved.add(pendingFaceToFaceQuestion);
+				endProcessing = true;
+				break;
+			case RESPOND:
+				dateUntilResolution = this.calculateMessageTime(pendingFaceToFaceQuestion, StochasticVar.TimeToRespondFaceToFaceQuestion);
+				pendingFaceToFaceQuestionToResolve = pendingFaceToFaceQuestion;
+				endProcessing = true;
+				break;
+			default:
+				throw new IllegalStateException("cannot resolve another type of message");
+			}
+			if (endProcessing) {
+				break;
+			}
+		}
+		this.applyEffectsOfResolvedMessages(faceToFaceQuestionsResolved);
+		this.getPendingFaceToFaceQuestions().removeAll(faceToFaceQuestionsResolved);
+		return new Pair<>(dateUntilResolution, pendingFaceToFaceQuestionToResolve);
+	}
+
+	private void applyEffectsOfResolvedMessages(Collection<Message> messagesResolved) {
+		for (Message messageResolved : messagesResolved) {
+			messageResolved.applyEffectsOfResolution();
+		}
+
 	}
 
 	public Pair<Date, Message> resolvePendingImMessages() {
@@ -89,7 +132,8 @@ public class HighlyInterruptibleRolePerson extends Person {
 				break;
 			}
 		}
-		pendingImMessages.removeAll(pendingImMessagesResolved);
+		this.applyEffectsOfResolvedMessages(pendingImMessagesResolved);
+		this.pendingImMessages.removeAll(pendingImMessagesResolved);
 		return new Pair<>(dateUntilResolution, pendingImMessageToResolve);
 	}
 

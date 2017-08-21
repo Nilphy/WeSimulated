@@ -1,27 +1,57 @@
 package edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole;
 
 import java.util.Date;
+import java.util.List;
 
-import com.wesimulated.simulationmotor.des.processbased.Entity;
+import javafx.util.Pair;
+import edu.wesimulated.firstapp.simulation.domain.PersonCharacteristic;
+import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.Message.Status;
+import edu.wesimulated.firstapp.view.ThingsWithoutAUi;
 
-import edu.wesimulated.firstapp.simulation.domain.Team;
+// FIXME rename to something less related to team and more related to something face to face
+public class TeamWork extends ComunicativeEntity {
 
-public class TeamWork extends Entity {
-
-	public TeamWork(HighlyInterruptibleRolePerson person, Team team) {
-		// TODO Auto-generated constructor stub
+	private HighlyInterruptibleRolePerson person;
+	
+	public TeamWork(HighlyInterruptibleRolePerson person) {
+		super(person);
 	}
 
 	@Override
-	protected Date doProcess() {
-		// TODO Auto-generated method stub
-		return null;
+	public Float getMaxPriority() {
+		return this.getPerson().getProfile().get(PersonCharacteristic.MaxPriorityOfFaceToFaceQuestion).getNumber().floatValue();
 	}
 
 	@Override
-	public void acceptInterruption(Date interruptionDate) {
-		// TODO Auto-generated method stub
+	protected void finishProcessingOfPreviousMessage() {
+		switch (this.getMessageInProcess().getStatus()) {
+		case NEW:
+			this.getMessageInProcess().analize();
+		case RESPOND:
+			this.getMessageInProcess().setStatus(Status.PROCESSED);
+		default:
+			throw new UnsupportedOperationException();
+		}
+	}
 
+	@Override
+	protected MessageValuator createMessageAgeValuator() {
+		return new MessageValuator(ThingsWithoutAUi.MIN_ANTIQUITY_FACE_TO_FACE_QUESTION_IN_HOURS, ThingsWithoutAUi.MED_ANTIQUITY_FACE_TO_FACE_QUESTION_IN_HOURS);
+	}
+
+	@Override
+	protected MessageValuator createMessageAmountValuator() {
+		return new MessageValuator(ThingsWithoutAUi.MID_AMOUNT_FACE_TO_FACE_QUESTION, ThingsWithoutAUi.MED_AMOUNT_FACE_TO_FACE_QUESTION);
+	}
+
+	@Override
+	protected Pair<Date, Message> resolvePendingMessages() {
+		return this.person.resolvePendingFaceToFaceQuestions();
+	}
+
+	@Override
+	protected List<Message> getPendingMessagesFromPerson() {
+		return this.getPerson().getPendingFaceToFaceQuestions();
 	}
 
 }

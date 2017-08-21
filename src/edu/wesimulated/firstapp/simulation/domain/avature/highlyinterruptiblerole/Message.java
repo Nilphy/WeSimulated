@@ -61,6 +61,14 @@ public class Message implements Prioritized, NumericallyModeledEntity {
 		this(sender, recipients, timestamp, clock, Status.NEW);
 	}
 
+	public void applyEffectsOfResolution() {
+		/**
+		 * TODO
+		 * tendría que tener efectos en el conocimiento de alguna task para la persona que preguntó
+		 * y aumentar el nivel de cercanía entre el preguntado y el contestado.
+		 */
+	}
+
 	private Status[] getStatusThatRequireWork() {
 		return statusThatRequireWork;
 	}
