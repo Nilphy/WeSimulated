@@ -49,11 +49,12 @@ public abstract class ComunicativeEntity extends Entity implements HighlyInterru
 	public Float calculatePriority() {
 		Message mostPrioritaryMessage = getMostPrioritaryMessage();
 		if (mostPrioritaryMessage != null) {
-			if (Prioritized.Priority.fromValue(mostPrioritaryMessage.calculatePriority()) == Priority.HIGH) {
-				return mostPrioritaryMessage.calculatePriority();
+			Float highestPriority = mostPrioritaryMessage.calculatePriority();
+			if (Prioritized.Priority.fromValue(highestPriority) == Priority.HIGH) {
+				return highestPriority;
 			}
 			Integer amountOfUnreadMessages = getPendingMessagesFromPerson().size();
-			return mostPrioritaryMessage.calculatePriority() * getMessageAmountValuatorInstance().getAssociatedPriority(amountOfUnreadMessages);
+			return highestPriority * getMessageAmountValuatorInstance().getAssociatedPriority(amountOfUnreadMessages);
 		}
 		return 0f;
 	}
