@@ -1,6 +1,7 @@
 package edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole;
 
 import java.util.Date;
+import java.util.List;
 
 import javafx.util.Pair;
 import edu.wesimulated.firstapp.simulation.domain.PersonCharacteristic;
@@ -42,5 +43,10 @@ public class InstantMessenger extends ComunicativeEntity {
 	@Override
 	protected Pair<Date, Message> resolvePendingMessages() {
 		return this.getPerson().resolvePendingImMessages();
+	}
+
+	@Override
+	protected List<Message> getPendingMessagesFromPerson() {
+		return this.getPerson().getPendingImMessages();
 	}
 }

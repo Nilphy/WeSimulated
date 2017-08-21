@@ -100,7 +100,7 @@ public class HighlyInterruptibleRolePerson extends Person {
 		return DateUtils.addMilis(message.getCurrentDate(), timeToResolveIm.findSample().getPrediction().getValue().floatValue());
 	}
 
-	public Float getPriorityOfImFrom(HighlyInterruptibleRolePerson sender) {
+	public Float getPriorityMessageFrom(HighlyInterruptibleRolePerson sender) {
 		if (this.isWorkingWithMe(sender)) {
 			return Priority.HIGH.get();
 		} else if (this.isInOneOfMyTeams(sender)) {

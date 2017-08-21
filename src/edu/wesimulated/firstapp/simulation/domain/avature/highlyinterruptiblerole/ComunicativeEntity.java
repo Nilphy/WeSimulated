@@ -30,6 +30,8 @@ public abstract class ComunicativeEntity extends Entity implements HighlyInterru
 
 	protected abstract Pair<Date, Message> resolvePendingMessages();
 
+	protected abstract List<Message> getPendingMessagesFromPerson();
+
 	@Override
 	protected Date doProcess() {
 		this.finishProcessingOfPreviousMessage();
@@ -50,14 +52,14 @@ public abstract class ComunicativeEntity extends Entity implements HighlyInterru
 			if (Prioritized.Priority.fromValue(mostPrioritaryMessage.calculatePriority()) == Priority.HIGH) {
 				return mostPrioritaryMessage.calculatePriority();
 			}
-			Integer amountOfUnreadMessages = this.getPerson().getPendingImMessages().size();
+			Integer amountOfUnreadMessages = getPendingMessagesFromPerson().size();
 			return mostPrioritaryMessage.calculatePriority() * getMessageAmountValuatorInstance().getAssociatedPriority(amountOfUnreadMessages);
 		}
 		return 0f;
 	}
 
 	public Message getMostPrioritaryMessage() {
-		if (this.getPerson().getPendingImMessages().size() > 0) {
+		if (getPendingMessagesFromPerson().size() > 0) {
 			return this.getSortedPendingMessages().iterator().next();
 		}
 		return null;

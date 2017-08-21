@@ -101,7 +101,7 @@ public class Message implements Prioritized, NumericallyModeledEntity {
 		}
 		// FIXME: really? to the first one?
 		HighlyInterruptibleRolePerson recipient = this.getRecipients().iterator().next();
-		return recipient.getPriorityOfImFrom(sender);
+		return recipient.getPriorityMessageFrom(sender);
 	}
 
 	private Integer getAgeInMinutes() {

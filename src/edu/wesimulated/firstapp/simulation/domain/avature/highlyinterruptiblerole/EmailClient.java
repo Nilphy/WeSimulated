@@ -1,6 +1,7 @@
 package edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole;
 
 import java.util.Date;
+import java.util.List;
 
 import javafx.util.Pair;
 import edu.wesimulated.firstapp.simulation.domain.PersonCharacteristic;
@@ -45,4 +46,8 @@ public class EmailClient extends ComunicativeEntity implements HighlyInterruptib
 		return this.getPerson().resolvePendingEmails();
 	}
 
+	@Override
+	protected List<Message> getPendingMessagesFromPerson() {
+		return this.getPerson().getPendingEmails();
+	}
 }
