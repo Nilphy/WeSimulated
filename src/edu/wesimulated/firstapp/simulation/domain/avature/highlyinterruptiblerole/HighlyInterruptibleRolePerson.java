@@ -145,12 +145,10 @@ public class HighlyInterruptibleRolePerson extends Person {
 	}
 
 	public Float getPriorityMessageFrom(HighlyInterruptibleRolePerson sender) {
-		if (this.isWorkingWithMe(sender)) {
+		if (this.isWorkingWithMe(sender) || this.isASuperior(sender)) {
 			return Priority.HIGH.get();
 		} else if (this.isInOneOfMyTeams(sender)) {
 			return Priority.MED.get();
-		} else if (this.isASuperior(sender)) {
-			return Priority.HIGH.get();
 		} else {
 			return Priority.LOW.get();
 		}
