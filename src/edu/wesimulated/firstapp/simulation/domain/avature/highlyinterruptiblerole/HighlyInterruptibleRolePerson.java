@@ -198,26 +198,6 @@ public class HighlyInterruptibleRolePerson extends Person {
 		this.getPendingImMessages().add(message);
 	}
 
-	public boolean hasToProcessReportsWithoutIssuesToday() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public boolean hasToProcessReportsWithoutIssueToday() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public boolean hastToProcessIssuedReportsToday() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public boolean hasToProcessUnreadSquealerEmails() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	/**
 	 * This method is private because the questions per se doesn't have a form
 	 * its needed to define the medium and that is defined in the
