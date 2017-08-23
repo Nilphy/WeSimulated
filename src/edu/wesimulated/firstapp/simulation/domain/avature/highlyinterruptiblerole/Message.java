@@ -30,10 +30,10 @@ public class Message implements Prioritized, NumericallyModeledEntity {
 	private Date timestamp;
 	private Clock clock;
 	private Status status;
-	private static final Status[] statusThatRequireWork = { Status.RESPOND, Status.RELEASE_PERSON, Status.NEW };
-	
+	protected static Status[] statusThatRequireWork = { Status.RESPOND, Status.RELEASE_PERSON, Status.NEW };
+
 	public enum Status implements Classification, NumericallyModeledEntity {
-		NEW, RESPOND, RELEASE_PERSON, PROCESSED;
+		NEW, RESPOND, RELEASE_PERSON, PROCESSED, ISSUED, NOT_ISSUED, RESOLVE;
 
 		@Override
 		public String getName() {
@@ -56,7 +56,7 @@ public class Message implements Prioritized, NumericallyModeledEntity {
 		this.clock = clock;
 		this.status = status;
 	}
-	
+
 	public Message(HighlyInterruptibleRolePerson sender, Collection<HighlyInterruptibleRolePerson> recipients, Date timestamp, Clock clock) {
 		this(sender, recipients, timestamp, clock, Status.NEW);
 	}
@@ -74,7 +74,8 @@ public class Message implements Prioritized, NumericallyModeledEntity {
 	}
 
 	/**
-	 * Decide if after new a message becames processed, respond or release_person
+	 * Decide if after new a message becames processed, respond or
+	 * release_person
 	 */
 	public void analize() {
 		ParametricAlgorithm status = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.MessageStatus);

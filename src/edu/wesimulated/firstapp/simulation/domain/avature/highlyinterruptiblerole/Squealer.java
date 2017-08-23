@@ -1,122 +1,55 @@
 package edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import com.wesimulated.simulationmotor.des.Prioritized;
-import com.wesimulated.simulationmotor.des.processbased.Entity;
+import javafx.util.Pair;
+import edu.wesimulated.firstapp.simulation.domain.PersonCharacteristic;
+import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.Message.Status;
+import edu.wesimulated.firstapp.view.ThingsWithoutAUi;
 
-public class Squealer extends Entity implements HighlyInterruptibleRolePrioritized {
+public class Squealer extends ComunicativeEntity {
 
-	private Collection<SquealerReadmeEmails> readmeEmails;
-	private Collection<SquealerEmails> unreadEmails; 
-	private Collection<SquealerUnissuedReports> reportsWithoutIssue;
-	private Collection<SquealerIssuedReports> issuedRepors;
-	private HighlyInterruptibleRolePerson person;
-	
 	public Squealer(HighlyInterruptibleRolePerson person) {
-		this.setPerson(person);
-	}
-
-	@Override
-	protected Date doProcess() {
-		if (this.readmeEmails.size() > 0) {
-			this.processReamdeEmails();
-		}
-		if (this.getPerson().hasToProcessUnreadSquealerEmails()) {
-			this.processUnreadEmails();
-		}
-		if (this.getPerson().hasToProcessReportsWithoutIssueToday()) {
-			this.processReportsWithoutIssue();
-		}
-		if (this.getPerson().hastToProcessIssuedReportsToday()) {
-			this.processIssuedReports();
-		}
-		return null;
-	}
-
-	private void processUnreadEmails() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void processReamdeEmails() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void processIssuedReports() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void processReportsWithoutIssue() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void acceptInterruption(Date interruptionDate) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public HighlyInterruptibleRolePerson getPerson() {
-		return person;
-	}
-
-	public void setPerson(HighlyInterruptibleRolePerson person) {
-		this.person = person;
-	}
-
-	public Collection<SquealerIssuedReports> getIssuedRepors() {
-		return issuedRepors;
-	}
-
-	public void setIssuedRepors(Collection<SquealerIssuedReports> issuedRepors) {
-		this.issuedRepors = issuedRepors;
-	}
-
-	public Collection<SquealerUnissuedReports> getReportsWithoutIssue() {
-		return reportsWithoutIssue;
-	}
-
-	public void setReportsWithoutIssue(Collection<SquealerUnissuedReports> reportsWithoutIssue) {
-		this.reportsWithoutIssue = reportsWithoutIssue;
-	}
-
-	public Collection<SquealerEmails> getUnreadEmails() {
-		return unreadEmails;
-	}
-
-	public void setUnreadEmails(Collection<SquealerEmails> emails) {
-		this.unreadEmails = emails;
-	}
-
-	public Collection<SquealerReadmeEmails> getReadmeEmails() {
-		return readmeEmails;
-	}
-
-	public void setReadmeEmails(Collection<SquealerReadmeEmails> readmeEmails) {
-		this.readmeEmails = readmeEmails;
-	}
-
-	@Override
-	public Float calculatePriority() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int compareTo(Prioritized o) {
-		// TODO Auto-generated method stub
-		return 0;
+		super(person);
 	}
 
 	@Override
 	public Float getMaxPriority() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getPerson().getProfile().get(PersonCharacteristic.MaxPriorityOfFaceToFaceConversation).getNumber().floatValue();
+	}
+
+	@Override
+	protected void finishProcessingOfPreviousMessage() {
+		switch (this.getMessageInProcess().getStatus()) {
+		case RESOLVE:
+			this.getMessageInProcess().setStatus(Status.PROCESSED);
+		case NOT_ISSUED:
+			this.getMessageInProcess().setStatus(Status.ISSUED);
+		default:
+			throw new UnsupportedOperationException();
+		}
+	}
+
+	@Override
+	protected MessageValuator createMessageAgeValuator() {
+		return new MessageValuator(ThingsWithoutAUi.MIN_ANTIQUITY_SQUEALER_IN_MINUTES, ThingsWithoutAUi.MED_ANTIQUITY_SQUEALER_IN_MINUTES);
+	}
+
+	@Override
+	protected MessageValuator createMessageAmountValuator() {
+		return new MessageValuator(ThingsWithoutAUi.MIN_AMOUNT_SQUEALER, ThingsWithoutAUi.MED_AMOUNT_SQUEALER);
+	}
+
+	@Override
+	protected Pair<Date, Message> resolvePendingMessages() {
+		return this.getPerson().resolvePendingSquealerNotifications();
+	}
+
+	@Override
+	protected List<Message> getPendingMessagesFromPerson() {
+		return this.getPerson().getPendingSquealerNotifications().stream().map((SquealerReport item) -> { return (Message) item; }).collect(Collectors.toList());
 	}
 
 }

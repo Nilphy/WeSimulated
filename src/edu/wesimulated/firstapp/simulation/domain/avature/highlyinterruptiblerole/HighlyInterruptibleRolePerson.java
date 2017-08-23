@@ -12,6 +12,7 @@ import com.wesimulated.simulationmotor.des.Prioritized.Priority;
 
 import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Team;
+import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.Message.Status;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 
@@ -21,6 +22,7 @@ public class HighlyInterruptibleRolePerson extends Person {
 	private List<Message> pendingImMessages;
 	private List<Message> pendingEmails;
 	private List<Message> pendingFaceToFaceQuestions;
+	private List<SquealerReport> pendingSquealerReports;
 
 	public Pair<Date, Message> resolvePendingEmails() {
 		Date dateUntilResolution = null;
@@ -137,6 +139,45 @@ public class HighlyInterruptibleRolePerson extends Person {
 		return new Pair<>(dateUntilResolution, pendingImMessageToResolve);
 	}
 
+	// TODO rename to squealer report
+	public Pair<Date, Message> resolvePendingSquealerNotifications() {
+		Date dateUntilResolution = null;
+		Message PendingSquealerReportToResolve = null;
+		Collection<Message> pendingSquealerReportsResolved = new ArrayList<>();
+		boolean endProcessing = false;
+		for (SquealerReport pendingSquealerReport : this.getPendingSquealerNotifications()) {
+			pendingSquealerReport.analize();
+			switch (pendingSquealerReport.getStatus()) {
+			case ISSUED:
+				if (pendingSquealerReport.isHappeningMoreThanUsual()) {
+					pendingSquealerReport.setStatus(Status.RESOLVE);
+					PendingSquealerReportToResolve = pendingSquealerReport;
+					endProcessing = true;
+					dateUntilResolution = this.calculateMessageTime(pendingSquealerReport, StochasticVar.TimeToResolveSquealerReport);
+				} else {
+					pendingSquealerReport.setStatus(Status.PROCESSED);
+					pendingSquealerReportsResolved.add(pendingSquealerReport);
+				}
+				break;
+			case NOT_ISSUED:
+				PendingSquealerReportToResolve = pendingSquealerReport;
+				endProcessing = true;
+				dateUntilResolution = this.calculateMessageTime(pendingSquealerReport, StochasticVar.TimeToIssueReport);
+			case PROCESSED:
+				pendingSquealerReportsResolved.add(pendingSquealerReport);
+				break;
+			default:
+				throw new IllegalStateException("Cannot resolve another type of message");
+			}
+			if (endProcessing) {
+				break;
+			}
+		}
+		this.applyEffectsOfResolvedMessages(pendingSquealerReportsResolved);
+		this.pendingSquealerReports.removeAll(pendingSquealerReportsResolved);
+		return new Pair<>(dateUntilResolution, PendingSquealerReportToResolve);
+	}
+
 	public Date calculateMessageTime(Message message, StochasticVar stochasticVar) {
 		ParametricAlgorithm timeToResolveIm = ParametricAlgorithm.buildParametricAlgorithmForVar(stochasticVar);
 		timeToResolveIm.consider(this);
@@ -211,6 +252,12 @@ public class HighlyInterruptibleRolePerson extends Person {
 
 	public void setQuestions(List<Message> questions) {
 		this.questions = questions;
+	}
+
+	// TODO rename to squealer reports
+	public List<SquealerReport> getPendingSquealerNotifications() {
+		// FIXME this field gets populated prom the project simulator
+		return pendingSquealerReports;
 	}
 
 }
