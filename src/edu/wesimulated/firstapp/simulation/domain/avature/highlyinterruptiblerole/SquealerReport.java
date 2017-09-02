@@ -9,7 +9,7 @@ import com.wesimulated.simulation.Clock;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
-import edu.wesimulated.firstapp.simulation.stochastic.VariableName;
+import edu.wesimulated.firstapp.simulation.stochastic.Attribute;
 
 public class SquealerReport extends Message {
 
@@ -26,7 +26,7 @@ public class SquealerReport extends Message {
 		ParametricAlgorithm status = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.SquealerMessageStatus);
 		status.consider(this.getSender());
 		status.consider(this.getStatus());
-		status.considerSingleValue(new Pair<>(VariableName.AmountOfRecipients, new EntryValue(EntryValue.Type.Long, this.getRecipients().size())));
+		status.considerSingleValue(new Pair<>(Attribute.AmountOfRecipients, new EntryValue(EntryValue.Type.Long, this.getRecipients().size())));
 		this.setStatus((Status) status.findSample().getClassifictation());
 	}
 	

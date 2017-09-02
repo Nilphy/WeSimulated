@@ -14,7 +14,7 @@ import edu.wesimulated.firstapp.simulation.domain.avature.project.Risk;
 import edu.wesimulated.firstapp.simulation.hla.HlaProject;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
-import edu.wesimulated.firstapp.simulation.stochastic.StochasticVariableName;
+import edu.wesimulated.firstapp.simulation.stochastic.StochasticAttribute;
 
 public class Project implements CompletableTask, NumericallyModeledEntity {
 
@@ -82,7 +82,7 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 	}
 
 	@Override
-	public Map<StochasticVariableName, EntryValue> extractValues() {
+	public Map<StochasticAttribute, EntryValue> extractValues() {
 		// TODO Auto-generated method stub
 		return null;
 	}

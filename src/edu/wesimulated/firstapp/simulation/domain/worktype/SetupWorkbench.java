@@ -7,8 +7,8 @@ import java.util.Map;
 import edu.wesimulated.firstapp.simulation.domain.avature.role.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
-import edu.wesimulated.firstapp.simulation.stochastic.StochasticVariableName;
-import edu.wesimulated.firstapp.simulation.stochastic.VariableName;
+import edu.wesimulated.firstapp.simulation.stochastic.StochasticAttribute;
+import edu.wesimulated.firstapp.simulation.stochastic.Attribute;
 
 public class SetupWorkbench extends WorkType {
 
@@ -22,9 +22,9 @@ public class SetupWorkbench extends WorkType {
 	}
 
 	@Override
-	public Map<StochasticVariableName, EntryValue> extractValues() {
-		Map<StochasticVariableName, EntryValue> values = new HashMap<>();
-		values.put(VariableName.WorkTypeName, new EntryValue(Type.String, this.getName()));
+	public Map<StochasticAttribute, EntryValue> extractValues() {
+		Map<StochasticAttribute, EntryValue> values = new HashMap<>();
+		values.put(Attribute.WorkTypeName, new EntryValue(Type.String, this.getName()));
 		return values;
 	}
 

@@ -20,7 +20,7 @@ import com.wesimulated.simulationmotor.systemdynamics.VariableValue;
  */
 public class ParametricAlgorithm implements VariableValue {
 
-	private Map<StochasticVariableName, EntryValue> availableAttributes;
+	private Map<StochasticAttribute, EntryValue> availableAttributes;
 	private StochasticMethod method;
 
 	public ParametricAlgorithm(StochasticMethod method) {
@@ -56,7 +56,7 @@ public class ParametricAlgorithm implements VariableValue {
 		return this.findSample().getPrediction().getValue().doubleValue();
 	}
 
-	public void considerSingleValue(Pair<StochasticVariableName, EntryValue> pair) {
+	public void considerSingleValue(Pair<StochasticAttribute, EntryValue> pair) {
 		this.availableAttributes.put(pair.getKey(), pair.getValue());
 	}
 }

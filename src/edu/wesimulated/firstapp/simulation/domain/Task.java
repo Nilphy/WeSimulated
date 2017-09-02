@@ -19,7 +19,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
-import edu.wesimulated.firstapp.simulation.stochastic.StochasticVariableName;
+import edu.wesimulated.firstapp.simulation.stochastic.StochasticAttribute;
 
 public class Task implements NumericallyModeledEntity, CompletableTask {
 
@@ -150,8 +150,8 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 	}
 
 	@Override
-	public Map<StochasticVariableName, EntryValue> extractValues() {
-		Map<StochasticVariableName, EntryValue> returnValue = new HashMap<>();
+	public Map<StochasticAttribute, EntryValue> extractValues() {
+		Map<StochasticAttribute, EntryValue> returnValue = new HashMap<>();
 		returnValue.putAll(profile.extractValues());
 		/*
 		 * TODO: Sobre que características poner sobre las personas, supongo que

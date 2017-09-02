@@ -19,8 +19,8 @@ import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
-import edu.wesimulated.firstapp.simulation.stochastic.StochasticVariableName;
-import edu.wesimulated.firstapp.simulation.stochastic.VariableName;
+import edu.wesimulated.firstapp.simulation.stochastic.StochasticAttribute;
+import edu.wesimulated.firstapp.simulation.stochastic.Attribute;
 
 public class Message implements Prioritized, NumericallyModeledEntity {
 
@@ -41,9 +41,9 @@ public class Message implements Prioritized, NumericallyModeledEntity {
 		}
 
 		@Override
-		public Map<StochasticVariableName, EntryValue> extractValues() {
-			Map<StochasticVariableName, EntryValue> values = new HashMap<>();
-			values.put(VariableName.ImMessageStatus, new EntryValue(Type.String, this.toString()));
+		public Map<StochasticAttribute, EntryValue> extractValues() {
+			Map<StochasticAttribute, EntryValue> values = new HashMap<>();
+			values.put(Attribute.ImMessageStatus, new EntryValue(Type.String, this.toString()));
 			return values;
 		}
 	}
@@ -63,8 +63,7 @@ public class Message implements Prioritized, NumericallyModeledEntity {
 
 	public void applyEffectsOfResolution() {
 		/**
-		 * TODO
-		 * tendría que tener efectos en el conocimiento de alguna task para la persona que preguntó
+		 * TODO tendría que tener efectos en el conocimiento de alguna task para la persona que preguntó
 		 * y aumentar el nivel de cercanía entre el preguntado y el contestado.
 		 */
 	}
@@ -81,12 +80,12 @@ public class Message implements Prioritized, NumericallyModeledEntity {
 		ParametricAlgorithm status = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.MessageStatus);
 		status.consider(this.getSender());
 		status.consider(this.getStatus());
-		status.considerSingleValue(new Pair<>(VariableName.AmountOfRecipients, new EntryValue(EntryValue.Type.Long, this.getRecipients().size())));
+		status.considerSingleValue(new Pair<>(Attribute.AmountOfRecipients, new EntryValue(EntryValue.Type.Long, this.getRecipients().size())));
 		this.setStatus((Status) status.findSample().getClassifictation());
 	}
 
 	@Override
-	public Map<StochasticVariableName, EntryValue> extractValues() {
+	public Map<StochasticAttribute, EntryValue> extractValues() {
 		// TODO Auto-generated method stub
 		return null;
 	}
