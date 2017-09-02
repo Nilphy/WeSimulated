@@ -37,9 +37,9 @@ public class StochasticRegistry {
 		if (stochasticRegistryData != null && stochasticRegistryData.getStochasticVars() != null && stochasticRegistryData.getStochasticVars().size() > 0) {
 			this.entries = new HashMap<StochasticVar, StochasticMethod>();
 			for (StochasticVarData var : stochasticRegistryData.getStochasticVars()) {
-				StochasticVar varType = StochasticVar.valueOf(var.getName());
+				StochasticVar varName = StochasticVar.valueOf(var.getName());
 				StochasticMethod method = StochasticMethodBuilder.fromStochasticVarData(var);
-				this.entries.put(varType, method);
+				this.entries.put(varName, method);
 			}
 		}
 	}
