@@ -9,6 +9,7 @@ import java.util.Map;
 import com.wesimulated.simulation.runparameters.CompletableTask;
 
 import edu.wesimulated.firstapp.simulation.domain.avature.project.MaintenanceTask;
+import edu.wesimulated.firstapp.simulation.domain.avature.project.Meeting;
 import edu.wesimulated.firstapp.simulation.domain.avature.project.Risk;
 import edu.wesimulated.firstapp.simulation.hla.HlaProject;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
@@ -26,6 +27,7 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 	private List<Task> tasks;
 	private List<Role> roles;
 	private Date startDate;
+	private ManagementFramework managementFramework;
 
 	@Override
 	public boolean isCompleted() {
@@ -103,5 +105,9 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 
 	public List<Person> getPeople() {
 		return this.people;
+	}
+
+	public Collection<Meeting> findRegularMeetings() {
+		return this.managementFramework.getMeetings();
 	}
 }

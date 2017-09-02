@@ -2,6 +2,7 @@ package edu.wesimulated.firstapp.simulation;
 
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.avature.project.MaintenanceTask;
+import edu.wesimulated.firstapp.simulation.domain.avature.project.Meeting;
 import edu.wesimulated.firstapp.simulation.domain.avature.project.ProjectSimulator;
 import edu.wesimulated.firstapp.simulation.domain.avature.project.Risk;
 
@@ -27,6 +28,8 @@ public class ProjectSimulatorBuilder {
 		for (MaintenanceTask maintenanceTask : project.getMaintenanceTasks()) {
 			projectSimulator.addCOperation(maintenanceTask);
 		}
+		for (Meeting meeting : project.findRegularMeetings()) {
+			projectSimulator.addCOperation(meeting);
 		}
 		return projectSimulator;
 	}
