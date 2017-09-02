@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map.Entry;
 import java.util.prefs.Preferences;
 
 import javafx.application.Application;
@@ -23,17 +25,23 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import com.wesimulated.simulationmotor.systemdynamics.Stock;
+
 import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.ProjectData;
 import edu.wesimulated.firstapp.model.RaciType;
 import edu.wesimulated.firstapp.model.ResponsibilityAssignmentData;
 import edu.wesimulated.firstapp.model.RoleData;
+import edu.wesimulated.firstapp.model.StochasticMethodConfigData;
 import edu.wesimulated.firstapp.model.StochasticRegistryData;
+import edu.wesimulated.firstapp.model.StochasticVarData;
 import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.model.TaskNet;
 import edu.wesimulated.firstapp.model.WbsInnerNode;
 import edu.wesimulated.firstapp.persistence.UiModelToXml;
+import edu.wesimulated.firstapp.simulation.stochastic.StochasticMethod;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticRegistry;
+import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 import edu.wesimulated.firstapp.view.PersonOverviewController;
 import edu.wesimulated.firstapp.view.RAMController;
 import edu.wesimulated.firstapp.view.RoleOverviewController;
@@ -286,6 +294,7 @@ public class MainApp extends Application {
 		}
 	}
 
+
 	private void fillTaskNet() {
 		this.taskNet.initFromTasks(this.getTaskData());
 		
@@ -348,8 +357,20 @@ public class MainApp extends Application {
 	}
 
 	private StochasticRegistryData buildStochasticRegistryData() {
-		// TODO Auto-generated method stub
-		return null;
+		StochasticRegistryData stochasticRegistryData = new StochasticRegistryData();
+		List<StochasticVarData> vars = new ArrayList<>();
+		for (StochasticVar stochasticVar : StochasticVar.values()) {
+			StochasticMethod stochasticMethod = StochasticRegistry.getInstance().getStochasticMethod(stochasticVar);
+			StochasticVarData varData = new StochasticVarData();
+			if (stochasticMethod != null) {
+				varData.setType(stochasticMethod.getType().name());
+				varData.setName(stochasticVar.name());
+				stochasticMethod.getConfig().getEntries().forEach(config -> varData.addConfig(StochasticMethodConfigData.fromEntry(config)));
+			}
+			vars.add(varData);
+		}
+		stochasticRegistryData.setStochasticVars(vars);
+		return stochasticRegistryData;
 	}
 
 	public ProjectData buildProjectData() {

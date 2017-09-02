@@ -35,4 +35,12 @@ public class StochasticVarData {
 		}
 		return this.config;
 	}
+
+	public void setConfig(List<StochasticMethodConfigData> config) {
+		this.config = config;
+	}
+
+	public void addConfig(StochasticMethodConfigData config) {
+		this.getConfig().add(config);
+	}
 }
