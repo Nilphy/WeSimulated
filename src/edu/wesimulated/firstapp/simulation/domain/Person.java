@@ -75,6 +75,10 @@ public abstract class Person implements Resource, NumericallyModeledEntity {
 		this.currentTask = task;
 	}
 
+	public Task getCurrentTask() {
+		return this.currentTask;
+	}
+
 	@Override
 	public Map<StochasticAttribute, EntryValue> extractValues() {
 		// TODO Auto-generated method stub

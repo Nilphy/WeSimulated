@@ -195,9 +195,14 @@ public class HighlyInterruptibleRolePerson extends Person {
 		}
 	}
 
-	private boolean isASuperior(HighlyInterruptibleRolePerson sender) {
-		// TODO Auto-generated method stub
-		return false;
+	private boolean isASuperior(HighlyInterruptibleRolePerson person) {
+		return this.isWorkingWithMe(person) && 
+			this.getCurrentTask().getResponsiblePeople().contains(this) &&
+			(
+				this.getCurrentTask().getAccountablePeople().contains(person) ||
+				this.getCurrentTask().getConsultedPeople().contains(person) ||
+				this.getCurrentTask().getInformedPeople().contains(person)
+			);
 	}
 
 	private boolean isInOneOfMyTeams(HighlyInterruptibleRolePerson person) {
