@@ -57,9 +57,9 @@ public class RootLayoutController {
 
 	@FXML
 	private void handleSaveStochasticRegistry() {
-		File programDataFile = mainApp.getStorageFilePath(FileType.stochasticData);
-		if (programDataFile != null) {
-			mainApp.saveDataToFile(programDataFile, FileType.stochasticData);
+		File stochasticDataFile = mainApp.getStorageFilePath(FileType.stochasticData);
+		if (stochasticDataFile != null) {
+			mainApp.saveDataToFile(stochasticDataFile, FileType.stochasticData);
 		} else {
 			saveAs(FileType.stochasticData);
 		}
