@@ -105,9 +105,4 @@ public class HlaPerson extends HlaObject {
 	public void setWorkDoneAttributeHandle(AttributeHandle workDoneAttributeHandle) {
 		this.workDoneAttributeInstanceHandle = workDoneAttributeHandle;
 	}
-
-	public String getLastWorkDone() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
