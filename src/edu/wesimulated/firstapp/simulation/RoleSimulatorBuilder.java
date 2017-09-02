@@ -65,7 +65,7 @@ public class RoleSimulatorBuilder {
 		simulator.registerSimulationEntity(new Squealer(person));
 		simulator.registerSimulationEntity(new EmailClient(person));
 		for (Team team : person.getTeams()) {
-			simulator.registerSimulationEntity(new TeamWork(person, team));
+			simulator.registerSimulationEntity(new TeamWork(person));
 		}
 		return simulator;
 	}
