@@ -4,28 +4,46 @@ import java.util.Date;
 
 public class Meeting extends MaintenanceTask {
 
-	@Override
-	public long getPeriodInMinutes() {
-		// TODO Auto-generated method stub
-		return 0;
+	private Collection<Person> participants;
+	private Profile meetingProfile;
+
+	public Meeting(EntryValue value, Collection<Person> participants, long period) {
+		super(period);
+		this.meetingProfile = new Profile();
+		this.meetingProfile.set(MeetingCharacteristic.TYPE, value);
+		this.participants = participants;
 	}
 
 	@Override
 	public boolean testIfRequirementsAreMet() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.allParticipantsAreFree();
+	}
+
+	private boolean allParticipantsAreFree() {
+		for (Person participant : this.getParticipants()) {
+			// FIXME: will them be available or I have to ask if they are
+			// interruptible
+			if (!participant.isAvailable()) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override
 	public void doAction() {
-		// TODO Auto-generated method stub
-
+		// FIXME le da conocimiento a la gente que participa
+		// FIXME avanza el tiempo¿? no tengo idea como
+		ParametricAlgorithm meetingDuration = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.MeetingDuration);
+		this.getParticipants().forEach(participant -> meetingDuration.consider(participant));
+		meetingDuration.consider(this);
+		//return meetingDuration.findSample().getPrediction().getValue().longValue();
 	}
 
 	@Override
-	public Date getDateOfOccurrence(Date actualDate) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
+	private Collection<Person> getParticipants() {
+		return this.participants;
+	}
 }
