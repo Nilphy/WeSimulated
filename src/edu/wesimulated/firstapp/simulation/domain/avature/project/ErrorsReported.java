@@ -1,36 +1,22 @@
 package edu.wesimulated.firstapp.simulation.domain.avature.project;
 
-import java.util.Date;
-
-import com.wesimulated.simulationmotor.DateUtils;
 
 public class ErrorsReported extends MaintenanceTask {
 
+	public ErrorsReported(long period) {
+		super(period);
+	}
+
 	@Override
 	public boolean testIfRequirementsAreMet() {
-		// TODO decide the requirements
-		return false;
+		// FIXME is it time? that should be considered in parent class?
+		return true;
 	}
 
 	@Override
 	public void doAction() {
+		super.doAction();
 		// TODO generate squealer activity
 		
 	}
-
-	@Override
-	public long getPeriodInMinutes() {
-		return 10;
-	}
-
-	@Override
-	public Date getDateOfOccurrence(Date actualDate) {
-		Date tenMinutesFromNow = DateUtils.addMilis(actualDate, this.getPeriodInMinutes() * DateUtils.MILLIES_IN_MINUTE);
-		if (tenMinutesFromNow.before(DateUtils.findEndOfLaboralDay(actualDate))) {
-			return DateUtils.findStartOfNextLaboralDay(actualDate);
-		} else {
-			return tenMinutesFromNow;
-		}
-	}
-
 }

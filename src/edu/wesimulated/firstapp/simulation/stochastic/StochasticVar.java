@@ -20,4 +20,6 @@ public enum StochasticVar {
 	SquealerMessageStatus,
 	TimeToResolveSquealerReport,
 	TimeToIssueReport
+	MeetingDuration, 
+	PeriodOfErrors
 }

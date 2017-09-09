@@ -1,5 +1,8 @@
 package edu.wesimulated.firstapp.simulation.domain.avature.project;
 
+import java.util.Date;
+
+import com.wesimulated.simulationmotor.DateUtils;
 import com.wesimulated.simulationmotor.des.COperation;
 
 /**
@@ -11,6 +14,30 @@ import com.wesimulated.simulationmotor.des.COperation;
  *
  */
 public abstract class MaintenanceTask extends COperation {
-	
-	public abstract long getPeriodInMinutes();
+
+	private Date lastTime;
+	private long period;
+
+	public MaintenanceTask(long period) {
+		this.period = period;
+	}
+
+	public long getPeriodInMinutes() {
+		return period;
+	}
+
+	@Override
+	public void doAction() {
+		// FIXME set lastTime as current date
+	}
+
+	@Override
+	public Date getDateOfOccurrence(Date actualDate) {
+		Date tenMinutesFromNow = DateUtils.addMilis(lastTime, this.getPeriodInMinutes() * DateUtils.MILLIES_IN_MINUTE);
+		if (tenMinutesFromNow.before(DateUtils.findEndOfLaboralDay(lastTime))) {
+			return DateUtils.findStartOfNextLaboralDay(lastTime);
+		} else {
+			return tenMinutesFromNow;
+		}
+	}
 }

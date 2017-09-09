@@ -6,6 +6,8 @@ import edu.wesimulated.firstapp.simulation.domain.avature.project.MaintenanceTas
 import edu.wesimulated.firstapp.simulation.domain.avature.project.Meeting;
 import edu.wesimulated.firstapp.simulation.domain.avature.project.ProjectSimulator;
 import edu.wesimulated.firstapp.simulation.domain.avature.project.Risk;
+import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
+import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 
 /**
  * 
@@ -29,7 +31,9 @@ public class ProjectSimulatorBuilder {
 		for (MaintenanceTask maintenanceTask : project.getMaintenanceTasks()) {
 			projectSimulator.addCOperation(maintenanceTask);
 		}
-		projectSimulator.addCOperation(new ErrorsReported());
+		ParametricAlgorithm periodOfErrors = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.PeriodOfErrors);
+		periodOfErrors.consider(project);
+		projectSimulator.addCOperation(new ErrorsReported(periodOfErrors.findSample().getPrediction().getValue().longValue()));
 		for (Meeting meeting : project.findRegularMeetings()) {
 			projectSimulator.addCOperation(meeting);
 		}
