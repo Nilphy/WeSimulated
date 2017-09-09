@@ -19,7 +19,7 @@ public enum StochasticVar {
 	TimeToRespondFaceToFaceQuestion,
 	SquealerMessageStatus,
 	TimeToResolveSquealerReport,
-	TimeToIssueReport
+	TimeToIssueReport, 
 	MeetingDuration, 
 	PeriodOfErrors
 }

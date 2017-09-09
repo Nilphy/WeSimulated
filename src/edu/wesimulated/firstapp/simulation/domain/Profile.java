@@ -20,6 +20,9 @@ public class Profile implements NumericallyModeledEntity {
 
 	Map<Characteristic, EntryValue> characteristics;
 
+	public Profile() {
+	}
+
 	public Profile(Map<Characteristic, EntryValue> characteristics) {
 		this.characteristics = characteristics;
 	}
