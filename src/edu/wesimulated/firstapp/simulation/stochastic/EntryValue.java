@@ -35,10 +35,10 @@ public class EntryValue {
 			return this.numberValue;
 		}
 		if (this.type == Type.Long) {
-			return Long.getLong(this.stringValue);
+			return this.numberValue;
 		}
 		if (this.type == Type.Float) {
-			return Float.parseFloat(this.stringValue);
+			return this.numberValue;
 		}
 		if (this.type == type.Boolean) {
 			return this.numberValue;
