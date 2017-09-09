@@ -2,18 +2,18 @@ package edu.wesimulated.firstapp.simulation.domain.avature.role;
 
 import javafx.util.Pair;
 import edu.wesimulated.firstapp.simulation.domain.Task;
+import edu.wesimulated.firstapp.simulation.domain.TaskCharacteristic;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
-import edu.wesimulated.firstapp.simulation.stochastic.Attribute;
 
 public class AvatureDeveloperTask extends Task {
 
 	public long findDurationOfRecoverFocus(RoleSimulator roleSimulator) {
 		ParametricAlgorithm durationOfRecoverFocus = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.TimeToFocus);
-		durationOfRecoverFocus.considerSingleValue(new Pair<>(Attribute.TimeSinceLastTimeTask, new EntryValue(Type.Long, roleSimulator.findTimeSinceLastTimeTask())));
-		durationOfRecoverFocus.considerSingleValue(new Pair<>(Attribute.TimeInThisMonthTask, new EntryValue(Type.Long, roleSimulator.findTimeInThisMonthTask())));
+		durationOfRecoverFocus.considerSingleValue(new Pair<>(TaskCharacteristic.TimeSinceLastTimeTask, new EntryValue(Type.Long, roleSimulator.findTimeSinceLastTimeTask())));
+		durationOfRecoverFocus.considerSingleValue(new Pair<>(TaskCharacteristic.TimeInThisMonthTask, new EntryValue(Type.Long, roleSimulator.findTimeInThisMonthTask())));
 		durationOfRecoverFocus.consider(roleSimulator.getCurrentTask());
 		durationOfRecoverFocus.consider(roleSimulator.getCurrentWorkType());
 		durationOfRecoverFocus.considerAll(roleSimulator.getCurrentTask().getAllRelatedNumericallyModeledEntities());

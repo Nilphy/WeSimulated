@@ -7,7 +7,6 @@ import java.util.Map.Entry;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
-import edu.wesimulated.firstapp.simulation.stochastic.StochasticAttribute;
 
 /**
  * Most of the entities can be modeled by characteristics... to give more
@@ -51,8 +50,8 @@ public class Profile implements NumericallyModeledEntity {
 		this.characteristics.put(characteristic, value);
 	}
 
-	public Map<StochasticAttribute, EntryValue> extractValues() {
-		Map<StochasticAttribute, EntryValue> returnValue = new HashMap<StochasticAttribute, EntryValue>();
+	public Map<Characteristic, EntryValue> extractValues() {
+		Map<Characteristic, EntryValue> returnValue = new HashMap<Characteristic, EntryValue>();
 		for (Entry<Characteristic, EntryValue> entry : this.characteristics.entrySet()) {
 			returnValue.put(entry.getKey(), entry.getValue());
 		}

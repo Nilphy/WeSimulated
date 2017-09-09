@@ -9,7 +9,6 @@ import com.wesimulated.simulation.Clock;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
-import edu.wesimulated.firstapp.simulation.stochastic.Attribute;
 
 public class SquealerReport extends Message {
 

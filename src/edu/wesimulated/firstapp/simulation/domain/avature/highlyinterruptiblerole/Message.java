@@ -19,8 +19,6 @@ import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
-import edu.wesimulated.firstapp.simulation.stochastic.StochasticAttribute;
-import edu.wesimulated.firstapp.simulation.stochastic.Attribute;
 
 public class Message implements Prioritized, NumericallyModeledEntity {
 
@@ -41,9 +39,9 @@ public class Message implements Prioritized, NumericallyModeledEntity {
 		}
 
 		@Override
-		public Map<StochasticAttribute, EntryValue> extractValues() {
-			Map<StochasticAttribute, EntryValue> values = new HashMap<>();
-			values.put(Attribute.ImMessageStatus, new EntryValue(Type.String, this.toString()));
+		public Map<Characteristic, EntryValue> extractValues() {
+			Map<Characteristic, EntryValue> values = new HashMap<>();
+			values.put(MessageCharacteristic.Status, new EntryValue(Type.String, this.toString()));
 			return values;
 		}
 	}
@@ -85,7 +83,7 @@ public class Message implements Prioritized, NumericallyModeledEntity {
 	}
 
 	@Override
-	public Map<StochasticAttribute, EntryValue> extractValues() {
+	public Map<Characteristic, EntryValue> extractValues() {
 		// TODO Auto-generated method stub
 		return null;
 	}

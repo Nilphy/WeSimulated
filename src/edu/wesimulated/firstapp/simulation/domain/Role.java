@@ -6,14 +6,13 @@ import java.util.Map;
 import edu.wesimulated.firstapp.model.TaskNeed;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
-import edu.wesimulated.firstapp.simulation.stochastic.StochasticAttribute;
 
 public class Role implements NumericallyModeledEntity {
 
 	private Collection<TaskNeed> taskNeedsThatCanBeMet;
 
 	@Override
-	public Map<StochasticAttribute, EntryValue> extractValues() {
+	public Map<Characteristic, EntryValue> extractValues() {
 		// TODO Auto-generated method stub
 		return null;
 	}

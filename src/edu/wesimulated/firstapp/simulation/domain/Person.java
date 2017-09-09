@@ -12,7 +12,6 @@ import com.wesimulated.simulationmotor.des.Resource;
 import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
-import edu.wesimulated.firstapp.simulation.stochastic.StochasticAttribute;
 
 public abstract class Person implements Resource, NumericallyModeledEntity {
 
@@ -80,7 +79,7 @@ public abstract class Person implements Resource, NumericallyModeledEntity {
 	}
 
 	@Override
-	public Map<StochasticAttribute, EntryValue> extractValues() {
+	public Map<Characteristic, EntryValue> extractValues() {
 		// TODO Auto-generated method stub
 		return null;
 	}

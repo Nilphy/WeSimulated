@@ -7,6 +7,8 @@ import javafx.util.Pair;
 
 import com.wesimulated.simulationmotor.systemdynamics.VariableValue;
 
+import edu.wesimulated.firstapp.simulation.domain.Characteristic;
+
 /**
  * Todas las funciones que se van a hacer para calcular el valor de una variable
  * aleatoria sean de probabilidad o de data mining van a tener ciertos
@@ -20,7 +22,7 @@ import com.wesimulated.simulationmotor.systemdynamics.VariableValue;
  */
 public class ParametricAlgorithm implements VariableValue {
 
-	private Map<StochasticAttribute, EntryValue> availableAttributes;
+	private Map<Characteristic, EntryValue> availableAttributes;
 	private StochasticMethod method;
 
 	public ParametricAlgorithm(StochasticMethod method) {
@@ -56,7 +58,7 @@ public class ParametricAlgorithm implements VariableValue {
 		return this.findSample().getPrediction().getValue().doubleValue();
 	}
 
-	public void considerSingleValue(Pair<StochasticAttribute, EntryValue> pair) {
+	public void considerSingleValue(Pair<Characteristic, EntryValue> pair) {
 		this.availableAttributes.put(pair.getKey(), pair.getValue());
 	}
 }

@@ -4,11 +4,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.wesimulated.firstapp.simulation.domain.Characteristic;
+import edu.wesimulated.firstapp.simulation.domain.TaskCharacteristic;
 import edu.wesimulated.firstapp.simulation.domain.avature.role.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
-import edu.wesimulated.firstapp.simulation.stochastic.StochasticAttribute;
-import edu.wesimulated.firstapp.simulation.stochastic.Attribute;
 
 public class SetupWorkbench extends WorkType {
 
@@ -22,9 +22,9 @@ public class SetupWorkbench extends WorkType {
 	}
 
 	@Override
-	public Map<StochasticAttribute, EntryValue> extractValues() {
-		Map<StochasticAttribute, EntryValue> values = new HashMap<>();
-		values.put(Attribute.WorkTypeName, new EntryValue(Type.String, this.getName()));
+	public Map<Characteristic, EntryValue> extractValues() {
+		Map<Characteristic, EntryValue> values = new HashMap<>();
+		values.put(TaskCharacteristic.WorkTypeName, new EntryValue(Type.String, this.getName()));
 		return values;
 	}
 
