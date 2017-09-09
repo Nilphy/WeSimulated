@@ -6,7 +6,12 @@ import edu.wesimulated.firstapp.simulation.domain.avature.project.Meeting;
 
 public class ManagementFramework {
 
+	public enum Type {
+		SCRUM, CASCADE
+	}
+
 	private Collection<Meeting> meetings;
+	private Type type;
 
 	public static ManagementFramework createScrum() {
 		ManagementFramework fwk = new ManagementFramework();
@@ -28,5 +33,13 @@ public class ManagementFramework {
 
 	public void addMeeting(Meeting meeting) {
 		this.getMeetings().add(meeting);
+	}
+
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
 	}
 }
