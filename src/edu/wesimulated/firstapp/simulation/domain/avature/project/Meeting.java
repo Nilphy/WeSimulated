@@ -1,8 +1,20 @@
 package edu.wesimulated.firstapp.simulation.domain.avature.project;
 
-import java.util.Date;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Meeting extends MaintenanceTask {
+import edu.wesimulated.firstapp.simulation.domain.Characteristic;
+import edu.wesimulated.firstapp.simulation.domain.MeetingCharacteristic;
+import edu.wesimulated.firstapp.simulation.domain.Person;
+import edu.wesimulated.firstapp.simulation.domain.Profile;
+import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
+import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
+import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
+import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
+import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
+
+public class Meeting extends MaintenanceTask implements NumericallyModeledEntity {
 
 	private Collection<Person> participants;
 	private Profile meetingProfile;
@@ -41,6 +53,12 @@ public class Meeting extends MaintenanceTask {
 	}
 
 	@Override
+	public Map<Characteristic, EntryValue> extractValues() {
+		Map<Characteristic, EntryValue> values = new HashMap<>();
+		values.putAll(this.meetingProfile.extractValues());
+		values.put(MeetingCharacteristic.AMOUNT_PARTICIPANTS, new EntryValue(Type.Long, this.participants.size()));
+		// FIXME ¿?  maybe consider some characteristics about the participants?
+		return values;
 	}
 
 	private Collection<Person> getParticipants() {

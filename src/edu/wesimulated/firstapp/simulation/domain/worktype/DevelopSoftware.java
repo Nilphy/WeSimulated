@@ -1,13 +1,15 @@
 package edu.wesimulated.firstapp.simulation.domain.worktype;
 
 import java.util.Date;
+import java.util.Map;
 
 import com.wesimulated.simulationmotor.des.State;
 
 import edu.wesimulated.firstapp.simulation.domain.Characteristic;
 import edu.wesimulated.firstapp.simulation.domain.avature.role.RoleSimulator;
+import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 
-public abstract class DevelopSoftware extends WorkType implements State {
+public class DevelopSoftware extends WorkType implements State {
 
 	public DevelopSoftware(RoleSimulator roleSimulator) {
 		super(roleSimulator);
@@ -19,5 +21,16 @@ public abstract class DevelopSoftware extends WorkType implements State {
 		los simuladores sean más independientes, porque si no la tarea no sabe como está el 
 		simulador del trabajador calculando el work done
 		this.simulator.getCurrentTask().increaseWorkDone(this.duration, this.simulator.getRole(), this.simulator.getExecutor().getClock().getCurrentDate());*/
+	}
+
+	@Override
+	public Map<Characteristic, EntryValue> extractValues() {
+		// TODO Implement
+		return null;
+	}
+
+	@Override
+	public String getName() {
+		return "DEVELOPT_SOFTWARE";
 	}
 }

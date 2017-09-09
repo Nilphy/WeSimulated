@@ -7,12 +7,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javafx.util.Pair;
-
 import com.wesimulated.simulation.Clock;
 import com.wesimulated.simulationmotor.DateUtils;
 import com.wesimulated.simulationmotor.des.Prioritized;
 
+import edu.wesimulated.firstapp.simulation.domain.Characteristic;
+import edu.wesimulated.firstapp.simulation.domain.MessageCharacteristic;
 import edu.wesimulated.firstapp.simulation.stochastic.Classification;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
@@ -76,16 +76,18 @@ public class Message implements Prioritized, NumericallyModeledEntity {
 	 */
 	public void analize() {
 		ParametricAlgorithm status = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.MessageStatus);
-		status.consider(this.getSender());
-		status.consider(this.getStatus());
-		status.considerSingleValue(new Pair<>(Attribute.AmountOfRecipients, new EntryValue(EntryValue.Type.Long, this.getRecipients().size())));
+		status.consider(this);
 		this.setStatus((Status) status.findSample().getClassifictation());
 	}
 
 	@Override
 	public Map<Characteristic, EntryValue> extractValues() {
-		// TODO Auto-generated method stub
-		return null;
+		Map<Characteristic, EntryValue> values = new HashMap<>();
+		values.putAll(NumericallyModeledEntity.embedPersonCharacteristic(this.sender, "SENDER_"));
+		values.put(MessageCharacteristic.AmountOfRecipients, new EntryValue(EntryValue.Type.Long, this.getRecipients().size()));
+		values.put(MessageCharacteristic.Antiquity, new EntryValue(EntryValue.Type.String, this.messageAgeValuator.fromMinutes(this.getAgeInMinutes()).toString()));
+		values.putAll(this.status.extractValues());
+		return values;
 	}
 
 	@Override

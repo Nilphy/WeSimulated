@@ -2,11 +2,8 @@ package edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblero
 
 import java.util.Date;
 
-import javafx.util.Pair;
-
 import com.wesimulated.simulation.Clock;
 
-import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 
@@ -23,9 +20,7 @@ public class SquealerReport extends Message {
 	 */
 	public void analize() {
 		ParametricAlgorithm status = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.SquealerMessageStatus);
-		status.consider(this.getSender());
-		status.consider(this.getStatus());
-		status.considerSingleValue(new Pair<>(Attribute.AmountOfRecipients, new EntryValue(EntryValue.Type.Long, this.getRecipients().size())));
+		status.consider(this);
 		this.setStatus((Status) status.findSample().getClassifictation());
 	}
 	
@@ -35,5 +30,4 @@ public class SquealerReport extends Message {
 		 */
 		return false;
 	}
-
 }

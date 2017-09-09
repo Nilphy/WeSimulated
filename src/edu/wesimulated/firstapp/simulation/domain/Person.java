@@ -5,12 +5,14 @@ import hla.rti1516e.ObjectInstanceHandle;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.wesimulated.simulationmotor.des.Resource;
 
 import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
+import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
 public abstract class Person implements Resource, NumericallyModeledEntity {
@@ -80,8 +82,12 @@ public abstract class Person implements Resource, NumericallyModeledEntity {
 
 	@Override
 	public Map<Characteristic, EntryValue> extractValues() {
-		// TODO Auto-generated method stub
-		return null;
+		Map<Characteristic, EntryValue> values = new HashMap<>();
+		values.putAll(this.profile.extractValues());
+		values.put(PersonCharacteristic.IS_AVAILABLE, new EntryValue(available));
+		values.put(PersonCharacteristic.AMOUNT_OF_TEAMS, new EntryValue(Type.Long, this.teams.size()));
+		// FIXME ¿? consider task and project
+		return values;
 	}
 
 	protected boolean isWorkingWithMe(Person sender) {

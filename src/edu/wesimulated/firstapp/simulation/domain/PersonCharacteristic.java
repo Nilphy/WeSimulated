@@ -9,6 +9,8 @@ public enum PersonCharacteristic implements Characteristic {
 	MaxPriorityOfFaceToFaceQuestion,
 	MaxPriorityOfSquealer,
 	MaxPriorityOfIM,
+	IS_AVAILABLE,
+	AMOUNT_OF_TEAMS,
 	// SENDER CHARACTERISTICS
 	SENDER_Efficiency,
 	SENDER_Effectiveness,

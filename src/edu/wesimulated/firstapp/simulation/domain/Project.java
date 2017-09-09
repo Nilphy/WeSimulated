@@ -2,6 +2,7 @@ package edu.wesimulated.firstapp.simulation.domain;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import edu.wesimulated.firstapp.simulation.domain.avature.project.Meeting;
 import edu.wesimulated.firstapp.simulation.domain.avature.project.Risk;
 import edu.wesimulated.firstapp.simulation.hla.HlaProject;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
+import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
 public class Project implements CompletableTask, NumericallyModeledEntity {
@@ -82,8 +84,17 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 
 	@Override
 	public Map<Characteristic, EntryValue> extractValues() {
-		// TODO Auto-generated method stub
-		return null;
+		Map<Characteristic, EntryValue> values = new HashMap<>();
+		values.putAll(this.contract.extractValues());
+		values.putAll(this.wbs.extractValues());
+		values.putAll(this.managementFramework.extractValues());
+		values.put(ProjectCharacteristic.AMOUNT_PEOPLE, new EntryValue(Type.Long, this.people.size()));
+		values.put(ProjectCharacteristic.AMOUNT_TEAMS, new EntryValue(Type.Long, this.teams.size()));
+		values.put(ProjectCharacteristic.AMOUNT_TASKS, new EntryValue(Type.Long, this.tasks.size()));
+		values.put(ProjectCharacteristic.AMOUNT_ROLES, new EntryValue(Type.Long, this.roles.size()));
+		// FIXME ¿? consider more characteristics about the entities involved (entities, tasks, etc)?
+		// FIXME ¿? consider information about the start date?
+		return values;
 	}
 
 	public Collection<Risk> getRisks() {
