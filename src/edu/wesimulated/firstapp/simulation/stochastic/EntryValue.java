@@ -23,6 +23,8 @@ public class EntryValue {
 	public EntryValue(Type type, Number value) {
 		this.type = type;
 		this.numberValue = value;
+		this.stringValue = value.toString();
+	}
 
 	public EntryValue(Boolean value) {
 		this.type = Type.Boolean;
@@ -50,11 +52,18 @@ public class EntryValue {
 		if (this.type == Type.String) {
 			return this.stringValue;
 		}
+		if (this.type == Type.Long) {
+			return this.stringValue;
+		}
+		if (this.type == Type.Float) {
+			return this.stringValue;
+		}
 		if (this.type == Type.Boolean) {
 			return this.stringValue;
 		}
 		throw new IllegalStateException();
 	}
+	
 	public Boolean  getBoolean() {
 		if (this.type == Type.Boolean) {
 			return Boolean.parseBoolean(this.stringValue);
