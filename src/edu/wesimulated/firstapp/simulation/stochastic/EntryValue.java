@@ -8,7 +8,7 @@ package edu.wesimulated.firstapp.simulation.stochastic;
 public class EntryValue {
 
 	public enum Type {
-		Long, Float, String
+		Long, Float, String, Boolean
 	}
 
 	private Type type;
@@ -23,6 +23,11 @@ public class EntryValue {
 	public EntryValue(Type type, Number value) {
 		this.type = type;
 		this.numberValue = value;
+
+	public EntryValue(Boolean value) {
+		this.type = Type.Boolean;
+		this.stringValue = value.toString();
+		this.numberValue = value ? 1 : 0;
 	}
 
 	public Number getNumber() {
@@ -35,12 +40,24 @@ public class EntryValue {
 		if (this.type == Type.Float) {
 			return Float.parseFloat(this.stringValue);
 		}
+		if (this.type == type.Boolean) {
+			return this.numberValue;
+		}
 		throw new IllegalStateException();
 	}
 
 	public String getString() {
 		if (this.type == Type.String) {
 			return this.stringValue;
+		}
+		if (this.type == Type.Boolean) {
+			return this.stringValue;
+		}
+		throw new IllegalStateException();
+	}
+	public Boolean  getBoolean() {
+		if (this.type == Type.Boolean) {
+			return Boolean.parseBoolean(this.stringValue);
 		}
 		throw new IllegalStateException();
 	}
