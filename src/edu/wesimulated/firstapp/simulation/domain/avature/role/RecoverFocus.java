@@ -7,12 +7,13 @@ import com.wesimulated.simulationmotor.des.BOperation;
 
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 
-public class RecoverFocus implements BOperation {
+public class RecoverFocus extends BOperation {
 
 	private Date startTime;
 	private RoleSimulator roleSimulator;
 
 	public RecoverFocus(Date startTime, RoleSimulator simulator) {
+		super(null);
 		this.startTime = startTime;
 		this.roleSimulator = simulator;
 	}

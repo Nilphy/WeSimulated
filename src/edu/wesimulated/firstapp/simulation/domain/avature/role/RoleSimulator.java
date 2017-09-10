@@ -70,9 +70,9 @@ public class RoleSimulator extends OperationBasedSimulator implements Observer {
 		Date interruptionDate = this.getOperationBasedExecutor().getClock().getCurrentDate();
 		long durationOfCurrentTask = interruptionDate.getTime() - this.currentTaskStart.getTime();
 		this.currentTask.increaseWorkDone(durationOfCurrentTask, this.currentWorkType.getTaskNeedFulfilled(), interruptionDate);
-		this.getOperationBasedExecutor().removeFirstBOperation();
-		this.getPerson().getHlaPerson().addObserver(this);
+		this.getOperationBasedExecutor().removeEndOfThisTask();
 		this.getOperationBasedExecutor().reprogramCurrentCOperation();
+		this.getPerson().getHlaPerson().addObserver(this);
 	}
 
 	public Collection<NumericallyModeledEntity> getAllNumericallyModeledEntities() {

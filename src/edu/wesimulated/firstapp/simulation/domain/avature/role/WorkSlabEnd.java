@@ -3,16 +3,18 @@ package edu.wesimulated.firstapp.simulation.domain.avature.role;
 import java.util.Date;
 
 import com.wesimulated.simulationmotor.des.BOperation;
+import com.wesimulated.simulationmotor.des.Operation;
 
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 
-public class WorkSlabEnd implements BOperation {
+public class WorkSlabEnd extends BOperation {
 
 	private RoleSimulator roleSimulator;
 	private Date startOfSlab;
 	private Date endOfSlab;
 
-	public WorkSlabEnd(RoleSimulator roleSimulator, Date startOfSlab, Date endOfSlab) {
+	public WorkSlabEnd(RoleSimulator roleSimulator, Date startOfSlab, Date endOfSlab, Operation originalOperation) {
+		super(originalOperation);
 		this.startOfSlab = startOfSlab;
 		this.endOfSlab = endOfSlab;
 		this.roleSimulator = roleSimulator;
