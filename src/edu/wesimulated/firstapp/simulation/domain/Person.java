@@ -60,10 +60,6 @@ public abstract class Person implements Resource, NumericallyModeledEntity {
 		return hlaPerson;
 	}
 
-	public void increaseExperience() {
-		// TODO Auto-generated method stub
-	}
-
 	public Date findNextAvailableDate() {
 		// TODO find hour to start working today
 		// TODO find current hour

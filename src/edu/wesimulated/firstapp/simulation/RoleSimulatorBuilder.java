@@ -13,6 +13,7 @@ import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerol
 import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.Squealer;
 import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.TeamWork;
 import edu.wesimulated.firstapp.simulation.domain.avature.role.AvatureDeveloperTask;
+import edu.wesimulated.firstapp.simulation.domain.avature.role.RolePerson;
 import edu.wesimulated.firstapp.simulation.domain.avature.role.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.domain.avature.role.WorkSlabStart;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
@@ -40,7 +41,7 @@ public class RoleSimulatorBuilder {
 	 * @param person
 	 * @return the simulator builded
 	 */
-	public static RoleSimulator buildAvatureDeveloperSimulator(Project project, Person person) {
+	public static RoleSimulator buildAvatureDeveloperSimulator(Project project, RolePerson person) {
 		Role role = RolePool.getAvatureDeveloperRole();
 		RoleSimulator roleSimulator = new RoleSimulator(role, project, person);
 		Date roleWorkStart = project.findStartDateToWorkForRole(role, person);

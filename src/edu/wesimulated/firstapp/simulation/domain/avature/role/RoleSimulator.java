@@ -12,7 +12,6 @@ import com.wesimulated.simulationmotor.des.COperation;
 import com.wesimulated.simulationmotor.des.OperationBasedSimulator;
 import com.wesimulated.simulationmotor.des.threefaseaproach.ThreePhaseExecutor;
 
-import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Role;
 import edu.wesimulated.firstapp.simulation.domain.Task;
@@ -45,12 +44,12 @@ public class RoleSimulator extends OperationBasedSimulator implements Observer {
 
 	private Project project;
 	private Role role;
-	private Person person;
+	private RolePerson person;
 	private Task currentTask;
 	private WorkType currentWorkType;
 	private Date currentTaskStart;
 
-	public RoleSimulator(Role role, Project project, Person person) {
+	public RoleSimulator(Role role, Project project, RolePerson person) {
 		super(new ThreePhaseExecutor(new TaskCompletedEndCondition(project)));
 		this.role = role;
 		this.project = project;
@@ -93,7 +92,7 @@ public class RoleSimulator extends OperationBasedSimulator implements Observer {
 		return this.project;
 	}
 
-	public Person getPerson() {
+	public RolePerson getPerson() {
 		return this.person;
 	}
 
