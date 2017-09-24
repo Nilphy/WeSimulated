@@ -58,27 +58,8 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 				return first.getStartDate().compareTo(second.getStartDate());
 			});
 			return firstTaskAssignedToPerson.getStartDate();
-	public void addPerson(Person person) {
-		if (this.people == null) {
-			this.people = new LinkedList<>();
-		}
-		this.people.add(person);
-	}
-
-	public void addTask(Task taskSimulator) {
-		if (this.tasks == null) {
-			this.tasks = new LinkedList<>();
 		}
 		throw new MisconfiguredProject("PersonWithoutAssignations");
-		this.tasks.add(taskSimulator);
-	}
-
-	public void setHlaProject(HlaProject hlaProject) {
-		this.hlaProject = hlaProject;
-	}
-
-	public void addRole(Role role) {
-		// TODO Auto-generated method stub
 	}
 
 	private List<Task> findTasksAssignedToPerson(Person person) {
@@ -115,7 +96,8 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 		values.put(ProjectCharacteristic.AMOUNT_TEAMS, new EntryValue(Type.Long, this.teams.size()));
 		values.put(ProjectCharacteristic.AMOUNT_TASKS, new EntryValue(Type.Long, this.tasks.size()));
 		values.put(ProjectCharacteristic.AMOUNT_ROLES, new EntryValue(Type.Long, this.roles.size()));
-		// FIXME ¿? consider more characteristics about the entities involved (entities, tasks, etc)?
+		// FIXME ¿? consider more characteristics about the entities involved
+		// (entities, tasks, etc)?
 		// FIXME ¿? consider information about the start date?
 		return values;
 	}
@@ -148,4 +130,28 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 		return this.tasks;
 	}
 
+	public void addPerson(Person person) {
+		if (this.people == null) {
+			this.people = new LinkedList<>();
+		}
+		this.people.add(person);
+	}
+
+	public void addTask(Task task) {
+		if (this.tasks == null) {
+			this.tasks = new LinkedList<>();
+		}
+		this.tasks.add(task);
+	}
+
+	public void setHlaProject(HlaProject hlaProject) {
+		this.hlaProject = hlaProject;
+	}
+
+	public void addRole(Role role) {
+		if (this.roles == null) {
+			this.roles = new LinkedList<>();
+		}
+		this.roles.add(role);
+	}
 }

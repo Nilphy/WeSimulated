@@ -186,7 +186,7 @@ public class HighlyInterruptibleRolePerson extends Person {
 	}
 
 	public Float getPriorityMessageFrom(HighlyInterruptibleRolePerson sender) {
-		if (this.isWorkingWithMe(sender) || this.isASuperior(sender)) {
+		if (this.isWorginWithMe(sender) || this.isASuperior(sender)) {
 			return Priority.HIGH.get();
 		} else if (this.isInOneOfMyTeams(sender)) {
 			return Priority.MED.get();
@@ -196,7 +196,7 @@ public class HighlyInterruptibleRolePerson extends Person {
 	}
 
 	private boolean isASuperior(HighlyInterruptibleRolePerson person) {
-		return this.isWorkingWithMe(person) && 
+		return this.isWorginWithMe(person) && 
 			this.getCurrentTask().getResponsiblePeople().contains(this) &&
 			(
 				this.getCurrentTask().getAccountablePeople().contains(person) ||

@@ -1,8 +1,10 @@
 package edu.wesimulated.firstapp.simulation.domain.avature.project;
 
+import java.util.Collection;
 import java.util.Date;
 
 import com.wesimulated.simulationmotor.DateUtils;
+import com.wesimulated.simulationmotor.des.BOperation;
 import com.wesimulated.simulationmotor.des.COperation;
 
 /**
