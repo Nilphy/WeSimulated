@@ -18,6 +18,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+
+import com.wesimulated.simulationmotor.DateUtils;
+
 import edu.wesimulated.firstapp.MainApp;
 import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.RaciType;
@@ -58,8 +61,8 @@ public class TaskOverviewController {
 		if (task != null) {
 			nameLabel.setText(task.getName());
 			unitsOfWorkLabel.setText(task.getUnitsOfWork().toString());
-			startDate.setText(converter.toString(task.getStartDate()));
-			endDate.setText(converter.toString(task.getEndDate()));
+			startDate.setText(converter.toString(DateUtils.asLocalDate(task.getStartDate())));
+			endDate.setText(converter.toString(DateUtils.asLocalDate(task.getEndDate())));
 			populateTaskPeopleAssignmentsTable(task);
 		} else {
 			nameLabel.setText("");

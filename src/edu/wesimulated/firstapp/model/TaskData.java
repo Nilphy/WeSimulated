@@ -1,6 +1,6 @@
 package edu.wesimulated.firstapp.model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -21,8 +21,8 @@ public class TaskData {
 
 	private StringProperty name;
 	private IntegerProperty unitsOfWork;
-	private LocalDate startDate;
-	private LocalDate endDate;
+	private Date startDate;
+	private Date endDate;
 	private ObservableList<PersonData> responsiblePeople;
 	private ObservableList<PersonData> accountablePeople;
 	private ObservableList<PersonData> consultedPeople;
@@ -119,20 +119,20 @@ public class TaskData {
 	}
 
 	@XmlJavaTypeAdapter(LocalDateAdapter.class)
-	public LocalDate getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(LocalDate startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
 	@XmlJavaTypeAdapter(LocalDateAdapter.class)
-	public LocalDate getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(LocalDate endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 

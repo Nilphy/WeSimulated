@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import com.javacommon.utils.IntegerUtils;
+import com.wesimulated.simulationmotor.DateUtils;
 
 import edu.wesimulated.firstapp.MainApp;
 import edu.wesimulated.firstapp.model.InvalidRaciTypeException;
@@ -92,8 +93,8 @@ public class TaskEditController {
 		this.task = task;
 		this.nameField.setText(task.getName());
 		this.unitsOfWorkField.setText(task.getUnitsOfWork().toString());
-		this.startDatePicker.setValue(task.getStartDate());
-		this.endDatePicker.setValue(task.getEndDate());
+		this.startDatePicker.setValue(DateUtils.asLocalDate(task.getStartDate()));
+		this.endDatePicker.setValue(DateUtils.asLocalDate(task.getEndDate()));
 		this.populateTaskPeopleAssignmentsTable();
 	}
 
@@ -143,8 +144,8 @@ public class TaskEditController {
 		if (this.validateInput()) {
 			this.task.setName(this.nameField.getText());
 			this.task.setUnitsOfWork(Integer.parseInt(unitsOfWorkField.getText()));
-			this.task.setStartDate(this.startDatePicker.getValue());
-			this.task.setEndDate(this.endDatePicker.getValue());
+			this.task.setStartDate(DateUtils.asDate(this.startDatePicker.getValue()));
+			this.task.setEndDate(DateUtils.asDate(this.endDatePicker.getValue()));
 			this.task.resetAllPeopleAssignations();
 			for (TaskPeopleAssignmentRow peopleAssignationRow : this.taskPeopleAssignmentTable.getItems()) {
 				this.addPersonOfRaciType(peopleAssignationRow.getPerson(), peopleAssignationRow.getRaciType());

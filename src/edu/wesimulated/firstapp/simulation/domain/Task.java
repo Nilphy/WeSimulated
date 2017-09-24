@@ -1,6 +1,5 @@
 package edu.wesimulated.firstapp.simulation.domain;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -28,8 +27,14 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 	private Collection<Person> responsiblePeople;
 	private Collection<Person> consultedPeople;
 	private Profile profile;
-	private LocalDate endDate;
-	private LocalDate startDate;
+	/**
+	 * Last possible end
+	 */
+	private Date endDate;
+	/**
+	 * First possible start
+	 */
+	private Date startDate;
 	private Collection<TaskDependency> taskDependencies;
 	private Map<TaskNeed, Number> costInHoursPerTaskNeed;
 	private Map<TaskNeed, Number> workDoneInHoursPerTaskNeed;
@@ -115,12 +120,12 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 		return this.consultedPeople;
 	}
 
-	public void setEndDate(LocalDate endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 		// FIXME: register change in hla task
 	}
 
-	public void setStartDate(LocalDate startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 		// FIXME: register change in hla task
 	}
@@ -195,5 +200,13 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 
 	protected Map<TaskNeed, Number> getCostInHoursPerTaskNeed() {
 		return this.costInHoursPerTaskNeed;
+	}
+
+	public Date getStartDate() {
+		return this.startDate;
+	}
+
+	public Date getEndDate() {
+		return this.endDate;
 	}
 }
