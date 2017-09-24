@@ -7,11 +7,6 @@ public class ErrorsReported extends MaintenanceTask {
 		super(period);
 	}
 
-	@Override
-	public boolean testIfRequirementsAreMet() {
-		// FIXME is it time? that should be considered in parent class?
-		return true;
-	}
 
 	@Override
 	public void doAction() {

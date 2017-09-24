@@ -29,6 +29,8 @@ public abstract class MaintenanceTask extends COperation {
 	}
 
 	@Override
+	public boolean testIfRequirementsAreMet() {
+		return true;
 	public void doAction() {
 		// FIXME set lastTime as current date
 	}
