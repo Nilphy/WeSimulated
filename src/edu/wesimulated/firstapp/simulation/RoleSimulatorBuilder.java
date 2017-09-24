@@ -2,6 +2,7 @@ package edu.wesimulated.firstapp.simulation;
 
 import java.util.Date;
 
+import edu.wesimulated.firstapp.simulation.domain.MisconfiguredProject;
 import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Role;
@@ -40,11 +41,12 @@ public class RoleSimulatorBuilder {
 	 * @param project
 	 * @param person
 	 * @return the simulator builded
+	 * @throws MisconfiguredProject 
 	 */
-	public static RoleSimulator buildAvatureDeveloperSimulator(Project project, RolePerson person) {
+	public static RoleSimulator buildAvatureDeveloperSimulator(Project project, RolePerson person) throws MisconfiguredProject {
 		Role role = RolePool.getAvatureDeveloperRole();
 		RoleSimulator roleSimulator = new RoleSimulator(role, project, person);
-		Date roleWorkStart = project.findStartDateToWorkForRole(role, person);
+		Date roleWorkStart = project.findStartDateToWork(person);
 		roleSimulator.addBOperation(new StartProject(roleWorkStart));
 		AvatureDeveloperTask taskToWorkIn = (AvatureDeveloperTask) project.findTaskToWorkForRole(role);
 		WorkType workType = taskToWorkIn.findWorkTypeForRole(roleSimulator);

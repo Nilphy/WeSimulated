@@ -190,6 +190,10 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 		return allPeople;
 	}
 
+	public boolean isPersonAssigned(Person person) {
+		return this.getAllPeopleInvolved().contains(person);
+	}
+
 	public Profile getProfile() {
 		return this.profile;
 	}

@@ -1,11 +1,14 @@
 package edu.wesimulated.firstapp.simulation.domain;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.wesimulated.simulation.runparameters.CompletableTask;
 
@@ -18,6 +21,14 @@ import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
 public class Project implements CompletableTask, NumericallyModeledEntity {
+
+	private static Task orderTasksAndGetFirst(List<Task> tasks, Comparator<Task> comparator) {
+		if (tasks.size() > 0) {
+			Collections.sort(tasks, comparator);
+			return tasks.get(0);
+		}
+		return null;
+	}
 
 	private ProjectContract contract;
 	private ProjectWbs wbs;
@@ -40,6 +51,13 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 		return true;
 	}
 
+	public Date findStartDateToWork(Person person) throws MisconfiguredProject {
+		List<Task> tasksAssignedToPerson = this.findTasksAssignedToPerson(person);
+		if (tasksAssignedToPerson.size() > 0) {
+			Task firstTaskAssignedToPerson = orderTasksAndGetFirst(tasksAssignedToPerson, (Task first, Task second) -> {
+				return first.getStartDate().compareTo(second.getStartDate());
+			});
+			return firstTaskAssignedToPerson.getStartDate();
 	public void addPerson(Person person) {
 		if (this.people == null) {
 			this.people = new LinkedList<>();
@@ -51,6 +69,7 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 		if (this.tasks == null) {
 			this.tasks = new LinkedList<>();
 		}
+		throw new MisconfiguredProject("PersonWithoutAssignations");
 		this.tasks.add(taskSimulator);
 	}
 
@@ -62,9 +81,13 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 		// TODO Auto-generated method stub
 	}
 
-	public Date findStartDateToWorkForRole(Role role, Person person) {
-		// TODO Auto-generated method stub
-		return null;
+	private List<Task> findTasksAssignedToPerson(Person person) {
+		return this.getTasks().stream().filter((task) -> {
+			if (task.isPersonAssigned(person)) {
+				return true;
+			};
+			return false;
+		}).collect(Collectors.toList());
 	}
 
 	public Date findWorkEndOfRole(Role role) {
@@ -120,4 +143,9 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 	public Collection<Meeting> findRegularMeetings() {
 		return this.managementFramework.getMeetings();
 	}
+
+	private List<Task> getTasks() {
+		return this.tasks;
+	}
+
 }

@@ -86,8 +86,8 @@ public abstract class Person implements Resource, NumericallyModeledEntity {
 		return values;
 	}
 
-	protected boolean isWorkingWithMe(Person sender) {
-		return this.currentTask.getAllPeopleInvolved().contains(sender); 
+	protected boolean isWorginWithMe(Person person) {
+		return this.currentTask.isPersonAssigned(person);
 	}
 
 	public void resign() {
