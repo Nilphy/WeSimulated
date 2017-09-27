@@ -213,4 +213,18 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 	public Date getEndDate() {
 		return this.endDate;
 	}
+
+	public boolean hasWorkForRole(Role role) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean isReady() {
+		return !this.hasUnmetDependencies() && !this.isCompleted();
+	}
+
+	private boolean hasUnmetDependencies() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

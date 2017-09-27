@@ -15,6 +15,7 @@ import com.wesimulated.simulation.runparameters.CompletableTask;
 import edu.wesimulated.firstapp.simulation.domain.avature.project.MaintenanceTask;
 import edu.wesimulated.firstapp.simulation.domain.avature.project.Meeting;
 import edu.wesimulated.firstapp.simulation.domain.avature.project.Risk;
+import edu.wesimulated.firstapp.simulation.domain.avature.role.RolePerson;
 import edu.wesimulated.firstapp.simulation.hla.HlaProject;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
@@ -53,39 +54,44 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 		return true;
 	}
 
-	public Date findStartDateToWork(Person person) throws MisconfiguredProject {
-		List<Task> tasksAssignedToPerson = this.findTasksAssignedToPerson(person);
+	public Task findTaskToWorkForRole(Person person, Role role) throws MisconfiguredProject {
+		List<Task> tasksAssignedToPerson = this.findTasksAssignedToPersonForRole(person, role);
 		if (tasksAssignedToPerson.size() > 0) {
 			Task firstTaskAssignedToPerson = orderTasksAndGetFirst(tasksAssignedToPerson, (Task first, Task second) -> {
 				return first.getStartDate().compareTo(second.getStartDate());
 			});
-			return firstTaskAssignedToPerson.getStartDate();
+			return firstTaskAssignedToPerson;
 		}
 		throw new MisconfiguredProject("PersonWithoutAssignations");
 	}
+	
+	public Task findTaskToWorkOn(Date endOfSlab, RolePerson person, Role role) {
+		List<Task> tasksAssignedToPerson = this.findTasksToWorkOn(person, role);
+		if (tasksAssignedToPerson.size() > 0) {
+			Task firstTaskToWorkOn = orderTasksAndGetFirst(tasksAssignedToPerson, (Task first, Task second) -> {
+				return first.getStartDate().compareTo(second.getStartDate());
+			});
+			return firstTaskToWorkOn;
+		}
+		throw null;
+	}
 
-	private List<Task> findTasksAssignedToPerson(Person person) {
+	private List<Task> findTasksAssignedToPersonForRole(Person person, Role role) {
 		return this.getTasks().stream().filter((task) -> {
-			if (task.isPersonAssigned(person)) {
+			if (task.isPersonAssigned(person) && task.hasWorkForRole(role)) {
 				return true;
-			};
+			}
 			return false;
 		}).collect(Collectors.toList());
 	}
 
-	public Date findWorkEndOfRole(Role role) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Task findTaskToWorkOn(Date day, Person person, Role role) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Task findTaskToWorkForRole(Role role) {
-		// TODO Auto-generated method stub
-		return null;
+	private List<Task> findTasksToWorkOn(Person person, Role role) {
+		return this.getTasks().stream().filter((task) -> {
+			if (task.isPersonAssigned(person) && task.hasWorkForRole(role) && task.isReady()) {
+				return true;
+			}
+			return false;
+		}).collect(Collectors.toList());
 	}
 
 	@Override
