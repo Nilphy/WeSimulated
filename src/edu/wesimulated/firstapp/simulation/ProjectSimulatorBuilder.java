@@ -17,8 +17,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
  */
 public class ProjectSimulatorBuilder {
 
-	public ProjectSimulator buildAvatureProject() {
-		Project project = new Project();
+	public ProjectSimulator buildAvatureProject(Project project) {
 		ProjectSimulator projectSimulator = new ProjectSimulator(project);
 		/**
 		 * Los risks pueden tener variso efectos, o hacer que una persona no esté
