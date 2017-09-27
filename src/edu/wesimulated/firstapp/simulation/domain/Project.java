@@ -38,6 +38,8 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 	private List<Team> teams;
 	private List<Task> tasks;
 	private List<Role> roles;
+	private List<Risk> risks;
+	private List<MaintenanceTask> maintenanceTasks;
 	private Date startDate;
 	private ManagementFramework managementFramework;
 
@@ -103,13 +105,11 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 	}
 
 	public Collection<Risk> getRisks() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.risks;
 	}
 
 	public Collection<MaintenanceTask> getMaintenanceTasks() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.maintenanceTasks;
 	}
 
 	public Person pickRandomPerson() {
@@ -154,4 +154,5 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 		}
 		this.roles.add(role);
 	}
+
 }
