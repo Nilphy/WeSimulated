@@ -46,11 +46,11 @@ public class RoleSimulatorBuilder {
 	public static RoleSimulator buildAvatureDeveloperSimulator(Project project, RolePerson person) throws MisconfiguredProject {
 		Role role = RolePool.getAvatureDeveloperRole();
 		RoleSimulator roleSimulator = new RoleSimulator(role, project, person);
-		Date roleWorkStart = project.findStartDateToWork(person);
-		roleSimulator.addBOperation(new StartProject(roleWorkStart));
-		AvatureDeveloperTask taskToWorkIn = (AvatureDeveloperTask) project.findTaskToWorkForRole(role);
+		AvatureDeveloperTask taskToWorkIn = (AvatureDeveloperTask) project.findTaskToWorkForRole(person, role);
+		Date startTime = taskToWorkIn.getStartDate();
+		roleSimulator.addBOperation(new StartProject(startTime));
 		WorkType workType = taskToWorkIn.findWorkTypeForRole(roleSimulator);
-		roleSimulator.addCOperation(new WorkSlabStart(roleSimulator, workType, taskToWorkIn, roleWorkStart));
+		roleSimulator.addCOperation(new WorkSlabStart(roleSimulator, workType, taskToWorkIn, startTime));
 		return roleSimulator;
 	}
 
