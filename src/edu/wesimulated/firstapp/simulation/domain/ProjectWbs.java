@@ -9,7 +9,7 @@ public class ProjectWbs implements NumericallyModeledEntity {
 
 	@Override
 	public Map<Characteristic, EntryValue> extractValues() {
-		// TODO Auto-generated method stub
+		// TODO complete ProjectWbs.extractValues
 		return null;
 	}
 }

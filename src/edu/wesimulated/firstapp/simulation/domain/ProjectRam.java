@@ -9,7 +9,7 @@ public class ProjectRam implements NumericallyModeledEntity {
 
 	@Override
 	public Map<Characteristic, EntryValue> extractValues() {
-		// TODO Auto-generated method stub
+		// TODO complete ProjectRam.extractValues
 		return null;
 	}
 

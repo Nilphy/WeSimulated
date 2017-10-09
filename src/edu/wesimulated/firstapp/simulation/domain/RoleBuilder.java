@@ -6,12 +6,12 @@ import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
 public class RoleBuilder {
 
 	public static Role createFromRoleData(RoleData roleData, SimulatorFactory simulatorFactory) {
-		// TODO Auto-generated method stub
+		// TODO complete RoleBuilde.createFromRoleData 
 		return null;
 	}
 
 	public static Person createFromHlaPerson(HlaPerson hlaPerson) {
-		// TODO Auto-generated method stub
+		// TODO complete RoleBuilder.createFromHlaPerson
 		return null;
 	}
 

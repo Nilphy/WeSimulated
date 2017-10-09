@@ -5,7 +5,7 @@ import edu.wesimulated.firstapp.model.ProjectData;
 public class ProjectBuilder {
 
 	public static Project createFromProjectData(ProjectData projectData) {
-		// TODO Auto-generated method stub
+		// TODO complete ProjectBuilder.createFromProjectData
 		return null;
 	}
 
