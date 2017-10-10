@@ -4,6 +4,8 @@ package edu.wesimulated.firstapp.simulation.domain;
 public enum PersonCharacteristic implements Characteristic {
 	Efficiency,
 	Effectiveness,
+	EXPERIENCE,
+	EXPERIENCE_DEVELOP_SOFTWARE,
 	ExperienceWithWorkbenchTools,
 	MaxPriorityOfEmail,
 	MaxPriorityOfFaceToFaceQuestion,

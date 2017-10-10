@@ -3,6 +3,7 @@ package edu.wesimulated.firstapp.simulation.domain.worktype;
 import java.util.Date;
 import java.util.Map;
 
+import com.wesimulated.simulationmotor.DateUtils;
 import com.wesimulated.simulationmotor.des.State;
 
 import edu.wesimulated.firstapp.simulation.domain.Characteristic;
@@ -16,7 +17,8 @@ public class DevelopSoftware extends WorkType implements State {
 	}
 	
 	public void applyEffects(Date start, Date end) {
-		this.getRoleSimulator().getPerson().increaseExperience();
+		int minutesWorked = DateUtils.calculateDifferenceInMinutes(end, start);
+		this.getRoleSimulator().getPerson().increaseExperience(minutesWorked, this);
 		/* TODO se mandan horas o se manda trabajo ya procesado? sería mejor mandar horas para que
 		los simuladores sean más independientes, porque si no la tarea no sabe como está el 
 		simulador del trabajador calculando el work done
