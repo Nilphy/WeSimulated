@@ -54,7 +54,7 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 		return true;
 	}
 
-	public Task findTaskToWorkForRole(Person person, Role role) throws MisconfiguredProject {
+	public Task findTaskToWorkForRole(Person person, Role role) {
 		List<Task> tasksAssignedToPerson = this.findTasksAssignedToPersonForRole(person, role);
 		if (tasksAssignedToPerson.size() > 0) {
 			Task firstTaskAssignedToPerson = orderTasksAndGetFirst(tasksAssignedToPerson, (Task first, Task second) -> {
@@ -62,9 +62,9 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 			});
 			return firstTaskAssignedToPerson;
 		}
-		throw new MisconfiguredProject("PersonWithoutAssignations");
+		return null;
 	}
-	
+
 	public Task findTaskToWorkOn(Date endOfSlab, RolePerson person, Role role) {
 		List<Task> tasksAssignedToPerson = this.findTasksToWorkOn(person, role);
 		if (tasksAssignedToPerson.size() > 0) {
