@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.prefs.Preferences;
 
 import javafx.application.Application;
@@ -24,8 +23,6 @@ import javafx.stage.Stage;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-
-import com.wesimulated.simulationmotor.systemdynamics.Stock;
 
 import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.ProjectData;
@@ -295,18 +292,16 @@ public class MainApp extends Application {
 
 	public void loadProjectDataFromFile(File projectFile) {
 		try {
-			if (projectFile != null) {
-				JAXBContext context = JAXBContext.newInstance(ProjectData.class);
-				Unmarshaller um = context.createUnmarshaller();
-				ProjectData projectData = (ProjectData) um.unmarshal(projectFile);
-				this.fillRoleInfo(projectData);
-				this.fillPeopleInfo(projectData);
-				this.fillTaskInfo(projectData);
-				this.fillWbsInfo(projectData);
-				this.fillRamInfo(projectData);
-				this.fillTaskNet();
-				setStorageFilePath(projectFile, FileType.project);
-			}
+			JAXBContext context = JAXBContext.newInstance(ProjectData.class);
+			Unmarshaller um = context.createUnmarshaller();
+			ProjectData projectData = (ProjectData) um.unmarshal(projectFile);
+			this.fillRoleInfo(projectData);
+			this.fillPeopleInfo(projectData);
+			this.fillTaskInfo(projectData);
+			this.fillWbsInfo(projectData);
+			this.fillRamInfo(projectData);
+			this.fillTaskNet();
+			setStorageFilePath(projectFile, FileType.project);
 		} catch (Exception e) {
 			showAlert("Could not load data", "Could not load data from file");
 			e.printStackTrace();
@@ -315,13 +310,11 @@ public class MainApp extends Application {
 
 	public void loadStochasticDataFromFile(File file) {
 		try {
-			if (file != null) {
-				JAXBContext context = JAXBContext.newInstance(StochasticRegistryData.class);
-				Unmarshaller um = context.createUnmarshaller();
-				StochasticRegistryData stochasticRegistryData = (StochasticRegistryData) um.unmarshal(file);
-				StochasticRegistry.getInstance().loadData(stochasticRegistryData);
-				this.setStorageFilePath(file, FileType.stochasticData);
-			}
+			JAXBContext context = JAXBContext.newInstance(StochasticRegistryData.class);
+			Unmarshaller um = context.createUnmarshaller();
+			StochasticRegistryData stochasticRegistryData = (StochasticRegistryData) um.unmarshal(file);
+			StochasticRegistry.getInstance().loadData(stochasticRegistryData);
+			this.setStorageFilePath(file, FileType.stochasticData);
 		} catch (Exception e) {
 			showAlert("Could not load data", "Could not load data from file");
 			e.printStackTrace();
@@ -395,9 +388,13 @@ public class MainApp extends Application {
 
 	private void loadDataFromFile() {
 		File projectFile = getStorageFilePath(FileType.project);
-		this.loadProjectDataFromFile(projectFile);
+		if (projectFile != null) {
+			this.loadProjectDataFromFile(projectFile);
+		}
 		File stochasticDataFile = getStorageFilePath(FileType.stochasticData);
-		this.loadStochasticDataFromFile(stochasticDataFile);
+		if (stochasticDataFile != null) {
+			this.loadStochasticDataFromFile(stochasticDataFile);
+		}
 	}
 
 	private void fillTaskNet() {
