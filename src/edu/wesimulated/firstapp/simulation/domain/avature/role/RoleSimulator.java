@@ -7,6 +7,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import com.wesimulated.simulation.runparameters.TaskCompletedEndCondition;
+import com.wesimulated.simulationmotor.DateUtils;
 import com.wesimulated.simulationmotor.des.BOperation;
 import com.wesimulated.simulationmotor.des.COperation;
 import com.wesimulated.simulationmotor.des.OperationBasedSimulator;
@@ -132,8 +133,7 @@ public class RoleSimulator extends OperationBasedSimulator implements Observer {
 		return DateUtils.calculateDifferenceInMinutes(this.lastDateWorkRegistered, this.getOperationBasedExecutor().getClock().getCurrentDate());
 	}
 
-	public String findTimeInThisMonthTask() {
-		// TODO Auto-generated method stub
-		return null;
+	public String findTimeInTask() {
+		return this.currentTask.getWorkDone(this.currentTask, this.getCurrentWorkType(), this.getRole(), this.getPerson());
 	}
 }
