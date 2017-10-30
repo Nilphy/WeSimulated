@@ -24,13 +24,24 @@ public class RootLayoutController {
 	}
 
 	@FXML
-	private void handleOpen() {
+	private void handleOpenProjectFile() {
 		FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
 		if (file != null) {
 			mainApp.loadProjectDataFromFile(file);
+		}
+	}
+	
+	@FXML
+	private void handleOpenStochasticDataFromFile() {
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+		fileChooser.getExtensionFilters().add(extFilter);
+		File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
+		if (file != null) {
+			mainApp.loadStochasticDataFromFile(file);
 		}
 	}
 
