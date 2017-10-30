@@ -1,10 +1,12 @@
 package edu.wesimulated.firstapp.view;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
+
+import com.wesimulated.simulationmotor.DateUtils;
+
 import edu.wesimulated.firstapp.MainApp;
 import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.RoleData;
@@ -23,11 +25,11 @@ public class SimulationOverviewController {
 	}
 
 	public void log(String message, Date date) {
-		this.textDisplay.appendText(this.getTimeToLog(date) + " " + message + "\n");
+		this.textDisplay.appendText(DateUtils.asLog(date) + " " + message + "\n");
 	}
 
 	public void log(Work workDone, Date date) {
-		this.textDisplay.appendText(this.getTimeToLog(date) + " " + workDone + "\n");
+		this.textDisplay.appendText(DateUtils.asLog(date) + " " + workDone + "\n");
 	}
 
 	public void setMainApp(MainApp mainApp) {
@@ -68,14 +70,5 @@ public class SimulationOverviewController {
 	@FXML
 	private void startSimulation() {
 		Simulation.getInstance().startFederation();
-	}
-
-	private String getTimeToLog(Date date) {
-		Date logDate = date;
-		if (date == null) {
-			logDate = new Date();
-		}
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd  hh:mm");
-		return formatter.format(logDate);
 	}
 }
