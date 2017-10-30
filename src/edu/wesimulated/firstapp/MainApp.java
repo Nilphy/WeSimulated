@@ -71,12 +71,17 @@ public class MainApp extends Application {
 		this.responsibilityAssignmentData = FXCollections.observableArrayList();
 	}
 
+	public static void main(String[] args) {
+		launch(args);
+	}
+
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("We Simulated");
 		this.primaryStage.getIcons().add(new Image("file:resources/images/lollipop.png"));
 		this.initRootLayout();
+		this.loadDataFromFile();
 		this.showPersonOverview();
 	}
 
@@ -171,45 +176,6 @@ public class MainApp extends Application {
 		}
 	}
 
-	private void initRootLayout() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
-			rootLayout = (BorderPane) loader.load();
-			Scene scene = new Scene(rootLayout);
-			primaryStage.setScene(scene);
-			RootLayoutController controller = loader.getController();
-			controller.setMainApp(this);
-			primaryStage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		File projectFile = getStorageFilePath(FileType.project);
-		loadProjectDataFromFile(projectFile);
-		File stochasticDataFile = getStorageFilePath(FileType.stochasticData);
-		loadStochasticDataFromFile(stochasticDataFile);
-	}
-
-	public ObservableList<TaskData> getTaskData() {
-		return this.taskData;
-	}
-
-	public ObservableList<PersonData> getPersonData() {
-		return this.personData;
-	}
-
-	public ObservableList<RoleData> getRoleData() {
-		return this.roleData;
-	}
-
-	public WbsInnerNode getWbs() {
-		return this.wbs;
-	}
-
-	public TaskNet getTaskNet() {
-		return taskNet;
-	}
-
 	public ObservableList<ResponsibilityAssignmentData> buildResponsibilityAssignmentData() {
 		boolean found = false;
 		for (RoleData role : this.getRoleData()) {
@@ -230,147 +196,6 @@ public class MainApp extends Application {
 			}
 		}
 		return this.responsibilityAssignmentData;
-	}
-
-	public Stage getPrimaryStage() {
-		return this.primaryStage;
-	}
-
-	public static void main(String[] args) {
-		launch(args);
-	}
-
-	public File getStorageFilePath(FileType fileType) {
-		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-		String filePath = prefs.get(fileType.name(), null);
-		if (filePath != null) {
-			return new File(filePath);
-		} else {
-			return null;
-		}
-	}
-
-	public void setStorageFilePath(File file, FileType fileType) {
-		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-		if (file != null) {
-			prefs.put(fileType.name(), file.getPath());
-		} else {
-			prefs.remove(fileType.name());
-		}
-	}
-
-	public void loadProjectDataFromFile(File projectFile) {
-		try {
-			if (projectFile != null) {
-				JAXBContext context = JAXBContext.newInstance(ProjectData.class);
-				Unmarshaller um = context.createUnmarshaller();
-				ProjectData projectData = (ProjectData) um.unmarshal(projectFile);
-				this.fillRoleInfo(projectData);
-				this.fillPeopleInfo(projectData);
-				this.fillTaskInfo(projectData);
-				this.fillWbsInfo(projectData);
-				this.fillRamInfo(projectData);
-				this.fillTaskNet();
-				setStorageFilePath(projectFile, FileType.project);
-			}
-		} catch (Exception e) {
-			showAlert("Could not load data", "Could not load data from file");
-			e.printStackTrace();
-		}
-	}
-	
-	public void loadStochasticDataFromFile(File file) {
-		try {
-			if (file != null) {
-				JAXBContext context = JAXBContext.newInstance(StochasticRegistryData.class);
-				Unmarshaller um = context.createUnmarshaller();
-				StochasticRegistryData stochasticRegistryData = (StochasticRegistryData) um.unmarshal(file);
-				StochasticRegistry.getInstance().loadData(stochasticRegistryData);
-				setStorageFilePath(file, FileType.stochasticData);
-			}
-		} catch (Exception e) {
-			showAlert("Could not load data", "Could not load data from file");
-			e.printStackTrace();
-		}
-	}
-
-
-	private void fillTaskNet() {
-		this.taskNet.initFromTasks(this.getTaskData());
-		
-	}
-
-	private void showAlert(String headerText, String contentText) {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error");
-		alert.setHeaderText(headerText);
-		alert.setContentText(contentText);
-		alert.showAndWait();
-	}
-
-	private void fillWbsInfo(ProjectData projectData) {
-		WbsInnerNode newWbs = UiModelToXml.convertToUiModel(projectData.getWbsRootNode(), this);
-		getWbs().getChildrenWbsNodes().clear();
-		getWbs().setChildrenWbsNodes(newWbs.getChildrenWbsNodes());
-		getWbs().setName(newWbs.getName());
-	}
-
-	private void fillTaskInfo(ProjectData projectData) {
-		this.taskData.clear();
-		this.taskData.addAll(projectData.getTasks());
-		projectData.registerMaxId();
-	}
-
-	private void fillPeopleInfo(ProjectData projectData) {
-		this.personData.clear();
-		UiModelToXml.changeRolesFromMainAppOnes(projectData.getPersons(), this);
-		this.personData.addAll(projectData.getPersons());
-	}
-
-	private void fillRamInfo(ProjectData projectData) {
-		this.responsibilityAssignmentData.clear();
-		this.responsibilityAssignmentData.addAll(UiModelToXml.convertToUiModel(projectData.getResponsibilityAssignments(), this));
-	}
-
-	private void fillRoleInfo(ProjectData projectData) {
-		this.roleData.clear();
-		this.roleData.addAll(projectData.getRoles());
-	}
-
-	public void saveDataToFile(File file, FileType fileType) {
-		try {
-			JAXBContext context = JAXBContext.newInstance(FileType.project.equals(fileType) ? ProjectData.class : StochasticRegistryData.class);
-			Marshaller m = context.createMarshaller();
-			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			if (FileType.project.equals(fileType)) {
-				ProjectData projectData = buildProjectData();
-				m.marshal(projectData, file);
-			} else {
-				StochasticRegistryData stochasticRegistryData = buildStochasticRegistryData();
-				m.marshal(stochasticRegistryData, file);
-			}
-			setStorageFilePath(file, fileType);
-		} catch (Exception e) {
-			e.printStackTrace();
-			this.showAlert("Could not save data", "Could not save data to file");
-		}
-	}
-
-	private StochasticRegistryData buildStochasticRegistryData() {
-		StochasticRegistryData stochasticRegistryData = new StochasticRegistryData();
-		List<StochasticVarData> vars = new ArrayList<>();
-		for (StochasticVar stochasticVar : StochasticVar.values()) {
-			StochasticMethod stochasticMethod = StochasticRegistry.getInstance().getStochasticMethod(stochasticVar);
-			StochasticVarData varData = new StochasticVarData();
-			if (stochasticMethod != null) {
-				varData.setType(stochasticMethod.getType().name());
-				varData.setName(stochasticVar.name());
-				stochasticMethod.getConfig().getEntries().forEach(config -> varData.addConfig(StochasticMethodConfigData.fromEntry(config)));
-			}
-			vars.add(varData);
-		}
-		stochasticRegistryData.setStochasticVars(vars);
-		return stochasticRegistryData;
 	}
 
 	public ProjectData buildProjectData() {
@@ -438,18 +263,198 @@ public class MainApp extends Application {
 	}
 
 	public boolean mustSimulateProject() {
-		// TODO Still need to define how to configure the application to run distributed
+		// TODO Still need to define how to configure the application to run
+		// distributed
 		return false;
 	}
 
 	public boolean mustStartLogger() {
-		// TODO Still need to define how to configure the application to run distributed
+		// TODO Still need to define how to configure the application to run
+		// distributed
 		return false;
+	}
+
+	public void saveDataToFile(File file, FileType fileType) {
+		try {
+			JAXBContext context = JAXBContext.newInstance(FileType.project.equals(fileType) ? ProjectData.class : StochasticRegistryData.class);
+			Marshaller m = context.createMarshaller();
+			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			if (FileType.project.equals(fileType)) {
+				ProjectData projectData = buildProjectData();
+				m.marshal(projectData, file);
+			} else {
+				StochasticRegistryData stochasticRegistryData = buildStochasticRegistryData();
+				m.marshal(stochasticRegistryData, file);
+			}
+			setStorageFilePath(file, fileType);
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.showAlert("Could not save data", "Could not save data to file");
+		}
+	}
+
+	public void loadProjectDataFromFile(File projectFile) {
+		try {
+			if (projectFile != null) {
+				JAXBContext context = JAXBContext.newInstance(ProjectData.class);
+				Unmarshaller um = context.createUnmarshaller();
+				ProjectData projectData = (ProjectData) um.unmarshal(projectFile);
+				this.fillRoleInfo(projectData);
+				this.fillPeopleInfo(projectData);
+				this.fillTaskInfo(projectData);
+				this.fillWbsInfo(projectData);
+				this.fillRamInfo(projectData);
+				this.fillTaskNet();
+				setStorageFilePath(projectFile, FileType.project);
+			}
+		} catch (Exception e) {
+			showAlert("Could not load data", "Could not load data from file");
+			e.printStackTrace();
+		}
+	}
+
+	public void loadStochasticDataFromFile(File file) {
+		try {
+			if (file != null) {
+				JAXBContext context = JAXBContext.newInstance(StochasticRegistryData.class);
+				Unmarshaller um = context.createUnmarshaller();
+				StochasticRegistryData stochasticRegistryData = (StochasticRegistryData) um.unmarshal(file);
+				StochasticRegistry.getInstance().loadData(stochasticRegistryData);
+				this.setStorageFilePath(file, FileType.stochasticData);
+			}
+		} catch (Exception e) {
+			showAlert("Could not load data", "Could not load data from file");
+			e.printStackTrace();
+		}
 	}
 
 	public void clearStorageFilePaths() {
 		for (FileType fileType : FileType.values()) {
 			this.setStorageFilePath(null, fileType);
 		}
+	}
+
+	public Stage getPrimaryStage() {
+		return this.primaryStage;
+	}
+
+	public File getStorageFilePath(FileType fileType) {
+		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+		String filePath = prefs.get(fileType.name(), null);
+		if (filePath != null) {
+			return new File(filePath);
+		} else {
+			return null;
+		}
+	}
+
+	public void setStorageFilePath(File file, FileType fileType) {
+		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+		if (file != null) {
+			prefs.put(fileType.name(), file.getPath());
+		} else {
+			prefs.remove(fileType.name());
+		}
+	}
+
+	public ObservableList<TaskData> getTaskData() {
+		return this.taskData;
+	}
+
+	public ObservableList<PersonData> getPersonData() {
+		return this.personData;
+	}
+
+	public ObservableList<RoleData> getRoleData() {
+		return this.roleData;
+	}
+
+	public WbsInnerNode getWbs() {
+		return this.wbs;
+	}
+
+	public TaskNet getTaskNet() {
+		return taskNet;
+	}
+
+	private void initRootLayout() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
+			rootLayout = (BorderPane) loader.load();
+			Scene scene = new Scene(rootLayout);
+			primaryStage.setScene(scene);
+			RootLayoutController controller = loader.getController();
+			controller.setMainApp(this);
+			primaryStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	
+	}
+
+	private void loadDataFromFile() {
+		File projectFile = getStorageFilePath(FileType.project);
+		this.loadProjectDataFromFile(projectFile);
+		File stochasticDataFile = getStorageFilePath(FileType.stochasticData);
+		this.loadStochasticDataFromFile(stochasticDataFile);
+	}
+
+	private void fillTaskNet() {
+		this.taskNet.initFromTasks(this.getTaskData());
+	}
+
+	private void showAlert(String headerText, String contentText) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText(headerText);
+		alert.setContentText(contentText);
+		alert.showAndWait();
+	}
+
+	private void fillWbsInfo(ProjectData projectData) {
+		WbsInnerNode newWbs = UiModelToXml.convertToUiModel(projectData.getWbsRootNode(), this);
+		getWbs().getChildrenWbsNodes().clear();
+		getWbs().setChildrenWbsNodes(newWbs.getChildrenWbsNodes());
+		getWbs().setName(newWbs.getName());
+	}
+
+	private void fillTaskInfo(ProjectData projectData) {
+		this.taskData.clear();
+		this.taskData.addAll(projectData.getTasks());
+		projectData.registerMaxId();
+	}
+
+	private void fillPeopleInfo(ProjectData projectData) {
+		this.personData.clear();
+		UiModelToXml.changeRolesFromMainAppOnes(projectData.getPersons(), this);
+		this.personData.addAll(projectData.getPersons());
+	}
+
+	private void fillRamInfo(ProjectData projectData) {
+		this.responsibilityAssignmentData.clear();
+		this.responsibilityAssignmentData.addAll(UiModelToXml.convertToUiModel(projectData.getResponsibilityAssignments(), this));
+	}
+
+	private void fillRoleInfo(ProjectData projectData) {
+		this.roleData.clear();
+		this.roleData.addAll(projectData.getRoles());
+	}
+
+	private StochasticRegistryData buildStochasticRegistryData() {
+		StochasticRegistryData stochasticRegistryData = new StochasticRegistryData();
+		List<StochasticVarData> vars = new ArrayList<>();
+		for (StochasticVar stochasticVar : StochasticVar.values()) {
+			StochasticMethod stochasticMethod = StochasticRegistry.getInstance().getStochasticMethod(stochasticVar);
+			StochasticVarData varData = new StochasticVarData();
+			if (stochasticMethod != null) {
+				varData.setType(stochasticMethod.getType().name());
+				varData.setName(stochasticVar.name());
+				stochasticMethod.getConfig().getEntries().forEach(config -> varData.addConfig(StochasticMethodConfigData.fromEntry(config)));
+			}
+			vars.add(varData);
+		}
+		stochasticRegistryData.setStochasticVars(vars);
+		return stochasticRegistryData;
 	}
 }
