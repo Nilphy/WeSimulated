@@ -48,6 +48,7 @@ public class RoleSimulator extends OperationBasedSimulator implements Observer {
 	private Task currentTask;
 	private WorkType currentWorkType;
 	private Date currentTaskStart;
+	private Date lastDateWorkRegistered;
 
 	public RoleSimulator(Role role, Project project, RolePerson person) {
 		super(new ThreePhaseExecutor(new TaskCompletedEndCondition(project)));
@@ -66,9 +67,9 @@ public class RoleSimulator extends OperationBasedSimulator implements Observer {
 
 	public void acceptInterruption() {
 		// FIXME: has to determine if will accept the interruption or not (and count interruptions)???
-		Date interruptionDate = this.getOperationBasedExecutor().getClock().getCurrentDate();
-		long durationOfCurrentTask = interruptionDate.getTime() - this.currentTaskStart.getTime();
-		this.currentTask.increaseWorkDone(durationOfCurrentTask, this.currentWorkType.getTaskNeedFulfilled(), interruptionDate);
+		this.lastDateWorkRegistered = this.getOperationBasedExecutor().getClock().getCurrentDate(); // FIXME: register this when the BOperationHappensWithoutInterruption
+		long durationOfCurrentTask = this.lastDateWorkRegistered.getTime() - this.currentTaskStart.getTime();
+		this.currentTask.increaseWorkDone(durationOfCurrentTask, this.currentWorkType.getTaskNeedFulfilled(), lastDateWorkRegistered);
 		this.getOperationBasedExecutor().removeEndOfThisTask();
 		this.getOperationBasedExecutor().reprogramCurrentCOperation();
 		this.getPerson().getHlaPerson().addObserver(this);
@@ -127,9 +128,8 @@ public class RoleSimulator extends OperationBasedSimulator implements Observer {
 		}
 	}
 
-	public String findTimeSinceLastTimeTask() {
-		// TODO Auto-generated method stub
-		return null;
+	public int findTimeSinceLastTimeTask() {
+		return DateUtils.calculateDifferenceInMinutes(this.lastDateWorkRegistered, this.getOperationBasedExecutor().getClock().getCurrentDate());
 	}
 
 	public String findTimeInThisMonthTask() {
