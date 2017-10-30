@@ -11,6 +11,7 @@ import com.wesimulated.simulation.hla.DateLogicalTime;
 import com.wesimulated.simulation.runparameters.CompletableTask;
 
 import edu.wesimulated.firstapp.model.TaskNeed;
+import edu.wesimulated.firstapp.simulation.domain.avature.role.RolePerson;
 import edu.wesimulated.firstapp.simulation.domain.avature.role.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 import edu.wesimulated.firstapp.simulation.hla.HlaTask;
@@ -71,11 +72,12 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 		Number currentWorkDone = this.workDoneInHoursPerTaskNeed.get(taskNeed);
 		this.workDoneInHoursPerTaskNeed.put(taskNeed, new Long(duration + currentWorkDone.longValue()));
 		if (when == null) {
-			this.hlaTask.registerWorkToDo(new Work(duration), new DateLogicalTime(when));
+			// this.hlaTask.registerWorkToDo(new Work(duration), new DateLogicalTime(when));
 			// FIXME register pending changes to send to hla
 		}
 	}
 
+	
 	public void setName(String name, Date when) {
 		this.profile.set(TaskCharacteristic.Name, new EntryValue(EntryValue.Type.String, name));
 		if (when == null) {
