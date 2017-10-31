@@ -11,6 +11,7 @@ import com.wesimulated.simulationmotor.DateUtils;
 import com.wesimulated.simulationmotor.des.Prioritized.Priority;
 
 import edu.wesimulated.firstapp.simulation.domain.Person;
+import edu.wesimulated.firstapp.simulation.domain.Task;
 import edu.wesimulated.firstapp.simulation.domain.Team;
 import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.Message.Status;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
@@ -23,6 +24,7 @@ public class HighlyInterruptibleRolePerson extends Person {
 	private List<Message> pendingEmails;
 	private List<Message> pendingFaceToFaceQuestions;
 	private List<SquealerReport> pendingSquealerReports;
+	private Task currentTask;
 
 	public Pair<Date, Message> resolvePendingEmails() {
 		Date dateUntilResolution = null;
@@ -265,4 +267,11 @@ public class HighlyInterruptibleRolePerson extends Person {
 		return pendingSquealerReports;
 	}
 
+	public void setCurrentTask(Task task) {
+		this.currentTask = task;
+	}
+
+	public Task getCurrentTask() {
+		return this.currentTask;
+	}
 }
