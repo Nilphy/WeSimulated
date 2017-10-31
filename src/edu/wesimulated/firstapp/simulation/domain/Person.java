@@ -15,7 +15,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
-public abstract class Person implements Resource, NumericallyModeledEntity {
+public class Person implements Resource, NumericallyModeledEntity {
 
 	private boolean available;
 	private HlaPerson hlaPerson;
@@ -52,10 +52,6 @@ public abstract class Person implements Resource, NumericallyModeledEntity {
 		this.hlaPerson = hlaPerson;
 	}
 
-	public void increaseExperienceWithWorkbenchTools(Task task, double timeExpended) {
-		this.profile.increase(PersonCharacteristic.ExperienceWithWorkbenchTools, timeExpended);
-	}
-
 	public HlaPerson getHlaPerson() {
 		return hlaPerson;
 	}
@@ -68,13 +64,6 @@ public abstract class Person implements Resource, NumericallyModeledEntity {
 		return null;
 	}
 
-	public void setCurrentTask(Task task) {
-		this.currentTask = task;
-	}
-
-	public Task getCurrentTask() {
-		return this.currentTask;
-	}
 
 	@Override
 	public Map<Characteristic, EntryValue> extractValues() {
@@ -90,11 +79,7 @@ public abstract class Person implements Resource, NumericallyModeledEntity {
 		return this.currentTask.isPersonAssigned(person);
 	}
 
-	public void resign() {
-		this.getProject().getPeople().remove(this);
-	}
-
-	private Project getProject() {
+	protected Project getProject() {
 		return this.project;
 	}
 

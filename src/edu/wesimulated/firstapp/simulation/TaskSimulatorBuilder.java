@@ -49,16 +49,12 @@ public class TaskSimulatorBuilder {
 	public TaskSimulator build(Task task, Project project) {
 		ParametricAlgorithm reviewTimeToReworkFactor = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.ReviewTimeToReworkFactor);
 		reviewTimeToReworkFactor.consider(task);
-		reviewTimeToReworkFactor.considerAll(task.getAllRelatedNumericallyModeledEntities());
 		ParametricAlgorithm qcTimeToReworkFactor = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.QcTimeToReworkFactor);
 		qcTimeToReworkFactor.consider(task);
-		qcTimeToReworkFactor.considerAll(task.getAllRelatedNumericallyModeledEntities());
 		ParametricAlgorithm autoQcToReworkFactor = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.AutoQcToReworkFactor);
 		autoQcToReworkFactor.consider(task);
 		ParametricAlgorithm uowBugsProportion = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.UowBugs);
 		uowBugsProportion.consider(task);
-		uowBugsProportion.considerAll(task.getAllRelatedNumericallyModeledEntities());
-
 		TaskSimulator simulator = new TaskSimulator(task);
 
 		// This flow is to be used of output of all stocks that are consumed
@@ -109,7 +105,7 @@ public class TaskSimulatorBuilder {
 		simulator.register(allRework);
 		allRework.connectInputFlow(reworkGeneration);
 
-		autoQcToReworkFactor.considerAll(task.getAllRelatedNumericallyModeledEntities());
+		autoQcToReworkFactor.consider(task);
 		Constant timeReviewPerDetection = new Constant(CONST_TIME_REVIEW_PER_DETECTION, reviewTimeToReworkFactor);
 		Constant timeQCPerDetection = new Constant(CONST_TIME_QC_PER_DETECTION, qcTimeToReworkFactor);
 		Constant qualityAutoQc = new Constant(CONST_QUALITY_AUTO_QC, autoQcToReworkFactor);

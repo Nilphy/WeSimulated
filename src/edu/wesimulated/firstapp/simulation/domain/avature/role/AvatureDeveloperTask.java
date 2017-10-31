@@ -25,7 +25,6 @@ public class AvatureDeveloperTask extends Task {
 		durationOfRecoverFocus.considerSingleValue(new Pair<>(TaskCharacteristic.TimeInTask, new EntryValue(Type.Long, roleSimulator.findTimeInTask())));
 		durationOfRecoverFocus.consider(roleSimulator.getCurrentTask());
 		durationOfRecoverFocus.consider(roleSimulator.getCurrentWorkType());
-		durationOfRecoverFocus.considerAll(roleSimulator.getCurrentTask().getAllRelatedNumericallyModeledEntities());
 		return durationOfRecoverFocus.findSample().getPrediction().getValue().longValue();
 	}
 

@@ -178,11 +178,6 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 		return returnValue;
 	}
 
-	public Collection<NumericallyModeledEntity> getAllRelatedNumericallyModeledEntities() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public Collection<Person> getAllPeopleInvolved() {
 		Collection<Person> allPeople = new ArrayList<>();
 		allPeople.addAll(this.getAccountablePeople());

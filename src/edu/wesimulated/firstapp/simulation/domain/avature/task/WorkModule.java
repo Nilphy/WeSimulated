@@ -38,7 +38,6 @@ public class WorkModule implements Module {
 		Source bruteWork = new Source(getTaskNeed().c(SOURCE_BRUTE_WORK));
 		ParametricAlgorithm timeWorkedEffectiveUowFactor = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.TimeWorkedForEffectiveUowFactor);
 		timeWorkedEffectiveUowFactor.consider(task);
-		timeWorkedEffectiveUowFactor.considerAll(task.getAllRelatedNumericallyModeledEntities());
 		Constant efficiency = new Constant(getTaskNeed().c(CONST_EFICIENCY), timeWorkedEffectiveUowFactor);
 
 		Flow polishedWork = new Flow(getTaskNeed().c(FLOW_POLISHED_WORK)) {
