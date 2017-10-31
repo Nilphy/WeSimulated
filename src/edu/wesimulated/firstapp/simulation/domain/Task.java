@@ -76,7 +76,6 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 		}
 	}
 
-	
 	public void setName(String name, Date when) {
 		this.profile.set(TaskCharacteristic.Name, new EntryValue(EntryValue.Type.String, name));
 		if (when == null) {
@@ -222,5 +221,9 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 	private boolean hasUnmetDependencies() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public boolean hasNoOneAssigned() {
+		return (this.getResponsiblePeople().size() + this.getAccountablePeople().size() + this.getInformedPeople().size() + this.getConsultedPeople().size()) == 0;
 	}
 }

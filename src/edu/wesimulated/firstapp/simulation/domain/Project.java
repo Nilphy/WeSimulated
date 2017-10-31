@@ -87,7 +87,7 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 
 	private List<Task> findTasksToWorkOn(Person person, Role role) {
 		return this.getTasks().stream().filter((task) -> {
-			if (task.isPersonAssigned(person) && task.hasWorkForRole(role) && task.isReady()) {
+			if ((task.isPersonAssigned(person) || task.hasNoOneAssigned()) && task.hasWorkForRole(role) && task.isReady()) {
 				return true;
 			}
 			return false;
