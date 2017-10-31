@@ -46,7 +46,7 @@ public class RoleSimulator extends OperationBasedSimulator implements Observer {
 	private Project project;
 	private Role role;
 	private RolePerson person;
-	private Task currentTask;
+	private AvatureDeveloperTask currentTask;
 	private WorkType currentWorkType;
 	private Date currentTaskStart;
 	private Date lastDateWorkRegistered;
@@ -68,12 +68,16 @@ public class RoleSimulator extends OperationBasedSimulator implements Observer {
 
 	public void acceptInterruption() {
 		// FIXME: has to determine if will accept the interruption or not (and count interruptions)???
-		this.lastDateWorkRegistered = this.getOperationBasedExecutor().getClock().getCurrentDate(); // FIXME: register this when the BOperationHappensWithoutInterruption
+		this.lastDateWorkRegistered = this.getCurrentDate(); // FIXME: the interruption should have advanced the clock
 		long durationOfCurrentTask = this.lastDateWorkRegistered.getTime() - this.currentTaskStart.getTime();
 		this.currentTask.increaseWorkDone(durationOfCurrentTask, this.currentWorkType.getTaskNeedFulfilled(), lastDateWorkRegistered);
 		this.getOperationBasedExecutor().removeEndOfThisTask();
 		this.getOperationBasedExecutor().reprogramCurrentCOperation();
 		this.getPerson().getHlaPerson().addObserver(this);
+	}
+
+	public Date getCurrentDate() {
+		return this.getOperationBasedExecutor().getClock().getCurrentDate();
 	}
 
 	public Collection<NumericallyModeledEntity> getAllNumericallyModeledEntities() {
@@ -98,11 +102,11 @@ public class RoleSimulator extends OperationBasedSimulator implements Observer {
 		return this.person;
 	}
 
-	public Task getCurrentTask() {
+	public AvatureDeveloperTask getCurrentTask() {
 		return this.currentTask;
 	}
 
-	public void setCurrentTask(Task task) {
+	public void setCurrentTask(AvatureDeveloperTask task) {
 		this.getPerson().setAvailable(false);
 		this.currentTask = task;
 		this.getPerson().setCurrentTask(task);
@@ -130,10 +134,10 @@ public class RoleSimulator extends OperationBasedSimulator implements Observer {
 	}
 
 	public int findTimeSinceLastTimeTask() {
-		return DateUtils.calculateDifferenceInMinutes(this.lastDateWorkRegistered, this.getOperationBasedExecutor().getClock().getCurrentDate());
+		return DateUtils.calculateDifferenceInMinutes(this.lastDateWorkRegistered, getCurrentDate());
 	}
 
-	public String findTimeInTask() {
-		return this.currentTask.getWorkDone(this.currentTask, this.getCurrentWorkType(), this.getRole(), this.getPerson());
+	public long findTimeInTask() {
+		return this.currentTask.getWorkDone(this.getCurrentWorkType(), this.getRole(), this.getPerson());
 	}
 }

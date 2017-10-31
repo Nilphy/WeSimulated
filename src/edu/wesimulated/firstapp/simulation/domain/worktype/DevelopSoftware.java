@@ -18,11 +18,13 @@ public class DevelopSoftware extends WorkType implements State {
 	
 	public void applyEffects(Date start, Date end) {
 		int minutesWorked = DateUtils.calculateDifferenceInMinutes(end, start);
-		this.getRoleSimulator().getPerson().increaseExperience(minutesWorked, this);
-		/* TODO se mandan horas o se manda trabajo ya procesado? sería mejor mandar horas para que
-		los simuladores sean más independientes, porque si no la tarea no sabe como está el 
-		simulador del trabajador calculando el work done
-		this.simulator.getCurrentTask().increaseWorkDone(this.duration, this.simulator.getRole(), this.simulator.getExecutor().getClock().getCurrentDate());*/
+		RoleSimulator sim = this.getRoleSimulator();
+		sim.getPerson().increaseExperience(minutesWorked, this);
+		sim.getCurrentTask().registerWorkDone(minutesWorked * 60l * 1000l, 
+				sim.getCurrentWorkType(),
+				sim.getRole(),
+				sim.getPerson(),
+				sim.getCurrentDate());
 	}
 
 	@Override
