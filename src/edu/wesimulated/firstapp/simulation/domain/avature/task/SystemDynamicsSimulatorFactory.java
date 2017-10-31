@@ -8,14 +8,12 @@ public class SystemDynamicsSimulatorFactory extends SimulatorFactory {
 
 	@Override
 	public Person makePerson() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Person();
 	}
 
 	@Override
 	public Task makeTask() {
-		// TODO Auto-generated method stub
-		return null;
+		return new SystemDynamicsTask();
 	}
 
 }
