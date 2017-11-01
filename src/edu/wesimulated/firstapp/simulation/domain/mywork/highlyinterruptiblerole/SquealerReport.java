@@ -11,7 +11,7 @@ public class SquealerReport extends Message {
 
 	protected static Status[] statusThatRequireWork = { Status.ISSUED, Status.NOT_ISSUED, Status.RESOLVE };
 
-	public SquealerReport(HighlyInterruptibleRolePerson sender, Date timestamp, Clock clock) {
+	public SquealerReport(Person sender, Date timestamp, Clock clock) {
 		super(sender, null, timestamp, clock);
 	}
 

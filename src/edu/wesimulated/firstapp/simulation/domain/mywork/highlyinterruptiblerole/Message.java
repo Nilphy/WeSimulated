@@ -23,8 +23,8 @@ import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 public class Message implements Prioritized, NumericallyModeledEntity {
 
 	private MessageValuator messageAgeValuator;
-	private HighlyInterruptibleRolePerson sender;
-	private Collection<HighlyInterruptibleRolePerson> recipients;
+	private Person sender;
+	private Collection<Person> recipients;
 	private Date timestamp;
 	private Clock clock;
 	private Status status;
@@ -46,7 +46,7 @@ public class Message implements Prioritized, NumericallyModeledEntity {
 		}
 	}
 
-	public Message(HighlyInterruptibleRolePerson sender, Collection<HighlyInterruptibleRolePerson> recipients, Date timestamp, Clock clock, Status status) {
+	public Message(Person sender, Collection<Person> recipients, Date timestamp, Clock clock, Status status) {
 		super();
 		this.sender = sender;
 		this.recipients = recipients;
@@ -55,7 +55,7 @@ public class Message implements Prioritized, NumericallyModeledEntity {
 		this.status = status;
 	}
 
-	public Message(HighlyInterruptibleRolePerson sender, Collection<HighlyInterruptibleRolePerson> recipients, Date timestamp, Clock clock) {
+	public Message(Person sender, Collection<Person> recipients, Date timestamp, Clock clock) {
 		this(sender, recipients, timestamp, clock, Status.NEW);
 	}
 
@@ -108,7 +108,7 @@ public class Message implements Prioritized, NumericallyModeledEntity {
 			return Prioritized.Priority.LOW.get();
 		}
 		// FIXME: really? to the first one?
-		HighlyInterruptibleRolePerson recipient = this.getRecipients().iterator().next();
+		Person recipient = this.getRecipients().iterator().next();
 		return recipient.getPriorityMessageFrom(sender);
 	}
 
@@ -132,17 +132,17 @@ public class Message implements Prioritized, NumericallyModeledEntity {
 		this.status = status;
 	}
 
-	public void addRecipient(HighlyInterruptibleRolePerson person) {
+	public void addRecipient(Person person) {
 		this.getRecipients().add(person);
 	}
 
-	protected HighlyInterruptibleRolePerson getSender() {
+	protected Person getSender() {
 		return this.sender;
 	}
 
-	protected Collection<HighlyInterruptibleRolePerson> getRecipients() {
+	protected Collection<Person> getRecipients() {
 		if (this.recipients == null) {
-			this.recipients = new ArrayList<HighlyInterruptibleRolePerson>();
+			this.recipients = new ArrayList<Person>();
 		}
 		return this.recipients;
 	}

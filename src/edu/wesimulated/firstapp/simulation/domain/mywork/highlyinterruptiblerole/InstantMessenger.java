@@ -16,7 +16,7 @@ import edu.wesimulated.firstapp.view.ThingsWithoutAUi;
  */
 public class InstantMessenger extends ComunicativeEntity {
 
-	public InstantMessenger(HighlyInterruptibleRolePerson person) {
+	public InstantMessenger(Person person) {
 		super(person);
 	}
 

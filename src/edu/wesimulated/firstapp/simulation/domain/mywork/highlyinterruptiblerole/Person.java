@@ -10,14 +10,13 @@ import javafx.util.Pair;
 import com.wesimulated.simulationmotor.DateUtils;
 import com.wesimulated.simulationmotor.des.Prioritized.Priority;
 
-import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Task;
 import edu.wesimulated.firstapp.simulation.domain.Team;
 import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.Message.Status;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 
-public class HighlyInterruptibleRolePerson extends Person {
+public class Person extends edu.wesimulated.firstapp.simulation.domain.Person {
 
 	private List<Message> questions;
 	private List<Message> pendingImMessages;
@@ -187,7 +186,7 @@ public class HighlyInterruptibleRolePerson extends Person {
 		return DateUtils.addMilis(message.getCurrentDate(), timeToResolveIm.findSample().getPrediction().getValue().floatValue());
 	}
 
-	public Float getPriorityMessageFrom(HighlyInterruptibleRolePerson sender) {
+	public Float getPriorityMessageFrom(Person sender) {
 		if (this.isWorginWithMe(sender) || this.isASuperior(sender)) {
 			return Priority.HIGH.get();
 		} else if (this.isInOneOfMyTeams(sender)) {
@@ -197,7 +196,7 @@ public class HighlyInterruptibleRolePerson extends Person {
 		}
 	}
 
-	private boolean isASuperior(HighlyInterruptibleRolePerson person) {
+	private boolean isASuperior(Person person) {
 		return this.isWorginWithMe(person) 
 				&& this.getCurrentTask().getResponsiblePeople().contains(this)
 				&& (this.getCurrentTask().getAccountablePeople().contains(person) 
@@ -205,7 +204,7 @@ public class HighlyInterruptibleRolePerson extends Person {
 						|| this.getCurrentTask().getInformedPeople().contains(person));
 	}
 
-	private boolean isInOneOfMyTeams(HighlyInterruptibleRolePerson person) {
+	private boolean isInOneOfMyTeams(Person person) {
 		for (Team team : this.getTeams()) {
 			if (team.hasPersonAsMember(person)) {
 				return true;

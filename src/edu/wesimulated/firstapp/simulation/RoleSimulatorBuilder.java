@@ -8,7 +8,6 @@ import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Role;
 import edu.wesimulated.firstapp.simulation.domain.Team;
 import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.EmailClient;
-import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.HighlyInterruptibleRolePerson;
 import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.HighlyInterruptibleRoleSimulator;
 import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.InstantMessenger;
 import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.Squealer;
@@ -66,7 +65,7 @@ public class RoleSimulatorBuilder {
 	 * @param person
 	 * @return
 	 */
-	public static HighlyInterruptibleRoleSimulator buildAvatureInterruptibleRoleSimulator(Project project, HighlyInterruptibleRolePerson person) {
+	public static HighlyInterruptibleRoleSimulator buildAvatureInterruptibleRoleSimulator(Project project, edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.Person person) {
 		HighlyInterruptibleRoleSimulator simulator = new HighlyInterruptibleRoleSimulator(project, person);
 		simulator.registerSimulationEntity(new InstantMessenger(person));
 		simulator.registerSimulationEntity(new Squealer(person));

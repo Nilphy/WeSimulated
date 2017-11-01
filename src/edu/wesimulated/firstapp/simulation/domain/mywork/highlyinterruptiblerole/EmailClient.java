@@ -10,7 +10,7 @@ import edu.wesimulated.firstapp.view.ThingsWithoutAUi;
 
 public class EmailClient extends ComunicativeEntity implements HighlyInterruptibleRolePrioritized {
 
-	public EmailClient(HighlyInterruptibleRolePerson person) {
+	public EmailClient(Person person) {
 		super(person);
 	}
 

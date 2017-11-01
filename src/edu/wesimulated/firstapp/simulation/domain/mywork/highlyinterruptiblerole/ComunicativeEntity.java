@@ -13,12 +13,12 @@ import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole
 
 public abstract class ComunicativeEntity extends Entity implements HighlyInterruptibleRolePrioritized {
 
-	private HighlyInterruptibleRolePerson person;
+	private Person person;
 	private Message messageInProcess;
 	private MessageValuator messageAgeValuator;
 	private MessageValuator messageAmountValuator;
 
-	public ComunicativeEntity(HighlyInterruptibleRolePerson person) {
+	public ComunicativeEntity(Person person) {
 		this.person = person;
 	}
 
@@ -73,7 +73,7 @@ public abstract class ComunicativeEntity extends Entity implements HighlyInterru
 		return this.person.getPendingImMessages();
 	}
 
-	public HighlyInterruptibleRolePerson getPerson() {
+	public Person getPerson() {
 		return person;
 	}
 

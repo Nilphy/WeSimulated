@@ -11,7 +11,7 @@ import edu.wesimulated.firstapp.view.ThingsWithoutAUi;
 
 public class Squealer extends ComunicativeEntity {
 
-	public Squealer(HighlyInterruptibleRolePerson person) {
+	public Squealer(Person person) {
 		super(person);
 	}
 

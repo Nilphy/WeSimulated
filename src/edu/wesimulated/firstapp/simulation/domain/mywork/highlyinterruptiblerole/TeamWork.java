@@ -11,9 +11,9 @@ import edu.wesimulated.firstapp.view.ThingsWithoutAUi;
 // FIXME rename to something less related to team and more related to something face to face
 public class TeamWork extends ComunicativeEntity {
 
-	private HighlyInterruptibleRolePerson person;
+	private Person person;
 	
-	public TeamWork(HighlyInterruptibleRolePerson person) {
+	public TeamWork(Person person) {
 		super(person);
 	}
 

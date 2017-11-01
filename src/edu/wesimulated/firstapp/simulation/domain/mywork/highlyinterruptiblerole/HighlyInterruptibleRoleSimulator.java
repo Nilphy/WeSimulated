@@ -37,7 +37,7 @@ import edu.wesimulated.firstapp.simulation.domain.Project;
 public class HighlyInterruptibleRoleSimulator extends BaseSimulator implements Observer {
 	public Person person;
 
-	public HighlyInterruptibleRoleSimulator(Project project, HighlyInterruptibleRolePerson person) {
+	public HighlyInterruptibleRoleSimulator(Project project, Person person) {
 		super(new ProcessBasedExecutor(new TaskCompletedEndCondition(project)));
 		this.setPerson(person);
 	}
