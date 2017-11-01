@@ -8,8 +8,8 @@ import com.wesimulated.simulationmotor.systemdynamics.Stock;
 import edu.wesimulated.firstapp.model.TaskNeed;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Task;
-import edu.wesimulated.firstapp.simulation.domain.avature.task.TaskSimulator;
-import edu.wesimulated.firstapp.simulation.domain.avature.task.WorkModule;
+import edu.wesimulated.firstapp.simulation.domain.mywork.task.TaskSimulator;
+import edu.wesimulated.firstapp.simulation.domain.mywork.task.WorkModule;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 

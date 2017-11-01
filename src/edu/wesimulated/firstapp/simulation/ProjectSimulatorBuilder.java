@@ -1,11 +1,11 @@
 package edu.wesimulated.firstapp.simulation;
 
 import edu.wesimulated.firstapp.simulation.domain.Project;
-import edu.wesimulated.firstapp.simulation.domain.avature.project.ErrorsReported;
-import edu.wesimulated.firstapp.simulation.domain.avature.project.MaintenanceTask;
-import edu.wesimulated.firstapp.simulation.domain.avature.project.Meeting;
-import edu.wesimulated.firstapp.simulation.domain.avature.project.ProjectSimulator;
-import edu.wesimulated.firstapp.simulation.domain.avature.project.Risk;
+import edu.wesimulated.firstapp.simulation.domain.mywork.project.ErrorsReported;
+import edu.wesimulated.firstapp.simulation.domain.mywork.project.MaintenanceTask;
+import edu.wesimulated.firstapp.simulation.domain.mywork.project.Meeting;
+import edu.wesimulated.firstapp.simulation.domain.mywork.project.ProjectSimulator;
+import edu.wesimulated.firstapp.simulation.domain.mywork.project.Risk;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 

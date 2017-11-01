@@ -6,7 +6,7 @@ import java.util.Map;
 
 import edu.wesimulated.firstapp.simulation.domain.Characteristic;
 import edu.wesimulated.firstapp.simulation.domain.TaskCharacteristic;
-import edu.wesimulated.firstapp.simulation.domain.avature.role.RoleSimulator;
+import edu.wesimulated.firstapp.simulation.domain.mywork.role.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
 

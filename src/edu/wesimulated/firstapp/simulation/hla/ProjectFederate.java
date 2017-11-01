@@ -43,7 +43,7 @@ import com.wesimulated.simulationmotor.des.TimeControllerEntity;
 
 import edu.wesimulated.firstapp.simulation.SimulationEvent;
 import edu.wesimulated.firstapp.simulation.domain.Project;
-import edu.wesimulated.firstapp.simulation.domain.avature.project.ProjectSimulator;
+import edu.wesimulated.firstapp.simulation.domain.mywork.project.ProjectSimulator;
 
 public class ProjectFederate extends AbstractFederate implements Observer, TimeControllerEntity {
 	private ProjectSimulator projectlSimulator;

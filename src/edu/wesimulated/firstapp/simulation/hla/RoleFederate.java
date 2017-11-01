@@ -47,7 +47,7 @@ import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Role;
 import edu.wesimulated.firstapp.simulation.domain.Task;
-import edu.wesimulated.firstapp.simulation.domain.avature.role.RoleSimulator;
+import edu.wesimulated.firstapp.simulation.domain.mywork.role.RoleSimulator;
 
 public class RoleFederate extends AbstractFederate implements Observer, TimeControllerEntity {
 	private RoleSimulator roleSimulator;

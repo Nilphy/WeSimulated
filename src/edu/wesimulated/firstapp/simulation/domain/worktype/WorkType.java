@@ -5,7 +5,7 @@ import java.util.Date;
 import com.wesimulated.simulationmotor.des.State;
 
 import edu.wesimulated.firstapp.model.TaskNeed;
-import edu.wesimulated.firstapp.simulation.domain.avature.role.RoleSimulator;
+import edu.wesimulated.firstapp.simulation.domain.mywork.role.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.stochastic.Classification;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 

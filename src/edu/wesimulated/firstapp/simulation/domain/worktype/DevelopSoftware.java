@@ -7,7 +7,7 @@ import com.wesimulated.simulationmotor.DateUtils;
 import com.wesimulated.simulationmotor.des.State;
 
 import edu.wesimulated.firstapp.simulation.domain.Characteristic;
-import edu.wesimulated.firstapp.simulation.domain.avature.role.RoleSimulator;
+import edu.wesimulated.firstapp.simulation.domain.mywork.role.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 
 public class DevelopSoftware extends WorkType implements State {

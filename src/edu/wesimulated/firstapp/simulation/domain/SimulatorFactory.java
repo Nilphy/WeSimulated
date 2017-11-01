@@ -6,9 +6,9 @@ import edu.wesimulated.firstapp.model.SimulatedEntity;
 import edu.wesimulated.firstapp.simulation.RoleSimulatorBuilder.RoleSimulatorType;
 import edu.wesimulated.firstapp.simulation.SimulatorType;
 import edu.wesimulated.firstapp.simulation.TaskSimulatorBuilder.TaskSimulatorType;
-import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.HighlyInterruptibleRoleSimulatorFactory;
-import edu.wesimulated.firstapp.simulation.domain.avature.role.RoleSimulatorFactory;
-import edu.wesimulated.firstapp.simulation.domain.avature.task.SystemDynamicsSimulatorFactory;
+import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.HighlyInterruptibleRoleSimulatorFactory;
+import edu.wesimulated.firstapp.simulation.domain.mywork.role.RoleSimulatorFactory;
+import edu.wesimulated.firstapp.simulation.domain.mywork.task.SystemDynamicsSimulatorFactory;
 
 public abstract class SimulatorFactory {
 

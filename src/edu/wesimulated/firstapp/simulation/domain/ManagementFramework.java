@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.wesimulated.firstapp.simulation.domain.avature.project.Meeting;
+import edu.wesimulated.firstapp.simulation.domain.mywork.project.Meeting;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 

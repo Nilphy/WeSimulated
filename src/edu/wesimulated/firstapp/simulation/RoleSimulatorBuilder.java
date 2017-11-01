@@ -7,16 +7,16 @@ import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Role;
 import edu.wesimulated.firstapp.simulation.domain.Team;
-import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.EmailClient;
-import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.HighlyInterruptibleRolePerson;
-import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.HighlyInterruptibleRoleSimulator;
-import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.InstantMessenger;
-import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.Squealer;
-import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.TeamWork;
-import edu.wesimulated.firstapp.simulation.domain.avature.role.AvatureDeveloperTask;
-import edu.wesimulated.firstapp.simulation.domain.avature.role.RolePerson;
-import edu.wesimulated.firstapp.simulation.domain.avature.role.RoleSimulator;
-import edu.wesimulated.firstapp.simulation.domain.avature.role.WorkSlabStart;
+import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.EmailClient;
+import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.HighlyInterruptibleRolePerson;
+import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.HighlyInterruptibleRoleSimulator;
+import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.InstantMessenger;
+import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.Squealer;
+import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.TeamWork;
+import edu.wesimulated.firstapp.simulation.domain.mywork.role.AvatureDeveloperTask;
+import edu.wesimulated.firstapp.simulation.domain.mywork.role.RolePerson;
+import edu.wesimulated.firstapp.simulation.domain.mywork.role.RoleSimulator;
+import edu.wesimulated.firstapp.simulation.domain.mywork.role.WorkSlabStart;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 
 public class RoleSimulatorBuilder {

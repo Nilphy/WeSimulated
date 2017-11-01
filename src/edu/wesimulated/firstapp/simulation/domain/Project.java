@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 
 import com.wesimulated.simulation.runparameters.CompletableTask;
 
-import edu.wesimulated.firstapp.simulation.domain.avature.project.MaintenanceTask;
-import edu.wesimulated.firstapp.simulation.domain.avature.project.Meeting;
-import edu.wesimulated.firstapp.simulation.domain.avature.project.Risk;
-import edu.wesimulated.firstapp.simulation.domain.avature.role.RolePerson;
+import edu.wesimulated.firstapp.simulation.domain.mywork.project.MaintenanceTask;
+import edu.wesimulated.firstapp.simulation.domain.mywork.project.Meeting;
+import edu.wesimulated.firstapp.simulation.domain.mywork.project.Risk;
+import edu.wesimulated.firstapp.simulation.domain.mywork.role.RolePerson;
 import edu.wesimulated.firstapp.simulation.hla.HlaProject;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
