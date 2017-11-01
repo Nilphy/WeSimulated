@@ -169,8 +169,7 @@ public class TaskData {
 	}
 
 	public TaskSimulatorType calculateTaskSimulatorType() {
-		// TODO Auto-generated method stub
-		return null;
+		return TaskSimulatorType.SystemDynamics;
 	}
 
 }
