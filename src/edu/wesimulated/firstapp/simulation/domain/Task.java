@@ -210,7 +210,7 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 	}
 
 	public boolean hasWorkForRole(Role role) {
-		// TODO Auto-generated method stub
+		// TODO Vincular task needs con roles
 		return false;
 	}
 
@@ -219,11 +219,20 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 	}
 
 	private boolean hasUnmetDependencies() {
-		// TODO Auto-generated method stub
-		return false;
+		boolean hasOneUnMet = false;
+		for (TaskDependency taskDependency : this.taskDependencies) {
+			if (!taskDependency.isSatisfied()) {
+				hasOneUnMet = true; 
+			}
+		} 
+		return hasOneUnMet;
 	}
 
 	public boolean hasNoOneAssigned() {
 		return (this.getResponsiblePeople().size() + this.getAccountablePeople().size() + this.getInformedPeople().size() + this.getConsultedPeople().size()) == 0;
+	}
+
+	public long getTotalWorkDone() {
+		return this.workDoneInHoursPerTaskNeed.values().stream().mapToLong((workDone) -> workDone.longValue()).sum();
 	}
 }

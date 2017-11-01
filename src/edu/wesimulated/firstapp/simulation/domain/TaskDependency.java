@@ -1,6 +1,5 @@
 package edu.wesimulated.firstapp.simulation.domain;
 
-
 public class TaskDependency {
 
 	private Task task;
@@ -28,5 +27,20 @@ public class TaskDependency {
 
 	public void setPrecedence(PrecedenceType precedence) {
 		this.precedence = precedence;
+	}
+
+	public boolean isSatisfied() {
+		switch (precedence) {
+		case FinishedToStart:
+			return this.getTask().isCompleted();
+		case StartedToFinish:
+		case FinishedToFinish:
+		case StartedToStart:
+			return this.getTask().getTotalWorkDone() > 0;
+		case IndependentTask:
+			return true;
+		default:
+			throw new IllegalStateException();
+		}
 	}
 }
