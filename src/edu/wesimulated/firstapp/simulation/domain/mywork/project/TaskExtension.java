@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class TaskExtension extends Risk {
 
-	private AvatureProjectTask task;
+	private Task task;
 
-	public TaskExtension(float probability, Date periodStart, Date periodEnd, AvatureProjectTask task) {
+	public TaskExtension(float probability, Date periodStart, Date periodEnd, Task task) {
 		super(probability, periodStart, periodEnd);
 		this.setTask(task);
 	}
@@ -17,7 +17,7 @@ public class TaskExtension extends Risk {
 		task.extendDuration(scale);
 	}
 
-	public void setTask(AvatureProjectTask task) {
+	public void setTask(Task task) {
 		this.task = task;
 	}
 }
