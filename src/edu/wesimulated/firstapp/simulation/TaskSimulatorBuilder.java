@@ -25,6 +25,10 @@ import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
  */
 public class TaskSimulatorBuilder {
 
+	public enum TaskSimulatorType implements SimulatorType {
+		SystemDynamics;
+	}
+
 	private static final String FLOW_REWORK_GENERATION = "FLOW_REWORK_GENERATION";
 	private static final String STOCK_ALL_REWORK = "STOCK_ALL_REWORK";
 	private static final String STOCK_REWORK_DETECTED = "STOCK_REWORK_DETECTED";
@@ -157,9 +161,5 @@ public class TaskSimulatorBuilder {
 		reworkFixed.connectInputFlow(reworkCompletion);
 
 		return simulator;
-	}
-
-	public enum TaskSimulatorType implements SimulatorType {
-		SystemDynamics;
 	}
 }

@@ -44,7 +44,7 @@ public class WorkSlabStart extends COperation implements Prioritized {
 
 	@Override
 	public Float calculatePriority() {
-		// TODO Auto-generated method stub
+		// TODO why are work slab start prioritized?
 		return 0f;
 	}
 }

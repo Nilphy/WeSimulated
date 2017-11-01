@@ -21,6 +21,10 @@ import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 
 public class RoleSimulatorBuilder {
 
+	public enum RoleSimulatorType implements SimulatorType {
+		AvatureDeveloper, HighlyInterruptible;
+	}
+	
 	/**
 	 * Generic role simulator builder, not used by now
 	 * 
@@ -71,9 +75,5 @@ public class RoleSimulatorBuilder {
 			simulator.registerSimulationEntity(new TeamWork(person));
 		}
 		return simulator;
-	}
-
-	public enum RoleSimulatorType implements SimulatorType {
-		HighlyInterruptible, AvatureDeveloper;
 	}
 }
