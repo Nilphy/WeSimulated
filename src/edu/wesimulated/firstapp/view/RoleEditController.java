@@ -3,6 +3,7 @@ package edu.wesimulated.firstapp.view;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import edu.wesimulated.firstapp.model.RoleData;
@@ -29,6 +30,8 @@ public class RoleEditController {
 
 	@FXML
 	private TextField nameField;
+	@FXML
+	private CheckBox highlyInterruptibleField;
 
 	private Stage dialogStage;
 	private RoleData rol;
@@ -36,6 +39,7 @@ public class RoleEditController {
 
 	@FXML
 	private void initialize() {
+		this.highlyInterruptibleField.setText("Highly interruptible role");
 	}
 
 	public void setDialogStage(Stage dialogStage) {
@@ -45,6 +49,7 @@ public class RoleEditController {
 	public void setRol(RoleData rol) {
 		this.rol = rol;
 		this.nameField.setText(rol.getName());
+		this.highlyInterruptibleField.setSelected(role.highlyInterruptibleProperty().get());
 	}
 
 	public boolean isOkClicked() {
@@ -55,6 +60,7 @@ public class RoleEditController {
 	private void handleOK() {
 		if (validateInput()) {
 			rol.setName(nameField.getText());
+			rol.setHighlyInterruptible(highlyInterruptibleField.isSelected());
 			okClicked = true;
 			dialogStage.close();
 		}

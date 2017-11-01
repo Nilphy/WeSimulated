@@ -12,10 +12,11 @@ import javafx.collections.ObservableList;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import edu.wesimulated.firstapp.persistence.LocalDateAdapter;
+import edu.wesimulated.firstapp.simulation.SimulatorType;
 import edu.wesimulated.firstapp.simulation.TaskSimulatorBuilder.TaskSimulatorType;
 import edu.wesimulated.firstapp.simulation.domain.UnitsOfWorkInterpreter;
 
-public class TaskData {
+public class TaskData implements SimulatedEntity {
 
 	public static int MAX_ID = 0;
 
@@ -168,7 +169,7 @@ public class TaskData {
 		this.informedPeople = informedPeople;
 	}
 
-	public TaskSimulatorType calculateTaskSimulatorType() {
+	public SimulatorType calculateSimulatorType() {
 		return TaskSimulatorType.SystemDynamics;
 	}
 

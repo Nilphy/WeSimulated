@@ -2,31 +2,24 @@ package edu.wesimulated.firstapp.simulation.domain;
 
 import java.util.Map;
 
-import edu.wesimulated.firstapp.model.RoleData;
-import edu.wesimulated.firstapp.model.TaskData;
+import edu.wesimulated.firstapp.model.SimulatedEntity;
+import edu.wesimulated.firstapp.simulation.RoleSimulatorBuilder.RoleSimulatorType;
 import edu.wesimulated.firstapp.simulation.SimulatorType;
 import edu.wesimulated.firstapp.simulation.TaskSimulatorBuilder.TaskSimulatorType;
 import edu.wesimulated.firstapp.simulation.domain.avature.highlyinterruptiblerole.HighlyInterruptibleRoleSimulatorFactory;
+import edu.wesimulated.firstapp.simulation.domain.avature.role.RoleSimulatorFactory;
 import edu.wesimulated.firstapp.simulation.domain.avature.task.SystemDynamicsSimulatorFactory;
-import edu.wesimulated.firstapp.view.ThingsWithoutAUi;
 
 public abstract class SimulatorFactory {
-	
+
 	private static Map<SimulatorType, SimulatorFactory> instancesByType;
-	
+
 	public abstract Person makePerson();
 
 	public abstract Task makeTask();
 
-	public static SimulatorFactory getInstance(RoleData role) {
-		if (ThingsWithoutAUi.roleIsModeledAsHighlyInterruptible(role)) {
-			return new HighlyInterruptibleRoleSimulatorFactory();
-		}
-		return null;
-	}
-
-	public static SimulatorFactory getInstance(TaskData task) {
-		SimulatorType simulatorType = task.calculateTaskSimulatorType();
+	public static SimulatorFactory getInstance(SimulatedEntity entity) {
+		SimulatorType simulatorType = entity.calculateSimulatorType();
 		SimulatorFactory simulatorFactory = instancesByType.get(simulatorType);
 		if (simulatorFactory == null) {
 			simulatorFactory = constructFactory(simulatorType);
@@ -39,7 +32,12 @@ public abstract class SimulatorFactory {
 	private static SimulatorFactory constructFactory(SimulatorType simulatorType) {
 		if (simulatorType == TaskSimulatorType.SystemDynamics) {
 			return new SystemDynamicsSimulatorFactory();
+		} else if (simulatorType == RoleSimulatorType.AvatureDeveloper) {
+			return new RoleSimulatorFactory();
+		} else if (simulatorType == RoleSimulatorType.HighlyInterruptible) {
+			return new HighlyInterruptibleRoleSimulatorFactory();
+		} else {
+			throw new IllegalStateException();
 		}
-		return null;
 	}
 }

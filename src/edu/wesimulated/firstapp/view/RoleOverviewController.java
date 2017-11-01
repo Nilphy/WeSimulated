@@ -23,6 +23,8 @@ public class RoleOverviewController {
 	private TableColumn<RoleData, String> nameColumn;
 	@FXML
 	private Label nameLabel;
+	@FXML
+	private Label typeLabel;
 
 	private MainApp mainApp;
 
@@ -32,8 +34,10 @@ public class RoleOverviewController {
 	private void showRoleDetails(RoleData role) {
 		if (role != null) {
 			nameLabel.setText(role.getName());
+			typeLabel.setText(role.isHighlyInterruptible() ? "Highly Interruptible" : "Normal");
 		} else {
 			nameLabel.setText("");
+			typeLabel.setText("");
 		}
 	}
 

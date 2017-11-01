@@ -1,11 +1,15 @@
 package edu.wesimulated.firstapp.model;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import edu.wesimulated.firstapp.simulation.RoleSimulatorBuilder.RoleSimulatorType;
+import edu.wesimulated.firstapp.simulation.SimulatorType;
 
-public class RoleData {
+public class RoleData implements SimulatedEntity {
 
 	private StringProperty name;
+	private BooleanProperty highlyInterruptible;
 
 	public RoleData() {
 		this(null);
@@ -25,6 +29,18 @@ public class RoleData {
 
 	public void setName(String name) {
 		this.name.set(name);
+	}
+
+	public boolean isHighlyInterruptible() {
+		return highlyInterruptible.get();
+	}
+	
+	public void setHighlyInterruptible(boolean highlyInterruptible) {
+		this.highlyInterruptible.set(highlyInterruptible);
+	}
+
+	public BooleanProperty highlyInterruptibleProperty() {
+		return this.highlyInterruptible;
 	}
 
 	@Override
@@ -56,4 +72,14 @@ public class RoleData {
 		}
 		return true;
 	}
+
+	@Override
+	public SimulatorType calculateSimulatorType() {
+		if (this.isHighlyInterruptible()) {
+			return RoleSimulatorType.HighlyInterruptible;
+		} else {
+			return RoleSimulatorType.AvatureDeveloper;
+		}
+	}
+
 }

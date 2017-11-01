@@ -48,6 +48,8 @@
                      <children>
                         <Label text="Name" />
                         <Label fx:id="nameLabel" text="Label" GridPane.columnIndex="1" />
+                        <Label text="Type" GridPane.rowIndex="1" />
+                        <Label fx:id="typeLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children></AnchorPane>

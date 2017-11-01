@@ -1,6 +1,5 @@
 package edu.wesimulated.firstapp.view;
 
-import edu.wesimulated.firstapp.model.RoleData;
 
 
 public class ThingsWithoutAUi {
@@ -22,10 +21,4 @@ public class ThingsWithoutAUi {
 	public static final int MED_AMOUNT_FACE_TO_FACE_QUESTION = 5;
 	public static final int MIN_AMOUNT_SQUEALER = 5;
 	public static final int MED_AMOUNT_SQUEALER = 15;
-
-	public static boolean roleIsModeledAsHighlyInterruptible(RoleData role) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }
