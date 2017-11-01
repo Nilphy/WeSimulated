@@ -34,7 +34,7 @@ public class RoleEditController {
 	private CheckBox highlyInterruptibleField;
 
 	private Stage dialogStage;
-	private RoleData rol;
+	private RoleData role;
 	private boolean okClicked = false;
 
 	@FXML
@@ -46,9 +46,9 @@ public class RoleEditController {
 		this.dialogStage = dialogStage;
 	}
 
-	public void setRol(RoleData rol) {
-		this.rol = rol;
-		this.nameField.setText(rol.getName());
+	public void setRole(RoleData role) {
+		this.role = role;
+		this.nameField.setText(role.getName());
 		this.highlyInterruptibleField.setSelected(role.highlyInterruptibleProperty().get());
 	}
 
@@ -59,8 +59,8 @@ public class RoleEditController {
 	@FXML
 	private void handleOK() {
 		if (validateInput()) {
-			rol.setName(nameField.getText());
-			rol.setHighlyInterruptible(highlyInterruptibleField.isSelected());
+			role.setName(nameField.getText());
+			role.setHighlyInterruptible(highlyInterruptibleField.isSelected());
 			okClicked = true;
 			dialogStage.close();
 		}

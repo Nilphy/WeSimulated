@@ -96,7 +96,7 @@ public class RoleOverviewController {
 			dialogStage.setScene(scene);
 			RoleEditController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
-			controller.setRol(role);
+			controller.setRole(role);
 			dialogStage.showAndWait();
 			return controller.isOkClicked();
 		} catch (IOException e) {
