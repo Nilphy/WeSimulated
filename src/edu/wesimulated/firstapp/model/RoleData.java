@@ -76,9 +76,9 @@ public class RoleData implements SimulatedEntity {
 	@Override
 	public SimulatorType calculateSimulatorType() {
 		if (this.isHighlyInterruptible()) {
-			return RoleSimulatorType.HighlyInterruptible;
+			return RoleSimulatorType.HIGHLY_INTERRUPTIBLE;
 		} else {
-			return RoleSimulatorType.AvatureDeveloper;
+			return RoleSimulatorType.MY_WORK;
 		}
 	}
 

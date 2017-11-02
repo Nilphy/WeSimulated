@@ -10,15 +10,17 @@ import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole
 import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.InstantMessenger;
 import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.Squealer;
 import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.TeamWork;
-import edu.wesimulated.firstapp.simulation.domain.mywork.role.Task;
+import edu.wesimulated.firstapp.simulation.domain.mywork.role.Person;
+import edu.wesimulated.firstapp.simulation.domain.mywork.role.Project;
 import edu.wesimulated.firstapp.simulation.domain.mywork.role.RoleSimulator;
+import edu.wesimulated.firstapp.simulation.domain.mywork.role.Task;
 import edu.wesimulated.firstapp.simulation.domain.mywork.role.WorkSlabStart;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 
 public class RoleSimulatorBuilder {
 
 	public enum RoleSimulatorType implements SimulatorType {
-		AvatureDeveloper, HighlyInterruptible;
+		MY_WORK, HIGHLY_INTERRUPTIBLE;
 	}
 	
 	/**
@@ -35,7 +37,7 @@ public class RoleSimulatorBuilder {
 	}
 
 	/**
-	 * Role simulator for an avature proyect
+	 * Role simulator for a project at my work
 	 * 
 	 * @param role
 	 * @param project
@@ -43,8 +45,7 @@ public class RoleSimulatorBuilder {
 	 * @return the simulator builded
 	 * @throws MisconfiguredProject 
 	 */
-	public static RoleSimulator buildAvatureDeveloperSimulator(edu.wesimulated.firstapp.simulation.domain.mywork.role.Project project, edu.wesimulated.firstapp.simulation.domain.mywork.role.Person person) throws MisconfiguredProject {
-		Role role = RolePool.getAvatureDeveloperRole();
+	public static RoleSimulator buildMyWorkRoleSimulator(Project project, Person person, Role role) throws MisconfiguredProject {
 		RoleSimulator roleSimulator = new RoleSimulator(role, project, person);
 		Task taskToWorkIn = project.findTaskToWorkForRole(person, role);
 		Date startTime = taskToWorkIn.getStartDate();
@@ -62,7 +63,7 @@ public class RoleSimulatorBuilder {
 	 * @param person
 	 * @return
 	 */
-	public static HighlyInterruptibleRoleSimulator buildAvatureInterruptibleRoleSimulator(edu.wesimulated.firstapp.simulation.domain.Project project, edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.Person person) {
+	public static HighlyInterruptibleRoleSimulator buildMyWorkInterruptibleRoleSimulator(edu.wesimulated.firstapp.simulation.domain.Project project, edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.Person person) {
 		HighlyInterruptibleRoleSimulator simulator = new HighlyInterruptibleRoleSimulator(project, person);
 		simulator.registerSimulationEntity(new InstantMessenger(person));
 		simulator.registerSimulationEntity(new Squealer(person));

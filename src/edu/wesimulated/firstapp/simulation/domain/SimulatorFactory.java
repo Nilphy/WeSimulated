@@ -32,9 +32,9 @@ public abstract class SimulatorFactory {
 	private static SimulatorFactory constructFactory(SimulatorType simulatorType) {
 		if (simulatorType == TaskSimulatorType.SystemDynamics) {
 			return new SystemDynamicsSimulatorFactory();
-		} else if (simulatorType == RoleSimulatorType.AvatureDeveloper) {
+		} else if (simulatorType == RoleSimulatorType.MY_WORK) {
 			return new RoleSimulatorFactory();
-		} else if (simulatorType == RoleSimulatorType.HighlyInterruptible) {
+		} else if (simulatorType == RoleSimulatorType.HIGHLY_INTERRUPTIBLE) {
 			return new HighlyInterruptibleRoleSimulatorFactory();
 		} else {
 			throw new IllegalStateException();
