@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.wesimulated.simulation.hla.DateLogicalTime;
-import com.wesimulated.simulation.runparameters.CompletableTask;
+import com.wesimulated.simulation.runparameters.Completable;
 
 import edu.wesimulated.firstapp.model.TaskNeed;
 import edu.wesimulated.firstapp.simulation.domain.mywork.role.RoleSimulator;
@@ -22,7 +22,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 
-public class Task implements NumericallyModeledEntity, CompletableTask {
+public class Task implements NumericallyModeledEntity, Completable {
 
 	public static Task orderTasksAndGetFirst(List<Task> tasks, Comparator<Task> comparator) {
 		if (tasks.size() > 0) {

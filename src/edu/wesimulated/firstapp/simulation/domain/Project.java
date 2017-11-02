@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import com.wesimulated.simulation.runparameters.CompletableTask;
+import com.wesimulated.simulation.runparameters.Completable;
 
 import edu.wesimulated.firstapp.simulation.domain.mywork.project.MaintenanceTask;
 import edu.wesimulated.firstapp.simulation.domain.mywork.project.Meeting;
@@ -17,7 +17,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
-public class Project implements CompletableTask, NumericallyModeledEntity {
+public class Project implements Completable, NumericallyModeledEntity {
 
 	private ProjectContract contract;
 	private ProjectWbs wbs;
