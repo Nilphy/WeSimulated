@@ -87,7 +87,7 @@ public class RoleFederate extends AbstractFederate implements Observer, TimeCont
 		this.roleSimulator = RoleSimulatorBuilder.build(this.role, this.project, this.person);
 	}
 
-	public void discoverPerson(Person person) {
+	public void discoverPerson(edu.wesimulated.firstapp.simulation.domain.Person person) {
 		this.project.addPerson(person);
 	}
 

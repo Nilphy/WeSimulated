@@ -1,11 +1,10 @@
 package edu.wesimulated.firstapp.simulation.domain.mywork.role;
 
-import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.PersonCharacteristic;
 import edu.wesimulated.firstapp.simulation.domain.Task;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 
-public class RolePerson extends Person {
+public class Person extends edu.wesimulated.firstapp.simulation.domain.Person {
 
 	private Task currentTask;
 

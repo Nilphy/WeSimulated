@@ -8,7 +8,7 @@ public class RoleSimulatorFactory extends SimulatorFactory {
 
 	@Override
 	public Person makePerson() {
-		return new RolePerson();
+		return new Person();
 	}
 
 	@Override

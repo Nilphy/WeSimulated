@@ -1,35 +1,23 @@
 package edu.wesimulated.firstapp.simulation.domain;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import com.wesimulated.simulation.runparameters.CompletableTask;
 
 import edu.wesimulated.firstapp.simulation.domain.mywork.project.MaintenanceTask;
 import edu.wesimulated.firstapp.simulation.domain.mywork.project.Meeting;
 import edu.wesimulated.firstapp.simulation.domain.mywork.project.Risk;
-import edu.wesimulated.firstapp.simulation.domain.mywork.role.RolePerson;
 import edu.wesimulated.firstapp.simulation.hla.HlaProject;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
 public class Project implements CompletableTask, NumericallyModeledEntity {
-
-	private static Task orderTasksAndGetFirst(List<Task> tasks, Comparator<Task> comparator) {
-		if (tasks.size() > 0) {
-			Collections.sort(tasks, comparator);
-			return tasks.get(0);
-		}
-		return null;
-	}
 
 	private ProjectContract contract;
 	private ProjectWbs wbs;
@@ -52,46 +40,6 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 			}
 		}
 		return true;
-	}
-
-	public Task findTaskToWorkForRole(Person person, Role role) {
-		List<Task> tasksAssignedToPerson = this.findTasksAssignedToPersonForRole(person, role);
-		if (tasksAssignedToPerson.size() > 0) {
-			Task firstTaskAssignedToPerson = orderTasksAndGetFirst(tasksAssignedToPerson, (Task first, Task second) -> {
-				return first.getStartDate().compareTo(second.getStartDate());
-			});
-			return firstTaskAssignedToPerson;
-		}
-		return null;
-	}
-
-	public Task findTaskToWorkOn(Date endOfSlab, RolePerson person, Role role) {
-		List<Task> tasksAssignedToPerson = this.findTasksToWorkOn(person, role);
-		if (tasksAssignedToPerson.size() > 0) {
-			Task firstTaskToWorkOn = orderTasksAndGetFirst(tasksAssignedToPerson, (Task first, Task second) -> {
-				return first.getStartDate().compareTo(second.getStartDate());
-			});
-			return firstTaskToWorkOn;
-		}
-		throw null;
-	}
-
-	private List<Task> findTasksAssignedToPersonForRole(Person person, Role role) {
-		return this.getTasks().stream().filter((task) -> {
-			if (task.isPersonAssigned(person) && task.hasWorkForRole(role)) {
-				return true;
-			}
-			return false;
-		}).collect(Collectors.toList());
-	}
-
-	private List<Task> findTasksToWorkOn(Person person, Role role) {
-		return this.getTasks().stream().filter((task) -> {
-			if ((task.isPersonAssigned(person) || task.hasNoOneAssigned()) && task.hasWorkForRole(role) && task.isReady()) {
-				return true;
-			}
-			return false;
-		}).collect(Collectors.toList());
 	}
 
 	@Override
@@ -118,7 +66,7 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 		return this.maintenanceTasks;
 	}
 
-	public Person pickRandomPerson() {
+	public edu.wesimulated.firstapp.simulation.domain.Person pickRandomPerson() {
 		List<Person> people = this.getPeople();
 		int index = (int) Math.round(Math.random() * people.size());
 		return people.get(index);
@@ -132,7 +80,7 @@ public class Project implements CompletableTask, NumericallyModeledEntity {
 		return this.managementFramework.getMeetings();
 	}
 
-	private List<Task> getTasks() {
+	protected List<Task> getTasks() {
 		return this.tasks;
 	}
 

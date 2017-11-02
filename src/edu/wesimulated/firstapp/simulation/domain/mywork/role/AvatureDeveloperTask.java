@@ -36,18 +36,18 @@ public class AvatureDeveloperTask extends Task {
 		return timeOfWorkSlab.findSample().getPrediction().getValue().longValue();
 	}
 
-	public long getWorkDone(WorkType currentWorkType, Role role, RolePerson person) {
+	public long getWorkDone(WorkType currentWorkType, Role role, Person person) {
 		Collection<WorkDone> workDone = this.findWorkDoneBy(currentWorkType, role, person);
 		return workDone.stream().mapToLong((workDoneOfStream) -> {
 			return workDoneOfStream.getAmount();
 		}).sum();
 	}
 
-	public void registerWorkDone(long l, WorkType workType, Role role, RolePerson person, Date date) {
+	public void registerWorkDone(long l, WorkType workType, Role role, Person person, Date date) {
 		this.allWorkDone.add(new WorkDone(l, role, person, workType));
 	}
 
-	private Collection<WorkDone> findWorkDoneBy(WorkType workType, Role role, RolePerson person) {
+	private Collection<WorkDone> findWorkDoneBy(WorkType workType, Role role, Person person) {
 		return allWorkDone.stream().filter((workDoneToFilter) -> workDoneToFilter.getWorkType() == workType && 
 				workDoneToFilter.getRole() == role && 
 				workDoneToFilter.getPerson() == person

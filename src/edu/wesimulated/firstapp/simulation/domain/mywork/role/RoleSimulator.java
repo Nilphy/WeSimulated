@@ -1,5 +1,6 @@
 package edu.wesimulated.firstapp.simulation.domain.mywork.role;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -13,9 +14,7 @@ import com.wesimulated.simulationmotor.des.COperation;
 import com.wesimulated.simulationmotor.des.OperationBasedSimulator;
 import com.wesimulated.simulationmotor.des.threefaseaproach.ThreePhaseExecutor;
 
-import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Role;
-import edu.wesimulated.firstapp.simulation.domain.Task;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
@@ -45,13 +44,13 @@ public class RoleSimulator extends OperationBasedSimulator implements Observer {
 
 	private Project project;
 	private Role role;
-	private RolePerson person;
+	private Person person;
 	private AvatureDeveloperTask currentTask;
 	private WorkType currentWorkType;
 	private Date currentTaskStart;
 	private Date lastDateWorkRegistered;
 
-	public RoleSimulator(Role role, Project project, RolePerson person) {
+	public RoleSimulator(Role role, Project project, Person person) {
 		super(new ThreePhaseExecutor(new TaskCompletedEndCondition(project)));
 		this.role = role;
 		this.project = project;
@@ -98,7 +97,7 @@ public class RoleSimulator extends OperationBasedSimulator implements Observer {
 		return this.project;
 	}
 
-	public RolePerson getPerson() {
+	public Person getPerson() {
 		return this.person;
 	}
 

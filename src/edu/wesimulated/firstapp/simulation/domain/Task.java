@@ -2,8 +2,11 @@ package edu.wesimulated.firstapp.simulation.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -20,6 +23,14 @@ import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 
 public class Task implements NumericallyModeledEntity, CompletableTask {
+
+	public static Task orderTasksAndGetFirst(List<Task> tasks, Comparator<Task> comparator) {
+		if (tasks.size() > 0) {
+			Collections.sort(tasks, comparator);
+			return tasks.get(0);
+		}
+		return null;
+	}
 
 	private HlaTask hlaTask;
 	private Collection<Person> accountablePeople;
@@ -71,7 +82,8 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 		Number currentWorkDone = this.workDoneInHoursPerTaskNeed.get(taskNeed);
 		this.workDoneInHoursPerTaskNeed.put(taskNeed, new Long(duration + currentWorkDone.longValue()));
 		if (when == null) {
-			// this.hlaTask.registerWorkToDo(new Work(duration), new DateLogicalTime(when));
+			// this.hlaTask.registerWorkToDo(new Work(duration), new
+			// DateLogicalTime(when));
 			// FIXME register pending changes to send to hla
 		}
 	}
@@ -222,9 +234,9 @@ public class Task implements NumericallyModeledEntity, CompletableTask {
 		boolean hasOneUnMet = false;
 		for (TaskDependency taskDependency : this.taskDependencies) {
 			if (!taskDependency.isSatisfied()) {
-				hasOneUnMet = true; 
+				hasOneUnMet = true;
 			}
-		} 
+		}
 		return hasOneUnMet;
 	}
 
