@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import edu.wesimulated.firstapp.persistence.LocalDateAdapter;
 import edu.wesimulated.firstapp.simulation.SimulatorType;
 import edu.wesimulated.firstapp.simulation.TaskSimulatorBuilder.TaskSimulatorType;
-import edu.wesimulated.firstapp.simulation.domain.UnitsOfWorkInterpreter;
 
 public class TaskData implements SimulatedEntity {
 
@@ -41,10 +40,6 @@ public class TaskData implements SimulatedEntity {
 		this.id = new SimpleIntegerProperty(id == null ? 0 : id);
 		this.taskDependencies = FXCollections.observableArrayList();
 		this.resetAllPeopleAssignations();
-	}
-
-	public float calculateEffortInMilliseconds() {
-		return UnitsOfWorkInterpreter.uowToMilis(this.getUnitsOfWork());
 	}
 
 	public void resetAllPeopleAssignations() {
