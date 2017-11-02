@@ -34,7 +34,7 @@ import edu.wesimulated.firstapp.simulation.domain.Project;
  * @author Carolina
  *
  */
-public class HighlyInterruptibleRoleSimulator extends BaseSimulator implements Observer {
+public class HighlyInterruptibleRoleSimulator extends BaseSimulator<ProcessBasedExecutor> implements Observer {
 	public Person person;
 
 	public HighlyInterruptibleRoleSimulator(Project project, Person person) {
@@ -43,18 +43,14 @@ public class HighlyInterruptibleRoleSimulator extends BaseSimulator implements O
 	}
 
 	public void registerSimulationEntity(Entity entity) {
-		this.getMyExecutor().registerEntity(entity);
-	}
-
-	private ProcessBasedExecutor getMyExecutor() {
-		return (ProcessBasedExecutor) this.getExecutor();
+		this.getExecutor().registerEntity(entity);
 	}
 
 	public void acceptInterruption() {
 		// FIXME: has to determine if will accept the interruption or not (and
 		// count interruptions)???
-		Date interruptionDate = this.getMyExecutor().getClock().getCurrentDate();
-		for (Entity currentEvent : this.getMyExecutor().getCurrentEventsList()) {
+		Date interruptionDate = this.getCurrentDate();
+		for (Entity currentEvent : this.getExecutor().getCurrentEventsList()) {
 			currentEvent.acceptInterruption(interruptionDate);
 		}
 		this.getPerson().getHlaPerson().addObserver(this);

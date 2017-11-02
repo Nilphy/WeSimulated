@@ -46,7 +46,7 @@ import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.mywork.project.ProjectSimulator;
 
 public class ProjectFederate extends AbstractFederate implements Observer, TimeControllerEntity {
-	private ProjectSimulator projectlSimulator;
+	private ProjectSimulator projectSimulator;
 	private Project project;
 
 	public ProjectFederate(Project project) {
@@ -63,17 +63,17 @@ public class ProjectFederate extends AbstractFederate implements Observer, TimeC
 	}
 
 	public void timeRequestGranted(@SuppressWarnings("rawtypes") LogicalTime time) {
-		this.projectlSimulator.getOperationBasedExecutor().continueFromDate(((DateLogicalTime) time).getValue());
+		this.projectSimulator.getExecutor().continueFromDate(((DateLogicalTime) time).getValue());
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		((SimulationEvent) arg).updateSimulation(this.projectlSimulator, this);
+		((SimulationEvent) arg).updateSimulation(this.projectSimulator, this);
 	}
 
 	@Override
 	public void initClock(Date time) {
-		this.projectlSimulator.getOperationBasedExecutor().initClock(time, this);
+		this.projectSimulator.getExecutor().initClock(time, this);
 	}
 
 	public void joinFederationExcecution(String federateName) {
@@ -98,7 +98,7 @@ public class ProjectFederate extends AbstractFederate implements Observer, TimeC
 	}
 
 	protected void sendInformInteraction(String message) {
-		this.sendInformInteraction(message, new DateLogicalTime(this.projectlSimulator.getOperationBasedExecutor().getClock().getCurrentDate()));
+		this.sendInformInteraction(message, new DateLogicalTime(this.projectSimulator.getCurrentDate()));
 	}
 
 	public class ProjectFederateAmbassador extends NullFederateAmbassador implements FederateAmbassador {

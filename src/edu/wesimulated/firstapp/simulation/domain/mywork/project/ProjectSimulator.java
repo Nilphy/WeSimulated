@@ -1,14 +1,14 @@
 package edu.wesimulated.firstapp.simulation.domain.mywork.project;
 
+import com.wesimulated.simulation.BaseSimulator;
 import com.wesimulated.simulation.runparameters.TaskCompletedEndCondition;
 import com.wesimulated.simulationmotor.des.COperation;
-import com.wesimulated.simulationmotor.des.OperationBasedSimulator;
+import com.wesimulated.simulationmotor.des.OperationBasedExecutor;
 import com.wesimulated.simulationmotor.des.activityScanningAproach.ActivityScanningExecutor;
 
 import edu.wesimulated.firstapp.simulation.domain.Project;
 
-// TODO change to agregation (the simulator contains a simulator doesn't extends)
-public class ProjectSimulator extends OperationBasedSimulator {
+public class ProjectSimulator extends BaseSimulator<OperationBasedExecutor> {
 
 	private Project project;
 
@@ -18,6 +18,6 @@ public class ProjectSimulator extends OperationBasedSimulator {
 	}
 
 	public void addCOperation(COperation operation) {
-		this.getOperationBasedExecutor().addCOperation(operation);
+		this.getExecutor().addCOperation(operation);
 	}
 }

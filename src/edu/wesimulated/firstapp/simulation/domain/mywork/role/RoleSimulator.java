@@ -7,11 +7,11 @@ import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 
+import com.wesimulated.simulation.BaseSimulator;
 import com.wesimulated.simulation.runparameters.TaskCompletedEndCondition;
 import com.wesimulated.simulationmotor.DateUtils;
 import com.wesimulated.simulationmotor.des.BOperation;
 import com.wesimulated.simulationmotor.des.COperation;
-import com.wesimulated.simulationmotor.des.OperationBasedSimulator;
 import com.wesimulated.simulationmotor.des.threefaseaproach.ThreePhaseExecutor;
 
 import edu.wesimulated.firstapp.simulation.domain.Role;
@@ -40,7 +40,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
  *  
  *  Las tareas van a requerir a un rol una cantidad de personas para trabajar en ellas
  */
-public class RoleSimulator extends OperationBasedSimulator implements Observer {
+public class RoleSimulator extends BaseSimulator<ThreePhaseExecutor> implements Observer {
 
 	private Project project;
 	private Role role;
@@ -58,11 +58,11 @@ public class RoleSimulator extends OperationBasedSimulator implements Observer {
 	}
 
 	public void addBOperation(BOperation operation) {
-		this.getOperationBasedExecutor().addBOperation(operation);
+		this.getExecutor().addBOperation(operation);
 	}
 
 	public void addCOperation(COperation operation) {
-		this.getOperationBasedExecutor().addCOperation(operation);
+		this.getExecutor().addCOperation(operation);
 	}
 
 	public void acceptInterruption() {
@@ -70,13 +70,9 @@ public class RoleSimulator extends OperationBasedSimulator implements Observer {
 		this.lastDateWorkRegistered = this.getCurrentDate(); // FIXME: the interruption should have advanced the clock
 		long durationOfCurrentTask = this.lastDateWorkRegistered.getTime() - this.currentTaskStart.getTime();
 		this.currentTask.increaseWorkDone(durationOfCurrentTask, this.currentWorkType.getTaskNeedFulfilled(), lastDateWorkRegistered);
-		this.getOperationBasedExecutor().removeEndOfThisTask();
-		this.getOperationBasedExecutor().reprogramCurrentCOperation();
+		this.getExecutor().removeEndOfThisTask();
+		this.getExecutor().reprogramCurrentCOperation();
 		this.getPerson().getHlaPerson().addObserver(this);
-	}
-
-	public Date getCurrentDate() {
-		return this.getOperationBasedExecutor().getClock().getCurrentDate();
 	}
 
 	public Collection<NumericallyModeledEntity> getAllNumericallyModeledEntities() {

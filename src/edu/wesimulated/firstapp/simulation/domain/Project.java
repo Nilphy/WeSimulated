@@ -33,7 +33,7 @@ public class Project implements Completable, NumericallyModeledEntity {
 	private ManagementFramework managementFramework;
 
 	@Override
-	public boolean isCompleted() {
+	public boolean isCompleted() { 
 		for (Task task : tasks) {
 			if (!task.isCompleted()) {
 				return false;

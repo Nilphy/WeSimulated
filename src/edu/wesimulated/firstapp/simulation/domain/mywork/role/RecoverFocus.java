@@ -21,7 +21,7 @@ public class RecoverFocus extends BOperation {
 	@Override
 	public void doAction() {
 		long duration = this.roleSimulator.getCurrentTask().findDurationOfRecoverFocus(this.roleSimulator);
-		Date endOfRecover = DateUtils.addMilis(this.roleSimulator.getOperationBasedExecutor().getClock().getCurrentDate(), duration);
+		Date endOfRecover = DateUtils.addMilis(this.roleSimulator.getCurrentDate(), duration);
 		Task taskToWorkIn = this.roleSimulator.getProject().findTaskToWorkForRole(this.roleSimulator.getPerson(), this.roleSimulator.getRole());
 		if (taskToWorkIn != null) {
 			WorkType workType = taskToWorkIn.findWorkTypeForRole(this.roleSimulator);
