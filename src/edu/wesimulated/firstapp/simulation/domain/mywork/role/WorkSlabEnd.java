@@ -23,9 +23,9 @@ public class WorkSlabEnd extends BOperation {
 	@Override
 	public void doAction() {
 		this.roleSimulator.getCurrentWorkType().applyEffects(startOfSlab, endOfSlab);
-		AvatureDeveloperTask nextTask = (AvatureDeveloperTask) this.roleSimulator.getCurrentTask();
+		Task nextTask = this.roleSimulator.getCurrentTask();
 		if (this.roleSimulator.getCurrentTask().isCompleted(this.roleSimulator.getRole())) {
-			nextTask = (AvatureDeveloperTask) this.roleSimulator.getProject().findTaskToWorkOn(endOfSlab, this.roleSimulator.getPerson(), this.roleSimulator.getRole());
+			nextTask = this.roleSimulator.getProject().findTaskToWorkOn(endOfSlab, this.roleSimulator.getPerson(), this.roleSimulator.getRole());
 		}
 		WorkType workType = nextTask.findWorkTypeForRole(this.roleSimulator);
 		Date minDate = this.roleSimulator.getPerson().findNextAvailableDate();

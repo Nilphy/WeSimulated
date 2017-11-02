@@ -20,9 +20,9 @@ public class RecoverFocus extends BOperation {
 
 	@Override
 	public void doAction() {
-		long duration = ((AvatureDeveloperTask) this.roleSimulator.getCurrentTask()).findDurationOfRecoverFocus(this.roleSimulator);
+		long duration = this.roleSimulator.getCurrentTask().findDurationOfRecoverFocus(this.roleSimulator);
 		Date endOfRecover = DateUtils.addMilis(this.roleSimulator.getOperationBasedExecutor().getClock().getCurrentDate(), duration);
-		AvatureDeveloperTask taskToWorkIn = (AvatureDeveloperTask) this.roleSimulator.getProject().findTaskToWorkForRole(this.roleSimulator.getPerson(), this.roleSimulator.getRole());
+		Task taskToWorkIn = this.roleSimulator.getProject().findTaskToWorkForRole(this.roleSimulator.getPerson(), this.roleSimulator.getRole());
 		if (taskToWorkIn != null) {
 			WorkType workType = taskToWorkIn.findWorkTypeForRole(this.roleSimulator);
 			this.roleSimulator.addCOperation(new WorkSlabStart(this.roleSimulator, workType, taskToWorkIn, endOfRecover));

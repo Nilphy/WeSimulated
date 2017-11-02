@@ -13,7 +13,7 @@ public class RoleSimulatorFactory extends SimulatorFactory {
 
 	@Override
 	public Task makeTask() {
-		return new AvatureDeveloperTask();
+		return new Task();
 	}
 
 }

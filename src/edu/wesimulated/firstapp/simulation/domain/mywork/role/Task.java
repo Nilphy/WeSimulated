@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 import javafx.util.Pair;
 import edu.wesimulated.firstapp.simulation.domain.Role;
-import edu.wesimulated.firstapp.simulation.domain.Task;
 import edu.wesimulated.firstapp.simulation.domain.TaskCharacteristic;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
@@ -15,7 +14,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 
-public class AvatureDeveloperTask extends Task {
+public class Task extends edu.wesimulated.firstapp.simulation.domain.Task {
 
 	public List<WorkDone> allWorkDone;
 

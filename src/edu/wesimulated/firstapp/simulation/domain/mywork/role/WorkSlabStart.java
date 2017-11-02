@@ -12,10 +12,10 @@ public class WorkSlabStart extends COperation implements Prioritized {
 
 	private RoleSimulator roleSimulator;
 	private WorkType workType;
-	private AvatureDeveloperTask task;
+	private Task task;
 	private Date minDate;
 
-	public WorkSlabStart(RoleSimulator simulator, WorkType workType, AvatureDeveloperTask task, Date minDate) {
+	public WorkSlabStart(RoleSimulator simulator, WorkType workType, Task task, Date minDate) {
 		this.roleSimulator = simulator;
 		this.workType = workType;
 		this.task = task;

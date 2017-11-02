@@ -45,7 +45,7 @@ public class RoleSimulator extends OperationBasedSimulator implements Observer {
 	private Project project;
 	private Role role;
 	private Person person;
-	private AvatureDeveloperTask currentTask;
+	private Task currentTask;
 	private WorkType currentWorkType;
 	private Date currentTaskStart;
 	private Date lastDateWorkRegistered;
@@ -101,11 +101,11 @@ public class RoleSimulator extends OperationBasedSimulator implements Observer {
 		return this.person;
 	}
 
-	public AvatureDeveloperTask getCurrentTask() {
+	public Task getCurrentTask() {
 		return this.currentTask;
 	}
 
-	public void setCurrentTask(AvatureDeveloperTask task) {
+	public void setCurrentTask(Task task) {
 		this.getPerson().setAvailable(false);
 		this.currentTask = task;
 		this.getPerson().setCurrentTask(task);

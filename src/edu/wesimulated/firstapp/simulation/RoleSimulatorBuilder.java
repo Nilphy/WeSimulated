@@ -10,7 +10,7 @@ import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole
 import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.InstantMessenger;
 import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.Squealer;
 import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.TeamWork;
-import edu.wesimulated.firstapp.simulation.domain.mywork.role.AvatureDeveloperTask;
+import edu.wesimulated.firstapp.simulation.domain.mywork.role.Task;
 import edu.wesimulated.firstapp.simulation.domain.mywork.role.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.domain.mywork.role.WorkSlabStart;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
@@ -46,7 +46,7 @@ public class RoleSimulatorBuilder {
 	public static RoleSimulator buildAvatureDeveloperSimulator(edu.wesimulated.firstapp.simulation.domain.mywork.role.Project project, edu.wesimulated.firstapp.simulation.domain.mywork.role.Person person) throws MisconfiguredProject {
 		Role role = RolePool.getAvatureDeveloperRole();
 		RoleSimulator roleSimulator = new RoleSimulator(role, project, person);
-		AvatureDeveloperTask taskToWorkIn = (AvatureDeveloperTask) project.findTaskToWorkForRole(person, role);
+		Task taskToWorkIn = project.findTaskToWorkForRole(person, role);
 		Date startTime = taskToWorkIn.getStartDate();
 		roleSimulator.addBOperation(new StartProject(startTime));
 		WorkType workType = taskToWorkIn.findWorkTypeForRole(roleSimulator);
