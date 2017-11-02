@@ -30,7 +30,7 @@ public class ProjectSimulatorBuilder {
 		for (MaintenanceTask maintenanceTask : project.getMaintenanceTasks()) {
 			projectSimulator.addCOperation(maintenanceTask);
 		}
-		ParametricAlgorithm periodOfErrors = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.PeriodOfErrors);
+		ParametricAlgorithm periodOfErrors = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.PERIOD_OF_ERRORS);
 		periodOfErrors.consider(project);
 		projectSimulator.addCOperation(new ErrorsReported(periodOfErrors.findSample().getPrediction().getValue().longValue()));
 		for (Meeting meeting : project.findRegularMeetings()) {

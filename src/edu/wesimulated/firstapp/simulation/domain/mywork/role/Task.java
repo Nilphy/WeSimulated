@@ -19,7 +19,7 @@ public class Task extends edu.wesimulated.firstapp.simulation.domain.Task {
 	public List<WorkDone> allWorkDone;
 
 	public long findDurationOfRecoverFocus(RoleSimulator roleSimulator) {
-		ParametricAlgorithm durationOfRecoverFocus = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.TimeToFocus);
+		ParametricAlgorithm durationOfRecoverFocus = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.TIME_TO_FOCUS);
 		durationOfRecoverFocus.considerSingleValue(new Pair<>(TaskCharacteristic.TimeSinceLastTimeTask, new EntryValue(Type.Long, roleSimulator.findTimeSinceLastTimeTask())));
 		durationOfRecoverFocus.considerSingleValue(new Pair<>(TaskCharacteristic.TimeInTask, new EntryValue(Type.Long, roleSimulator.findTimeInTask())));
 		durationOfRecoverFocus.consider(roleSimulator.getCurrentTask());
@@ -28,7 +28,7 @@ public class Task extends edu.wesimulated.firstapp.simulation.domain.Task {
 	}
 
 	public long findDurationOfWorkSlab(RoleSimulator roleSimulator) {
-		ParametricAlgorithm timeOfWorkSlab = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.TimeOfWorkSlab);
+		ParametricAlgorithm timeOfWorkSlab = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.DURATION_WORK_SLAB);
 		// TODO The person will have a list of all interruptions it has had
 		// given the priority of this task and the ones that has interrupted it
 		// The duration of this task could be calculated

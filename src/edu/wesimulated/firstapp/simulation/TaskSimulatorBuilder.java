@@ -51,13 +51,13 @@ public class TaskSimulatorBuilder {
 	}
 
 	public TaskSimulator build(Task task, Project project) {
-		ParametricAlgorithm reviewTimeToReworkFactor = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.ReviewTimeToReworkFactor);
+		ParametricAlgorithm reviewTimeToReworkFactor = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.REWORK_X_REVIEW_TIME);
 		reviewTimeToReworkFactor.consider(task);
-		ParametricAlgorithm qcTimeToReworkFactor = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.QcTimeToReworkFactor);
+		ParametricAlgorithm qcTimeToReworkFactor = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.REWORK_X_QC_TIME);
 		qcTimeToReworkFactor.consider(task);
-		ParametricAlgorithm autoQcToReworkFactor = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.AutoQcToReworkFactor);
+		ParametricAlgorithm autoQcToReworkFactor = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.REWORK_X_AUTO_QC);
 		autoQcToReworkFactor.consider(task);
-		ParametricAlgorithm uowBugsProportion = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.UowBugs);
+		ParametricAlgorithm uowBugsProportion = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.BUGS_X_UOW);
 		uowBugsProportion.consider(task);
 		TaskSimulator simulator = new TaskSimulator(task);
 

@@ -19,7 +19,7 @@ public class SquealerReport extends Message {
 	 * Decide if after new a message is in state ISSUED or NOT_ISSUED
 	 */
 	public void analize() {
-		ParametricAlgorithm status = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.SquealerMessageStatus);
+		ParametricAlgorithm status = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.SQUEALER_REQUEST_STATUS);
 		status.consider(this);
 		this.setStatus((Status) status.findSample().getClassifictation());
 	}

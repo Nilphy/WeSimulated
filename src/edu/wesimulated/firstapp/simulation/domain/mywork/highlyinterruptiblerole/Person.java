@@ -33,7 +33,7 @@ public class Person extends edu.wesimulated.firstapp.simulation.domain.Person {
 		for (Message pendingEmail : this.getPendingEmails()) {
 			switch (pendingEmail.getStatus()) {
 			case NEW:
-				dateUntilResolution = this.calculateMessageTime(pendingEmail, StochasticVar.TimeToReadEmail);
+				dateUntilResolution = this.calculateMessageTime(pendingEmail, StochasticVar.TIME_TO_READ_EMAIL);
 				pendingEmailToResolve = pendingEmail;
 				endProcessing = true;
 				break;
@@ -44,7 +44,7 @@ public class Person extends edu.wesimulated.firstapp.simulation.domain.Person {
 				endProcessing = true;
 				break;
 			case RESPOND:
-				dateUntilResolution = this.calculateMessageTime(pendingEmail, StochasticVar.TimeToRespondEmail);
+				dateUntilResolution = this.calculateMessageTime(pendingEmail, StochasticVar.TIME_TO_RESPOND_EMAIL);
 				pendingEmailToResolve = pendingEmail;
 				endProcessing = true;
 				break;
@@ -71,7 +71,7 @@ public class Person extends edu.wesimulated.firstapp.simulation.domain.Person {
 		for (Message pendingFaceToFaceInteraction : this.getPendingFaceToFaceInteractions()) {
 			switch (pendingFaceToFaceInteraction.getStatus()) {
 			case NEW:
-				dateUntilResolution = this.calculateMessageTime(pendingFaceToFaceInteractionToResolve, StochasticVar.TimeToListenFaceToFaceInteraction);
+				dateUntilResolution = this.calculateMessageTime(pendingFaceToFaceInteractionToResolve, StochasticVar.TIME_TO_LISTEN_FACE_TO_FACE_INTERACTION);
 				pendingFaceToFaceInteractionToResolve = pendingFaceToFaceInteraction;
 				endProcessing = true;
 				break;
@@ -81,7 +81,7 @@ public class Person extends edu.wesimulated.firstapp.simulation.domain.Person {
 				endProcessing = true;
 				break;
 			case RESPOND:
-				dateUntilResolution = this.calculateMessageTime(pendingFaceToFaceInteraction, StochasticVar.TimeToRespondFaceToFaceInteraction);
+				dateUntilResolution = this.calculateMessageTime(pendingFaceToFaceInteraction, StochasticVar.TIME_TO_RESPOND_FACE_TO_FACE_INTERACTION);
 				pendingFaceToFaceInteractionToResolve = pendingFaceToFaceInteraction;
 				endProcessing = true;
 				break;
@@ -120,7 +120,7 @@ public class Person extends edu.wesimulated.firstapp.simulation.domain.Person {
 				endProcessing = true;
 				break;
 			case RESPOND:
-				dateUntilResolution = this.calculateMessageTime(pendingImMessage, StochasticVar.TimeToResolveIm);
+				dateUntilResolution = this.calculateMessageTime(pendingImMessage, StochasticVar.TIME_TO_RESOLVE_IM);
 				pendingImMessageToResolve = pendingImMessage;
 				endProcessing = true;
 				break;
@@ -152,7 +152,7 @@ public class Person extends edu.wesimulated.firstapp.simulation.domain.Person {
 					pendingSquealerReport.setStatus(Status.RESOLVE);
 					PendingSquealerReportToResolve = pendingSquealerReport;
 					endProcessing = true;
-					dateUntilResolution = this.calculateMessageTime(pendingSquealerReport, StochasticVar.TimeToResolveSquealerReport);
+					dateUntilResolution = this.calculateMessageTime(pendingSquealerReport, StochasticVar.TIME_TO_RESOLVE_SQUEALER_REPORT);
 				} else {
 					pendingSquealerReport.setStatus(Status.PROCESSED);
 					pendingSquealerReportsResolved.add(pendingSquealerReport);
@@ -161,7 +161,7 @@ public class Person extends edu.wesimulated.firstapp.simulation.domain.Person {
 			case NOT_ISSUED:
 				PendingSquealerReportToResolve = pendingSquealerReport;
 				endProcessing = true;
-				dateUntilResolution = this.calculateMessageTime(pendingSquealerReport, StochasticVar.TimeToIssueReport);
+				dateUntilResolution = this.calculateMessageTime(pendingSquealerReport, StochasticVar.TIME_TO_ISSUE_SQUEALER_REPORT);
 			case PROCESSED:
 				pendingSquealerReportsResolved.add(pendingSquealerReport);
 				break;
@@ -256,7 +256,6 @@ public class Person extends edu.wesimulated.firstapp.simulation.domain.Person {
 		this.questions = questions;
 	}
 
-	// TODO rename to squealer reports
 	public List<SquealerReport> getPendingSquealerReports() {
 		// FIXME this field gets populated prom the project simulator
 		return pendingSquealerReports;

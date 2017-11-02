@@ -75,7 +75,7 @@ public class Message implements Prioritized, NumericallyModeledEntity {
 	 * release_person
 	 */
 	public void analize() {
-		ParametricAlgorithm status = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.MessageStatus);
+		ParametricAlgorithm status = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.MESSAGE_STATUS);
 		status.consider(this);
 		this.setStatus((Status) status.findSample().getClassifictation());
 	}

@@ -46,7 +46,7 @@ public class Meeting extends MaintenanceTask implements NumericallyModeledEntity
 	public void doAction() {
 		// FIXME le da conocimiento a la gente que participa
 		// FIXME avanza el tiempo¿? no tengo idea como
-		ParametricAlgorithm meetingDuration = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.MeetingDuration);
+		ParametricAlgorithm meetingDuration = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.MEETING_DURATION);
 		this.getParticipants().forEach(participant -> meetingDuration.consider(participant));
 		meetingDuration.consider(this);
 		//return meetingDuration.findSample().getPrediction().getValue().longValue();

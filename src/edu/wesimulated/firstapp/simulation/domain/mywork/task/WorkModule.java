@@ -36,7 +36,7 @@ public class WorkModule implements Module {
 
 	private void buildWorkTypeModule() {
 		Source bruteWork = new Source(getTaskNeed().c(SOURCE_BRUTE_WORK));
-		ParametricAlgorithm timeWorkedEffectiveUowFactor = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.TimeWorkedForEffectiveUowFactor);
+		ParametricAlgorithm timeWorkedEffectiveUowFactor = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.EFFECTIVE_UOW_X_TIME_WORKED);
 		timeWorkedEffectiveUowFactor.consider(task);
 		Constant efficiency = new Constant(getTaskNeed().c(CONST_EFICIENCY), timeWorkedEffectiveUowFactor);
 

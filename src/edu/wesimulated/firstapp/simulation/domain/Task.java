@@ -160,7 +160,7 @@ public class Task implements NumericallyModeledEntity, Completable {
 	}
 
 	public WorkType findWorkTypeForRole(RoleSimulator roleSimulator) {
-		ParametricAlgorithm stochasticWorkType = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.WorkTypeForRole);
+		ParametricAlgorithm stochasticWorkType = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.NEXT_WORK_TYPE_FOR_ROLE);
 		stochasticWorkType.considerAll(roleSimulator.getAllNumericallyModeledEntities());
 		return (WorkType) stochasticWorkType.findSample().getClassifictation();
 	}
