@@ -9,12 +9,11 @@ public class Technology implements NumericallyModeledEntity {
 
 	private Integer monthsInTheIndustry;
 	private Float learningCurveModOne;
-	private Float verbosityModeOne;
+	private Float verbosityModOne;
 
 	@Override
 	public Map<Characteristic, EntryValue> extractValues() {
 		// TODO extractValues
 		return null;
 	}
-
 }
