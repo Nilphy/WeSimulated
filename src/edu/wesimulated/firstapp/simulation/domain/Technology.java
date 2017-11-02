@@ -1,6 +1,6 @@
 package edu.wesimulated.firstapp.simulation.domain;
 
-public class Tecnology {
+public class Technology implements NumericallyModeledEntity {
 
 	/** TODO: complete */
 }

@@ -12,7 +12,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
 public class ProjectContract implements NumericallyModeledEntity {
 	
-	private Map<Integer, Tecnology> tecnologies;
+	private Map<Integer, Technology> tecnologies;
 	private Quality quality;
 	private Cost budget;
 	private Date initialDate;
