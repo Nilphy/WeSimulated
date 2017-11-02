@@ -1,5 +1,6 @@
 package edu.wesimulated.firstapp.simulation.domain;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +13,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
 public class ProjectContract implements NumericallyModeledEntity {
 	
-	private Map<Integer, Technology> tecnologies;
+	private Collection<Technology> tecnologies;
 	private Quality quality;
 	private Cost budget;
 	private Date initialDate;
