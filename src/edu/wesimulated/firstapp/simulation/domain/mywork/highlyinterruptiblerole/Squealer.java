@@ -44,12 +44,12 @@ public class Squealer extends ComunicativeEntity {
 
 	@Override
 	protected Pair<Date, Message> resolvePendingMessages() {
-		return this.getPerson().resolvePendingSquealerNotifications();
+		return this.getPerson().resolvePendingSquealerReports();
 	}
 
 	@Override
 	protected List<Message> getPendingMessagesFromPerson() {
-		return this.getPerson().getPendingSquealerNotifications().stream().map((SquealerReport item) -> { return (Message) item; }).collect(Collectors.toList());
+		return this.getPerson().getPendingSquealerReports().stream().map((SquealerReport item) -> { return (Message) item; }).collect(Collectors.toList());
 	}
 
 }

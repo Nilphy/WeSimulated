@@ -139,13 +139,12 @@ public class Person extends edu.wesimulated.firstapp.simulation.domain.Person {
 		return new Pair<>(dateUntilResolution, pendingImMessageToResolve);
 	}
 
-	// TODO rename to squealer report
-	public Pair<Date, Message> resolvePendingSquealerNotifications() {
+	public Pair<Date, Message> resolvePendingSquealerReports() {
 		Date dateUntilResolution = null;
 		Message PendingSquealerReportToResolve = null;
 		Collection<Message> pendingSquealerReportsResolved = new ArrayList<>();
 		boolean endProcessing = false;
-		for (SquealerReport pendingSquealerReport : this.getPendingSquealerNotifications()) {
+		for (SquealerReport pendingSquealerReport : this.getPendingSquealerReports()) {
 			pendingSquealerReport.analize();
 			switch (pendingSquealerReport.getStatus()) {
 			case ISSUED:
@@ -258,7 +257,7 @@ public class Person extends edu.wesimulated.firstapp.simulation.domain.Person {
 	}
 
 	// TODO rename to squealer reports
-	public List<SquealerReport> getPendingSquealerNotifications() {
+	public List<SquealerReport> getPendingSquealerReports() {
 		// FIXME this field gets populated prom the project simulator
 		return pendingSquealerReports;
 	}
