@@ -46,12 +46,12 @@ public class TeamWork extends ComunicativeEntity {
 
 	@Override
 	protected Pair<Date, Message> resolvePendingMessages() {
-		return this.person.resolvePendingFaceToFaceQuestions();
+		return this.person.resolvePendingFaceToFaceInteractions();
 	}
 
 	@Override
 	protected List<Message> getPendingMessagesFromPerson() {
-		return this.getPerson().getPendingFaceToFaceQuestions();
+		return this.getPerson().getPendingFaceToFaceInteractions();
 	}
 
 }

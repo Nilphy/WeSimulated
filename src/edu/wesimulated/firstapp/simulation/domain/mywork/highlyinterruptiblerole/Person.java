@@ -21,7 +21,7 @@ public class Person extends edu.wesimulated.firstapp.simulation.domain.Person {
 	private List<Message> questions;
 	private List<Message> pendingImMessages;
 	private List<Message> pendingEmails;
-	private List<Message> pendingFaceToFaceQuestions;
+	private List<Message> pendingFaceToFaceInteractions;
 	private List<SquealerReport> pendingSquealerReports;
 	private Task currentTask;
 
@@ -63,27 +63,26 @@ public class Person extends edu.wesimulated.firstapp.simulation.domain.Person {
 		return new Pair<>(dateUntilResolution, pendingEmailToResolve);
 	}
 
-	// TODO rename to pending face to face interactions
-	public Pair<Date, Message> resolvePendingFaceToFaceQuestions() {
+	public Pair<Date, Message> resolvePendingFaceToFaceInteractions() {
 		Date dateUntilResolution = null;
-		Message pendingFaceToFaceQuestionToResolve = null;
-		Collection<Message> faceToFaceQuestionsResolved = new ArrayList<>();
+		Message pendingFaceToFaceInteractionToResolve = null;
+		Collection<Message> faceToFaceInteractionsResolved = new ArrayList<>();
 		boolean endProcessing = false;
-		for (Message pendingFaceToFaceQuestion : this.getPendingFaceToFaceQuestions()) {
-			switch (pendingFaceToFaceQuestion.getStatus()) {
+		for (Message pendingFaceToFaceInteraction : this.getPendingFaceToFaceInteractions()) {
+			switch (pendingFaceToFaceInteraction.getStatus()) {
 			case NEW:
-				dateUntilResolution = this.calculateMessageTime(pendingFaceToFaceQuestionToResolve, StochasticVar.TimeToListenFaceToFaceQuestion);
-				pendingFaceToFaceQuestionToResolve = pendingFaceToFaceQuestion;
+				dateUntilResolution = this.calculateMessageTime(pendingFaceToFaceInteractionToResolve, StochasticVar.TimeToListenFaceToFaceInteraction);
+				pendingFaceToFaceInteractionToResolve = pendingFaceToFaceInteraction;
 				endProcessing = true;
 				break;
 			case RELEASE_PERSON:
 				this.setAvailable(true);
-				faceToFaceQuestionsResolved.add(pendingFaceToFaceQuestion);
+				faceToFaceInteractionsResolved.add(pendingFaceToFaceInteraction);
 				endProcessing = true;
 				break;
 			case RESPOND:
-				dateUntilResolution = this.calculateMessageTime(pendingFaceToFaceQuestion, StochasticVar.TimeToRespondFaceToFaceQuestion);
-				pendingFaceToFaceQuestionToResolve = pendingFaceToFaceQuestion;
+				dateUntilResolution = this.calculateMessageTime(pendingFaceToFaceInteraction, StochasticVar.TimeToRespondFaceToFaceInteraction);
+				pendingFaceToFaceInteractionToResolve = pendingFaceToFaceInteraction;
 				endProcessing = true;
 				break;
 			default:
@@ -93,9 +92,9 @@ public class Person extends edu.wesimulated.firstapp.simulation.domain.Person {
 				break;
 			}
 		}
-		this.applyEffectsOfResolvedMessages(faceToFaceQuestionsResolved);
-		this.getPendingFaceToFaceQuestions().removeAll(faceToFaceQuestionsResolved);
-		return new Pair<>(dateUntilResolution, pendingFaceToFaceQuestionToResolve);
+		this.applyEffectsOfResolvedMessages(faceToFaceInteractionsResolved);
+		this.getPendingFaceToFaceInteractions().removeAll(faceToFaceInteractionsResolved);
+		return new Pair<>(dateUntilResolution, pendingFaceToFaceInteractionToResolve);
 	}
 
 	private void applyEffectsOfResolvedMessages(Collection<Message> messagesResolved) {
@@ -234,9 +233,9 @@ public class Person extends edu.wesimulated.firstapp.simulation.domain.Person {
 		return this.pendingEmails;
 	}
 
-	public List<Message> getPendingFaceToFaceQuestions() {
+	public List<Message> getPendingFaceToFaceInteractions() {
 		this.categorizeInteractions();
-		return this.pendingFaceToFaceQuestions;
+		return this.pendingFaceToFaceInteractions;
 	}
 
 	public void addUnreadImMessage(Message message) {
