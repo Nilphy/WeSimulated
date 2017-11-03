@@ -197,7 +197,7 @@ public class MainApp extends Application {
 
 	public ProjectData buildProjectData() {
 		ProjectData projectData = new ProjectData();
-		projectData.setPersons(this.personData);
+		projectData.setPeople(this.personData);
 		projectData.setTasks(this.taskData);
 		projectData.setRoles(this.roleData);
 		projectData.setWbsRootNode(UiModelToXml.convertToXml(getWbs()));
@@ -424,8 +424,8 @@ public class MainApp extends Application {
 
 	private void fillPeopleInfo(ProjectData projectData) {
 		this.personData.clear();
-		UiModelToXml.changeRolesFromMainAppOnes(projectData.getPersons(), this);
-		this.personData.addAll(projectData.getPersons());
+		UiModelToXml.changeRolesFromMainAppOnes(projectData.getPeople(), this);
+		this.personData.addAll(projectData.getPeople());
 	}
 
 	private void fillRamInfo(ProjectData projectData) {

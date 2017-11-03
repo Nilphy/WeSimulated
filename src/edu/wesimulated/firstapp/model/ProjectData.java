@@ -12,22 +12,22 @@ import edu.wesimulated.firstapp.persistence.XmlWbsNode;
 @XmlRootElement(name = "projectData")
 public class ProjectData {
 
-	private List<PersonData> persons;
+	private List<PersonData> people;
 	private List<TaskData> tasks;
 	private List<RoleData> roles;
 	private XmlWbsNode wbsRootNode;
 	private List<XmlResponsibilityAssignment> xmlRam;
 
 	@XmlElement(name = "person")
-	public List<PersonData> getPersons() {
-		if (persons == null) {
-			this.persons = new ArrayList<>();
+	public List<PersonData> getPeople() {
+		if (people == null) {
+			this.people = new ArrayList<>();
 		}
-		return persons;
+		return people;
 	}
 
-	public void setPersons(List<PersonData> persons) {
-		this.persons = persons;
+	public void setPeople(List<PersonData> people) {
+		this.people = people;
 	}
 
 	@XmlElement(name = "task")
