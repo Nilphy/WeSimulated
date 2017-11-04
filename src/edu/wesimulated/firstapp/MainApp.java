@@ -224,7 +224,7 @@ public class MainApp extends Application {
 		RoleData iterationRole = null;
 		while (roleDataIterator.hasNext() && found == null) {
 			iterationRole = roleDataIterator.next();
-			if (iterationRole.getName().equals(roleName)) {
+			if (iterationRole.getName().equalsIgnoreCase(roleName)) {
 				found = iterationRole;
 			}
 		}

@@ -4,14 +4,16 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.wesimulated.firstapp.model.RoleData;
 import edu.wesimulated.firstapp.model.TaskNeed;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
-public class Role implements NumericallyModeledEntity {
+public class Role implements NumericallyModeledEntity, Identifiable {
 
 	private Collection<TaskNeed> taskNeedsThatCanBeMet;
+	private String name;
 
 	@Override
 	public Map<Characteristic, EntryValue> extractValues() {
@@ -22,5 +24,28 @@ public class Role implements NumericallyModeledEntity {
 
 	public Collection<TaskNeed> getTaskNeedsThatCanBeMet() {
 		return taskNeedsThatCanBeMet;
+	}
+
+	public void populateFromRoleData(RoleData roleData, SimulatorFactory factory) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getIdentifier() {
+		return this.getName();
+	}
+
+	@Override
+	public IdentifiableType getType() {
+		return IdentifiableType.ROLE;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }
