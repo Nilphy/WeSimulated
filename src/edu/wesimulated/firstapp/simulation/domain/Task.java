@@ -22,7 +22,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 
-public class Task implements NumericallyModeledEntity, Completable {
+public class Task implements NumericallyModeledEntity, Completable, Identifiable {
 
 	public static Task orderTasksAndGetFirst(List<Task> tasks, Comparator<Task> comparator) {
 		if (tasks.size() > 0) {
@@ -49,6 +49,7 @@ public class Task implements NumericallyModeledEntity, Completable {
 	private Collection<TaskDependency> taskDependencies;
 	private Map<TaskNeed, Number> costInHoursPerTaskNeed;
 	private Map<TaskNeed, Number> workDoneInHoursPerTaskNeed;
+	private String id;
 
 	public Task() {
 		this.workDoneInHoursPerTaskNeed = new HashMap<>();
@@ -240,5 +241,14 @@ public class Task implements NumericallyModeledEntity, Completable {
 
 	public long getTotalWorkDone() {
 		return this.workDoneInHoursPerTaskNeed.values().stream().mapToLong((workDone) -> workDone.longValue()).sum();
+	}
+	@Override
+	public String getIdentifier() {
+		return this.id;
+	}
+
+	@Override
+	public IdentifiableType getType() {
+		return IdentifiableType.TASK;
 	}
 }
