@@ -24,7 +24,7 @@ public class SetupWorkbench extends WorkType {
 	@Override
 	public Map<Characteristic, EntryValue> extractValues() {
 		Map<Characteristic, EntryValue> values = new HashMap<>();
-		values.put(TaskCharacteristic.WorkTypeName, new EntryValue(Type.String, this.getName()));
+		values.put(TaskCharacteristic.WORK_TYPE, new EntryValue(Type.String, this.getName()));
 		return values;
 	}
 

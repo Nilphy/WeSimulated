@@ -1,9 +1,8 @@
 package edu.wesimulated.firstapp.simulation.domain;
 
-// TODO rename constants use upper case
 public enum TaskCharacteristic implements Characteristic {
-	Name,
-	TimeInTask,
-	TimeSinceLastTimeTask,
-	WorkTypeName;
+	NAME,
+	TIME_IN_TASK,
+	TIME_SINCE_LAST_TIME,
+	WORK_TYPE;
 }

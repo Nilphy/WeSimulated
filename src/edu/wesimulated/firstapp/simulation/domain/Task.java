@@ -85,7 +85,7 @@ public class Task implements NumericallyModeledEntity, Completable, Identifiable
 	}
 
 	public void setName(String name, Date when) {
-		this.profile.set(TaskCharacteristic.Name, new EntryValue(EntryValue.Type.String, name));
+		this.profile.set(TaskCharacteristic.NAME, new EntryValue(EntryValue.Type.String, name));
 		if (when == null) {
 			this.hlaTask.registerName(name, new DateLogicalTime(when));
 			// FIXME register pending changes to send to hla
