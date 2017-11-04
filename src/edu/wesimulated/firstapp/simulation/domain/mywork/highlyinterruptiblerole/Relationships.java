@@ -8,12 +8,11 @@ import edu.wesimulated.firstapp.simulation.domain.PersonCharacteristic;
 import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.Message.Status;
 import edu.wesimulated.firstapp.view.ThingsWithoutAUi;
 
-// FIXME rename to something less related to team and more related to something face to face
-public class TeamWork extends ComunicativeEntity {
+public class Relationships extends ComunicativeEntity {
 
 	private Person person;
 	
-	public TeamWork(Person person) {
+	public Relationships(Person person) {
 		super(person);
 	}
 
