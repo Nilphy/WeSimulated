@@ -75,7 +75,8 @@ public class Simulation extends Observable {
 	}
 
 	public void registerProject(ProjectData projectData) {
-		ProjectFederate projectFederate = new ProjectFederate(ProjectBuilder.createFromProjectData(projectData));
+		SimulatorFactory simulatorFactory = SimulatorFactory.getInstance(projectData);
+		ProjectFederate projectFederate = new ProjectFederate(ProjectBuilder.createFromProjectData(projectData, simulatorFactory));
 		this.addObserver(projectFederate);
 		projectFederate.joinFederationExcecution(HlaClass.getHlaProjectClassInstance().getFederateName());
 	}

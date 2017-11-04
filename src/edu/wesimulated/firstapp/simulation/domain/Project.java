@@ -9,6 +9,13 @@ import java.util.Map;
 
 import com.wesimulated.simulation.runparameters.Completable;
 
+import edu.wesimulated.firstapp.model.PersonData;
+import edu.wesimulated.firstapp.model.ProjectData;
+import edu.wesimulated.firstapp.model.RoleData;
+import edu.wesimulated.firstapp.model.TaskData;
+import edu.wesimulated.firstapp.persistence.XmlResponsibilityAssignment;
+import edu.wesimulated.firstapp.persistence.XmlWbsNode;
+import edu.wesimulated.firstapp.simulation.domain.Identifiable.IdentifiableType;
 import edu.wesimulated.firstapp.simulation.domain.mywork.project.MaintenanceTask;
 import edu.wesimulated.firstapp.simulation.domain.mywork.project.Meeting;
 import edu.wesimulated.firstapp.simulation.domain.mywork.project.Risk;
@@ -109,4 +116,50 @@ public class Project implements Completable, NumericallyModeledEntity {
 		this.roles.add(role);
 	}
 
+	public void populateFromProjectData(ProjectData projectData, SimulatorFactory factory) {
+		projectData.getPeople().forEach((personData) -> {
+			Person person = (Person) factory.getIdentifiablesPool().getIdentifiable(IdentifiableType.PERSON, personData.getId());
+			if (person == null) {
+				person = factory.makePerson();
+				person.populateFromPersonData(personData, factory);
+				factory.getIdentifiablesPool().addIdentifiable(person);
+			}
+			this.addPerson(person);
+		});
+		projectData.getTasks().stream().forEach((taskData) -> {
+			Task task = (Task) factory.getIdentifiablesPool().getIdentifiable(IdentifiableType.TASK, taskData.getId().toString());
+			if (task == null) {
+				task = factory.makeTask();
+				task.populateFromTaskData(taskData, factory);
+				factory.getIdentifiablesPool().addIdentifiable(task);
+			}
+			this.addTask(task);
+		});
+		projectData.getRoles().stream().forEach((roleData) -> {
+			Role role = (Role) factory.getIdentifiablesPool().getIdentifiable(IdentifiableType.ROLE, roleData.getName());
+			if (role == null) {
+				role = factory.makeRole();
+				role.populateFromRoleData(roleData, factory);
+				factory.getIdentifiablesPool().addIdentifiable(role);
+			}
+			this.addRole(role);
+		});
+		/*
+	private XmlWbsNode wbsRootNode;
+	private List<XmlResponsibilityAssignment> xmlRam;
+		 */
+
+		/*
+		 * ate ProjectContract contract;
+	private ProjectWbs wbs;
+	private ProjectRam ram;
+	private HlaProject hlaProject;
+	private List<Team> teams;
+	private List<Risk> risks;
+	private List<MaintenanceTask> maintenanceTasks;
+	private Date startDate;
+	private ManagementFramework managementFramework;
+		 */
+		
+	}
 }

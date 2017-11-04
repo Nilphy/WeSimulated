@@ -8,9 +8,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import edu.wesimulated.firstapp.persistence.XmlResponsibilityAssignment;
 import edu.wesimulated.firstapp.persistence.XmlWbsNode;
+import edu.wesimulated.firstapp.simulation.ProjectSimulatorBuilder.ProjectSimulatorType;
+import edu.wesimulated.firstapp.simulation.SimulatorType;
 
 @XmlRootElement(name = "projectData")
-public class ProjectData {
+public class ProjectData implements SimulatedEntity {
 
 	private List<PersonData> people;
 	private List<TaskData> tasks;
@@ -81,5 +83,10 @@ public class ProjectData {
 	@XmlElement(name = "ram")
 	public List<XmlResponsibilityAssignment> getResponsibilityAssignments() {
 		return this.xmlRam;
+	}
+
+	@Override
+	public SimulatorType calculateSimulatorType() {
+		return ProjectSimulatorType.MY_WORK;
 	}
 }

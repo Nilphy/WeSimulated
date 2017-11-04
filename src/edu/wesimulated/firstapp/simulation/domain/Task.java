@@ -13,6 +13,7 @@ import java.util.Map.Entry;
 import com.wesimulated.simulation.hla.DateLogicalTime;
 import com.wesimulated.simulation.runparameters.Completable;
 
+import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.model.TaskNeed;
 import edu.wesimulated.firstapp.simulation.domain.mywork.role.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
@@ -242,6 +243,12 @@ public class Task implements NumericallyModeledEntity, Completable, Identifiable
 	public long getTotalWorkDone() {
 		return this.workDoneInHoursPerTaskNeed.values().stream().mapToLong((workDone) -> workDone.longValue()).sum();
 	}
+
+	public void populateFromTaskData(TaskData taskData, SimulatorFactory factory) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	@Override
 	public String getIdentifier() {
 		return this.id;

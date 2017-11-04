@@ -4,9 +4,10 @@ import edu.wesimulated.firstapp.model.ProjectData;
 
 public class ProjectBuilder {
 
-	public static Project createFromProjectData(ProjectData projectData) {
-		// TODO complete ProjectBuilder.createFromProjectData
-		return null;
+	public static Project createFromProjectData(ProjectData projectData, SimulatorFactory factory) {
+		Project project = factory.makeProject();
+		project.populateFromProjectData(projectData, factory);
+		return project;
 	}
 
 }

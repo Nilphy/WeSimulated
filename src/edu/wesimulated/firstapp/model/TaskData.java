@@ -167,5 +167,4 @@ public class TaskData implements SimulatedEntity {
 	public SimulatorType calculateSimulatorType() {
 		return TaskSimulatorType.SystemDynamics;
 	}
-
 }

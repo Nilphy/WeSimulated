@@ -13,10 +13,15 @@ import edu.wesimulated.firstapp.simulation.domain.mywork.task.SystemDynamicsSimu
 public abstract class SimulatorFactory {
 
 	private static Map<SimulatorType, SimulatorFactory> instancesByType;
+	private IdentifiablesPool indentifiablesPool;
 
 	public abstract Person makePerson();
 
 	public abstract Task makeTask();
+
+	public abstract Project makeProject();
+
+	public abstract Role makeRole();
 
 	public static SimulatorFactory getInstance(SimulatedEntity entity) {
 		SimulatorType simulatorType = entity.calculateSimulatorType();
@@ -39,5 +44,12 @@ public abstract class SimulatorFactory {
 		} else {
 			throw new IllegalStateException();
 		}
+	}
+
+	protected IdentifiablesPool getIdentifiablesPool() {
+		if (this.indentifiablesPool == null) {
+			this.indentifiablesPool = new IdentifiablesPool();
+		}
+		return this.indentifiablesPool;
 	}
 }

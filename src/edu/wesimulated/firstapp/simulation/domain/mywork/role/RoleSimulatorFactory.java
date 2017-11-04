@@ -1,8 +1,7 @@
 package edu.wesimulated.firstapp.simulation.domain.mywork.role;
 
-import edu.wesimulated.firstapp.simulation.domain.Person;
+import edu.wesimulated.firstapp.simulation.domain.Role;
 import edu.wesimulated.firstapp.simulation.domain.SimulatorFactory;
-import edu.wesimulated.firstapp.simulation.domain.Task;
 
 public class RoleSimulatorFactory extends SimulatorFactory {
 
@@ -16,4 +15,13 @@ public class RoleSimulatorFactory extends SimulatorFactory {
 		return new Task();
 	}
 
+	@Override
+	public Project makeProject() {
+		return new Project();
+	}
+
+	@Override
+	public Role makeRole() {
+		return new Role();
+	}
 }
