@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.util.Pair;
+import edu.wesimulated.firstapp.model.TaskNeed;
 import edu.wesimulated.firstapp.simulation.domain.Role;
 import edu.wesimulated.firstapp.simulation.domain.TaskCharacteristic;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
@@ -33,6 +34,16 @@ public class Task extends edu.wesimulated.firstapp.simulation.domain.Task {
 		// given the priority of this task and the ones that has interrupted it
 		// The duration of this task could be calculated
 		return timeOfWorkSlab.findSample().getPrediction().getValue().longValue();
+	}
+	
+	public void increaseWorkDone(long duration, TaskNeed taskNeed, Date when) {
+		Number currentWorkDone = this.getWorkDoneInHoursPerTaskNeed().get(taskNeed);
+		this.getWorkDoneInHoursPerTaskNeed().put(taskNeed, new Long(duration + currentWorkDone.longValue()));
+		if (when == null) {
+			// this.hlaTask.registerWorkToDo(new Work(duration), new
+			// DateLogicalTime(when));
+			// FIXME register pending changes to send to hla
+		}
 	}
 
 	public long getWorkDone(WorkType currentWorkType, Role role, Person person) {

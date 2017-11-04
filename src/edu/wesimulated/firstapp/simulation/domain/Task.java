@@ -78,14 +78,8 @@ public class Task implements NumericallyModeledEntity, Completable {
 		return true;
 	}
 
-	public void increaseWorkDone(long duration, TaskNeed taskNeed, Date when) {
-		Number currentWorkDone = this.workDoneInHoursPerTaskNeed.get(taskNeed);
-		this.workDoneInHoursPerTaskNeed.put(taskNeed, new Long(duration + currentWorkDone.longValue()));
-		if (when == null) {
-			// this.hlaTask.registerWorkToDo(new Work(duration), new
-			// DateLogicalTime(when));
-			// FIXME register pending changes to send to hla
-		}
+	protected Map<TaskNeed, Number> getWorkDoneInHoursPerTaskNeed() {
+		return this.workDoneInHoursPerTaskNeed;
 	}
 
 	public void setName(String name, Date when) {
