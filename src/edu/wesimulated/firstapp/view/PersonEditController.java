@@ -38,6 +38,8 @@ public class PersonEditController {
 	@FXML
 	private TextField lastNameField;
 	@FXML
+	private TextField idField;
+	@FXML
 	private TextField hoursPerDayField;
 	@FXML
 	private TextField efficencyField;
@@ -64,6 +66,7 @@ public class PersonEditController {
 		this.person = person;
 		this.firstNameField.setText(person.getFirstName());
 		this.lastNameField.setText(person.getLastName());
+		this.idField.setText(person.getId());
 		this.hoursPerDayField.setText(person.getHoursPerDay().toString());
 		this.efficencyField.setText(person.getEfficiency().toString());
 		this.roleTable.setItems(person.getRoles());
@@ -144,10 +147,10 @@ public class PersonEditController {
 	@FXML
 	private void handleOK() {
 		if (validateInput()) {
-			person.setFirstName(firstNameField.getText());
-			person.setLastName(lastNameField.getText());
-			person.setHoursPerDay(Integer.parseInt(hoursPerDayField.getText()));
-			person.setEfficiency(Float.parseFloat(this.efficencyField.getText()));
+			person.setFirstName(firstNameField.getText().trim());
+			person.setLastName(lastNameField.getText().trim());
+			person.setHoursPerDay(Integer.parseInt(hoursPerDayField.getText().trim()));
+			person.setEfficiency(Float.parseFloat(this.efficencyField.getText().trim()));
 			person.setRoles(roleTable.getItems());
 			okClicked = true;
 			dialogStage.close();
@@ -166,6 +169,9 @@ public class PersonEditController {
 		}
 		if (lastNameField.getText() == null || lastNameField.getText().trim().length() == 0) {
 			errorMessage = "No valid last name! \n";
+		}
+		if (idField.getText() == null || idField.getText().trim().length() == 0) {
+			errorMessage = "No valid id! \n";
 		}
 		if (!IntegerUtils.isInt(hoursPerDayField.getText())) {
 			errorMessage = "No valid hours per day";

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="401.0" prefWidth="498.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wesimulated.firstapp.view.PersonEditController">
+<AnchorPane prefHeight="467.0" prefWidth="497.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wesimulated.firstapp.view.PersonEditController">
    <children>
       <GridPane layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="40.0">
         <columnConstraints>
@@ -15,6 +15,7 @@
         <rowConstraints>
           <RowConstraints maxHeight="33.0" minHeight="0.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="78.0" minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="42.0" minHeight="0.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="72.0" minHeight="0.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="176.0" minHeight="10.0" vgrow="SOMETIMES" />
@@ -22,13 +23,13 @@
          <children>
             <Label text="First Name" />
             <Label text="Last Name" GridPane.rowIndex="1" />
-            <Label text="Hours per day" GridPane.rowIndex="2" />
-            <Label text="Efficency" GridPane.rowIndex="3" />
+            <Label text="Hours per day" GridPane.rowIndex="3" />
+            <Label text="Efficency" GridPane.rowIndex="4" />
             <TextField fx:id="firstNameField" GridPane.columnIndex="1" />
             <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="hoursPerDayField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="efficencyField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TableView fx:id="roleTable" prefHeight="125.0" prefWidth="267.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <TextField fx:id="hoursPerDayField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="efficencyField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TableView fx:id="roleTable" prefHeight="125.0" prefWidth="267.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
               <columns>
                 <TableColumn fx:id="roleNameColumn" prefWidth="-1.0" text="Role Name" />
               </columns>
@@ -36,7 +37,9 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Label text="Roles" GridPane.rowIndex="4" />
+            <Label text="Roles" GridPane.rowIndex="5" />
+            <Label text="Id" GridPane.rowIndex="2" />
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <ToolBar layoutX="273.0" layoutY="221.0" prefHeight="40.0" prefWidth="267.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
@@ -48,5 +51,6 @@
         </items>
       </ToolBar>
       <Label layoutX="23.0" layoutY="14.0" text="Person Edit" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+      <Label text="Label" />
    </children>
 </AnchorPane>

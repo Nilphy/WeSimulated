@@ -13,33 +13,31 @@ public class PersonData {
 
 	private StringProperty firstName;
 	private StringProperty lastName;
+	private StringProperty id;
 	private IntegerProperty hoursPerDay;
 	// [Unit] unit of work per hour
 	private FloatProperty efficiency; // TODO replace this only characteristic with the map of characteristics
 	private ObservableList<RoleData> roles;
 
 	public PersonData() {
-		this(null, null);
+		this(null, null, null);
 	}
 
-	public PersonData(String firstName, String lastName) {
+	public PersonData(String firstName, String lastName, String id) {
 		this.firstName = new SimpleStringProperty(firstName);
 		this.lastName = new SimpleStringProperty(lastName);
+		this.id = new SimpleStringProperty(id);
 		this.hoursPerDay = new SimpleIntegerProperty(8);
 		this.efficiency = new SimpleFloatProperty(0.8f);
 		this.roles = FXCollections.observableArrayList();
 	}
 
-	public float calculateEffectiveMillisecondsPerDay() {
-		return this.getHoursPerDay() * this.getEfficiency();
-	}
-
 	public String getFirstName() {
-		return firstName.get();
+		return this.firstName.get();
 	}
 
 	public StringProperty firstNameProperty() {
-		return firstName;
+		return this.firstName;
 	}
 
 	public void setFirstName(String firstName) {
@@ -47,15 +45,27 @@ public class PersonData {
 	}
 
 	public String getLastName() {
-		return lastName.get();
+		return this.lastName.get();
 	}
 
 	public StringProperty lastNameProperty() {
-		return lastName;
+		return this.lastName;
 	}
 
 	public void setLastName(String lastName) {
 		this.lastName.set(lastName);
+	}
+
+	public String getId() {
+		return this.id.get();
+	}
+
+	public StringProperty idProperty() {
+		return this.id;
+	}
+
+	public void setId(String id) {
+		this.id.set(id);
 	}
 
 	public Integer getHoursPerDay() {
@@ -92,11 +102,10 @@ public class PersonData {
 
 	@Override
 	public String toString() {
-		return "Person [firstName=" + firstName.get() + ", lastName=" + lastName.get() + "]";
+		return "Person [firstName=" + firstName.get() + ", lastName=" + lastName.get() + ", id= " + id.get() + "]";
 	}
 
 	public void addRole(RoleData role) {
 		this.roles.add(role);
 	}
 }
-

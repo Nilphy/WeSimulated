@@ -6,17 +6,21 @@ import hla.rti1516e.ObjectInstanceHandle;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.wesimulated.simulationmotor.des.Resource;
 
+import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
-public class Person implements Resource, NumericallyModeledEntity {
+public class Person implements Resource, NumericallyModeledEntity, Identifiable {
 
+	private String id;
 	private boolean available;
 	private HlaPerson hlaPerson;
 	private Task currentTask;
@@ -25,6 +29,16 @@ public class Person implements Resource, NumericallyModeledEntity {
 	private Collection<Team> teams;
 	private Date dateLastUpdate;
 
+	public static Person searchPersonById(Collection<Person> people, String id) {
+		List<Person> peopleWithTheSameId = people.stream()
+				.filter((person) -> person.getIdentifier().compareTo(id) == 0)
+				.collect(Collectors.toList());
+		if (peopleWithTheSameId.size() == 1) {
+			return peopleWithTheSameId.get(0);
+		}
+		return null;
+	}
+	
 	public ObjectInstanceHandle getHlaObjectInstanceHandle() {
 		return this.getHlaPerson().getObjectInstanceHandle();
 	}
@@ -64,7 +78,6 @@ public class Person implements Resource, NumericallyModeledEntity {
 		return null;
 	}
 
-
 	@Override
 	public Map<Characteristic, EntryValue> extractValues() {
 		Map<Characteristic, EntryValue> values = new HashMap<>();
@@ -101,5 +114,48 @@ public class Person implements Resource, NumericallyModeledEntity {
 
 	public void setTeams(Collection<Team> teams) {
 		this.teams = teams;
+	}
+
+	public String getIdentifier() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Person other = (Person) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
+	public void populateFromPersonData(PersonData personData, SimulatorFactory factory) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public IdentifiableType getType() {
+		return IdentifiableType.PERSON;
 	}
 }
