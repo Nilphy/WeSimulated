@@ -16,7 +16,7 @@ public class Person extends edu.wesimulated.firstapp.simulation.domain.Person {
 
 	public void increaseExperienceWithWorkbenchTools(Task task, double timeExpended) {
 		this.getProfile().increase(
-				PersonCharacteristic.ExperienceWithWorkbenchTools, 
+				PersonCharacteristic.EXPERIENCE_WITH_WORKBENCH_TOOLS, 
 				timeExpended);
 	}
 

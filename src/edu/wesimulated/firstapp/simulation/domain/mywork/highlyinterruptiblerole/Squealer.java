@@ -17,7 +17,7 @@ public class Squealer extends ComunicativeEntity {
 
 	@Override
 	public Float getMaxPriority() {
-		return this.getPerson().getProfile().get(PersonCharacteristic.MaxPriorityOfSquealer).getNumber().floatValue();
+		return this.getPerson().getProfile().get(PersonCharacteristic.MAX_PRIORITY_SQUEALER).getNumber().floatValue();
 	}
 
 	@Override

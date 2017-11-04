@@ -17,8 +17,8 @@ public class PersonDeterioration extends Risk {
 	@Override
 	public void doAction() {
 		double deterioration = Math.random();
-		this.person.getProfile().scaleDown(PersonCharacteristic.Efficiency, deterioration);
-		this.person.getProfile().scaleDown(PersonCharacteristic.Effectiveness, deterioration);
+		this.person.getProfile().scaleDown(PersonCharacteristic.EFFICIENCY, deterioration);
+		this.person.getProfile().scaleDown(PersonCharacteristic.EFFECTIVENESS, deterioration);
 	}
 
 	private void setPerson(Person person) {

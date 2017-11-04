@@ -19,7 +19,7 @@ public class TeamWork extends ComunicativeEntity {
 
 	@Override
 	public Float getMaxPriority() {
-		return this.getPerson().getProfile().get(PersonCharacteristic.MaxPriorityOfFaceToFaceQuestion).getNumber().floatValue();
+		return this.getPerson().getProfile().get(PersonCharacteristic.MAX_PRIORITY_FACE_TO_FACE_QUESTION).getNumber().floatValue();
 	}
 
 	@Override

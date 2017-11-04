@@ -27,7 +27,7 @@ public class InstantMessenger extends ComunicativeEntity {
 
 	@Override
 	public Float getMaxPriority() {
-		return this.getPerson().getProfile().get(PersonCharacteristic.MaxPriorityOfIM).getNumber().floatValue();
+		return this.getPerson().getProfile().get(PersonCharacteristic.MAX_PRIORITY_IM).getNumber().floatValue();
 	}
 
 	@Override

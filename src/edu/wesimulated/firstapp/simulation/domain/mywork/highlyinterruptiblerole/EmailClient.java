@@ -28,7 +28,7 @@ public class EmailClient extends ComunicativeEntity implements HighlyInterruptib
 
 	@Override
 	public Float getMaxPriority() {
-		return this.getPerson().getProfile().get(PersonCharacteristic.MaxPriorityOfEmail).getNumber().floatValue();
+		return this.getPerson().getProfile().get(PersonCharacteristic.MAX_PRIORITY_IM).getNumber().floatValue();
 	}
 
 	@Override
