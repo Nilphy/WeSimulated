@@ -9,14 +9,8 @@ import java.util.Map;
 
 import com.wesimulated.simulation.runparameters.Completable;
 
-import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.ProjectData;
-import edu.wesimulated.firstapp.model.RoleData;
 import edu.wesimulated.firstapp.model.SimulationEntity;
-import edu.wesimulated.firstapp.model.TaskData;
-import edu.wesimulated.firstapp.persistence.XmlResponsibilityAssignment;
-import edu.wesimulated.firstapp.persistence.XmlWbsNode;
-import edu.wesimulated.firstapp.simulation.domain.Identifiable.IdentifiableType;
 import edu.wesimulated.firstapp.simulation.domain.mywork.project.MaintenanceTask;
 import edu.wesimulated.firstapp.simulation.domain.mywork.project.Meeting;
 import edu.wesimulated.firstapp.simulation.domain.mywork.project.Risk;
