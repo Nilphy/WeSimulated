@@ -9,6 +9,7 @@ public class XmlResponsibilityAssignment {
 	private Boolean responsible;
 	private Boolean accountable;
 	private Boolean consulted;
+	private Boolean informed;
 
 	public Integer getTaskId() {
 		return taskId;
@@ -51,13 +52,11 @@ public class XmlResponsibilityAssignment {
 	}
 
 	public Boolean getInformed() {
-		return informed;
+		return this.informed;
 	}
 
 	public void setInformed(Boolean informed) {
 		this.informed = informed;
 	}
-
-	private Boolean informed;
 
 }

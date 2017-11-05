@@ -128,10 +128,11 @@ public class Project implements Completable, NumericallyModeledEntity, Populatab
 			this.addRole(role);
 		});
 		this.populateWbs(projectData.getWbsRootNode(), factory);
+		// ProjectData
 		/*
 	private List<XmlResponsibilityAssignment> xmlRam;
 		 */
-
+		// Project
 		/*
 		 * ate ProjectContract contract;
 	private ProjectRam ram;

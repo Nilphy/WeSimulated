@@ -25,14 +25,6 @@ import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 
 public class Task implements NumericallyModeledEntity, Completable, Populatable {
 
-	public static Task orderTasksAndGetFirst(List<Task> tasks, Comparator<Task> comparator) {
-		if (tasks.size() > 0) {
-			Collections.sort(tasks, comparator);
-			return tasks.get(0);
-		}
-		return null;
-	}
-
 	private HlaTask hlaTask;
 	private Collection<Person> accountablePeople;
 	private Collection<Person> informedPeople;
@@ -51,6 +43,14 @@ public class Task implements NumericallyModeledEntity, Completable, Populatable 
 	private Map<TaskNeed, Number> costInHoursPerTaskNeed;
 	private Map<TaskNeed, Number> workDoneInHoursPerTaskNeed;
 	private String id;
+	
+	public static Task orderTasksAndGetFirst(List<Task> tasks, Comparator<Task> comparator) {
+		if (tasks.size() > 0) {
+			Collections.sort(tasks, comparator);
+			return tasks.get(0);
+		}
+		return null;
+	}
 
 	public Task() {
 		this.workDoneInHoursPerTaskNeed = new HashMap<>();
