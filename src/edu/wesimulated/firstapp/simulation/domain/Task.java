@@ -37,18 +37,16 @@ public class Task implements NumericallyModeledEntity, Completable, Populatable 
 	private Collection<Person> consultedPeople;
 	private Profile profile;
 	/**
-	 * Last possible end
+	 * Not all tasks need to have an end date, if a date has an end date it will
+	 * be considered finished even if it is not completed // FIXME do this
 	 */
 	private Date endDate;
-	/**
-	 * First possible start
-	 */
 	private Date startDate;
 	private Collection<TaskDependency> taskDependencies;
 	private Map<TaskNeed, Number> costInHoursPerTaskNeed;
 	private Map<TaskNeed, Number> workDoneInHoursPerTaskNeed;
 	private String id;
-	
+
 	public static Task orderTasksAndGetFirst(List<Task> tasks, Comparator<Task> comparator) {
 		if (tasks.size() > 0) {
 			Collections.sort(tasks, comparator);

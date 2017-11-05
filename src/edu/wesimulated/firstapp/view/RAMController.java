@@ -17,20 +17,28 @@ import edu.wesimulated.firstapp.model.RoleData;
 
 /**
  * 
- * Este es el controllador de la UI de la matriz de asignación de responsabilidades.
+ * Este es el controllador de la UI de la matriz de asignación de
+ * responsabilidades.
  * 
- * La UI es una matriz cruzada, en la línea vertical están las tareas, mientras que en la línea horizontal están los roles. 
- * Para cada rol existen cuatro checkbox (RACI) para seleccionar si dicho rol tiene alguna relación con la tarea correspondiente a la fila.
+ * La UI es una matriz cruzada, en la línea vertical están las tareas, mientras
+ * que en la línea horizontal están los roles. Para cada rol existen cuatro
+ * checkbox (RACI) para seleccionar si dicho rol tiene alguna relación con la
+ * tarea correspondiente a la fila.
  * 
- * El la tabla RAM o RACI se dice cuales son las asignaciones de las tareas a roles, pero no se especifica quien es la persona que va a realizar una tarea.
- * Las tareas se asignan a roles... pero dependiendo de la fase de evolución del proyecto se puede llegar a saber cual es la/las personas específica que va a realizarla.
+ * El la tabla RAM o RACI se dice cuales son las asignaciones de las tareas a
+ * roles, pero no se especifica quien es la persona que va a realizar una tarea.
+ * Las tareas se asignan a roles... pero dependiendo de la fase de evolución del
+ * proyecto se puede llegar a saber cual es la/las personas específica que va a
+ * realizarla.
  * 
- * En la UI de esta aplicación se puede ir a la edición de las tareas para elegir a la persona específica que estará asignada a una tarea. Se podrá seleccionar a aquellas que ejerzan
- * los roles indicados en la tabla RACI para dicha tarea.
+ * En la UI de esta aplicación se puede ir a la edición de las tareas para
+ * elegir a la persona específica que estará asignada a una tarea. Se podrá
+ * seleccionar a aquellas que ejerzan los roles indicados en la tabla RACI para
+ * dicha tarea.
  * 
- * Idea: 
- * Para ejecutar la simulación no hace falta que esté completa la información sobre las personas específicas... pero si los roles. 
- * Luego durante la simulación se puede determinar que persona ejecerá el rol.
+ * Idea: Para ejecutar la simulación no hace falta que esté completa la
+ * información sobre las personas específicas... pero si los roles. Luego
+ * durante la simulación se puede determinar que persona ejecerá el rol.
  * 
  * @author Carolina
  *
@@ -86,7 +94,7 @@ public class RAMController {
 			if (!map.containsKey(column.getTask().getId())) {
 				RamRow newRow = new RamRow();
 				newRow.setTask(column.getTask());
-				ObservableList<ResponsibilityAssignmentData> columns = FXCollections.observableArrayList(); 
+				ObservableList<ResponsibilityAssignmentData> columns = FXCollections.observableArrayList();
 				newRow.setColumns(columns);
 				map.put(column.getTask().getId(), newRow);
 				convertedList.add(newRow);
