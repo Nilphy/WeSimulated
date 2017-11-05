@@ -13,7 +13,7 @@ import java.util.Map.Entry;
 import com.wesimulated.simulation.hla.DateLogicalTime;
 import com.wesimulated.simulation.runparameters.Completable;
 
-import edu.wesimulated.firstapp.model.TaskData;
+import edu.wesimulated.firstapp.model.SimulationEntity;
 import edu.wesimulated.firstapp.model.TaskNeed;
 import edu.wesimulated.firstapp.simulation.domain.mywork.role.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
@@ -23,7 +23,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 
-public class Task implements NumericallyModeledEntity, Completable, Identifiable {
+public class Task implements NumericallyModeledEntity, Completable, Populatable {
 
 	public static Task orderTasksAndGetFirst(List<Task> tasks, Comparator<Task> comparator) {
 		if (tasks.size() > 0) {
@@ -244,11 +244,6 @@ public class Task implements NumericallyModeledEntity, Completable, Identifiable
 		return this.workDoneInHoursPerTaskNeed.values().stream().mapToLong((workDone) -> workDone.longValue()).sum();
 	}
 
-	public void populateFromTaskData(TaskData taskData, SimulatorFactory factory) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public String getIdentifier() {
 		return this.id;
@@ -257,5 +252,11 @@ public class Task implements NumericallyModeledEntity, Completable, Identifiable
 	@Override
 	public IdentifiableType getType() {
 		return IdentifiableType.TASK;
+	}
+
+	@Override
+	public void populateFrom(SimulationEntity simulationEntity, SimulatorFactory factory) {
+		// TODO Auto-generated method stub
+		
 	}
 }

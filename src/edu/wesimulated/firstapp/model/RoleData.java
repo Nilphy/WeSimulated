@@ -6,7 +6,7 @@ import javafx.beans.property.StringProperty;
 import edu.wesimulated.firstapp.simulation.RoleSimulatorBuilder.RoleSimulatorType;
 import edu.wesimulated.firstapp.simulation.SimulatorType;
 
-public class RoleData implements SimulatedEntity {
+public class RoleData implements SimulationEntity {
 
 	private StringProperty name;
 	private BooleanProperty highlyInterruptible;
@@ -80,6 +80,16 @@ public class RoleData implements SimulatedEntity {
 		} else {
 			return RoleSimulatorType.MY_WORK;
 		}
+	}
+
+	@Override
+	public String getIdentifier() {
+		return this.getName();
+	}
+
+	@Override
+	public IdentifiableType getType() {
+		return IdentifiableType.ROLE;
 	}
 
 }

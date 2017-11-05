@@ -12,13 +12,13 @@ import java.util.stream.Collectors;
 
 import com.wesimulated.simulationmotor.des.Resource;
 
-import edu.wesimulated.firstapp.model.PersonData;
+import edu.wesimulated.firstapp.model.SimulationEntity;
 import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
-public class Person implements Resource, NumericallyModeledEntity, Identifiable {
+public class Person implements Resource, NumericallyModeledEntity, Populatable {
 
 	private String id;
 	private boolean available;
@@ -149,13 +149,14 @@ public class Person implements Resource, NumericallyModeledEntity, Identifiable 
 		return true;
 	}
 
-	public void populateFromPersonData(PersonData personData, SimulatorFactory factory) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public IdentifiableType getType() {
 		return IdentifiableType.PERSON;
+	}
+
+	@Override
+	public void populateFrom(SimulationEntity simulationEntity, SimulatorFactory factory) {
+		// TODO Auto-generated method stub
+		
 	}
 }

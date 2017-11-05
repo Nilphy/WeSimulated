@@ -12,4 +12,9 @@ public class ProjectWbs implements NumericallyModeledEntity {
 		// TODO complete ProjectWbs.extractValues
 		return null;
 	}
+
+	public String getFirstNodeName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

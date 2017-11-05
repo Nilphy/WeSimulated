@@ -6,7 +6,7 @@ public class ProjectBuilder {
 
 	public static Project createFromProjectData(ProjectData projectData, SimulatorFactory factory) {
 		Project project = factory.makeProject();
-		project.populateFromProjectData(projectData, factory);
+		project.populateFrom(projectData, factory);
 		return project;
 	}
 

@@ -12,6 +12,7 @@ import com.wesimulated.simulation.runparameters.Completable;
 import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.ProjectData;
 import edu.wesimulated.firstapp.model.RoleData;
+import edu.wesimulated.firstapp.model.SimulationEntity;
 import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.persistence.XmlResponsibilityAssignment;
 import edu.wesimulated.firstapp.persistence.XmlWbsNode;
@@ -24,7 +25,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
-public class Project implements Completable, NumericallyModeledEntity {
+public class Project implements Completable, NumericallyModeledEntity, Populatable {
 
 	private ProjectContract contract;
 	private ProjectWbs wbs;
@@ -116,32 +117,19 @@ public class Project implements Completable, NumericallyModeledEntity {
 		this.roles.add(role);
 	}
 
-	public void populateFromProjectData(ProjectData projectData, SimulatorFactory factory) {
+	@Override
+	public void populateFrom(SimulationEntity simulationEntity, SimulatorFactory factory) {
+		ProjectData projectData = (ProjectData) simulationEntity;
 		projectData.getPeople().forEach((personData) -> {
-			Person person = (Person) factory.getIdentifiablesPool().getIdentifiable(IdentifiableType.PERSON, personData.getId());
-			if (person == null) {
-				person = factory.makePerson();
-				person.populateFromPersonData(personData, factory);
-				factory.getIdentifiablesPool().addIdentifiable(person);
-			}
+			Person person = (Person) factory.registerSimulationEntity(personData);
 			this.addPerson(person);
 		});
 		projectData.getTasks().stream().forEach((taskData) -> {
-			Task task = (Task) factory.getIdentifiablesPool().getIdentifiable(IdentifiableType.TASK, taskData.getId().toString());
-			if (task == null) {
-				task = factory.makeTask();
-				task.populateFromTaskData(taskData, factory);
-				factory.getIdentifiablesPool().addIdentifiable(task);
-			}
+			Task task = (Task) factory.registerSimulationEntity(taskData);
 			this.addTask(task);
 		});
 		projectData.getRoles().stream().forEach((roleData) -> {
-			Role role = (Role) factory.getIdentifiablesPool().getIdentifiable(IdentifiableType.ROLE, roleData.getName());
-			if (role == null) {
-				role = factory.makeRole();
-				role.populateFromRoleData(roleData, factory);
-				factory.getIdentifiablesPool().addIdentifiable(role);
-			}
+			Role role = (Role) factory.registerSimulationEntity(roleData);
 			this.addRole(role);
 		});
 		/*
@@ -161,5 +149,15 @@ public class Project implements Completable, NumericallyModeledEntity {
 	private ManagementFramework managementFramework;
 		 */
 		
+	}
+
+	@Override
+	public String getIdentifier() {
+		return this.wbs.getFirstNodeName();
+	}
+
+	@Override
+	public IdentifiableType getType() {
+		return IdentifiableType.PROJECT;
 	}
 }

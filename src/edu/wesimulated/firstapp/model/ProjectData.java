@@ -10,9 +10,10 @@ import edu.wesimulated.firstapp.persistence.XmlResponsibilityAssignment;
 import edu.wesimulated.firstapp.persistence.XmlWbsNode;
 import edu.wesimulated.firstapp.simulation.ProjectSimulatorBuilder.ProjectSimulatorType;
 import edu.wesimulated.firstapp.simulation.SimulatorType;
+import edu.wesimulated.firstapp.simulation.domain.SimulatorFactory;
 
 @XmlRootElement(name = "projectData")
-public class ProjectData implements SimulatedEntity {
+public class ProjectData implements SimulationEntity {
 
 	private List<PersonData> people;
 	private List<TaskData> tasks;
@@ -88,5 +89,19 @@ public class ProjectData implements SimulatedEntity {
 	@Override
 	public SimulatorType calculateSimulatorType() {
 		return ProjectSimulatorType.MY_WORK;
+	}
+
+	@Override
+	public String getIdentifier() {
+		return this.getName();
+	}
+
+	private String getName() {
+		return this.getWbsRootNode().getName();
+	}
+
+	@Override
+	public IdentifiableType getType() {
+		return IdentifiableType.PROJECT;
 	}
 }

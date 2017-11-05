@@ -15,7 +15,7 @@ import edu.wesimulated.firstapp.persistence.LocalDateAdapter;
 import edu.wesimulated.firstapp.simulation.SimulatorType;
 import edu.wesimulated.firstapp.simulation.TaskSimulatorBuilder.TaskSimulatorType;
 
-public class TaskData implements SimulatedEntity {
+public class TaskData implements SimulationEntity {
 
 	public static int MAX_ID = 0;
 
@@ -166,5 +166,15 @@ public class TaskData implements SimulatedEntity {
 
 	public SimulatorType calculateSimulatorType() {
 		return TaskSimulatorType.SystemDynamics;
+	}
+
+	@Override
+	public String getIdentifier() {
+		return this.getId().toString();
+	}
+
+	@Override
+	public IdentifiableType getType() {
+		return IdentifiableType.TASK;
 	}
 }

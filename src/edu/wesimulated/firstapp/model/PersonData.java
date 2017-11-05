@@ -8,8 +8,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import edu.wesimulated.firstapp.simulation.SimulatorType;
 
-public class PersonData {
+public class PersonData implements SimulationEntity {
 
 	private StringProperty firstName;
 	private StringProperty lastName;
@@ -107,5 +108,20 @@ public class PersonData {
 
 	public void addRole(RoleData role) {
 		this.roles.add(role);
+	}
+
+	@Override
+	public SimulatorType calculateSimulatorType() {
+		return null;
+	}
+
+	@Override
+	public String getIdentifier() {
+		return this.getId();
+	}
+
+	@Override
+	public IdentifiableType getType() {
+		return IdentifiableType.PERSON;
 	}
 }
