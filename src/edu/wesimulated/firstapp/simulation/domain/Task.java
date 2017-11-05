@@ -103,7 +103,6 @@ public class Task implements NumericallyModeledEntity, Completable, Populatable 
 
 	public void addAccountablePerson(Person newPerson) {
 		this.getAccountablePeople().add(newPerson);
-		// FIXME: register change in hla task
 	}
 
 	public Collection<Person> getAccountablePeople() {
@@ -112,7 +111,6 @@ public class Task implements NumericallyModeledEntity, Completable, Populatable 
 
 	public void addInformedPerson(Person newPerson) {
 		this.getInformedPeople().add(newPerson);
-		// FIXME: register change in hla task
 	}
 
 	public Collection<Person> getInformedPeople() {
@@ -121,7 +119,6 @@ public class Task implements NumericallyModeledEntity, Completable, Populatable 
 
 	public void addResponsiblePerson(Person newPerson) {
 		this.getResponsiblePeople().add(newPerson);
-		// FIXME: register change in hla task
 	}
 
 	public Collection<Person> getResponsiblePeople() {
@@ -130,7 +127,6 @@ public class Task implements NumericallyModeledEntity, Completable, Populatable 
 
 	public void addConsultedPerson(Person newPerson) {
 		this.getConsultedPeople().add(newPerson);
-		// FIXME: register change in hla task
 	}
 
 	public Collection<Person> getConsultedPeople() {
@@ -139,17 +135,14 @@ public class Task implements NumericallyModeledEntity, Completable, Populatable 
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
-		// FIXME: register change in hla task
 	}
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
-		// FIXME: register change in hla task
 	}
 
 	public void addTaskDependency(TaskDependency taskDependency) {
 		this.getTaskDependencies().add(taskDependency);
-		// FIXME: register change in hla task
 	}
 
 	private Collection<TaskDependency> getTaskDependencies() {
