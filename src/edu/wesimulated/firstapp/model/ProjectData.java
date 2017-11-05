@@ -10,7 +10,6 @@ import edu.wesimulated.firstapp.persistence.XmlResponsibilityAssignment;
 import edu.wesimulated.firstapp.persistence.XmlWbsNode;
 import edu.wesimulated.firstapp.simulation.ProjectSimulatorBuilder.ProjectSimulatorType;
 import edu.wesimulated.firstapp.simulation.SimulatorType;
-import edu.wesimulated.firstapp.simulation.domain.SimulatorFactory;
 
 @XmlRootElement(name = "projectData")
 public class ProjectData implements SimulationEntity {

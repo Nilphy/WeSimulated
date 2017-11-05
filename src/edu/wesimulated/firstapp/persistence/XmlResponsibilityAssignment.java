@@ -5,7 +5,7 @@ import edu.wesimulated.firstapp.model.RoleData;
 public class XmlResponsibilityAssignment {
 
 	private Integer taskId;
-	private RoleData role;
+	private String roleName;
 	private Boolean responsible;
 	private Boolean accountable;
 	private Boolean consulted;
@@ -19,12 +19,12 @@ public class XmlResponsibilityAssignment {
 		this.taskId = taskId;
 	}
 
-	public RoleData getRole() {
-		return role;
+	public String getRoleName() {
+		return roleName;
 	}
 
-	public void setRole(RoleData role) {
-		this.role = role;
+	public void setRoleName(String role) {
+		this.roleName = role;
 	}
 
 	public Boolean getResponsible() {

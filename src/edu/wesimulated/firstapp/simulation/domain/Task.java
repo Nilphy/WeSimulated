@@ -10,10 +10,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javafx.collections.ObservableList;
+
 import com.wesimulated.simulation.hla.DateLogicalTime;
 import com.wesimulated.simulation.runparameters.Completable;
 
+import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.SimulationEntity;
+import edu.wesimulated.firstapp.model.TaskData;
+import edu.wesimulated.firstapp.model.TaskDependencyData;
 import edu.wesimulated.firstapp.model.TaskNeed;
 import edu.wesimulated.firstapp.simulation.domain.mywork.role.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
@@ -50,6 +55,12 @@ public class Task implements NumericallyModeledEntity, Completable, Populatable 
 			return tasks.get(0);
 		}
 		return null;
+	}
+
+	private static void incorporatePersonToTask(PersonAssignerToTask personAssigner, ObservableList<PersonData> peopleData, Task task, SimulatorFactory factory) {
+		for (PersonData person : peopleData) {
+			personAssigner.assign((Person) factory.registerSimulationEntity(person), task);
+		}
 	}
 
 	public Task() {
@@ -256,7 +267,23 @@ public class Task implements NumericallyModeledEntity, Completable, Populatable 
 
 	@Override
 	public void populateFrom(SimulationEntity simulationEntity, SimulatorFactory factory) {
-		// TODO Auto-generated method stub
-		
+		TaskData taskData = (TaskData) simulationEntity;
+		Date when = null; // FIXME: find out when
+		this.setName(taskData.getName(), when);
+		Task.incorporatePersonToTask((Person person, Task task) -> task.addResponsiblePerson(person), taskData.getResponsiblePeople(), this, factory);
+		Task.incorporatePersonToTask((Person person, Task task) -> task.addAccountablePerson(person), taskData.getAccountablePeople(), this, factory);
+		Task.incorporatePersonToTask((Person person, Task task) -> task.addConsultedPerson(person), taskData.getConsultedPeople(), this, factory);
+		Task.incorporatePersonToTask((Person person, Task task) -> task.addInformedPerson(person), taskData.getInformedPeople(), this, factory);
+		this.setStartDate(taskData.getStartDate());
+		for (TaskDependencyData taskDependency : taskData.getTaskDependencies()) {
+			Task dependentTask = (Task) factory.registerSimulationEntity(taskDependency.getTask());
+			this.addTaskDependency(new TaskDependency(dependentTask, taskDependency.getPrecedence()));
+		}
+		this.setCostInHours(taskData.getUnitsOfWork(), TaskNeed.Development);
+	}
+
+	@FunctionalInterface
+	private interface PersonAssignerToTask {
+		public void assign(Person person, Task task);
 	}
 }

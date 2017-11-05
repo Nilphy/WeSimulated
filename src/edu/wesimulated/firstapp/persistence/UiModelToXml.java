@@ -19,7 +19,7 @@ public class UiModelToXml {
 		wbsRootNode.populateFromWbsNodeData(wbs);
 		return wbsRootNode;
 	}
-	
+
 	public static WbsInnerNode convertToUiModel(XmlWbsNode xmlWbs, MainApp mainApp) {
 		WbsInnerNode wbsNodeData = new WbsInnerNode();
 		wbsNodeData.populateFromXmlNode(xmlWbs, mainApp);
@@ -51,11 +51,11 @@ public class UiModelToXml {
 		convertedRamData.setConsulted(ramData.isConsulted());
 		convertedRamData.setInformed(ramData.isInformed());
 		convertedRamData.setResponsible(ramData.isResponsible());
-		convertedRamData.setRole(ramData.getRole());
+		convertedRamData.setRoleName(ramData.getRole().getName());
 		convertedRamData.setTaskId(ramData.getTask().getId());
 		return convertedRamData;
 	}
-	
+
 	public static ObservableList<ResponsibilityAssignmentData> convertToUiModel(List<XmlResponsibilityAssignment> xmlRam, MainApp mainApp) {
 		ObservableList<ResponsibilityAssignmentData> convertedList = FXCollections.observableArrayList();
 		for (XmlResponsibilityAssignment xmlResponsibilityAssignment : xmlRam) {
@@ -64,7 +64,7 @@ public class UiModelToXml {
 			responsibilityAssignmentData.setConsulted(xmlResponsibilityAssignment.getConsulted());
 			responsibilityAssignmentData.setInformed(xmlResponsibilityAssignment.getInformed());
 			responsibilityAssignmentData.setResponsible(xmlResponsibilityAssignment.getResponsible());
-			responsibilityAssignmentData.setRole(mainApp.findRoleByName(xmlResponsibilityAssignment.getRole().getName()));
+			responsibilityAssignmentData.setRole(mainApp.findRoleByName(xmlResponsibilityAssignment.getRoleName()));
 			responsibilityAssignmentData.setTask(mainApp.findTaskById(xmlResponsibilityAssignment.getTaskId()));
 			convertedList.add(responsibilityAssignmentData);
 		}
