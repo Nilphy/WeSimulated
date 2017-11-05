@@ -11,6 +11,7 @@ import com.wesimulated.simulation.runparameters.Completable;
 
 import edu.wesimulated.firstapp.model.ProjectData;
 import edu.wesimulated.firstapp.model.SimulationEntity;
+import edu.wesimulated.firstapp.persistence.XmlWbsNode;
 import edu.wesimulated.firstapp.simulation.domain.mywork.project.MaintenanceTask;
 import edu.wesimulated.firstapp.simulation.domain.mywork.project.Meeting;
 import edu.wesimulated.firstapp.simulation.domain.mywork.project.Risk;
@@ -126,14 +127,13 @@ public class Project implements Completable, NumericallyModeledEntity, Populatab
 			Role role = (Role) factory.registerSimulationEntity(roleData);
 			this.addRole(role);
 		});
+		this.populateWbs(projectData.getWbsRootNode(), factory);
 		/*
-	private XmlWbsNode wbsRootNode;
 	private List<XmlResponsibilityAssignment> xmlRam;
 		 */
 
 		/*
 		 * ate ProjectContract contract;
-	private ProjectWbs wbs;
 	private ProjectRam ram;
 	private HlaProject hlaProject;
 	private List<Team> teams;
@@ -143,6 +143,11 @@ public class Project implements Completable, NumericallyModeledEntity, Populatab
 	private ManagementFramework managementFramework;
 		 */
 		
+	}
+
+	private void populateWbs(XmlWbsNode wbsRootNode, SimulatorFactory factory) {
+		this.wbs = new ProjectWbs();
+		this.wbs.populateFrom(wbsRootNode, factory);
 	}
 
 	@Override
