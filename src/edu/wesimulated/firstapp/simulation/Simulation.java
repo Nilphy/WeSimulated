@@ -7,6 +7,7 @@ import edu.wesimulated.firstapp.model.ProjectData;
 import edu.wesimulated.firstapp.model.RoleData;
 import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.simulation.domain.Person;
+import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.ProjectBuilder;
 import edu.wesimulated.firstapp.simulation.domain.Role;
 import edu.wesimulated.firstapp.simulation.domain.RoleBuilder;
@@ -77,7 +78,7 @@ public class Simulation extends Observable {
 
 	public void registerProject(ProjectData projectData) {
 		SimulatorFactory simulatorFactory = SimulatorFactory.getInstance(projectData);
-		ProjectFederate projectFederate = new ProjectFederate(ProjectBuilder.createFromProjectData(projectData, simulatorFactory));
+		ProjectFederate projectFederate = new ProjectFederate((Project) simulatorFactory.registerSimulationEntity(projectData));
 		this.addObserver(projectFederate);
 		projectFederate.joinFederationExcecution(HlaClass.getHlaProjectClassInstance().getFederateName());
 	}
