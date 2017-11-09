@@ -29,7 +29,7 @@ public class RoleSimulatorBuilder {
 	 * @param project
 	 * @param person
 	 * @return the simulator builded
-	 * @throws MisconfiguredProject 
+	 * @throws MisconfiguredProject
 	 */
 	public static RoleSimulator buildMyWorkRoleSimulator(Project project, Person person, Role role) throws MisconfiguredProject {
 		RoleSimulator roleSimulator = new RoleSimulator(role, project, person);
