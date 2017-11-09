@@ -6,13 +6,11 @@ import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.ProjectData;
 import edu.wesimulated.firstapp.model.RoleData;
 import edu.wesimulated.firstapp.model.TaskData;
-import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Project;
-import edu.wesimulated.firstapp.simulation.domain.ProjectBuilder;
 import edu.wesimulated.firstapp.simulation.domain.Role;
-import edu.wesimulated.firstapp.simulation.domain.RoleBuilder;
 import edu.wesimulated.firstapp.simulation.domain.SimulatorFactory;
 import edu.wesimulated.firstapp.simulation.domain.Task;
+import edu.wesimulated.firstapp.simulation.domain.mywork.role.Person;
 import edu.wesimulated.firstapp.simulation.hla.HlaClass;
 import edu.wesimulated.firstapp.simulation.hla.LoggerFederate;
 import edu.wesimulated.firstapp.simulation.hla.ProjectFederate;
@@ -62,14 +60,14 @@ public class Simulation extends Observable {
 		}
 	}
 
-	public void addRole(RoleData role, PersonData person) {
+	public void registerRole(RoleData role, PersonData person) {
 		SimulatorFactory factory = SimulatorFactory.getInstance(role);
 		RoleFederate roleFederate = new RoleFederate((Role) factory.registerSimulationEntity(role), (Person) factory.registerSimulationEntity(person));
 		this.addObserver(roleFederate);
 		roleFederate.joinFederationExcecution(HlaClass.getHlaPersonClassInstance().getFederateName());
 	}
 
-	public void addTask(TaskData task) {
+	public void registerTask(TaskData task) {
 		SimulatorFactory factory = SimulatorFactory.getInstance(task);
 		TaskFederate taskFederate = new TaskFederate((Task) factory.registerSimulationEntity(task));
 		this.addObserver(taskFederate);

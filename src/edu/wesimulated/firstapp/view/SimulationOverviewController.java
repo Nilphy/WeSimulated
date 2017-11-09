@@ -47,12 +47,12 @@ public class SimulationOverviewController {
 		for (RoleData role : this.mainApp.getRoleData()) {
 			for (PersonData person : this.mainApp.getPersonData()) {
 				if (person.getRoles().contains(role)) {
-					Simulation.getInstance().addRole(role, person);
+					Simulation.getInstance().registerRole(role, person);
 				}
 			}
 		}
 		for (TaskData task : this.mainApp.getTaskData()) {
-			Simulation.getInstance().addTask(task);
+			Simulation.getInstance().registerTask(task);
 		}
 		if (this.mainApp.mustStartLogger()) {
 			Simulation.getInstance().registerLogger();
