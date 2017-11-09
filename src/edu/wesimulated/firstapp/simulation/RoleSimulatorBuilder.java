@@ -4,7 +4,6 @@ import java.util.Date;
 
 import edu.wesimulated.firstapp.simulation.domain.MisconfiguredProject;
 import edu.wesimulated.firstapp.simulation.domain.Role;
-import edu.wesimulated.firstapp.simulation.domain.Team;
 import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.EmailClient;
 import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.HighlyInterruptibleRoleSimulator;
 import edu.wesimulated.firstapp.simulation.domain.mywork.highlyinterruptiblerole.InstantMessenger;
@@ -21,19 +20,6 @@ public class RoleSimulatorBuilder {
 
 	public enum RoleSimulatorType implements SimulatorType {
 		MY_WORK, HIGHLY_INTERRUPTIBLE;
-	}
-	
-	/**
-	 * Generic role simulator builder, not used by now
-	 * 
-	 * @param role
-	 * @param project
-	 * @param person
-	 * @return
-	 */
-	@Deprecated
-	public static RoleSimulator build(Role role, edu.wesimulated.firstapp.simulation.domain.Project project, edu.wesimulated.firstapp.simulation.domain.Person person) {
-		return null;
 	}
 
 	/**

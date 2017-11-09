@@ -43,10 +43,11 @@ import com.wesimulated.simulationmotor.des.TimeControllerEntity;
 
 import edu.wesimulated.firstapp.simulation.RoleSimulatorBuilder;
 import edu.wesimulated.firstapp.simulation.SimulationEvent;
-import edu.wesimulated.firstapp.simulation.domain.Person;
-import edu.wesimulated.firstapp.simulation.domain.Project;
+import edu.wesimulated.firstapp.simulation.domain.MisconfiguredProject;
 import edu.wesimulated.firstapp.simulation.domain.Role;
 import edu.wesimulated.firstapp.simulation.domain.Task;
+import edu.wesimulated.firstapp.simulation.domain.mywork.role.Person;
+import edu.wesimulated.firstapp.simulation.domain.mywork.role.Project;
 import edu.wesimulated.firstapp.simulation.domain.mywork.role.RoleSimulator;
 
 public class RoleFederate extends AbstractFederate implements Observer, TimeControllerEntity {
@@ -83,8 +84,8 @@ public class RoleFederate extends AbstractFederate implements Observer, TimeCont
 		this.roleSimulator.getExecutor().initClock(time, this);
 	}
 
-	public void discoverProject() {
-		this.roleSimulator = RoleSimulatorBuilder.build(this.role, this.project, this.person);
+	public void discoverProject() throws MisconfiguredProject {
+		this.roleSimulator = RoleSimulatorBuilder.buildMyWorkRoleSimulator(this.project, this.person, this.role);
 	}
 
 	public void discoverPerson(edu.wesimulated.firstapp.simulation.domain.Person person) {
