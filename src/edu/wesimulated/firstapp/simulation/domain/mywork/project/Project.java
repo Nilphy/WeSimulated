@@ -3,7 +3,9 @@ package edu.wesimulated.firstapp.simulation.domain.mywork.project;
 import java.util.Collection;
 import java.util.List;
 
+import edu.wesimulated.firstapp.model.SimulationEntity;
 import edu.wesimulated.firstapp.simulation.domain.Person;
+import edu.wesimulated.firstapp.simulation.domain.SimulatorFactory;
 
 public class Project extends edu.wesimulated.firstapp.simulation.domain.Project {
 
@@ -26,4 +28,14 @@ public class Project extends edu.wesimulated.firstapp.simulation.domain.Project 
 		return this.getManagementFramework().getMeetings();
 	}
 
+	@Override
+	public void populateFrom(SimulationEntity simulationEntity, SimulatorFactory factory) {
+
+	}
+	// Project
+	/*
+	 * private List<Risk> risks; private List<MaintenanceTask> maintenanceTasks;
+	 * private ManagementFramework managementFramework;
+	 */
+	// TODO complete
 }

@@ -19,6 +19,7 @@ public class ManagementFramework implements NumericallyModeledEntity {
 
 	public static ManagementFramework createScrum() {
 		ManagementFramework fwk = new ManagementFramework();
+		fwk.setType(Type.SCRUM);
 		// FIXME: generate meetings (to configure the project with different frameworks
 		// Kick off
 		// Daily meetings

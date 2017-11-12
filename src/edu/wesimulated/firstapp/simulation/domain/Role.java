@@ -1,9 +1,11 @@
 package edu.wesimulated.firstapp.simulation.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.wesimulated.firstapp.model.RoleData;
 import edu.wesimulated.firstapp.model.SimulationEntity;
 import edu.wesimulated.firstapp.model.TaskNeed;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
@@ -13,6 +15,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 public class Role implements NumericallyModeledEntity, Populatable {
 
 	private Collection<TaskNeed> taskNeedsThatCanBeMet;
+	private Collection<Assignment> assignments;
 	private String name;
 
 	@Override
@@ -46,7 +49,22 @@ public class Role implements NumericallyModeledEntity, Populatable {
 
 	@Override
 	public void populateFrom(SimulationEntity simulationEntity, SimulatorFactory factory) {
-		// TODO Auto-generated method stub
-		
+		RoleData roleData = (RoleData) simulationEntity;
+		this.setName(roleData.getName());
+	}
+
+	public void addAssignment(Assignment newAssignment) {
+		this.getAssignments().add(newAssignment);
+	}
+
+	public Collection<Assignment> getAssignments() {
+		if (this.assignments == null) {
+			this.assignments = new ArrayList<>();
+		}
+		return assignments;
+	}
+
+	public void setAssignments(Collection<Assignment> assignments) {
+		this.assignments = assignments;
 	}
 }

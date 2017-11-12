@@ -23,10 +23,10 @@ public class ProjectWbs implements NumericallyModeledEntity {
 	}
 
 	public void populateFrom(XmlWbsNode wbsRootNode, SimulatorFactory factory) {
-		WbsNode newNode = new WbsNode(
+		this.rootNode = new WbsNode(
 				wbsRootNode.getName(), 
 				(Task) factory.getPopulatablesPool().getPopulatable(IdentifiableType.TASK, wbsRootNode.getTaskId().toString()));
-		this.addChildren(newNode, wbsRootNode.getChildren(), factory);
+		this.addChildren(this.rootNode, wbsRootNode.getChildren(), factory);
 	}
 
 	private void addChildren(WbsNode parentNode, Collection<XmlWbsNode> children, SimulatorFactory factory) {
@@ -39,5 +39,13 @@ public class ProjectWbs implements NumericallyModeledEntity {
 				this.addChildren(newNode, childNode.getChildren(), factory);
 			}
 		});
+	}
+
+	private WbsNode getRootNode() {
+		return rootNode;
+	}
+
+	private void setRootNode(WbsNode rootNode) {
+		this.rootNode = rootNode;
 	}
 }

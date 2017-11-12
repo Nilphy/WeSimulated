@@ -35,6 +35,7 @@ public class Task implements NumericallyModeledEntity, Completable, Populatable 
 	private Collection<Person> informedPeople;
 	private Collection<Person> responsiblePeople;
 	private Collection<Person> consultedPeople;
+	private Collection<Assignment> assignments;
 	private Profile profile;
 	/**
 	 * Not all tasks need to have an end date, if a date has an end date it will
@@ -266,6 +267,21 @@ public class Task implements NumericallyModeledEntity, Completable, Populatable 
 			this.addTaskDependency(new TaskDependency(dependentTask, taskDependency.getPrecedence()));
 		}
 		this.setCostInHours(taskData.getUnitsOfWork(), TaskNeed.Development);
+	}
+
+	public Collection<Assignment> getAssignments() {
+		if (this.assignments == null) {
+			this.assignments = new ArrayList<>();
+		}
+		return assignments;
+	}
+
+	public void addAssignment(Assignment assignment) {
+		this.getAssignments().add(assignment);
+	}
+
+	public void setAssignments(Collection<Assignment> assignments) {
+		this.assignments = assignments;
 	}
 
 	@FunctionalInterface

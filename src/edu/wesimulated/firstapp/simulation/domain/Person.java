@@ -170,7 +170,7 @@ public class Person implements Resource, NumericallyModeledEntity, Populatable {
 		personData.getRoles().forEach((role) -> {
 			this.addRole((Role) factory.registerSimulationEntity(role));
 		});
-		Team team = ThingsWithoutAUi.buildTeam();
+		Team team = ThingsWithoutAUi.getTeamInstance();
 		team.addMember(this);
 		this.addTeam(team);
 	}
