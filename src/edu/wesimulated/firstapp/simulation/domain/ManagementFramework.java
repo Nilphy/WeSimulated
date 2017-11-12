@@ -31,8 +31,8 @@ public class ManagementFramework implements NumericallyModeledEntity {
 	@Override
 	public Map<Characteristic, EntryValue> extractValues() {
 		Map<Characteristic, EntryValue> values = new HashMap<Characteristic, EntryValue>();
-		values.put(ProjectCharacteristic.MANAGEMENT_FRAMEWORK_TYPE, new EntryValue(edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type.String, this.type.toString()));
-		values.put(ProjectCharacteristic.AMOUNT_MEETINGS, new EntryValue(edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type.Long, this.meetings.size()));
+		values.put(ProjectCharacteristic.MANAGEMENT_FRAMEWORK_TYPE, new EntryValue(edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type.STRING, this.type.toString()));
+		values.put(ProjectCharacteristic.AMOUNT_MEETINGS, new EntryValue(edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type.LONG, this.meetings.size()));
 		return values;
 	}
 

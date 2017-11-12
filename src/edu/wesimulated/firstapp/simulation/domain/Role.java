@@ -21,7 +21,7 @@ public class Role implements NumericallyModeledEntity, Populatable {
 	@Override
 	public Map<Characteristic, EntryValue> extractValues() {
 		Map<Characteristic, EntryValue> values = new HashMap<>();
-		values.put(RoleCharacteristic.AMOUNT_TASK_NEEDS, new EntryValue(Type.Long, this.taskNeedsThatCanBeMet.size()));
+		values.put(RoleCharacteristic.AMOUNT_TASK_NEEDS, new EntryValue(Type.LONG, this.taskNeedsThatCanBeMet.size()));
 		return values;
 	}
 

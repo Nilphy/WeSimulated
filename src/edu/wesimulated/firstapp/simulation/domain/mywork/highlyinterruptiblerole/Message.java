@@ -41,7 +41,7 @@ public class Message implements Prioritized, NumericallyModeledEntity {
 		@Override
 		public Map<Characteristic, EntryValue> extractValues() {
 			Map<Characteristic, EntryValue> values = new HashMap<>();
-			values.put(MessageCharacteristic.Status, new EntryValue(Type.String, this.toString()));
+			values.put(MessageCharacteristic.STATUS, new EntryValue(Type.STRING, this.toString()));
 			return values;
 		}
 	}
@@ -84,8 +84,8 @@ public class Message implements Prioritized, NumericallyModeledEntity {
 	public Map<Characteristic, EntryValue> extractValues() {
 		Map<Characteristic, EntryValue> values = new HashMap<>();
 		values.putAll(NumericallyModeledEntity.embedPersonCharacteristic(this.sender, "SENDER_"));
-		values.put(MessageCharacteristic.AmountOfRecipients, new EntryValue(EntryValue.Type.Long, this.getRecipients().size()));
-		values.put(MessageCharacteristic.Antiquity, new EntryValue(EntryValue.Type.String, this.messageAgeValuator.fromMinutes(this.getAgeInMinutes()).toString()));
+		values.put(MessageCharacteristic.AMOUNT_RECIPIENTS, new EntryValue(EntryValue.Type.LONG, this.getRecipients().size()));
+		values.put(MessageCharacteristic.ANTIQUITY, new EntryValue(EntryValue.Type.STRING, this.messageAgeValuator.fromMinutes(this.getAgeInMinutes()).toString()));
 		values.putAll(this.status.extractValues());
 		return values;
 	}

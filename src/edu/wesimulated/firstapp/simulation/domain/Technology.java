@@ -29,9 +29,9 @@ public class Technology implements NumericallyModeledEntity {
 	@Override
 	public Map<Characteristic, EntryValue> extractValues() {
 		Map<Characteristic, EntryValue> out = new HashMap<>();
-		out.put(TechnologyCharacteristic.MONTHS_IN_THE_INDUSTRY, new EntryValue(Type.Long, this.getMonthsInTheIndustry()));
-		out.put(TechnologyCharacteristic.LEARNING_CURVE_MOD_ONE, new EntryValue(Type.Float, this.getLearningCurveModOne()));
-		out.put(TechnologyCharacteristic.VERBOSITY_MOD_ONE, new EntryValue(Type.Float, this.getVerbosityModOne()));
+		out.put(TechnologyCharacteristic.MONTHS_IN_THE_INDUSTRY, new EntryValue(Type.LONG, this.getMonthsInTheIndustry()));
+		out.put(TechnologyCharacteristic.LEARNING_CURVE_MOD_ONE, new EntryValue(Type.FLOAT, this.getLearningCurveModOne()));
+		out.put(TechnologyCharacteristic.VERBOSITY_MOD_ONE, new EntryValue(Type.FLOAT, this.getVerbosityModOne()));
 		return out;
 	}
 

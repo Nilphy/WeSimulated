@@ -88,7 +88,7 @@ public class Person implements Resource, NumericallyModeledEntity, Populatable {
 		Map<Characteristic, EntryValue> values = new HashMap<>();
 		values.putAll(this.profile.extractValues());
 		values.put(PersonCharacteristic.IS_AVAILABLE, new EntryValue(available));
-		values.put(PersonCharacteristic.AMOUNT_OF_TEAMS, new EntryValue(Type.Long, this.teams.size()));
+		values.put(PersonCharacteristic.AMOUNT_OF_TEAMS, new EntryValue(Type.LONG, this.teams.size()));
 		// FIXME ¿? consider task and project
 		return values;
 	}
@@ -165,8 +165,8 @@ public class Person implements Resource, NumericallyModeledEntity, Populatable {
 		this.setFirstName(personData.getFirstName());
 		this.setLastName(personData.getLastName());
 		this.profile = new Profile();
-		this.profile.set(PersonCharacteristic.HOURS_PER_DAY, new EntryValue(Type.Long, personData.getHoursPerDay()));
-		this.profile.set(PersonCharacteristic.EFFICIENCY, new EntryValue(Type.Float, personData.getEfficiency()));
+		this.profile.set(PersonCharacteristic.HOURS_PER_DAY, new EntryValue(Type.LONG, personData.getHoursPerDay()));
+		this.profile.set(PersonCharacteristic.EFFICIENCY, new EntryValue(Type.FLOAT, personData.getEfficiency()));
 		personData.getRoles().forEach((role) -> {
 			this.addRole((Role) factory.registerSimulationEntity(role));
 		});

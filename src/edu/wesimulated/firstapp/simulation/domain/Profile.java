@@ -33,19 +33,19 @@ public class Profile implements NumericallyModeledEntity {
 
 	public void scaleDown(Characteristic characteristic, double deterioration) {
 		Number originalValue = this.characteristics.get(characteristic).getNumber();
-		EntryValue newValue = new EntryValue(Type.Float, originalValue.doubleValue() * deterioration);
+		EntryValue newValue = new EntryValue(Type.FLOAT, originalValue.doubleValue() * deterioration);
 		this.characteristics.put(characteristic, newValue);
 	}
 
 	public void scaleUp(Characteristic characteristic, double scale) {
 		Number originalValue = this.characteristics.get(characteristic).getNumber();
-		EntryValue newValue = new EntryValue(Type.Float, originalValue.doubleValue() * scale + originalValue.doubleValue());
+		EntryValue newValue = new EntryValue(Type.FLOAT, originalValue.doubleValue() * scale + originalValue.doubleValue());
 		this.characteristics.put(characteristic, newValue);
 	}
 
 	public void increase(Characteristic characteristic, double amount) {
 		Number originalValue = this.characteristics.get(characteristic).getNumber();
-		EntryValue newValue = new EntryValue(Type.Float, originalValue.doubleValue() + amount);
+		EntryValue newValue = new EntryValue(Type.FLOAT, originalValue.doubleValue() + amount);
 		this.characteristics.put(characteristic, newValue);
 	}
 

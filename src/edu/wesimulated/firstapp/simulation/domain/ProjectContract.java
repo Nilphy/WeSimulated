@@ -23,8 +23,8 @@ public class ProjectContract implements NumericallyModeledEntity {
 		long length = DateUtils.calculateDifferenceInDays(this.initialDate, this.finalDate);
 		Map<Characteristic, EntryValue> values = new HashMap<>();
 		values.putAll(this.quality.extractValues());
-		values.put(ProjectCharacteristic.LENGTH, new EntryValue(Type.Long, length));
-		values.put(ProjectCharacteristic.AMOUNT_TECHNOLOGIES, new EntryValue(Type.Long, this.tecnologies.size()));
+		values.put(ProjectCharacteristic.LENGTH, new EntryValue(Type.LONG, length));
+		values.put(ProjectCharacteristic.AMOUNT_TECHNOLOGIES, new EntryValue(Type.LONG, this.tecnologies.size()));
 		return values;
 	}
 

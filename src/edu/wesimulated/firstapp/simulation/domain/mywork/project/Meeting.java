@@ -56,7 +56,7 @@ public class Meeting extends MaintenanceTask implements NumericallyModeledEntity
 	public Map<Characteristic, EntryValue> extractValues() {
 		Map<Characteristic, EntryValue> values = new HashMap<>();
 		values.putAll(this.meetingProfile.extractValues());
-		values.put(MeetingCharacteristic.AMOUNT_PARTICIPANTS, new EntryValue(Type.Long, this.participants.size()));
+		values.put(MeetingCharacteristic.AMOUNT_PARTICIPANTS, new EntryValue(Type.LONG, this.participants.size()));
 		// FIXME ¿?  maybe consider some characteristics about the participants?
 		return values;
 	}

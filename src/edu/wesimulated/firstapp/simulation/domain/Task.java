@@ -95,7 +95,7 @@ public class Task implements NumericallyModeledEntity, Completable, Populatable 
 	}
 
 	public void setName(String name) {
-		this.profile.set(TaskCharacteristic.NAME, new EntryValue(EntryValue.Type.String, name));
+		this.profile.set(TaskCharacteristic.NAME, new EntryValue(EntryValue.Type.STRING, name));
 	}
 
 	public void addAccountablePerson(Person newPerson) {

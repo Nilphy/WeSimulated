@@ -19,9 +19,9 @@ public class Quality implements NumericallyModeledEntity {
 	@Override
 	public Map<Characteristic, EntryValue> extractValues() {
 		Map<Characteristic, EntryValue> values = new HashMap<>();
-		values.put(ProjectCharacteristic.PERCENTAJE_CRITICAL_BUGS, new EntryValue(Type.Float, this.percentajeOfCriticalBugs));
-		values.put(ProjectCharacteristic.PERCENTAJE_MINOR_BUGS, new EntryValue(Type.Float, this.percentajeOfMinorBugs));
-		values.put(ProjectCharacteristic.CONVERAGE, new EntryValue(Type.Float, this.coverage));
+		values.put(ProjectCharacteristic.PERCENTAJE_CRITICAL_BUGS, new EntryValue(Type.FLOAT, this.percentajeOfCriticalBugs));
+		values.put(ProjectCharacteristic.PERCENTAJE_MINOR_BUGS, new EntryValue(Type.FLOAT, this.percentajeOfMinorBugs));
+		values.put(ProjectCharacteristic.CONVERAGE, new EntryValue(Type.FLOAT, this.coverage));
 		return values;
 	}
 

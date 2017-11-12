@@ -21,8 +21,8 @@ public class Task extends edu.wesimulated.firstapp.simulation.domain.Task {
 
 	public long findDurationOfRecoverFocus(RoleSimulator roleSimulator) {
 		ParametricAlgorithm durationOfRecoverFocus = ParametricAlgorithm.buildParametricAlgorithmForVar(StochasticVar.TIME_TO_FOCUS);
-		durationOfRecoverFocus.considerSingleValue(new Pair<>(TaskCharacteristic.TIME_SINCE_LAST_TIME, new EntryValue(Type.Long, roleSimulator.findTimeSinceLastTimeTask())));
-		durationOfRecoverFocus.considerSingleValue(new Pair<>(TaskCharacteristic.TIME_IN_TASK, new EntryValue(Type.Long, roleSimulator.findTimeInTask())));
+		durationOfRecoverFocus.considerSingleValue(new Pair<>(TaskCharacteristic.TIME_SINCE_LAST_TIME, new EntryValue(Type.LONG, roleSimulator.findTimeSinceLastTimeTask())));
+		durationOfRecoverFocus.considerSingleValue(new Pair<>(TaskCharacteristic.TIME_IN_TASK, new EntryValue(Type.LONG, roleSimulator.findTimeInTask())));
 		durationOfRecoverFocus.consider(roleSimulator.getCurrentTask());
 		durationOfRecoverFocus.consider(roleSimulator.getCurrentWorkType());
 		return durationOfRecoverFocus.findSample().getPrediction().getValue().longValue();

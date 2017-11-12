@@ -51,10 +51,10 @@ public class Project implements Completable, NumericallyModeledEntity, Populatab
 		values.putAll(this.contract.extractValues());
 		values.putAll(this.wbs.extractValues());
 		values.putAll(this.getManagementFramework().extractValues());
-		values.put(ProjectCharacteristic.AMOUNT_PEOPLE, new EntryValue(Type.Long, this.people.size()));
-		values.put(ProjectCharacteristic.AMOUNT_TEAMS, new EntryValue(Type.Long, this.teams.size()));
-		values.put(ProjectCharacteristic.AMOUNT_TASKS, new EntryValue(Type.Long, this.tasks.size()));
-		values.put(ProjectCharacteristic.AMOUNT_ROLES, new EntryValue(Type.Long, this.roles.size()));
+		values.put(ProjectCharacteristic.AMOUNT_PEOPLE, new EntryValue(Type.LONG, this.people.size()));
+		values.put(ProjectCharacteristic.AMOUNT_TEAMS, new EntryValue(Type.LONG, this.teams.size()));
+		values.put(ProjectCharacteristic.AMOUNT_TASKS, new EntryValue(Type.LONG, this.tasks.size()));
+		values.put(ProjectCharacteristic.AMOUNT_ROLES, new EntryValue(Type.LONG, this.roles.size()));
 		// FIXME ¿? consider more characteristics about the entities involved
 		// (entities, tasks, etc)?
 		// FIXME ¿? consider information about the start date?

@@ -7,9 +7,8 @@ package edu.wesimulated.firstapp.simulation.stochastic;
  */
 public class EntryValue {
 
-	// FIXME rename use uppercase
 	public enum Type {
-		Long, Float, String, Boolean
+		LONG, FLOAT, STRING, BOOL
 	}
 
 	private Type type;
@@ -28,7 +27,7 @@ public class EntryValue {
 	}
 
 	public EntryValue(Boolean value) {
-		this.type = Type.Boolean;
+		this.type = Type.BOOL;
 		this.stringValue = value.toString();
 		this.numberValue = value ? 1 : 0;
 	}
@@ -37,36 +36,36 @@ public class EntryValue {
 		if (this.numberValue != null) {
 			return this.numberValue;
 		}
-		if (this.type == Type.Long) {
+		if (this.type == Type.LONG) {
 			return this.numberValue;
 		}
-		if (this.type == Type.Float) {
+		if (this.type == Type.FLOAT) {
 			return this.numberValue;
 		}
-		if (this.type == Type.Boolean) {
+		if (this.type == Type.BOOL) {
 			return this.numberValue;
 		}
 		throw new IllegalStateException();
 	}
 
 	public String getString() {
-		if (this.type == Type.String) {
+		if (this.type == Type.STRING) {
 			return this.stringValue;
 		}
-		if (this.type == Type.Long) {
+		if (this.type == Type.LONG) {
 			return this.stringValue;
 		}
-		if (this.type == Type.Float) {
+		if (this.type == Type.FLOAT) {
 			return this.stringValue;
 		}
-		if (this.type == Type.Boolean) {
+		if (this.type == Type.BOOL) {
 			return this.stringValue;
 		}
 		throw new IllegalStateException();
 	}
 	
 	public Boolean  getBoolean() {
-		if (this.type == Type.Boolean) {
+		if (this.type == Type.BOOL) {
 			return Boolean.parseBoolean(this.stringValue);
 		}
 		throw new IllegalStateException();
