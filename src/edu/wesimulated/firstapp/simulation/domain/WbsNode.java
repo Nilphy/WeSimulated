@@ -22,10 +22,6 @@ public class WbsNode {
 		this.name = name;
 	}
 
-	private Task getTask() {
-		return task;
-	}
-
 	private void setTask(Task task) {
 		this.task = task;
 	}
@@ -35,10 +31,6 @@ public class WbsNode {
 			this.children = new ArrayList<>();
 		}
 		return children;
-	}
-
-	private void setChildren(Collection<WbsNode> children) {
-		this.children = children;
 	}
 
 	public void addChild(WbsNode wbsNode) {

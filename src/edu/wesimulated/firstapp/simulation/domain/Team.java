@@ -27,10 +27,6 @@ public class Team {
 		return this.members;
 	}
 
-	private void setMembers(Collection<Person> members) {
-		this.members = members;
-	}
-
 	public void addMember(Person person) {
 		this.getMembers().add(person);
 	}

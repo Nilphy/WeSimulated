@@ -2,7 +2,6 @@ package edu.wesimulated.firstapp.simulation.domain.mywork.role;
 
 import edu.wesimulated.firstapp.simulation.domain.Person;
 import edu.wesimulated.firstapp.simulation.domain.Role;
-import edu.wesimulated.firstapp.simulation.domain.Task;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 
 public class WorkDone {

@@ -44,8 +44,4 @@ public class ProjectWbs implements NumericallyModeledEntity {
 	private WbsNode getRootNode() {
 		return rootNode;
 	}
-
-	private void setRootNode(WbsNode rootNode) {
-		this.rootNode = rootNode;
-	}
 }

@@ -7,6 +7,7 @@ package edu.wesimulated.firstapp.simulation.stochastic;
  */
 public class EntryValue {
 
+	// FIXME rename use uppercase
 	public enum Type {
 		Long, Float, String, Boolean
 	}
@@ -42,7 +43,7 @@ public class EntryValue {
 		if (this.type == Type.Float) {
 			return this.numberValue;
 		}
-		if (this.type == type.Boolean) {
+		if (this.type == Type.Boolean) {
 			return this.numberValue;
 		}
 		throw new IllegalStateException();
