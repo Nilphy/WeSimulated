@@ -25,7 +25,6 @@ public class Person implements Resource, NumericallyModeledEntity, Populatable {
 	private HlaPerson hlaPerson;
 	private Task currentTask;
 	private Profile profile;
-	private Project project;
 	private Collection<Team> teams;
 	private Date dateLastUpdate;
 
@@ -90,10 +89,6 @@ public class Person implements Resource, NumericallyModeledEntity, Populatable {
 
 	protected boolean isWorginWithMe(Person person) {
 		return this.currentTask.isPersonAssigned(person);
-	}
-
-	protected Project getProject() {
-		return this.project;
 	}
 
 	public Profile getProfile() {
