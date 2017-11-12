@@ -1,6 +1,5 @@
 package edu.wesimulated.firstapp.simulation;
 
-import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.mywork.project.ErrorsReported;
 import edu.wesimulated.firstapp.simulation.domain.mywork.project.MaintenanceTask;
 import edu.wesimulated.firstapp.simulation.domain.mywork.project.Meeting;
@@ -21,7 +20,7 @@ public class ProjectSimulatorBuilder {
 		MY_WORK;
 	}
 
-	public ProjectSimulator buildMyWorkProjectSimulator(Project project) {
+	public ProjectSimulator buildMyWorkProjectSimulator(edu.wesimulated.firstapp.simulation.domain.mywork.project.Project project) {
 		ProjectSimulator projectSimulator = new ProjectSimulator(project);
 		/**
 		 * Los risks pueden tener variso efectos, o hacer que una persona no

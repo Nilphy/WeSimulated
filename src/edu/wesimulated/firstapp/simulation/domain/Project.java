@@ -12,9 +12,6 @@ import com.wesimulated.simulation.runparameters.Completable;
 import edu.wesimulated.firstapp.model.ProjectData;
 import edu.wesimulated.firstapp.model.SimulationEntity;
 import edu.wesimulated.firstapp.persistence.XmlWbsNode;
-import edu.wesimulated.firstapp.simulation.domain.mywork.project.MaintenanceTask;
-import edu.wesimulated.firstapp.simulation.domain.mywork.project.Meeting;
-import edu.wesimulated.firstapp.simulation.domain.mywork.project.Risk;
 import edu.wesimulated.firstapp.simulation.hla.HlaProject;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
@@ -30,8 +27,6 @@ public class Project implements Completable, NumericallyModeledEntity, Populatab
 	private List<Team> teams;
 	private List<Task> tasks;
 	private List<Role> roles;
-	private List<Risk> risks;
-	private List<MaintenanceTask> maintenanceTasks;
 	private Date startDate;
 	private ManagementFramework managementFramework;
 
@@ -61,15 +56,7 @@ public class Project implements Completable, NumericallyModeledEntity, Populatab
 		return values;
 	}
 
-	public Collection<Risk> getRisks() {
-		return this.risks;
-	}
-
-	public Collection<MaintenanceTask> getMaintenanceTasks() {
-		return this.maintenanceTasks;
-	}
-
-	public edu.wesimulated.firstapp.simulation.domain.Person pickRandomPerson() {
+	public Person pickRandomPerson() {
 		List<Person> people = this.getPeople();
 		int index = (int) Math.round(Math.random() * people.size());
 		return people.get(index);
@@ -79,8 +66,8 @@ public class Project implements Completable, NumericallyModeledEntity, Populatab
 		return this.people;
 	}
 
-	public Collection<Meeting> findRegularMeetings() {
-		return this.managementFramework.getMeetings();
+	protected ManagementFramework getManagementFramework() {
+		return this.managementFramework;
 	}
 
 	protected List<Task> getTasks() {
