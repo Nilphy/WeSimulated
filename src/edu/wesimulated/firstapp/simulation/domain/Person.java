@@ -3,6 +3,7 @@ package edu.wesimulated.firstapp.simulation.domain;
 import hla.rti1516e.AttributeHandleValueMap;
 import hla.rti1516e.ObjectInstanceHandle;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,20 +13,25 @@ import java.util.stream.Collectors;
 
 import com.wesimulated.simulationmotor.des.Resource;
 
+import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.SimulationEntity;
 import edu.wesimulated.firstapp.simulation.hla.HlaPerson;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
+import edu.wesimulated.firstapp.view.ThingsWithoutAUi;
 
 public class Person implements Resource, NumericallyModeledEntity, Populatable {
 
 	private String id;
+	private String firstName;
+	private String lastName;
 	private boolean available;
 	private HlaPerson hlaPerson;
 	private Task currentTask;
 	private Profile profile;
 	private Collection<Team> teams;
+	private Collection<Role> roles;
 	private Date dateLastUpdate;
 
 	public static Person searchPersonById(Collection<Person> people, String id) {
@@ -37,7 +43,7 @@ public class Person implements Resource, NumericallyModeledEntity, Populatable {
 		}
 		return null;
 	}
-	
+
 	public ObjectInstanceHandle getHlaObjectInstanceHandle() {
 		return this.getHlaPerson().getObjectInstanceHandle();
 	}
@@ -104,6 +110,9 @@ public class Person implements Resource, NumericallyModeledEntity, Populatable {
 	}
 
 	public Collection<Team> getTeams() {
+		if (this.teams == null) {
+			this.teams = new ArrayList<>();
+		}
 		return teams;
 	}
 
@@ -151,7 +160,53 @@ public class Person implements Resource, NumericallyModeledEntity, Populatable {
 
 	@Override
 	public void populateFrom(SimulationEntity simulationEntity, SimulatorFactory factory) {
-		// TODO Auto-generated method stub
-		
+		PersonData personData = (PersonData) simulationEntity;
+		this.setId(personData.getId());
+		this.setFirstName(personData.getFirstName());
+		this.setLastName(personData.getLastName());
+		this.profile = new Profile();
+		this.profile.set(PersonCharacteristic.HOURS_PER_DAY, new EntryValue(Type.Long, personData.getHoursPerDay()));
+		this.profile.set(PersonCharacteristic.EFFICIENCY, new EntryValue(Type.Float, personData.getEfficiency()));
+		personData.getRoles().forEach((role) -> {
+			this.addRole((Role) factory.registerSimulationEntity(role));
+		});
+		Team team = ThingsWithoutAUi.buildTeam();
+		team.addMember(this);
+		this.addTeam(team);
+	}
+
+	private void addTeam(Team team) {
+		this.getTeams().add(team);
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public Collection<Role> getRoles() {
+		if (this.roles == null) {
+			this.roles = new ArrayList<>();
+		}
+		return this.roles;
+	}
+
+	public void addRole(Role role) {
+		this.getRoles().add(role);
+	}
+
+	public boolean hasRole(Role role) {
+		return this.getRoles().contains(role);
 	}
 }
