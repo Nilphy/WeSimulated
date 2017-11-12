@@ -1,8 +1,6 @@
 package edu.wesimulated.firstapp.view;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -17,7 +15,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 
 import com.wesimulated.simulationmotor.DateUtils;
 
@@ -49,20 +46,17 @@ public class TaskOverviewController {
 	@FXML
 	private TableColumn<TaskPeopleAssignmentRow, String> personColumn;
 
-	private final String pattern = "yyyy-MM-dd";
 	private MainApp mainApp;
-	StringConverter<LocalDate> converter;
 
 	public TaskOverviewController() {
-
 	}
 
 	private void showTaskDetails(TaskData task) {
 		if (task != null) {
 			nameLabel.setText(task.getName());
 			unitsOfWorkLabel.setText(task.getUnitsOfWork().toString());
-			startDate.setText(converter.toString(DateUtils.asLocalDate(task.getStartDate())));
-			endDate.setText(converter.toString(DateUtils.asLocalDate(task.getEndDate())));
+			startDate.setText(this.mainApp.getConverter().toString(DateUtils.asLocalDate(task.getStartDate())));
+			endDate.setText(this.mainApp.getConverter().toString(DateUtils.asLocalDate(task.getEndDate())));
 			populateTaskPeopleAssignmentsTable(task);
 		} else {
 			nameLabel.setText("");
@@ -140,7 +134,7 @@ public class TaskOverviewController {
 			dialogStage.setScene(scene);
 			TaskEditController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
-			controller.setDateFormatter(this.converter, this.pattern);
+			controller.setDateFormatter(this.mainApp.getConverter());
 			controller.setTask(task);
 			controller.setMainApp(this.mainApp);
 			dialogStage.showAndWait();
@@ -175,27 +169,6 @@ public class TaskOverviewController {
 		personColumn.setCellValueFactory(cellData -> cellData.getValue().getPerson().firstNameProperty());
 		showTaskDetails(null);
 		taskTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showTaskDetails(newValue));
-		converter = new StringConverter<LocalDate>() {
-			DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
-
-			@Override
-			public String toString(LocalDate date) {
-				if (date != null) {
-					return dateFormatter.format(date);
-				} else {
-					return "";
-				}
-			}
-
-			@Override
-			public LocalDate fromString(String string) {
-				if (string != null && !string.isEmpty()) {
-					return LocalDate.parse(string, dateFormatter);
-				} else {
-					return null;
-				}
-			}
-		};
 	}
 
 	public void setMainApp(MainApp mainApp) {

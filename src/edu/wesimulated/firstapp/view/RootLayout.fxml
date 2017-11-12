@@ -16,6 +16,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#handleSave" text="Save" />
                   <MenuItem mnemonicParsing="false" onAction="#handleSaveAs" text="Save As..." />
                   <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleProject" text="Project" />
                   <MenuItem mnemonicParsing="false" onAction="#handleTasks" text="Tasks..." />
                   <MenuItem mnemonicParsing="false" onAction="#handlePersons" text="Persons..." />
                   <MenuItem mnemonicParsing="false" onAction="#handleRoles" text="Roles..." />

@@ -1,11 +1,14 @@
 package edu.wesimulated.firstapp.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import edu.wesimulated.firstapp.persistence.LocalDateAdapter;
 import edu.wesimulated.firstapp.persistence.XmlResponsibilityAssignment;
 import edu.wesimulated.firstapp.persistence.XmlWbsNode;
 import edu.wesimulated.firstapp.simulation.ProjectSimulatorBuilder.ProjectSimulatorType;
@@ -18,6 +21,8 @@ public class ProjectData implements SimulationEntity {
 	private List<TaskData> tasks;
 	private List<RoleData> roles;
 	private XmlWbsNode wbsRootNode;
+	private Date startDate;
+	private Date endDate;
 	private List<XmlResponsibilityAssignment> xmlRam;
 
 	@XmlElement(name = "person")
@@ -95,7 +100,7 @@ public class ProjectData implements SimulationEntity {
 		return this.getName();
 	}
 
-	private String getName() {
+	public String getName() {
 		return this.getWbsRootNode().getName();
 	}
 
@@ -103,4 +108,27 @@ public class ProjectData implements SimulationEntity {
 	public IdentifiableType getType() {
 		return IdentifiableType.PROJECT;
 	}
+
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
+	public Date getEndDate() {
+		return this.endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public void setName(String text) {
+		this.getWbsRootNode().setName(text);
+	}
+
 }

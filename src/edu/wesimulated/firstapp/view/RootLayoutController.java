@@ -92,6 +92,11 @@ public class RootLayoutController {
 	}
 
 	@FXML
+	private void handleProject() {
+		mainApp.showProjectEdit();
+	}
+
+	@FXML
 	private void handleTasks() {
 		mainApp.showTaskOverview();
 	}

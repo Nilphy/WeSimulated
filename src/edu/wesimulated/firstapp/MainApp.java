@@ -2,6 +2,8 @@ package edu.wesimulated.firstapp;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -18,7 +20,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -40,6 +44,7 @@ import edu.wesimulated.firstapp.simulation.stochastic.StochasticMethod;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticRegistry;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
 import edu.wesimulated.firstapp.view.PersonOverviewController;
+import edu.wesimulated.firstapp.view.ProjectEditController;
 import edu.wesimulated.firstapp.view.RAMController;
 import edu.wesimulated.firstapp.view.RoleOverviewController;
 import edu.wesimulated.firstapp.view.RootLayoutController;
@@ -49,15 +54,18 @@ import edu.wesimulated.firstapp.view.TaskOverviewController;
 import edu.wesimulated.firstapp.view.WBSController;
 
 public class MainApp extends Application {
+	static public final String DATE_PATTERN = "yyyy-MM-dd";
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
+	private ProjectData projectData;
 	private ObservableList<PersonData> personData;
 	private ObservableList<TaskData> taskData;
 	private ObservableList<RoleData> roleData;
 	private WbsInnerNode wbs;
 	private TaskNet taskNet;
 	private ObservableList<ResponsibilityAssignmentData> responsibilityAssignmentData;
+	private StringConverter<LocalDate> converter;
 
 	public MainApp() {
 		this.personData = FXCollections.observableArrayList();
@@ -66,6 +74,27 @@ public class MainApp extends Application {
 		this.wbs = new WbsInnerNode();
 		this.taskNet = new TaskNet();
 		this.responsibilityAssignmentData = FXCollections.observableArrayList();
+		this.converter = new StringConverter<LocalDate>() {
+			DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
+
+			@Override
+			public String toString(LocalDate date) {
+				if (date != null) {
+					return dateFormatter.format(date);
+				} else {
+					return "";
+				}
+			}
+
+			@Override
+			public LocalDate fromString(String string) {
+				if (string != null && !string.isEmpty()) {
+					return LocalDate.parse(string, dateFormatter);
+				} else {
+					return null;
+				}
+			}
+		};
 	}
 
 	public static void main(String[] args) {
@@ -170,6 +199,29 @@ public class MainApp extends Application {
 			controller.setMainApp(this);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public boolean showProjectEdit() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/ProjectEditDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Edit Project");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(this.getPrimaryStage());
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+			ProjectEditController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setDateFormatter(this.getConverter());
+			controller.setProject(this.projectData);
+			dialogStage.showAndWait();
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 
@@ -294,12 +346,12 @@ public class MainApp extends Application {
 		try {
 			JAXBContext context = JAXBContext.newInstance(ProjectData.class);
 			Unmarshaller um = context.createUnmarshaller();
-			ProjectData projectData = (ProjectData) um.unmarshal(projectFile);
-			this.fillRoleInfo(projectData);
-			this.fillPeopleInfo(projectData);
-			this.fillTaskInfo(projectData);
-			this.fillWbsInfo(projectData);
-			this.fillRamInfo(projectData);
+			this.projectData = (ProjectData) um.unmarshal(projectFile);
+			this.fillRoleInfo();
+			this.fillPeopleInfo();
+			this.fillTaskInfo();
+			this.fillWbsInfo();
+			this.fillRamInfo();
 			this.fillTaskNet();
 			setStorageFilePath(projectFile, FileType.project);
 		} catch (Exception e) {
@@ -383,7 +435,7 @@ public class MainApp extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	
+
 	}
 
 	private void loadDataFromFile() {
@@ -409,33 +461,33 @@ public class MainApp extends Application {
 		alert.showAndWait();
 	}
 
-	private void fillWbsInfo(ProjectData projectData) {
-		WbsInnerNode newWbs = UiModelToXml.convertToUiModel(projectData.getWbsRootNode(), this);
+	private void fillWbsInfo() {
+		WbsInnerNode newWbs = UiModelToXml.convertToUiModel(this.projectData.getWbsRootNode(), this);
 		getWbs().getChildrenWbsNodes().clear();
 		getWbs().setChildrenWbsNodes(newWbs.getChildrenWbsNodes());
 		getWbs().setName(newWbs.getName());
 	}
 
-	private void fillTaskInfo(ProjectData projectData) {
+	private void fillTaskInfo() {
 		this.taskData.clear();
-		this.taskData.addAll(projectData.getTasks());
+		this.taskData.addAll(this.projectData.getTasks());
 		projectData.registerMaxId();
 	}
 
-	private void fillPeopleInfo(ProjectData projectData) {
+	private void fillPeopleInfo() {
 		this.personData.clear();
-		UiModelToXml.changeRolesFromMainAppOnes(projectData.getPeople(), this);
-		this.personData.addAll(projectData.getPeople());
+		UiModelToXml.changeRolesFromMainAppOnes(this.projectData.getPeople(), this);
+		this.personData.addAll(this.projectData.getPeople());
 	}
 
-	private void fillRamInfo(ProjectData projectData) {
+	private void fillRamInfo() {
 		this.responsibilityAssignmentData.clear();
-		this.responsibilityAssignmentData.addAll(UiModelToXml.convertToUiModel(projectData.getResponsibilityAssignments(), this));
+		this.responsibilityAssignmentData.addAll(UiModelToXml.convertToUiModel(this.projectData.getResponsibilityAssignments(), this));
 	}
 
-	private void fillRoleInfo(ProjectData projectData) {
+	private void fillRoleInfo() {
 		this.roleData.clear();
-		this.roleData.addAll(projectData.getRoles());
+		this.roleData.addAll(this.projectData.getRoles());
 	}
 
 	private StochasticRegistryData buildStochasticRegistryData() {
@@ -453,5 +505,17 @@ public class MainApp extends Application {
 		}
 		stochasticRegistryData.setStochasticVars(vars);
 		return stochasticRegistryData;
+	}
+
+	public StringConverter<LocalDate> getConverter() {
+		return this.converter;
+	}
+
+	/**
+	 * Is better to call build first to update the data
+	 * @return
+	 */
+	public ProjectData getProjectData() {
+		return this.projectData;
 	}
 }

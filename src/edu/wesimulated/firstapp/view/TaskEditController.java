@@ -216,13 +216,13 @@ public class TaskEditController {
 		}
 	}
 
-	public void setDateFormatter(StringConverter<LocalDate> converter, String pattern) {
+	public void setDateFormatter(StringConverter<LocalDate> converter) {
 		startDatePicker.setValue(LocalDate.now());
 		startDatePicker.setConverter(converter);
-		startDatePicker.setPromptText(pattern.toLowerCase());
+		startDatePicker.setPromptText(MainApp.DATE_PATTERN.toLowerCase());
 		endDatePicker.setValue(LocalDate.now());
 		endDatePicker.setConverter(converter);
-		endDatePicker.setPromptText(pattern.toLowerCase());
+		endDatePicker.setPromptText(MainApp.DATE_PATTERN.toLowerCase());
 	}
 
 }
