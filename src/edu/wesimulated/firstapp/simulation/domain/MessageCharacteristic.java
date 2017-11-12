@@ -1,6 +1,6 @@
 package edu.wesimulated.firstapp.simulation.domain;
 
-// FIXME use uppercase 
+// FIXME rename use uppercase 
 public enum MessageCharacteristic implements Characteristic {
 	AmountOfRecipients,
 	Antiquity,

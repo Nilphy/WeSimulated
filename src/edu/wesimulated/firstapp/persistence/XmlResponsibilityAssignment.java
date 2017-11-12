@@ -1,6 +1,5 @@
 package edu.wesimulated.firstapp.persistence;
 
-import edu.wesimulated.firstapp.model.RoleData;
 
 public class XmlResponsibilityAssignment {
 

@@ -21,10 +21,10 @@ public class ProjectContract implements NumericallyModeledEntity {
 
 	@Override
 	public Map<Characteristic, EntryValue> extractValues() {
+		long length = DateUtils.calculateDifferenceInDays(this.initialDate, this.finalDate);
 		Map<Characteristic, EntryValue> values = new HashMap<>();
 		values.putAll(this.quality.extractValues());
-		values.putAll(this.budget.extractValues());
-		values.put(ProjectCharacteristic.LENGTH, new EntryValue(Type.Long, DateUtils.calculateDifferenceInDays(this.initialDate, this.finalDate)));
+		values.put(ProjectCharacteristic.LENGTH, new EntryValue(Type.Long, length));
 		values.put(ProjectCharacteristic.AMOUNT_TECHNOLOGIES, new EntryValue(Type.Long, this.tecnologies.size()));
 		return values;
 	}

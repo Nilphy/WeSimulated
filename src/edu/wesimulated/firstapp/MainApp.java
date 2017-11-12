@@ -107,6 +107,7 @@ public class MainApp extends Application {
 		this.primaryStage.setTitle("We Simulated");
 		this.primaryStage.getIcons().add(new Image("file:resources/images/lollipop.png"));
 		this.initRootLayout();
+		// FIXME move all xml load logic to a separate class
 		this.loadDataFromFile();
 		this.showPersonOverview();
 	}

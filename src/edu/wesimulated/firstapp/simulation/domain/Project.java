@@ -31,7 +31,7 @@ public class Project implements Completable, NumericallyModeledEntity, Populatab
 	private ManagementFramework managementFramework;
 
 	@Override
-	public boolean isCompleted() { 
+	public boolean isCompleted() {
 		for (Task task : tasks) {
 			if (!task.isCompleted()) {
 				return false;
@@ -45,7 +45,7 @@ public class Project implements Completable, NumericallyModeledEntity, Populatab
 		Map<Characteristic, EntryValue> values = new HashMap<>();
 		values.putAll(this.contract.extractValues());
 		values.putAll(this.wbs.extractValues());
-		values.putAll(this.managementFramework.extractValues());
+		values.putAll(this.getManagementFramework().extractValues());
 		values.put(ProjectCharacteristic.AMOUNT_PEOPLE, new EntryValue(Type.Long, this.people.size()));
 		values.put(ProjectCharacteristic.AMOUNT_TEAMS, new EntryValue(Type.Long, this.teams.size()));
 		values.put(ProjectCharacteristic.AMOUNT_TASKS, new EntryValue(Type.Long, this.tasks.size()));
@@ -68,6 +68,10 @@ public class Project implements Completable, NumericallyModeledEntity, Populatab
 
 	protected ManagementFramework getManagementFramework() {
 		return this.managementFramework;
+	}
+
+	public void setManagementFramework(ManagementFramework managementFramework) {
+		this.managementFramework = managementFramework;
 	}
 
 	protected List<Task> getTasks() {
