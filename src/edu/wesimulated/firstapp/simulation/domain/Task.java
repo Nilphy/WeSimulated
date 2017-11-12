@@ -93,12 +93,8 @@ public class Task implements NumericallyModeledEntity, Completable, Populatable 
 		return this.workDoneInHoursPerTaskNeed;
 	}
 
-	public void setName(String name, Date when) {
+	public void setName(String name) {
 		this.profile.set(TaskCharacteristic.NAME, new EntryValue(EntryValue.Type.String, name));
-		if (when == null) {
-			this.hlaTask.registerName(name, new DateLogicalTime(when));
-			// FIXME register pending changes to send to hla
-		}
 	}
 
 	public void addAccountablePerson(Person newPerson) {
@@ -259,8 +255,7 @@ public class Task implements NumericallyModeledEntity, Completable, Populatable 
 	@Override
 	public void populateFrom(SimulationEntity simulationEntity, SimulatorFactory factory) {
 		TaskData taskData = (TaskData) simulationEntity;
-		Date when = null; // FIXME: find out when
-		this.setName(taskData.getName(), when);
+		this.setName(taskData.getName());
 		Task.incorporatePersonToTask((Person person, Task task) -> task.addResponsiblePerson(person), taskData.getResponsiblePeople(), this, factory);
 		Task.incorporatePersonToTask((Person person, Task task) -> task.addAccountablePerson(person), taskData.getAccountablePeople(), this, factory);
 		Task.incorporatePersonToTask((Person person, Task task) -> task.addConsultedPerson(person), taskData.getConsultedPeople(), this, factory);
