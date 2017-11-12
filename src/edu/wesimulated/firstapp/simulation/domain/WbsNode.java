@@ -14,7 +14,7 @@ public class WbsNode {
 		this.setTask(task);
 	}
 
-	private String getName() {
+	public String getName() {
 		return name;
 	}
 

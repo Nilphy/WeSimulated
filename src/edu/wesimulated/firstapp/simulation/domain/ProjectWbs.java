@@ -10,6 +10,8 @@ import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
 public class ProjectWbs implements NumericallyModeledEntity {
 
+	private WbsNode rootNode;
+
 	@Override
 	public Map<Characteristic, EntryValue> extractValues() {
 		// TODO complete ProjectWbs.extractValues
@@ -17,8 +19,7 @@ public class ProjectWbs implements NumericallyModeledEntity {
 	}
 
 	public String getFirstNodeName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getRootNode().getName();
 	}
 
 	public void populateFrom(XmlWbsNode wbsRootNode, SimulatorFactory factory) {
