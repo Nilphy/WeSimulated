@@ -8,7 +8,7 @@ import com.wesimulated.simulationmotor.des.Prioritized;
 
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 
-public class WorkSlabStart extends COperation implements Prioritized {
+public class WorkSlabStart extends COperation {
 
 	private RoleSimulator roleSimulator;
 	private WorkType workType;
@@ -40,11 +40,5 @@ public class WorkSlabStart extends COperation implements Prioritized {
 	@Override
 	public Date getDateOfOccurrence(Date actualDate) {
 		return this.minDate;
-	}
-
-	@Override
-	public Float calculatePriority() {
-		// TODO why are work slab start prioritized?
-		return 0f;
 	}
 }
