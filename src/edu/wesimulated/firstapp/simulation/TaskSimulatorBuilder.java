@@ -5,7 +5,7 @@ import com.wesimulated.simulationmotor.systemdynamics.Flow;
 import com.wesimulated.simulationmotor.systemdynamics.SinkFlow;
 import com.wesimulated.simulationmotor.systemdynamics.Stock;
 
-import edu.wesimulated.firstapp.model.TaskNeed;
+import edu.wesimulated.firstapp.model.TaskNeedType;
 import edu.wesimulated.firstapp.simulation.domain.Project;
 import edu.wesimulated.firstapp.simulation.domain.Task;
 import edu.wesimulated.firstapp.simulation.domain.mywork.task.TaskSimulator;
@@ -70,27 +70,27 @@ public class TaskSimulatorBuilder {
 		// flow being a physical input) because
 		// they have is the work done in the task, and is used to know if the
 		// task is finished
-		WorkModule developmentModule = new WorkModule(TaskNeed.Development, task);
+		WorkModule developmentModule = new WorkModule(TaskNeedType.Development, task);
 		simulator.registerPlannedTaskWorkModule(developmentModule);
-		WorkModule techInvestigationModule = new WorkModule(TaskNeed.TechnologyInvestigation, task);
+		WorkModule techInvestigationModule = new WorkModule(TaskNeedType.TechnologyInvestigation, task);
 		simulator.registerPlannedTaskWorkModule(techInvestigationModule);
-		WorkModule bussinessInvestigationModule = new WorkModule(TaskNeed.BussinessInvestigation, task);
+		WorkModule bussinessInvestigationModule = new WorkModule(TaskNeedType.BussinessInvestigation, task);
 		simulator.registerPlannedTaskWorkModule(bussinessInvestigationModule);
-		WorkModule designModule = new WorkModule(TaskNeed.Desing, task);
+		WorkModule designModule = new WorkModule(TaskNeedType.Desing, task);
 		simulator.registerPlannedTaskWorkModule(designModule);
 
 		// The output of this stocks is consumed completely on each time step,
 		// so its dropped to a sink flow
-		WorkModule reworkModule = new WorkModule(TaskNeed.Rework, task);
+		WorkModule reworkModule = new WorkModule(TaskNeedType.Rework, task);
 		simulator.register(reworkModule);
 		sinkFlow.connectInput(reworkModule.getOutputStock());
-		WorkModule reviewModule = new WorkModule(TaskNeed.Review, task);
+		WorkModule reviewModule = new WorkModule(TaskNeedType.Review, task);
 		simulator.register(reviewModule);
 		sinkFlow.connectInput(reviewModule.getOutputStock());
-		WorkModule qcModule = new WorkModule(TaskNeed.Qc, task);
+		WorkModule qcModule = new WorkModule(TaskNeedType.Qc, task);
 		simulator.register(qcModule);
 		sinkFlow.connectInput(qcModule.getOutputStock());
-		WorkModule automatedQcModule = new WorkModule(TaskNeed.AutoQc, task);
+		WorkModule automatedQcModule = new WorkModule(TaskNeedType.AutoQc, task);
 		simulator.register(automatedQcModule);
 		sinkFlow.connectInput(automatedQcModule.getOutputStock());
 		Flow reworkGeneration = new Flow(FLOW_REWORK_GENERATION) {
@@ -98,7 +98,7 @@ public class TaskSimulatorBuilder {
 			@Override
 			public Double calculateNext(Double previousValue) {
 				double uowBugsProportionSample = uowBugsProportion.findSample().getPrediction().getValue().doubleValue();
-				return uowBugsProportionSample * (v(TaskNeed.Rework.c(WorkModule.STOCK_INTEGRATED_WORK)) + v(TaskNeed.Development.c(WorkModule.STOCK_INTEGRATED_WORK)));
+				return uowBugsProportionSample * (v(TaskNeedType.Rework.c(WorkModule.STOCK_INTEGRATED_WORK)) + v(TaskNeedType.Development.c(WorkModule.STOCK_INTEGRATED_WORK)));
 			}
 		};
 		simulator.register(reworkGeneration);
@@ -118,9 +118,9 @@ public class TaskSimulatorBuilder {
 			@Override
 			public Double calculateNext(Double previousValue) {
 				Double totalReworkDetectionWork = 
-						v(CONST_TIME_REVIEW_PER_DETECTION) * v(TaskNeed.Review.c(WorkModule.STOCK_INTEGRATED_WORK)) 
-						+ v(CONST_TIME_QC_PER_DETECTION) * v(TaskNeed.Qc.c(WorkModule.STOCK_INTEGRATED_WORK)) 
-						+ v(CONST_QUALITY_AUTO_QC) * v(TaskNeed.AutoQc.c(WorkModule.STOCK_INTEGRATED_WORK));
+						v(CONST_TIME_REVIEW_PER_DETECTION) * v(TaskNeedType.Review.c(WorkModule.STOCK_INTEGRATED_WORK)) 
+						+ v(CONST_TIME_QC_PER_DETECTION) * v(TaskNeedType.Qc.c(WorkModule.STOCK_INTEGRATED_WORK)) 
+						+ v(CONST_QUALITY_AUTO_QC) * v(TaskNeedType.AutoQc.c(WorkModule.STOCK_INTEGRATED_WORK));
 				if (v(STOCK_ALL_REWORK) > totalReworkDetectionWork) {
 					return totalReworkDetectionWork;
 				} else {
@@ -145,10 +145,10 @@ public class TaskSimulatorBuilder {
 
 			@Override
 			public Double calculateNext(Double previousValue) {
-				if (v(STOCK_REWORK_DETECTED) > v(TaskNeed.Rework.c(WorkModule.STOCK_INTEGRATED_WORK))) {
+				if (v(STOCK_REWORK_DETECTED) > v(TaskNeedType.Rework.c(WorkModule.STOCK_INTEGRATED_WORK))) {
 					return v(STOCK_REWORK_DETECTED);
 				} else {
-					return v(TaskNeed.Rework.c(WorkModule.STOCK_INTEGRATED_WORK));
+					return v(TaskNeedType.Rework.c(WorkModule.STOCK_INTEGRATED_WORK));
 				}
 			}
 		};

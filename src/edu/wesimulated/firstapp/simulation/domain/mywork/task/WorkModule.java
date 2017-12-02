@@ -9,7 +9,7 @@ import com.wesimulated.simulationmotor.systemdynamics.Module;
 import com.wesimulated.simulationmotor.systemdynamics.Source;
 import com.wesimulated.simulationmotor.systemdynamics.Stock;
 
-import edu.wesimulated.firstapp.model.TaskNeed;
+import edu.wesimulated.firstapp.model.TaskNeedType;
 import edu.wesimulated.firstapp.simulation.domain.Task;
 import edu.wesimulated.firstapp.simulation.stochastic.ParametricAlgorithm;
 import edu.wesimulated.firstapp.simulation.stochastic.StochasticVar;
@@ -21,12 +21,12 @@ public class WorkModule implements Module {
 	public static final String STOCK_INTEGRATED_WORK = "STOCK_INTEGRATED_WORK";
 
 	private Task task;
-	private TaskNeed taskNeed;
+	private TaskNeedType taskNeed;
 	private Stock outputStock;
 	private Collection<Stock> stocks;
 	private Collection<Flow> flows;
 
-	public WorkModule(TaskNeed taskNeed, Task task) {
+	public WorkModule(TaskNeedType taskNeed, Task task) {
 		this.task = task;
 		this.taskNeed = taskNeed;
 		this.stocks = new ArrayList<Stock>();
@@ -58,7 +58,7 @@ public class WorkModule implements Module {
 		this.outputStock = integratedWork;
 	}
 
-	public TaskNeed getTaskNeed() {
+	public TaskNeedType getTaskNeed() {
 		return this.taskNeed;
 	}
 

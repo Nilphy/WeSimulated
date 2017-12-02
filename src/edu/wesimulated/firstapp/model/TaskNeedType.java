@@ -4,7 +4,7 @@ package edu.wesimulated.firstapp.model;
  * @author Carolina
  *
  */
-public enum TaskNeed {
+public enum TaskNeedType {
 
 	Development("DEV"), 
 	TechnologyInvestigation("TECH_INV"),
@@ -26,7 +26,7 @@ public enum TaskNeed {
 
 	private String initial;
 
-	TaskNeed(String initial) {
+	TaskNeedType(String initial) {
 		this.initial = initial;
 	}
 

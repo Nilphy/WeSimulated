@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.util.Pair;
-import edu.wesimulated.firstapp.model.TaskNeed;
+import edu.wesimulated.firstapp.model.TaskNeedType;
 import edu.wesimulated.firstapp.simulation.domain.Role;
 import edu.wesimulated.firstapp.simulation.domain.TaskCharacteristic;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
@@ -36,7 +36,7 @@ public class Task extends edu.wesimulated.firstapp.simulation.domain.Task {
 		return timeOfWorkSlab.findSample().getPrediction().getValue().longValue();
 	}
 	
-	public void increaseWorkDone(long duration, TaskNeed taskNeed, Date when) {
+	public void increaseWorkDone(long duration, TaskNeedType taskNeed, Date when) {
 		Number currentWorkDone = this.getWorkDoneInHoursPerTaskNeed().get(taskNeed);
 		this.getWorkDoneInHoursPerTaskNeed().put(taskNeed, new Long(duration + currentWorkDone.longValue()));
 		if (when == null) {

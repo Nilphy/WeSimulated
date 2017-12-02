@@ -19,7 +19,7 @@ import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.SimulationEntity;
 import edu.wesimulated.firstapp.model.TaskData;
 import edu.wesimulated.firstapp.model.TaskDependencyData;
-import edu.wesimulated.firstapp.model.TaskNeed;
+import edu.wesimulated.firstapp.model.TaskNeedType;
 import edu.wesimulated.firstapp.simulation.domain.mywork.role.RoleSimulator;
 import edu.wesimulated.firstapp.simulation.domain.worktype.WorkType;
 import edu.wesimulated.firstapp.simulation.hla.HlaTask;
@@ -44,8 +44,8 @@ public class Task implements NumericallyModeledEntity, Completable, Populatable 
 	private Date endDate;
 	private Date startDate;
 	private Collection<TaskDependency> taskDependencies;
-	private Map<TaskNeed, Number> costInHoursPerTaskNeed;
-	private Map<TaskNeed, Number> workDoneInHoursPerTaskNeed;
+	private Map<TaskNeedType, Number> costInHoursPerTaskNeed;
+	private Map<TaskNeedType, Number> workDoneInHoursPerTaskNeed;
 	private String id;
 
 	public static Task orderTasksAndGetFirst(List<Task> tasks, Comparator<Task> comparator) {
@@ -72,7 +72,7 @@ public class Task implements NumericallyModeledEntity, Completable, Populatable 
 
 	@Override
 	public boolean isCompleted() {
-		for (Entry<TaskNeed, Number> entry : this.costInHoursPerTaskNeed.entrySet()) {
+		for (Entry<TaskNeedType, Number> entry : this.costInHoursPerTaskNeed.entrySet()) {
 			Number workDoneForWorkType = this.workDoneInHoursPerTaskNeed.get(entry.getKey());
 			if (workDoneForWorkType.longValue() < entry.getValue().longValue()) {
 				return false;
@@ -82,7 +82,7 @@ public class Task implements NumericallyModeledEntity, Completable, Populatable 
 	}
 
 	public boolean isCompleted(Role role) {
-		for (TaskNeed taskNeed : role.getTaskNeedsThatCanBeMet()) {
+		for (TaskNeedType taskNeed : role.getTaskNeedsThatCanBeMet()) {
 			if (this.workDoneInHoursPerTaskNeed.get(taskNeed).doubleValue() < this.costInHoursPerTaskNeed.get(taskNeed).doubleValue()) {
 				return false;
 			}
@@ -90,7 +90,7 @@ public class Task implements NumericallyModeledEntity, Completable, Populatable 
 		return true;
 	}
 
-	protected Map<TaskNeed, Number> getWorkDoneInHoursPerTaskNeed() {
+	protected Map<TaskNeedType, Number> getWorkDoneInHoursPerTaskNeed() {
 		return this.workDoneInHoursPerTaskNeed;
 	}
 
@@ -146,11 +146,11 @@ public class Task implements NumericallyModeledEntity, Completable, Populatable 
 		return this.taskDependencies;
 	}
 
-	public void setCostInHours(Integer costInHours, TaskNeed taskNeed) {
+	public void setCostInHours(Integer costInHours, TaskNeedType taskNeed) {
 		this.costInHoursPerTaskNeed.put(taskNeed, costInHours);
 	}
 
-	public Number getCostInHours(TaskNeed taskNeed) {
+	public Number getCostInHours(TaskNeedType taskNeed) {
 		return this.costInHoursPerTaskNeed.get(taskNeed);
 	}
 
@@ -204,7 +204,7 @@ public class Task implements NumericallyModeledEntity, Completable, Populatable 
 		this.hlaTask = hlaTask;
 	}
 
-	protected Map<TaskNeed, Number> getCostInHoursPerTaskNeed() {
+	protected Map<TaskNeedType, Number> getCostInHoursPerTaskNeed() {
 		return this.costInHoursPerTaskNeed;
 	}
 
@@ -266,7 +266,7 @@ public class Task implements NumericallyModeledEntity, Completable, Populatable 
 			Task dependentTask = (Task) factory.registerSimulationEntity(taskDependency.getTask());
 			this.addTaskDependency(new TaskDependency(dependentTask, taskDependency.getPrecedence()));
 		}
-		this.setCostInHours(taskData.getUnitsOfWork(), TaskNeed.Development);
+		this.setCostInHours(taskData.getUnitsOfWork(), TaskNeedType.Development);
 	}
 
 	public Collection<Assignment> getAssignments() {

@@ -7,14 +7,14 @@ import java.util.Map;
 
 import edu.wesimulated.firstapp.model.RoleData;
 import edu.wesimulated.firstapp.model.SimulationEntity;
-import edu.wesimulated.firstapp.model.TaskNeed;
+import edu.wesimulated.firstapp.model.TaskNeedType;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue;
 import edu.wesimulated.firstapp.simulation.stochastic.EntryValue.Type;
 import edu.wesimulated.firstapp.simulation.stochastic.NumericallyModeledEntity;
 
 public class Role implements NumericallyModeledEntity, Populatable {
 
-	private Collection<TaskNeed> taskNeedsThatCanBeMet;
+	private Collection<TaskNeedType> taskNeedsThatCanBeMet;
 	private Collection<Assignment> assignments;
 	private String name;
 
@@ -25,7 +25,7 @@ public class Role implements NumericallyModeledEntity, Populatable {
 		return values;
 	}
 
-	public Collection<TaskNeed> getTaskNeedsThatCanBeMet() {
+	public Collection<TaskNeedType> getTaskNeedsThatCanBeMet() {
 		return taskNeedsThatCanBeMet;
 	}
 
