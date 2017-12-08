@@ -90,10 +90,6 @@ public class HlaPerson extends HlaObject {
 		return Charset.forName("UTF-8").encode(objectInstanceName).array();
 	}
 
-	private Collection<Work> getWorkDone() {
-		return workDone;
-	}
-
 	private void setWorkDone(Collection<Work> workDone) {
 		this.workDone = workDone;
 	}
