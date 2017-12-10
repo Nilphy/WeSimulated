@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="332.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wesimulated.firstapp.view.TaskNeedSelectionDialogController">
+   <children>
+      <Label layoutX="23.0" layoutY="14.0" text="Task Need Selection" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
+      <TableView fx:id="taskNeedTable" layoutX="21.0" layoutY="36.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="45.0">
+        <columns>
+          <TableColumn fx:id="taskNeedNameColumn" prefWidth="377.0" text="Task Need" />
+          <TableColumn fx:id="isSelectedColumn" prefWidth="68.0" text="Select" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <ToolBar layoutX="160.0" layoutY="286.0" prefHeight="40.0" prefWidth="107.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
+        <items>
+          <Button mnemonicParsing="false" onAction="#handleOK" text="Ok" />
+          <Button mnemonicParsing="false" onAction="#handleCancel" prefHeight="12.0" prefWidth="56.0" text="Cancel" />
+        </items>
+      </ToolBar>
+   </children>
+</AnchorPane>

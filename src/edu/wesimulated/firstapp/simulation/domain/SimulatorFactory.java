@@ -57,6 +57,7 @@ public abstract class SimulatorFactory {
 		return populatable;
 	}
 
+	// FIXME consider work type and task needs
 	private Populatable makePopulatable(IdentifiableType type) {
 		switch (type) {
 		case PERSON:

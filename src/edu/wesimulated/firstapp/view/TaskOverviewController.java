@@ -22,6 +22,7 @@ import edu.wesimulated.firstapp.MainApp;
 import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.RaciType;
 import edu.wesimulated.firstapp.model.TaskData;
+import edu.wesimulated.firstapp.model.TaskNeedData;
 import edu.wesimulated.firstapp.model.TaskPeopleAssignmentRow;
 
 public class TaskOverviewController {
@@ -30,11 +31,7 @@ public class TaskOverviewController {
 	@FXML
 	private TableColumn<TaskData, String> nameColumn;
 	@FXML
-	private TableColumn<TaskData, Integer> unitsOfWorkColumn;
-	@FXML
 	private Label nameLabel;
-	@FXML
-	private Label unitsOfWorkLabel;
 	@FXML
 	private Label startDate;
 	@FXML
@@ -45,6 +42,12 @@ public class TaskOverviewController {
 	private TableColumn<TaskPeopleAssignmentRow, String> raciColumn;
 	@FXML
 	private TableColumn<TaskPeopleAssignmentRow, String> personColumn;
+	@FXML
+	private TableView<TaskNeedData> taskNeedsTable;
+	@FXML
+	private TableColumn<TaskNeedData, String> taskNeedNameColumn;
+	@FXML
+	private TableColumn<TaskNeedData, Integer> taskNeedUnitsOfWorkColumn;
 
 	private MainApp mainApp;
 
@@ -54,15 +57,15 @@ public class TaskOverviewController {
 	private void showTaskDetails(TaskData task) {
 		if (task != null) {
 			nameLabel.setText(task.getName());
-			unitsOfWorkLabel.setText(task.getUnitsOfWork().toString());
 			startDate.setText(this.mainApp.getConverter().toString(DateUtils.asLocalDate(task.getStartDate())));
 			endDate.setText(this.mainApp.getConverter().toString(DateUtils.asLocalDate(task.getEndDate())));
 			populateTaskPeopleAssignmentsTable(task);
+			populateTaskNeedsTable(task);
 		} else {
 			nameLabel.setText("");
-			unitsOfWorkLabel.setText("");
 			startDate.setText("");
 			endDate.setText("");
+			taskNeedsTable.getItems().clear();
 		}
 	}
 
@@ -76,7 +79,7 @@ public class TaskOverviewController {
 			} else if (!mainApp.getTaskNet().validateIfTaskCouldBeDeleted(itemToDelete)) {
 				alertError("Delete forbidden", "Task has dependencies in task net", "Please remove dependencies first from task net");
 			} else {
-				this.taskTable.getItems().remove(selectedIndex);
+				taskTable.getItems().remove(selectedIndex);
 			}
 		} else {
 			alertError("No Selection", "No task selected", "Please select a task in the table");
@@ -145,6 +148,11 @@ public class TaskOverviewController {
 		}
 	}
 
+	private void populateTaskNeedsTable(TaskData task) {
+		this.taskNeedsTable.getItems().clear();
+		this.taskNeedsTable.getItems().addAll(task.getTaskNeeds());
+	}
+
 	private void populateTaskPeopleAssignmentsTable(TaskData taskData) {
 		this.taskPeopleAssignmentTable.getItems().clear();
 		populateTaskPeopleAssignmentsTableOfRaciType(RaciType.Responsible, taskData.getResponsiblePeople());
@@ -164,9 +172,10 @@ public class TaskOverviewController {
 
 	public void initialize() {
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-		unitsOfWorkColumn.setCellValueFactory(cellData -> cellData.getValue().unitsOfWorkProperty().asObject());
 		raciColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRaciType().toString()));
 		personColumn.setCellValueFactory(cellData -> cellData.getValue().getPerson().firstNameProperty());
+		taskNeedNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTaskNeedType().toString()));
+		taskNeedUnitsOfWorkColumn.setCellValueFactory(cellData -> cellData.getValue().unitsOfWorkProperty().asObject());
 		showTaskDetails(null);
 		taskTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showTaskDetails(newValue));
 	}

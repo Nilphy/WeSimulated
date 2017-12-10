@@ -3,6 +3,8 @@ package edu.wesimulated.firstapp.view;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -21,7 +23,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
-import com.javacommon.utils.IntegerUtils;
 import com.wesimulated.simulationmotor.DateUtils;
 
 import edu.wesimulated.firstapp.MainApp;
@@ -30,6 +31,8 @@ import edu.wesimulated.firstapp.model.PersonData;
 import edu.wesimulated.firstapp.model.RaciType;
 import edu.wesimulated.firstapp.model.RoleData;
 import edu.wesimulated.firstapp.model.TaskData;
+import edu.wesimulated.firstapp.model.TaskNeedRow;
+import edu.wesimulated.firstapp.model.TaskNeedType;
 import edu.wesimulated.firstapp.model.TaskPeopleAssignmentRow;
 
 /**
@@ -39,21 +42,20 @@ import edu.wesimulated.firstapp.model.TaskPeopleAssignmentRow;
  * - personas asignadas
  * - fecha de comienzo y fin
  * 
- * Y luego por las relaciones que tiene con el proyecto y con otras tareas.
- * En esta pantalla solamente se pueden ingresar los dos items mencionados.
+ * Y luego por las relaciones que tiene con el proyecto y con otras tareas. En
+ * esta pantalla solamente se pueden ingresar los dos items mencionados.
  * 
- * Las personas que se podrán relacionar con esta tarea serán aquellas que tengan los roles
- * asignados a la tarea en la tabla RACI.
+ * Las personas que se podrán relacionar con esta tarea serán aquellas que
+ * tengan los roles asignados a la tarea en la tabla RACI.
  * 
  * @author Carolina
  *
  */
-public class TaskEditController {
+// TODO reorder methods of this class
+public class TaskEditController implements TaskNeedHolder {
 
 	@FXML
 	private TextField nameField;
-	@FXML
-	private TextField unitsOfWorkField;
 	@FXML
 	private DatePicker startDatePicker;
 	@FXML
@@ -65,7 +67,15 @@ public class TaskEditController {
 	@FXML
 	private TableColumn<TaskPeopleAssignmentRow, String> personColumn;
 	@FXML
-	private TableColumn<TaskPeopleAssignmentRow, Boolean> isSelectedColumn;
+	private TableColumn<TaskPeopleAssignmentRow, Boolean> assignmentIsSelectedColumn;
+	@FXML
+	private TableView<TaskNeedRow> taskNeedTable;
+	@FXML
+	private TableColumn<TaskNeedRow, String> taskNeedNameColumn;
+	@FXML
+	private TableColumn<TaskNeedRow, Integer> unitsOfWorkColumn;
+	@FXML
+	private TableColumn<TaskNeedRow, Boolean> taskNeedIsSelectedColumn;
 
 	private Stage dialogStage;
 	private TaskData task;
@@ -76,30 +86,14 @@ public class TaskEditController {
 	private void initialize() {
 		raciColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRaciType().toString()));
 		personColumn.setCellValueFactory(cellData -> cellData.getValue().getPerson().firstNameProperty());
-		isSelectedColumn.setCellFactory(CheckBoxTableCell.forTableColumn(isSelectedColumn));
-		isSelectedColumn.setEditable(true);
-		isSelectedColumn.setCellValueFactory(cellData -> cellData.getValue().isSelectedProperty());
-	}
-
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
-	}
-
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
-	}
-
-	public void setTask(TaskData task) {
-		this.task = task;
-		this.nameField.setText(task.getName());
-		this.unitsOfWorkField.setText(task.getUnitsOfWork().toString());
-		this.startDatePicker.setValue(DateUtils.asLocalDate(task.getStartDate()));
-		this.endDatePicker.setValue(DateUtils.asLocalDate(task.getEndDate()));
-		this.populateTaskPeopleAssignmentsTable();
-	}
-
-	public boolean isOkClicked() {
-		return this.okClicked;
+		assignmentIsSelectedColumn.setCellFactory(CheckBoxTableCell.forTableColumn(assignmentIsSelectedColumn));
+		assignmentIsSelectedColumn.setEditable(true);
+		assignmentIsSelectedColumn.setCellValueFactory(cellData -> cellData.getValue().isSelectedProperty());
+		taskNeedNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTaskNeedType().toString()));
+		unitsOfWorkColumn.setCellValueFactory(cellData -> cellData.getValue().unitsOfWorkProperty().asObject());
+		taskNeedIsSelectedColumn.setCellFactory(CheckBoxTableCell.forTableColumn(taskNeedIsSelectedColumn));
+		taskNeedIsSelectedColumn.setEditable(true);
+		taskNeedIsSelectedColumn.setCellValueFactory(cellData -> cellData.getValue().isSelectedProperty());
 	}
 
 	private void populateTaskPeopleAssignmentsTable() {
@@ -119,36 +113,19 @@ public class TaskEditController {
 		}
 	}
 
-	public void addPersonOfRaciType(PersonData person, RaciType raciType) {
-		switch (raciType) {
-		case Responsible:
-			this.task.getResponsiblePeople().add(person);
-			break;
-		case Accountable:
-			this.task.getAccountablePeople().add(person);
-			break;
-		case Consulted:
-			this.task.getConsultedPeople().add(person);
-			break;
-		case Informed:
-			this.task.getInformedPeople().add(person);
-			break;
-		default:
-			throw new InvalidRaciTypeException();
-		}
-		this.populateTaskPeopleAssignmentsTable();
-	}
-
 	@FXML
 	private void handleOk() {
 		if (this.validateInput()) {
 			this.task.setName(this.nameField.getText());
-			this.task.setUnitsOfWork(Integer.parseInt(unitsOfWorkField.getText()));
 			this.task.setStartDate(DateUtils.asDate(this.startDatePicker.getValue()));
 			this.task.setEndDate(DateUtils.asDate(this.endDatePicker.getValue()));
 			this.task.resetAllPeopleAssignations();
 			for (TaskPeopleAssignmentRow peopleAssignationRow : this.taskPeopleAssignmentTable.getItems()) {
 				this.addPersonOfRaciType(peopleAssignationRow.getPerson(), peopleAssignationRow.getRaciType());
+			}
+			this.task.resetAllTaskNeeds();
+			for (TaskNeedRow taskNeedRow : this.taskNeedTable.getItems()) {
+				this.task.getTaskNeeds().add(taskNeedRow.getTaskNeedData());
 			}
 			this.okClicked = true;
 			dialogStage.close();
@@ -158,6 +135,11 @@ public class TaskEditController {
 	@FXML
 	private void handleRemovePeopleAssignmentRows() {
 		this.taskPeopleAssignmentTable.getItems().removeIf(item -> item.isSelectedProperty().get());
+	}
+
+	@FXML
+	private void handleRemoveTaskNeedRows() {
+		this.taskNeedTable.getItems().removeIf(item -> item.isSelectedProperty().get());
 	}
 
 	@FXML
@@ -187,7 +169,29 @@ public class TaskEditController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
 
+	@FXML
+	private void handleAddNewTaskNeeds() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/TaskNeedSelectionDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Task Need selection");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(this.mainApp.getPrimaryStage());
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+			TaskNeedSelectionDialogController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setTaskNeedHolder(this);
+			controller.setTaskNeedsToSelect(this.filterTaskNeedsWithAlreadySelected(this.taskNeedTable.getItems().stream().map((taskNeedRow) -> {
+				return taskNeedRow.getTaskNeedType();
+			}).collect(Collectors.toList())));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private Collection<PersonData> findCandidatesOfRaciType(RaciType raciType) {
@@ -199,9 +203,6 @@ public class TaskEditController {
 		String errorMessage = "";
 		if (nameField.getText() == null || nameField.getText().trim().length() == 0) {
 			errorMessage = "No valid name! \n";
-		}
-		if (!IntegerUtils.isInt(unitsOfWorkField.getText())) {
-			errorMessage = "No valid units of work!";
 		}
 		if (errorMessage.length() == 0) {
 			return true;
@@ -216,6 +217,30 @@ public class TaskEditController {
 		}
 	}
 
+	public boolean isOkClicked() {
+		return this.okClicked;
+	}
+
+	public void addPersonOfRaciType(PersonData person, RaciType raciType) {
+		switch (raciType) {
+		case Responsible:
+			this.task.getResponsiblePeople().add(person);
+			break;
+		case Accountable:
+			this.task.getAccountablePeople().add(person);
+			break;
+		case Consulted:
+			this.task.getConsultedPeople().add(person);
+			break;
+		case Informed:
+			this.task.getInformedPeople().add(person);
+			break;
+		default:
+			throw new InvalidRaciTypeException();
+		}
+		this.populateTaskPeopleAssignmentsTable();
+	}
+
 	public void setDateFormatter(StringConverter<LocalDate> converter) {
 		startDatePicker.setValue(LocalDate.now());
 		startDatePicker.setConverter(converter);
@@ -225,4 +250,38 @@ public class TaskEditController {
 		endDatePicker.setPromptText(MainApp.DATE_PATTERN.toLowerCase());
 	}
 
+	public void setDialogStage(Stage dialogStage) {
+		this.dialogStage = dialogStage;
+	}
+
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
+	}
+
+	public void setTask(TaskData task) {
+		this.task = task;
+		this.nameField.setText(task.getName());
+		this.startDatePicker.setValue(DateUtils.asLocalDate(task.getStartDate()));
+		this.endDatePicker.setValue(DateUtils.asLocalDate(task.getEndDate()));
+		this.populateTaskPeopleAssignmentsTable();
+		this.populateTaskNeedTable();
+	}
+
+	private void populateTaskNeedTable() {
+		this.taskNeedTable.getItems().clear();
+		this.task.getTaskNeeds().forEach((taskNeed) -> {
+			TaskNeedRow newRow = new TaskNeedRow();
+			newRow.setTaskNeedData(taskNeed);
+		});
+	}
+
+	@Override
+	public void addSelectedTaskNeeds(List<TaskNeedType> taskNeedTypesSelected) {
+		taskNeedTypesSelected.forEach((taskNeedType) -> {
+			TaskNeedRow newRow = new TaskNeedRow(taskNeedType);
+			newRow.setUnitsOfWork(0);
+			this.taskNeedTable.getItems().add(newRow);
+			this.task.getTaskNeeds().add(newRow.getTaskNeedData());
+		});
+	}
 }

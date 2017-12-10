@@ -29,6 +29,7 @@ public class TaskData implements SimulationEntity {
 	private ObservableList<PersonData> informedPeople;
 	private IntegerProperty id;
 	private ObservableList<TaskDependencyData> taskDependencies;
+	private ObservableList<TaskNeedData> taskNeeds;
 
 	public TaskData() {
 		this(null, null, null);
@@ -39,6 +40,7 @@ public class TaskData implements SimulationEntity {
 		this.unitsOfWork = new SimpleIntegerProperty(unitsOfWork == null ? 0 : unitsOfWork);
 		this.id = new SimpleIntegerProperty(id == null ? 0 : id);
 		this.taskDependencies = FXCollections.observableArrayList();
+		this.taskNeeds = FXCollections.observableArrayList();
 		this.resetAllPeopleAssignations();
 	}
 
@@ -47,6 +49,10 @@ public class TaskData implements SimulationEntity {
 		this.accountablePeople = FXCollections.observableArrayList();
 		this.consultedPeople = FXCollections.observableArrayList();
 		this.informedPeople = FXCollections.observableArrayList();
+	}
+
+	public void resetAllTaskNeeds() {
+		this.taskNeeds = FXCollections.observableArrayList();
 	}
 
 	@Override
@@ -176,5 +182,13 @@ public class TaskData implements SimulationEntity {
 	@Override
 	public IdentifiableType getType() {
 		return IdentifiableType.TASK;
+	}
+
+	public ObservableList<TaskNeedData> getTaskNeeds() {
+		return this.taskNeeds;
+	}
+
+	public void setTaskNeeds(ObservableList<TaskNeedData> taskNeeds) {
+		this.taskNeeds = taskNeeds;
 	}
 }
